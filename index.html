@@ -1,98 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home</title>
-  <link rel="stylesheet" href="styles.css" />
-  <nav>
-    <div class="logo"><a href="home.html">Speak Louder, Love Harder</a></div>
-    <ul class="nav-links">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="mental-health.html">Mental Health</a></li>
-      <li><a href="addiction.html">Addiction</a></li>
-      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-      <li><a href="cirrhosis.html">Cirrhosis</a></li>
-      <li><a href="pitbull-love.html">Pitbull Love</a></li>
-      <li><a href="physical-abuse.html">Physical Abuse</a></li>
-      <li><a href="mental-abuse.html">Mental Abuse</a></li>
-      <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-      <li><a href="foster-children.html">Foster Children</a></li>
-      <li><a href="guestbook-connect.html">Connect</a></li>
-    </ul>
-  </nav>
-</header>
-<section id="home" class="hero">
-    <div class="hero-content">
-      <h1>Speak Louder, Love Harder</h1>
-      <p>Amplifying voices, spreading love, and fostering understanding.</p>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero {
+      background: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color: white;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+    }
+    .topics-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+      padding-top: 20px;
+    }
+    .topics-grid a {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      width: 220px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .topics-grid a:hover {
+      background: #dfe6e9;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
+      <ul class="nav-links">
+        <li><a href="mental-health.html">Mental Health</a></li>
+        <li><a href="addiction.html">Addiction</a></li>
+        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+        <li><a href="cirrhosis.html">Cirrhosis</a></li>
+        <li><a href="physical-abuse.html">Physical Abuse</a></li>
+        <li><a href="mental-abuse.html">Mental Abuse</a></li>
+        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+        <li><a href="pitbull-love.html">Pitbull Love</a></li>
+        <li><a href="foster-children.html">Foster Children</a></li>
+        <li><a href="guestbook-connect.html">Connect</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Speak Louder. Love Harder.</h1>
+      <p>A sanctuary of truth, survival, and support. You're not alone—your story matters.</p>
     </div>
   </section>
 
-  <section id="about.html" class="section">
-    <h2>About</h2>
-    <p>Our mission is to create a safe space for sharing experiences, raising awareness, and supporting one another through life's challenges.</p>
+  <section class="section light">
+    <h2>Our Mission</h2>
+    <p style="text-align:center; max-width:800px; margin:auto;">
+      "Speak Louder, Love Harder" is about breaking silence and building community. We share personal stories about trauma, healing, health, and resilience to inspire connection, empathy, and action.
+    </p>
   </section>
 
-  <section id="mental-health" class="section">
-    <h2>Mental Health</h2>
-    <p>Promoting mental well-being and breaking the stigma surrounding mental health issues.</p>
+  <section class="section dark">
+    <h2>Explore Topics</h2>
+    <div class="topics-grid">
+      <a href="mental-health.html">Mental Health</a>
+      <a href="addiction.html">Addiction</a>
+      <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+      <a href="cirrhosis.html">Cirrhosis</a>
+      <a href="physical-abuse.html">Physical Abuse</a>
+      <a href="mental-abuse.html">Mental Abuse</a>
+      <a href="sexual-abuse.html">Sexual Abuse</a>
+      <a href="pitbull-love.html">Pitbull Love</a>
+      <a href="foster-children.html">Foster Children</a>
+    </div>
   </section>
 
-  <section id="cystic-fibrosis.html" class="section">
-    <h2>Cystic Fibrosis</h2>
-    <p>Supporting individuals and families affected by cystic fibrosis through awareness and resources.</p>
-  </section>
-
-  <section id="cirrhosis.html" class="section">
-    <h2>Cirrhosis</h2>
-    <p>Providing information and support for those dealing with liver cirrhosis.</p>
-  </section>
-
-  <section id="addiction.html" class="section">
-    <h2>Addiction</h2>
-    <p>Offering resources and a community for individuals battling addiction and their loved ones.</p>
-  </section>
-
-  <section id="metal-abuse.html" class="section">
-    <h2>Metal Abuse</h2>
-    <p>Raising awareness about the dangers and impact of metal abuse.</p>
-  </section>
-
-  <section id="physical-abuse.html" class="section">
-    <h2>Physical Abuse</h2>
-    <p>Creating a platform for survivors to share their stories and find support.</p>
-  </section>
-
-  <section id="pitbull-love.html" class="section">
-    <h2>Pitbull Love</h2>
-    <p>Advocating for pitbulls and promoting responsible pet ownership.</p>
-  </section>
-
-  <section id="foster-children.html" class="section">
-    <h2>Foster Children</h2>
-    <p>Supporting foster children and families through resources and community engagement.</p>
-  </section>
-
-  <section id="sexual-assault.html" class="section">
-    <h2>Sexual Assault</h2>
-    <p>Providing a safe space for survivors to heal and find support.</p>
-  </section>
-
-  <section id="guestbook-connect.html" class="section">
-    <h2>Connect</h2>
-    <form id="contactForm">
-      <input type="text" placeholder="Your Name" required/>
-      <input type="email" placeholder="Your Email" required/>
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <section class="section light">
+    <h2>Connect & Share</h2>
+    <p style="text-align:center; max-width:800px; margin:auto;">
+      Ready to share your story? Want to leave a message or reach out? Visit our <a href="guestbook-connect.html">Connect</a> page and speak your truth.
+    </p>
   </section>
 
   <footer>
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
 </body>
 </html>
