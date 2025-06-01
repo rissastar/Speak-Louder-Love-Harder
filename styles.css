@@ -182,3 +182,42 @@ footer {
   color: white;
   margin-top: 3rem;
 }
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  background-color: white;
+  height: 4px;
+  border-radius: 2px;
+  position: absolute;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.hamburger {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger::before {
+  top: 0;
+}
+
+.hamburger::after {
+  bottom: 0;
+}
+
+.nav-toggle.open .hamburger {
+  background-color: transparent;
+}
+
+.nav-toggle.open .hamburger::before {
+  transform: rotate(45deg);
+  top: 50%;
+}
+
+.nav-toggle.open .hamburger::after {
+  transform: rotate(-45deg);
+  bottom: 50%;
+}
