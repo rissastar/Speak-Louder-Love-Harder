@@ -1,4 +1,4 @@
-/* Reset some default styles */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -7,131 +7,151 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f4fa;
+  color: #2e003e;
   line-height: 1.6;
-  background-color: #fdfdfd;
-  color: #333;
 }
 
+/* Links */
 a {
-  color: #c0392b;
+  color: #a64ac9;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 a:hover {
+  color: #e67acb;
   text-decoration: underline;
 }
 
-/* Navigation */
+/* Header & Navigation */
 header {
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  background: #fff0fc;
+  border-bottom: 3px solid #d1b3ff;
+  box-shadow: 0 2px 5px rgba(110, 26, 145, 0.1);
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
   max-width: 1200px;
   margin: auto;
-  padding: 1rem;
-  flex-wrap: wrap;
 }
 
 .logo a {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #c0392b;
+  color: #6a0dad;
 }
 
 .nav-links {
-  display: flex;
-  flex-wrap: wrap;
   list-style: none;
+  display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .nav-links li a {
-  font-size: 1rem;
-  padding: 0.5rem;
-  transition: color 0.3s ease;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  border-radius: 5px;
 }
 
 .nav-links li a:hover {
-  color: #e74c3c;
+  background: #f2d9ff;
+  color: #6a0dad;
 }
 
 /* Hero Section */
 .hero {
-  background: #c0392b;
+  background: linear-gradient(135deg, #a64ac9, #d147a3);
   color: #fff;
-  text-align: center;
   padding: 4rem 1rem;
+  text-align: center;
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 1rem;
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
-/* Section Base */
+/* Section Base Styles */
 .section {
-  padding: 3rem 1rem;
+  padding: 3rem 1.5rem;
   max-width: 1000px;
   margin: auto;
 }
 
 .section.light {
-  background-color: #f9f9f9;
+  background-color: #fdf5ff;
 }
 
 .section.dark {
-  background-color: #333;
-  color: #fff;
+  background-color: #5e2b82;
+  color: #fceeff;
 }
 
-/* Topics Grid */
+/* Topic Grid */
 .topics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
   margin-top: 2rem;
 }
 
 .topics-grid a {
   display: block;
-  background: #e6e6e6;
+  background: #e9d0ff;
   padding: 1rem;
   text-align: center;
   border-radius: 8px;
-  transition: all 0.3s ease;
   font-weight: bold;
+  color: #4b0076;
+  box-shadow: 0 3px 8px rgba(100, 0, 150, 0.1);
+  transition: all 0.3s ease;
 }
 
 .topics-grid a:hover {
-  background: #c0392b;
+  background: #c084d2;
   color: #fff;
+}
+
+/* Section Headings */
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #6a0dad;
+}
+
+/* Paragraphs */
+.section p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
 /* Footer */
 footer {
-  background: #f2f2f2;
-  color: #666;
+  background: #f5e6fa;
+  color: #5a2a7a;
   text-align: center;
   padding: 1.5rem 1rem;
-  margin-top: 2rem;
   font-size: 0.9rem;
+  border-top: 2px solid #d8a4f0;
+  margin-top: 2rem;
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
   .nav-links {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 
   .hero h1 {
