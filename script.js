@@ -1,31 +1,52 @@
-document.getElementById('contactForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  alert('Thank you for reaching out! We will get back to you soon.');
-  this.reset();
-});
-document.getElementById('storyForm').addEventListener('submit', function (e) {
-  e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  // ===== Active Nav Link Highlight =====
+  const navLinks = document.querySelectorAll('nav .nav-links a');
+  const currentPage = window.location.pathname.split('/').pop();
 
-  // Future: send data to backend/form service here
-
-  document.getElementById('storyConfirmation').style.display = 'block';
-  this.reset();
-});
-const sidebar = document.getElementById("sidebar");
-const toggle = document.querySelector(".nav-toggle");
-const closeBtn = document.getElementById("closeSidebar");
-
-toggle.addEventListener("click", () => {
-  sidebar.classList.add("open");
-});
-
-closeBtn.addEventListener("click", () => {
-  sidebar.classList.remove("open");
-});
-
-// Optional: Close sidebar on link click
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    sidebar.classList.remove("open");
+  navLinks.forEach(link => {
+    const linkPage = link.getAttribute('href');
+    if (linkPage === currentPage || (linkPage === 'index.html' && currentPage === '')) {
+      link.classList.add('active');
+    }
   });
+
+  // ===== Smooth Scroll for Internal Anchors =====
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetID = link.getAttribute('href').slice(1);
+      const targetElement = document.getElementById(targetID);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ===== Accordion Toggle for FAQs or Collapsible Sections =====
+  const accordions = document.querySelectorAll('.accordion-header');
+  accordions.forEach(header => {
+    header.addEventListener('click', () => {
+      // Toggle active state
+      header.classList.toggle('active');
+
+      // Toggle panel visibility
+      const panel = header.nextElementSibling;
+      if (panel.style.maxHeight) {
+        panel.style.maxHeight = null;
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ===== Mobile Nav Toggle (optional) =====
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-links');
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('nav-open');
+      navToggle.classList.toggle('open');
+    });
+  }
 });
