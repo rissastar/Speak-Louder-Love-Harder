@@ -50,3 +50,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+/* Hide nav-links by default on small screens */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+/* Mobile nav toggle button hidden on desktop */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  width: 30px;
+  height: 24px;
+  z-index: 1000;
+}
+
+/* Hamburger icon lines */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  background-color: #333;
+  height: 4px;
+  border-radius: 2px;
+  position: absolute;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.hamburger {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger::before {
+  top: 0;
+}
+
+.hamburger::after {
+  bottom: 0;
+}
+
+/* When nav toggle is open, animate hamburger to "X" */
+.nav-toggle.open .hamburger {
+  background-color: transparent;
+}
+
+.nav-toggle.open .hamburger::before {
+  transform: rotate(45deg);
+  top: 50%;
+}
+
+.nav-toggle.open .hamburger::after {
+  transform: rotate(-45deg);
+  bottom: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    display: none;
+    background-color: #fff;
+    position: absolute;
+    top: 60px; /* adjust based on your nav height */
+    right: 10px;
+    width: 200px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 6px;
+  }
+
+  .nav-links.nav-open {
+    display: flex;
+  }
+}
