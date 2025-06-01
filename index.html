@@ -3,125 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Speak Louder, Love Harder</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet" />
-
-  <!-- AOS CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
+  <title>Speak Louder, Love Harder - Home</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Navigation -->
   <header>
-  <div class="nav-container">
-    <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      ☰
-    </button>
-  </div>
+    <nav>
+      <div class="logo"><a href="home.html">Speak Louder, Love Harder</a></div>
+      <ul class="nav-links">
+        <li><a href="home.html" class="active">Home</a></li>
+        <li><a href="mental-health.html">Mental Health</a></li>
+        <li><a href="addiction.html">Addiction</a></li>
+        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+        <li><a href="cirrhosis.html">Cirrhosis</a></li>
+        <li><a href="pitbull-love.html">Pitbull Love</a></li>
+        <li><a href="physical-abuse.html">Physical Abuse</a></li>
+        <li><a href="mental-abuse.html">Mental Abuse</a></li>
+        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+        <li><a href="foster-children.html">Foster Children</a></li>
+        <li><a href="guestbook-connect.html">Connect</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <aside class="nav-sidebar" id="sidebar">
-    <button class="close-btn" id="closeSidebar">×</button>
-    <ul class="nav-links">
-      <li><a href="#mental-health">Mental Health</a></li>
-      <li><a href="#addiction">Addiction</a></li>
-      <li><a href="#cystic-fibrosis">Cystic Fibrosis</a></li>
-      <li><a href="#cirrhosis">Cirrhosis</a></li>
-      <li><a href="#physical-abuse">Physical Abuse</a></li>
-      <li><a href="#mental-abuse">Mental Abuse</a></li>
-      <li><a href="#sexual-abuse">Sexual Abuse</a></li>
-      <li><a href="#pitbull-love">Pitbull Love</a></li>
-      <li><a href="#foster-children">Foster Children</a></li>
-      <li><a href="#connect">Connect</a></li>
-    </ul>
-  </aside>
-</header>
+  <main>
+    <section class="section light">
+      <h1>Welcome to Speak Louder, Love Harder</h1>
+      <p>
+        This is a space dedicated to raising awareness, sharing stories, and offering support for those facing mental health challenges, addiction, abuse, and more.
+      </p>
+      <p>
+        Here, you'll find facts, personal experiences, resources, and community connections aimed at helping you heal, grow, and feel empowered.
+      </p>
+      <p>
+        No matter what you’re going through, you’re not alone. Speak louder. Love harder. Your story matters.
+      </p>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="hero" data-aos="fade-up">
-    <div>
-      <h1>Speak Louder. Love Harder.</h1>
-      <p>Stories, support, and strength—for those who fight and those who rise.</p>
-    </div>
-  </section>
+    <section class="section dark">
+      <h2>Latest Blog Highlights</h2>
+      <article>
+        <h3><a href="mental-health.html">My Mental Health Journey</a></h3>
+        <p>
+          Growing up with chronic illness, emotional pain was often hidden beneath the surface. This personal story shares struggles, survival, and the ongoing fight for peace.
+        </p>
+      </article>
+      <article>
+        <h3><a href="addiction.html">Understanding Addiction</a></h3>
+        <p>
+          Addiction is more than a choice or weakness. Learn the facts, ways to help yourself or others, and hear stories of recovery and hope.
+        </p>
+      </article>
+      <article>
+        <h3><a href="pitbull-love.html">Pitbull Advocacy</a></h3>
+        <p>
+          Breaking myths and sharing the love for these misunderstood dogs. Discover how to support pitbulls and their families.
+        </p>
+      </article>
+    </section>
 
-  <!-- Our Mission -->
-  <section class="section light" data-aos="fade-right">
-    <h2>Our Mission</h2>
-    <p>
-      "Speak Louder, Love Harder" is a community-driven space to share raw, real experiences around mental health, illness, abuse, recovery, and unconditional love. We amplify voices that need to be heard and offer hope, understanding, and advocacy.
-    </p>
-  </section>
+    <section class="section light">
+      <h2>Get Involved & Connect</h2>
+      <p>Want to share your story, ask questions, or just say hello? Visit our <a href="guestbook-connect.html">Connect page</a> to reach out and join the community.</p>
+      <p>Together, we can break stigma and build strength.</p>
+    </section>
+  </main>
 
-  <!-- Explore Topics -->
-  <section class="section dark" data-aos="fade-left">
-    <h2>Explore Topics</h2>
-    <div class="topics-grid">
-      <a href="#mental-health">Mental Health</a>
-      <a href="#addiction">Addiction</a>
-      <a href="#cystic-fibrosis">Cystic Fibrosis</a>
-      <a href="#cirrhosis">Cirrhosis</a>
-      <a href="#physical-abuse">Physical Abuse</a>
-      <a href="#mental-abuse">Mental Abuse</a>
-      <a href="#sexual-abuse">Sexual Abuse</a>
-      <a href="#pitbull-love">Pitbull Love</a>
-      <a href="#foster-children">Foster Children</a>
-    </div>
-  </section>
-
-  <!-- You Are Not Alone -->
-  <section class="section light" data-aos="fade-up">
-    <h2>You Are Not Alone</h2>
-    <p>
-      If you’ve ever felt silenced, judged, or invisible—this is your space. We believe in stories as survival, empathy as action, and love that never gives up.
-    </p>
-    <p><a href="#connect">💌 Connect with us</a></p>
-  </section>
-
-  <!-- Pitbull Love Gallery -->
-  <section class="section dark" id="pitbull-love" data-aos="zoom-in">
-    <h2>Pitbull Love</h2>
-    <div class="gallery">
-      <img src="images/pitbull1.jpg" alt="Pitbull 1">
-      <img src="images/pitbull2.jpg" alt="Pitbull 2">
-      <img src="images/pitbull3.jpg" alt="Pitbull 3">
-      <!-- Add more images as needed -->
-    </div>
-  </section>
-
-  <!-- Guestbook Connect -->
-  <section class="section light" id="connect" data-aos="fade-up">
-    <h2>Connect with Us</h2>
-    <form class="guestbook-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit">Submit</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
   <footer>
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-  <!-- Custom JS -->
-  <script src="script.js"></script>
-
-  <!-- Initialize AOS -->
-  <script>
-    AOS.init();
-  </script>
 </body>
 </html>
