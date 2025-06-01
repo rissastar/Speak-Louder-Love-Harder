@@ -162,3 +162,29 @@ footer {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
+.button {
+  display: inline-block;
+  background: #a64ac9;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  border: none;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(166, 74, 201, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #c084d2;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(166, 74, 201, 0.3);
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px rgba(166, 74, 201, 0.2);
+}
