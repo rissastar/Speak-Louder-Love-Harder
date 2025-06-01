@@ -1,50 +1,16 @@
-// Mobile nav toggle (only useful if you add a hamburger menu)
-document.addEventListener("DOMContentLoaded", function () {
-  const toggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
-
-  if (toggle && navLinks) {
-    toggle.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
+// Scroll Progress Bar
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  const progressBar = document.getElementById("progress-bar");
+  if (progressBar) {
+    progressBar.style.width = scrollPercent + "%";
   }
 });
 
-// Smooth scrolling for anchor links (optional)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth"
-      });
-    }
-  });
-});
-
-// Optional: Dark Mode Toggle
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-if (darkModeToggle) {
-  darkModeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-  });
-}
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  });
-});
-// Reveal on scroll
+// Scroll Fade-In Animation using Intersection Observer
 const fadeElements = document.querySelectorAll('.fade-in');
-
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -52,9 +18,29 @@ const observer = new IntersectionObserver(entries => {
       observer.unobserve(entry.target);
     }
   });
-}, {
-  threshold: 0.1
-});
-
+}, { threshold: 0.1 });
 fadeElements.forEach(el => observer.observe(el));
 
+// Smooth Scroll for nav links
+document.querySelectorAll('nav ul.nav-links a').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href).scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// Pulse animation on button (optional - add pulse class to button element to use)
+const pulseButtons = document.querySelectorAll('.button.pulse');
+pulseButtons.forEach(button => {
+  button.addEventListener('mouseenter', () => {
+    button.classList.add('pulse');
+  });
+  button.addEventListener('animationend', () => {
+    button.classList.remove('pulse');
+  });
+});
