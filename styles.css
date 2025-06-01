@@ -188,3 +188,15 @@ footer {
   transform: scale(0.98);
   box-shadow: 0 2px 5px rgba(166, 74, 201, 0.2);
 }
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
