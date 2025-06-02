@@ -349,3 +349,19 @@ iframe {
   border-radius: 0 0 8px 8px;
   margin-bottom: 15px;
 }
+document.querySelectorAll('.collapsible').forEach(button => {
+  button.addEventListener('click', () => {
+    button.classList.toggle('active');
+
+    const content = button.nextElementSibling;
+    if (button.classList.contains('active')) {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.paddingTop = "10px";
+      content.style.paddingBottom = "10px";
+    } else {
+      content.style.maxHeight = null;
+      content.style.paddingTop = "0";
+      content.style.paddingBottom = "0";
+    }
+  });
+});
