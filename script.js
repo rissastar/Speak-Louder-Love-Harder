@@ -131,6 +131,14 @@ document.querySelectorAll('#mental-health-conditions details').forEach(details =
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     });
+    function toggleNav() {
+  const nav = document.getElementById('collapsibleNav');
+  if (nav.style.display === 'block') {
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = 'block';
+  }
+}
   });
 });
 });
