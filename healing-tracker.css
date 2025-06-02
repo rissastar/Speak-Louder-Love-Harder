@@ -1,89 +1,96 @@
-/* General Page Styling */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fffefe;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f7fafd;
   color: #333;
   margin: 0;
-  padding: 0 1rem;
-  line-height: 1.6;
+  padding: 0;
 }
 
-/* Section Container */
-.healing-tracker-widget {
-  max-width: 800px;
-  margin: 2rem auto;
+.tracker-container {
+  max-width: 700px;
+  margin: 4rem auto;
   padding: 2rem;
-  background-color: #f7fafc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 1s ease-in;
 }
 
-/* Heading */
-.healing-tracker-widget h2 {
-  font-size: 1.8rem;
-  color: #4a90e2;
+.healing-tracker-widget h1 {
+  text-align: center;
+  color: #6c63ff;
   margin-bottom: 1rem;
-  text-align: center;
 }
 
-/* Paragraph */
-.healing-tracker-widget p {
+.intro-text {
+  text-align: center;
   font-size: 1rem;
+  margin-bottom: 2rem;
   color: #555;
-  margin-bottom: 1.5rem;
-  text-align: center;
 }
 
-/* Form Styling */
-.mood-check-in {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-/* Labels and Inputs */
-.form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 0.8rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  resize: vertical;
-}
-
-/* Download Link */
-.healing-tracker-widget a {
-  display: inline-block;
-  margin-top: 1rem;
-  color: #2e7d32;
+a {
+  color: #6c63ff;
   text-decoration: none;
-  font-weight: bold;
 }
 
-.healing-tracker-widget a:hover {
+a:hover {
   text-decoration: underline;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .healing-tracker-widget {
-    padding: 1rem;
-  }
+.form-group {
+  margin-bottom: 1.5rem;
+}
 
-  .healing-tracker-widget h2 {
-    font-size: 1.4rem;
-  }
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
 
-  .form-group select,
-  .form-group textarea {
-    font-size: 0.95rem;
-  }
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+select:focus,
+textarea:focus {
+  border-color: #6c63ff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
+.form-actions {
+  text-align: right;
+}
+
+button {
+  background-color: #6c63ff;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #5a54e8;
+}
+
+.back-link {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
