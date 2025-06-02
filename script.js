@@ -1,194 +1,141 @@
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const body = document.body;
-    const progressBar = document.getElementById("progress-bar");
-    const darkModeToggle = document.getElementById("dark-mode-toggle");
-    const collapsibleNav = document.getElementById("collapsibleNav");
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const progressBar = document.getElementById("progress-bar");
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  const collapsibleNav = document.getElementById("collapsibleNav");
 
-    // -----------------------
-    // DARK MODE
-    // -----------------------
-    function applyDarkMode(enabled) {
-      if (enabled) {
-        body.classList.add("dark-mode");
-        localStorage.setItem("dark-mode", "enabled");
-        if (darkModeToggle) darkModeToggle.textContent = "☀️";
-      } else {
-        body.classList.remove("dark-mode");
-        localStorage.setItem("dark-mode", "disabled");
-        if (darkModeToggle) darkModeToggle.textContent = "🌙";
-      }
-    }
-
-    // Load saved or system preference
-    const savedTheme = localStorage.getItem("dark-mode");
-    if (savedTheme === "enabled") {
-      applyDarkMode(true);
-    } else if (savedTheme === "disabled") {
-      applyDarkMode(false);
+  // -----------------------
+  // DARK MODE
+  // -----------------------
+  function applyDarkMode(enabled) {
+    if (enabled) {
+      body.classList.add("dark-mode");
+      localStorage.setItem("dark-mode", "enabled");
+      if (darkModeToggle) darkModeToggle.textContent = "☀️";
     } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      applyDarkMode(prefersDark);
+      body.classList.remove("dark-mode");
+      localStorage.setItem("dark-mode", "disabled");
+      if (darkModeToggle) darkModeToggle.textContent = "🌙";
     }
+  }
 
-    // Toggle handler
-    if (darkModeToggle) {
-      darkModeToggle.addEventListener("click", () => {
-        const isDark = body.classList.toggle("dark-mode");
-        applyDarkMode(isDark);
-      });
-    }
+  const savedTheme = localStorage.getItem("dark-mode");
+  if (savedTheme === "enabled") {
+    applyDarkMode(true);
+  } else if (savedTheme === "disabled") {
+    applyDarkMode(false);
+  } else {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyDarkMode(prefersDark);
+  }
 
-    // -----------------------
-    // SCROLL PROGRESS BAR
-    // -----------------------
-    function updateProgressBar() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      if (progressBar) progressBar.style.width = scrollPercent + "%";
-    }
-
-    window.addEventListener("scroll", updateProgressBar);
-    updateProgressBar();
-
-    // -----------------------
-    // MAGIC LINK FOCUS EFFECT
-    // -----------------------
-    document.querySelectorAll(".magic-link").forEach(link => {
-      link.addEventListener("focus", () => link.classList.add("hovered"));
-      link.addEventListener("blur", () => link.classList.remove("hovered"));
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener("click", () => {
+      const isDark = body.classList.toggle("dark-mode");
+      applyDarkMode(isDark);
     });
+  }
 
-    // -----------------------
-    // TABBED CONTENT
-    // -----------------------
-    function setupTabs(containerSelector) {
-      document.querySelectorAll(containerSelector).forEach(container => {
-        const buttons = container.querySelectorAll(".tab-buttons button");
-        const contents = container.querySelectorAll(".tab-content");
+  // -----------------------
+  // SCROLL PROGRESS BAR
+  // -----------------------
+  function updateProgressBar() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    if (progressBar) progressBar.style.width = scrollPercent + "%";
+  }
 
-        // Show first tab by default
-        contents.forEach((content, i) => {
-          content.style.display = i === 0 ? "block" : "none";
-        });
+  window.addEventListener("scroll", updateProgressBar);
+  updateProgressBar();
 
-        // Button click logic
-        buttons.forEach((btn, idx) => {
-          btn.addEventListener("click", () => {
-            contents.forEach(c => (c.style.display = "none"));
-            contents[idx].style.display = "block";
-
-            buttons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-          });
-        });
-      });
-    }
-
-    setupTabs(".tab-buttons"); // general tab sections
-    setupTabs("#mental-health-conditions details"); // mental health section
-
-    // -----------------------
-    // COLLAPSIBLE NAV
-    // -----------------------
-    window.toggleNav = function () {
-      if (collapsibleNav) {
-        collapsibleNav.classList.toggle("nav-open");
-      }
-    };
+  // -----------------------
+  // MAGIC LINK FOCUS EFFECT
+  // -----------------------
+  document.querySelectorAll(".magic-link").forEach(link => {
+    link.addEventListener("focus", () => link.classList.add("hovered"));
+    link.addEventListener("blur", () => link.classList.remove("hovered"));
   });
-  
-  document.querySelectorAll('details').forEach((detail) => {
-    const buttons = detail.querySelectorAll('.tab-buttons button');
-    const tabs = detail.querySelectorAll('.tab-content');
 
-    if (buttons.length && tabs.length) {
-      // Set the first tab as active
-      tabs.forEach((tab, i) => {
-        tab.style.display = i === 0 ? 'block' : 'none';
+  // -----------------------
+  // TABBED CONTENT
+  // -----------------------
+  function setupTabs(containerSelector) {
+    document.querySelectorAll(containerSelector).forEach(container => {
+      const buttons = container.querySelectorAll(".tab-buttons button, .tab-btn");
+      const contents = container.querySelectorAll(".tab-content");
+
+      // Show first tab by default
+      contents.forEach((content, i) => {
+        content.style.display = i === 0 ? "block" : "none";
       });
 
-      buttons.forEach((btn, index) => {
-        btn.addEventListener('click', () => {
-          tabs.forEach(tab => tab.style.display = 'none');
-          tabs[index].style.display = 'block';
+      buttons.forEach((btn, idx) => {
+        btn.classList.toggle("active", idx === 0);
+        btn.addEventListener("click", () => {
+          contents.forEach(c => (c.style.display = "none"));
+          contents[idx].style.display = "block";
+
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
         });
       });
-    }
-  });
-  
-document.querySelectorAll("details").forEach((detail) => {
-  const summary = detail.querySelector("summary");
-  summary.setAttribute("aria-expanded", detail.open);
-
-  summary.addEventListener("click", () => {
-    // Delay to wait for open state to update
-    setTimeout(() => {
-      summary.setAttribute("aria-expanded", detail.open);
-    }, 10);
-  });
-});
-
-document.querySelectorAll(".tab-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const tabId = btn.getAttribute("data-tab");
-
-    // Hide all tab contents
-    document.querySelectorAll(".tab-content").forEach((tab) => {
-      tab.style.display = "none";
     });
+  }
 
-    // Show the selected tab
-    document.getElementById(tabId).style.display = "block";
+  setupTabs(".tab-buttons");
+  setupTabs("#mental-health-conditions details");
 
-    // Optional: update button active state
-    document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-  });
-});
+  // Additional setup for tab buttons inside <details> to manage active classes and visibility
+  document.querySelectorAll('details').forEach(detailsElem => {
+    const tabButtons = detailsElem.querySelectorAll('.tab-btn');
+    const tabContents = detailsElem.querySelectorAll('.tab-content');
 
-  // When the DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    // For each group of tab buttons (inside each details)
-    document.querySelectorAll('details').forEach(detailsElem => {
-      const tabButtons = detailsElem.querySelectorAll('.tab-btn');
-      const tabContents = detailsElem.querySelectorAll('.tab-content');
+    // Initialize first tab as active
+    tabContents.forEach((tab, i) => {
+      tab.style.display = i === 0 ? 'block' : 'none';
+    });
+    tabButtons.forEach((btn, i) => btn.classList.toggle('active', i === 0));
 
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const targetId = button.getAttribute('data-tab');
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-tab');
 
-          // Remove active class from all buttons and tab contents in this group
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-
-          // Add active to clicked button and corresponding content
-          button.classList.add('active');
-          const targetContent = detailsElem.querySelector(`#${targetId}`);
-          if (targetContent) {
-            targetContent.classList.add('active');
-          }
-          <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('details').forEach(detailsElem => {
-      const tabButtons = detailsElem.querySelectorAll('.tab-btn');
-      const tabContents = detailsElem.querySelectorAll('.tab-content');
-
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const targetId = button.getAttribute('data-tab');
-
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-
-          button.classList.add('active');
-          const targetContent = detailsElem.querySelector(`#${targetId}`);
-          if (targetContent) {
-            targetContent.classList.add('active');
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => {
+          if (content.id === targetId) {
+            content.style.display = 'block';
+          } else {
+            content.style.display = 'none';
           }
         });
+
+        button.classList.add('active');
       });
     });
   });
-</script>
+
+  // -----------------------
+  // COLLAPSIBLE NAV
+  // -----------------------
+  window.toggleNav = function () {
+    if (collapsibleNav) {
+      collapsibleNav.classList.toggle("nav-open");
+    }
+  };
+
+  // -----------------------
+  // ARIA EXPANDED TOGGLE FOR DETAILS
+  // -----------------------
+  document.querySelectorAll("details").forEach((detail) => {
+    const summary = detail.querySelector("summary");
+    summary.setAttribute("aria-expanded", detail.open);
+
+    summary.addEventListener("click", () => {
+      // Delay to wait for open state to update
+      setTimeout(() => {
+        summary.setAttribute("aria-expanded", detail.open);
+      }, 10);
+    });
+  });
+});
