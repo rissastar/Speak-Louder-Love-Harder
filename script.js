@@ -67,6 +67,39 @@ document.addEventListener("DOMContentLoaded", () => {
         tabContents.forEach(c => (c.style.display = 'none'));
         tabContents[idx].style.display = 'block';
       });
+      
+      // Wait for DOM content to load
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('dark-mode-toggle');
+  const body = document.body;
+  const progressBar = document.getElementById('progress-bar');
+
+  // Load saved theme from localStorage (if any)
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark-mode');
+  }
+
+  // Toggle dark mode when button clicked
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    // Save preference
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+
+  // Scroll progress bar animation
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+
+    progressBar.style.width = scrollPercent + '%';
+  });
+});
     });
   });
 });
