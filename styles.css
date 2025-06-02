@@ -505,3 +505,11 @@ body.dark-mode .collapsible {
   display: none;
   margin-top: 10px;
 }
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.collapsible.active {
+  /* optional styles when active */
+}
