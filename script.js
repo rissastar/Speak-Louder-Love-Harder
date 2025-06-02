@@ -99,6 +99,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     progressBar.style.width = scrollPercent + '%';
   });
+  
+  // Toggle collapsible navbar
+function toggleNav() {
+  const nav = document.getElementById('collapsibleNav');
+  if (nav.style.display === 'block') {
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = 'block';
+  }
+}
+
+// Tab switching for all mental health disorders
+document.querySelectorAll('#mental-health-conditions details').forEach(details => {
+  const buttons = details.querySelectorAll('.tab-buttons button');
+  const contents = details.querySelectorAll('.tab-content');
+
+  // Hide all tab contents except first by default
+  contents.forEach((content, i) => {
+    content.style.display = i === 0 ? 'block' : 'none';
+  });
+
+  buttons.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      // Hide all
+      contents.forEach(c => (c.style.display = 'none'));
+      // Show selected
+      contents[i].style.display = 'block';
+
+      // Optional: style active button
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+});
 });
     });
   });
