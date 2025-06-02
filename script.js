@@ -143,3 +143,9 @@ document.querySelectorAll('.collapsible').forEach(button => {
     }
   });
 });
+<script>
+  function toggleNav() {
+    const nav = document.getElementById("collapsibleNav");
+    nav.classList.toggle("active");
+  }
+</script>
