@@ -247,3 +247,21 @@ footer {
     padding: 40px 15px;
   }
 }
+.mood-check-in {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mood-check-in label {
+  font-weight: bold;
+}
+
+.mood-check-in select,
+.mood-check-in textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+}
