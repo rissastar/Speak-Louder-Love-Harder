@@ -1,0 +1,119 @@
+.healing-toggle-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 320px;
+  margin: 1rem auto;
+  display: block;
+  text-align: center;
+}
+
+.healing-toggle-btn:focus {
+  outline: 3px solid #2a7a2a;
+  outline-offset: 2px;
+}
+
+.healing-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 1rem;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.healing-panel.open {
+  max-height: 700px; /* enough to show all content */
+  padding: 1rem 1.5rem;
+}
+
+.healing-close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.healing-close-btn:hover,
+.healing-close-btn:focus {
+  color: #000;
+  outline: none;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.mood-container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#mood-emoji {
+  font-size: 1.8rem;
+  user-select: none;
+  min-width: 1.8rem;
+  text-align: center;
+}
+
+#mood {
+  flex-grow: 1;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#prompt {
+  width: calc(100% - 2.5rem);
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#new-prompt-btn {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.3rem;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0;
+}
+
+#new-prompt-btn:hover,
+#new-prompt-btn:focus {
+  background-color: #005ea3;
+  outline: none;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  min-height: 80px;
+}
