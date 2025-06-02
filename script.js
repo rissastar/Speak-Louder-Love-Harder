@@ -53,4 +53,26 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("focus", () => link.classList.add("hovered"));
     link.addEventListener("blur", () => link.classList.remove("hovered"));
   });
+  
+  document.querySelectorAll('.tab-buttons').forEach(tabGroup => {
+    const buttons = tabGroup.querySelectorAll('button');
+    const tabContents = tabGroup.parentElement.querySelectorAll('.tab-content');
+    
+    // Hide all except first tab content initially
+    tabContents.forEach((content, i) => content.style.display = i === 0 ? 'block' : 'none');
+    
+    buttons.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        tabContents.forEach(c => (c.style.display = 'none'));
+        tabContents[idx].style.display = 'block';
+      });
 });
+<script>
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  });
+</script>
