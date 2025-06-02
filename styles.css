@@ -538,3 +538,50 @@ body.dark-mode .collapsible {
   font-weight: normal;
   font-size: 0.9em;
 }
+.collapsible-navbar {
+  background-color: #222;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: left;
+  border-bottom: 2px solid #444;
+}
+
+.collapsible-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 0;
+  width: 100%;
+  text-align: left;
+}
+
+.nav-links {
+  display: none;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.nav-links a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 6px 0;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-links.active {
+  display: flex;
+}
+
+/* Optional: Add spacing under the nav */
+.collapsible-navbar + * {
+  margin-top: 20px;
+}
