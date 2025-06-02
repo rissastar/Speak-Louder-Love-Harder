@@ -293,3 +293,19 @@ body.dark-mode footer {
     padding: 2rem 1.5rem;
   }
 }
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #9b59b6;
+  border-radius: 16px;
+  background-color: #fefbff;
+  box-shadow: 0 0 20px rgba(155, 89, 182, 0.2);
+}
+
+iframe {
+  border: none;
+  width: 100%;
+  height: 700px;
+  border-radius: 10px;
+}
