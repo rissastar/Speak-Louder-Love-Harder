@@ -1,129 +1,161 @@
-// healing-tracker.js
+/* healing-tracker.css */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const quoteText = document.getElementById('quote-text');
-  const moodSelect = document.getElementById('mood');
-  const reflectionTextarea = document.getElementById('reflection');
-  const saveBtn = document.getElementById('save-btn');
-  const clearBtn = document.getElementById('clear-btn');
-  const exportBtn = document.getElementById('export-btn');
-  const backBtn = document.getElementById('back-btn');
+/* Overall container style */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  color: #333;
+  margin: 0;
+  padding: 1rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-  const STORAGE_KEY = 'healingTrackerEntry';
+.container {
+  background: #fff;
+  max-width: 700px;
+  width: 95%;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 
-  // Array of motivational quotes
-  const quotes = [
-    "🌟 “You are stronger than you think.”",
-    "🌈 “Every day is a new beginning.”",
-    "💪 “Small steps lead to big changes.”",
-    "🌻 “Healing is a journey, not a race.”",
-    "✨ “Be gentle with yourself.”",
-    "🌿 “Growth begins in the moments of struggle.”",
-    "🌞 “You’ve survived 100% of your bad days.”",
-    "🌙 “Rest when you need to, but never quit.”"
-  ];
+/* Headings */
+h1, h2 {
+  color: #2a2a72;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
 
-  // Show a random quote on page load
-  function showRandomQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    quoteText.textContent = quotes[randomIndex];
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+/* Motivational quote with gentle animation */
+#quote-text {
+  font-style: italic;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  animation: floatEmoji 3s ease-in-out infinite alternate;
+}
+
+/* subtle emoji float animation */
+@keyframes floatEmoji {
+  0% { transform: translateY(0) rotate(0deg);}
+  100% { transform: translateY(-8px) rotate(10deg);}
+}
+
+/* Form styles */
+.mood-check-in {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+select, textarea {
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.8px solid #b0b7d1;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+  font-family: inherit;
+  color: #333;
+}
+
+select:focus, textarea:focus {
+  border-color: #2a2a72;
+  outline: none;
+  box-shadow: 0 0 8px rgba(42, 42, 114, 0.3);
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Buttons style */
+button {
+  background: #2a2a72;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(42, 42, 114, 0.4);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  font-size: 1rem;
+}
+
+button:hover,
+button:focus {
+  background: #3b3b9e;
+  box-shadow: 0 7px 14px rgba(59, 59, 158, 0.6);
+  outline: none;
+}
+
+button:active {
+  background: #1f1f53;
+  box-shadow: 0 3px 7px rgba(31, 31, 83, 0.7);
+}
+
+/* Link to PDF */
+a {
+  color: #2a2a72;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1.5rem;
   }
 
-  // Load saved entry from localStorage if any
-  function loadSavedEntry() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        moodSelect.value = data.mood || '';
-        reflectionTextarea.value = data.reflection || '';
-      } catch {
-        // If JSON parse fails, clear the storage
-        localStorage.removeItem(STORAGE_KEY);
-      }
-    }
+  h1 {
+    font-size: 2rem;
   }
 
-  // Save current entry to localStorage
-  function saveEntry() {
-    const mood = moodSelect.value;
-    const reflection = reflectionTextarea.value.trim();
-
-    if (!mood) {
-      alert('Please select your mood before saving.');
-      return;
-    }
-
-    const data = { mood, reflection };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    alert('Your entry has been saved!');
+  h2 {
+    font-size: 1.4rem;
   }
 
-  // Clear saved entry and reset form
-  function clearEntry() {
-    localStorage.removeItem(STORAGE_KEY);
-    moodSelect.value = '';
-    reflectionTextarea.value = '';
-    alert('Saved entry cleared.');
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
   }
-
-  // Export current entry as a .txt file
-  function exportEntry() {
-    const mood = moodSelect.value;
-    const reflection = reflectionTextarea.value.trim();
-
-    if (!mood) {
-      alert('Please select your mood before exporting.');
-      return;
-    }
-
-    const dateStr = new Date().toLocaleDateString();
-    const content =
-      `Daily Healing Tracker Entry - ${dateStr}\n\n` +
-      `Mood: ${moodSelect.options[moodSelect.selectedIndex].text}\n\n` +
-      `Reflection:\n${reflection || '(No additional reflection provided)'}\n`;
-
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `Healing_Tracker_${dateStr.replace(/\//g, '-')}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  // Go back button to previous page
-  function goBack() {
-    window.history.back();
-  }
-
-  // Animate emoji in quote for subtle movement
-  function animateEmoji() {
-    quoteText.classList.add('animate-emoji');
-    setTimeout(() => {
-      quoteText.classList.remove('animate-emoji');
-    }, 4000);
-  }
-
-  // Initialize app
-  showRandomQuote();
-  loadSavedEntry();
-  animateEmoji();
-
-  saveBtn.addEventListener('click', () => {
-    saveEntry();
-    animateEmoji();
-  });
-
-  clearBtn.addEventListener('click', () => {
-    if (confirm('Are you sure you want to clear the saved entry?')) {
-      clearEntry();
-    }
-  });
-
-  exportBtn.addEventListener('click', exportEntry);
-  backBtn.addEventListener('click', goBack);
-});
+}
