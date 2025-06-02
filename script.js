@@ -78,3 +78,22 @@ function fadeInOnScroll() {
 
 window.addEventListener('scroll', fadeInOnScroll);
 window.addEventListener('load', fadeInOnScroll);
+// Dark mode toggle logic
+const toggleBtn = document.getElementById('dark-mode-toggle');
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+
+  // Optionally save user preference to localStorage
+  if (document.body.classList.contains('dark-mode')) {
+    localStorage.setItem('darkMode', 'enabled');
+  } else {
+    localStorage.removeItem('darkMode');
+  }
+});
+
+// On page load, apply dark mode if user prefers it
+window.addEventListener('load', () => {
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+  }
+});
