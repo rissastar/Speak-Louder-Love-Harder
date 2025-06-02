@@ -1,240 +1,242 @@
-/* Reset and base */
-*,
-*::before,
-*::after {
+/* Reset & base */
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #1b003f;
-  color: #f3e6ff;
+  background: #1a0033; /* deep dark purple background */
+  color: #f0d6f7; /* soft light pinkish-purple text */
   line-height: 1.6;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-h1, h2 {
-  font-weight: 700;
-  letter-spacing: 1.2px;
+  scroll-behavior: smooth;
 }
 
 a {
-  color: #ff66cc;
+  color: #ff78c8;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
+
 a:hover,
 a:focus {
-  color: #ff99e6;
+  text-decoration: underline;
   outline: none;
 }
 
-/* Scroll Progress Bar */
+/* Scroll progress bar */
 #progress-bar {
   position: fixed;
   top: 0;
   left: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #ff66cc, #cc33ff);
+  height: 5px;
+  background: linear-gradient(90deg, #e91e63, #9c27b0);
   width: 0;
   z-index: 9999;
   transition: width 0.25s ease-out;
-  box-shadow: 0 0 8px #cc33ff;
 }
 
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #720026, #ce0f89);
-  padding: 6rem 1.5rem 4rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 0 100px #ff66cc88;
-  user-select: none;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 0.5rem;
-  color: #ffe6ff;
-  /* typewriter animation */
-  overflow: hidden;
-  border-right: .15em solid #ff66cc;
-  white-space: nowrap;
-  animation:
-    typing 3.5s steps(25, end),
-    blink-caret 0.75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-@keyframes blink-caret {
-  50% { border-color: transparent }
-  100% { border-color: #ff66cc }
-}
-
-.hero p {
-  font-size: 1.4rem;
-  color: #f9ccf0cc;
-  font-style: italic;
-}
-
-/* Section styles */
+/* Sections */
 .section {
   max-width: 900px;
   margin: 3rem auto;
-  padding: 1.5rem 1.5rem 2rem;
+  padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 0 20px #cc33ff55;
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(156, 39, 176, 0.3);
+  transition: background-color 0.3s ease;
 }
 
 .section.light {
-  background: #3e0079;
-  color: #f9e6ff;
+  background: #310045; /* darker purple */
+  color: #f8c8f9;
 }
 
 .section.dark {
-  background: #22003d;
-  color: #e0b3ff;
-}
-
-/* Hover highlight for sections */
-.section:hover {
-  box-shadow: 0 0 30px #ff33cccc;
-}
-
-/* Topics Grid */
-.topics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.magic-link {
-  display: block;
-  padding: 1rem 1.2rem;
-  background: linear-gradient(45deg, #a100d1, #ff33cc);
-  color: white;
-  border-radius: 20px;
-  text-align: center;
-  font-weight: 600;
-  box-shadow: 0 4px 12px #ff33ccaa;
-  transition:
-    background 0.4s ease,
-    box-shadow 0.3s ease,
-    transform 0.25s ease;
-  user-select: none;
-}
-
-.magic-link:hover,
-.magic-link:focus {
-  background: linear-gradient(45deg, #ff66cc, #cc33ff);
-  box-shadow: 0 6px 20px #ff66ccdd;
-  transform: translateY(-4px);
-  outline: none;
-}
-
-/* You Are Not Alone section */
-.section.light p {
-  font-size: 1.2rem;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: #ffb3e6cc;
-}
-
-/* Heart button - Guestbook */
-.heart-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #ff33cc;
-  color: white;
-  font-size: 2.2rem;
-  padding: 0.3rem 0.75rem 0.2rem;
-  border-radius: 50%;
-  box-shadow: 0 0 20px #ff33cccc;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.heart-button:hover,
-.heart-button:focus {
-  transform: scale(1.15) rotate(-10deg);
-  box-shadow: 0 0 30px #ff66ccdd;
-  outline: none;
-}
-
-/* Dark mode toggle */
-#dark-mode-toggle {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #cc33ff;
-  border: none;
-  color: white;
-  font-size: 1.8rem;
-  padding: 0.3rem 0.75rem;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 0 20px #cc33ffcc;
-  user-select: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-}
-#dark-mode-toggle:hover,
-#dark-mode-toggle:focus {
-  background-color: #ff66cc;
-  box-shadow: 0 0 30px #ff66ccdd;
-  transform: scale(1.1);
-  outline: none;
+  background: #9c27b0; /* bright purple */
+  color: #fff0fa;
 }
 
 /* Fade-in animation */
 .fade-in {
   opacity: 0;
-  animation: fadeIn 1s forwards ease-in-out;
-  animation-delay: 0.2s;
-}
-
-.section:nth-of-type(2) .fade-in {
+  transform: translateY(15px);
+  animation: fadeInUp 0.8s forwards;
   animation-delay: 0.3s;
 }
-.section:nth-of-type(3) .fade-in {
-  animation-delay: 0.5s;
-}
-.section:nth-of-type(4) .fade-in {
-  animation-delay: 0.7s;
-}
 
-@keyframes fadeIn {
+@keyframes fadeInUp {
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Responsive adjustments */
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, #9c27b0 0%, #e91e63 100%);
+  color: white;
+  padding: 6rem 1rem;
+  text-align: center;
+  border-radius: 0 0 50% 50% / 30%;
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.7);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+/* --- Typewriter Effect for Header --- */
+h1.typewriter {
+  font-family: 'Courier New', Courier, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid pink;
+  animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+  max-width: 20ch;
+  margin: 0 auto;
+}
+
+/* Typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 20ch;
+  }
+}
+
+/* Caret blinking animation */
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: pink;
+  }
+}
+
+/* Topics grid */
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* --- Interactive Topic Links Hover --- */
+.magic-link {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #9c27b0, #e91e63);
+  color: white;
+  font-weight: 600;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.magic-link:hover,
+.magic-link:focus,
+.magic-link.hovered {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(233, 30, 99, 0.8);
+  outline: none;
+}
+
+/* Accessibility focus */
+.magic-link:focus-visible {
+  outline: 3px solid #ff78c8;
+  outline-offset: 4px;
+}
+
+/* "You Are Not Alone" section */
+.section.light h2 {
+  color: #ff78c8;
+}
+
+/* Heart button */
+.heart-button {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #e91e63;
+  color: white;
+  font-size: 2.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(233, 30, 99, 0.8);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  text-align: center;
+  line-height: 1;
+  user-select: none;
+  text-decoration: none;
+  z-index: 10000;
+}
+
+.heart-button:hover,
+.heart-button:focus {
+  transform: scale(1.15);
+  box-shadow: 0 10px 25px rgba(233, 30, 99, 1);
+  outline: none;
+}
+
+/* Dark mode toggle button */
+#dark-mode-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: #9c27b0;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.75rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.8);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  z-index: 10000;
+}
+
+#dark-mode-toggle:hover,
+#dark-mode-toggle:focus {
+  background: #e91e63;
+  box-shadow: 0 10px 25px rgba(233, 30, 99, 1);
+  outline: none;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+  color: #bb86fc;
+  background: #2a0055;
+  box-shadow: inset 0 1px 0 #d39de8;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .hero h1 {
     font-size: 2.5rem;
   }
 
-  .topics-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  .magic-link {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .section {
     margin: 2rem 1rem;
+    padding: 1.5rem;
   }
 }
