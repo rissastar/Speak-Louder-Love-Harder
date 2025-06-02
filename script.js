@@ -39,6 +39,29 @@ if (toggleBtn) {
   });
 }
 
+// Collapsible stories toggle
+function initCollapsibles() {
+  const collapsibles = document.querySelectorAll('.collapsible');
+  collapsibles.forEach(button => {
+    button.addEventListener('click', () => {
+      button.classList.toggle('active');
+
+      const content = button.nextElementSibling;
+      if (!content) return; // safety check
+
+      if (button.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.paddingTop = "10px";
+        content.style.paddingBottom = "10px";
+      } else {
+        content.style.maxHeight = null;
+        content.style.paddingTop = "0";
+        content.style.paddingBottom = "0";
+      }
+    });
+  });
+}
+
 // On page load
 window.addEventListener('load', () => {
   fadeInOnScroll();
@@ -47,8 +70,11 @@ window.addEventListener('load', () => {
     document.body.classList.add('dark-mode');
   }
   updateProgressBar();
+
+  initCollapsibles();  // Initialize collapsibles here
 });
 
+// On scroll
 window.addEventListener('scroll', () => {
   fadeInOnScroll();
   updateProgressBar();
