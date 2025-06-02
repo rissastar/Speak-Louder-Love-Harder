@@ -110,3 +110,69 @@ window.addEventListener('scroll', () => {
       });
     });
   </script>
+<section id="mental-health-conditions">
+  <h2>🧠 Types of Mental Health Conditions</h2>
+
+  <style>
+    #mental-health-conditions {
+      padding: 1em;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    #mental-health-conditions details {
+      margin-bottom: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    #mental-health-conditions summary {
+      font-size: 1.2em;
+      cursor: pointer;
+      padding: 0.6em;
+      background-color: #f0f0f0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    #mental-health-conditions details[open] summary {
+      background-color: #d0eaff;
+    }
+
+    .tab-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+      margin: 1em 0;
+    }
+
+    .tab-buttons button {
+      padding: 0.4em 1em;
+      border: none;
+      border-radius: 6px;
+      background-color: #eee;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tab-buttons button.active {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      margin-left: 1em;
+      padding-bottom: 1em;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content ul {
+      margin-top: 0.5em;
+      margin-left: 1em;
+      list-style-type: disc;
+    }
+  </style
