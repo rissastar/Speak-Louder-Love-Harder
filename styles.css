@@ -334,4 +334,62 @@ select, textarea {
     margin: 2rem 1rem;
     padding: 1.5rem;
   }
+  /* Basic navbar styling */
+.site-header {
+  background-color: var(--section-light-bg);
+  padding: 1rem;
+  box-shadow: 0 4px 10px var(--box-shadow-color);
 }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--main-text-color);
+  text-decoration: none;
+}
+
+/* Dropdown styles */
+.dropdown summary {
+  cursor: pointer;
+  background-color: var(--link-hover-color);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 6px;
+  list-style: none;
+}
+
+.dropdown[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--section-light-bg);
+  border: 1px solid var(--link-hover-color);
+  border-radius: 0 0 6px 6px;
+  padding: 1rem;
+  margin-top: 0.25rem;
+  gap: 0.5rem;
+}
+
+.dropdown-content a {
+  text-decoration: none;
+  color: var(--main-text-color);
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+.dropdown-content a:hover {
+  color: var(--link-hover-color);
+}
+}
+
