@@ -117,4 +117,16 @@
       });
     }
   });
+  
+document.querySelectorAll("details").forEach((detail) => {
+  const summary = detail.querySelector("summary");
+  summary.setAttribute("aria-expanded", detail.open);
+
+  summary.addEventListener("click", () => {
+    // Delay to wait for open state to update
+    setTimeout(() => {
+      summary.setAttribute("aria-expanded", detail.open);
+    }, 10);
+  });
+});
 </script>
