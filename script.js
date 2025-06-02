@@ -44,3 +44,44 @@ pulseButtons.forEach(button => {
     button.classList.remove('pulse');
   });
 });
+// Progress Bar
+window.addEventListener("scroll", () => {
+  const progress = document.getElementById("progress-bar");
+  const totalHeight = document.body.scrollHeight - window.innerHeight;
+  const progressHeight = (window.pageYOffset / totalHeight) * 100;
+  progress.style.height = progressHeight + "%";
+});
+
+// Fade-in animation on scroll
+const faders = document.querySelectorAll(".fade-in");
+const appearOptions = {
+  threshold: 0.3,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("appear");
+    appearOnScroll.unobserve(entry.target);
+  });
+}, appearOptions);
+
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
+
+// Guestbook form handler
+document.getElementById("guestbookForm")?.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Optionally, you can send data to a backend here
+  const name = document.getElementById("name").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (message !== "") {
+    document.getElementById("guestbookForm").style.display = "none";
+    document.getElementById("thank-you-message").style.display = "block";
+    console.log("Guestbook submission:", { name, message }); // Optional debug log
+  }
+});
