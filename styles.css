@@ -348,4 +348,22 @@ select, textarea {
   font-size: 1em;
   box-sizing: border-box;
 }
+
+/* For collapsible nav */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-links.nav-open {
+    display: flex;
+  }
+}
 }
