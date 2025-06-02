@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div id="progress-bar"></div>
+
   <header>
     <nav>
-      <div class="logo"><a href="home.html">Speak Louder, Love Harder</a></div>
+      <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
       <ul class="nav-links">
         <li><a href="mental-health.html">Mental Health</a></li>
         <li><a href="addiction.html">Addiction</a></li>
@@ -17,7 +19,7 @@
         <li><a href="cirrhosis.html">Cirrhosis</a></li>
         <li><a href="physical-abuse.html">Physical Abuse</a></li>
         <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-assault.html" class="active">Sexual Assault</a></li>
+        <li><a href="sexual-abuse.html" aria-current="page">Sexual Abuse</a></li>
         <li><a href="pitbull-love.html">Pitbull Love</a></li>
         <li><a href="foster-children.html">Foster Children</a></li>
         <li><a href="guestbook-connect.html">Connect</a></li>
@@ -25,9 +27,14 @@
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <div>
+  <section class="hero">
+    <div>
+      <h1>Sexual Abuse</h1>
+      <p class="fade-in">Your story matters. Your survival matters. This is a space of safety, solidarity, and healing.</p>
+    </div>
+  </section>
+
+  <main class="section light fade-in">
         <h1>Sexual Assault</h1>
         <p>Speaking truth. Breaking silence. Reclaiming power.</p>
       </div>
@@ -101,5 +108,7 @@
   <footer>
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
+  
+  <script src="script.js" defer></script>
 </body>
 </html>
