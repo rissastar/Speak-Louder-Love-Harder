@@ -79,3 +79,34 @@ window.addEventListener('scroll', () => {
   fadeInOnScroll();
   updateProgressBar();
 });
+  document.addEventListener("DOMContentLoaded", () => {
+      const details = document.querySelectorAll("#mental-health-conditions details");
+      details.forEach((targetDetail) => {
+        targetDetail.addEventListener("toggle", () => {
+          if (targetDetail.open) {
+            details.forEach((detail) => {
+              if (detail !== targetDetail) detail.removeAttribute("open");
+            });
+          }
+        });
+      });
+
+      const tabSets = document.querySelectorAll(".tab-buttons");
+      tabSets.forEach(set => {
+        const buttons = set.querySelectorAll("button");
+        const contents = set.parentElement.querySelectorAll(".tab-content");
+        buttons.forEach((btn, index) => {
+          btn.addEventListener("click", () => {
+            buttons.forEach(b => b.classList.remove("active"));
+            contents.forEach(c => c.classList.remove("active"));
+            btn.classList.add("active");
+            contents[index].classList.add("active");
+          });
+        });
+        // Set first tab active by default
+        if (buttons.length > 0) {
+          buttons[0].click();
+        }
+      });
+    });
+  </script>
