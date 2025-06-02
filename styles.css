@@ -1,118 +1,385 @@
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrolled = (scrollTop / docHeight) * 100;
-  const progressBar = document.getElementById("progress-bar");
-  if (progressBar) {
-    progressBar.style.width = scrolled + "%";
-  }
-});
-
-
-const typewriter = document.querySelector(".typewriter");
-
-if (typewriter) {
-  const text = typewriter.textContent.trim();
-  typewriter.textContent = "";
-  let i = 0;
-  const type = () => {
-    if (i < text.length) {
-      typewriter.textContent += text.charAt(i);
-      i++;
-      setTimeout(type, 60);
-    }
-  };
-  type();
+/* ===== Reset & Basics ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f8f6;
+  color: #222;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
 
-const fadeElements = document.querySelectorAll(".fade-in");
+a {
+  color: #b93047;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.2 }
-);
+a:hover,
+a:focus {
+  color: #7a1f2e;
+  outline: none;
+}
 
-fadeElements.forEach(el => observer.observe(el));
+h1, h2, h3, h4 {
+  margin-top: 0;
+  font-weight: 700;
+}
 
+p {
+  margin: 0 0 1em 0;
+}
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    const targetID = this.getAttribute("href").substring(1);
-    const target = document.getElementById(targetID);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
+/* ===== Scroll Progress Bar ===== */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background-color: #b93047;
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.25s ease-out;
+}
 
+/* ===== Hero Section ===== */
+.hero {
+  background: linear-gradient(135deg, #b93047 0%, #7a1f2e 100%);
+  color: #fff;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  user-select: none;
+}
 
-document.querySelectorAll(".faq-toggle").forEach(button => {
-  button.addEventListener("click", () => {
-    const content = button.nextElementSibling;
-    button.classList.toggle("active");
-    content.classList.toggle("open");
-  });
-});
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.15em solid #fff;
+  letter-spacing: 0.15em;
+  max-width: 20ch;
+}
 
+/* ===== Sections ===== */
+.section {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.05);
+}
 
-const slider = document.querySelector(".image-slider");
-if (slider) {
-  let currentIndex = 0;
-  const slides = slider.querySelectorAll(".slide");
-  const prev = document.querySelector(".prev-slide");
-  const next = document.querySelector(".next-slide");
+.section.light {
+  background-color: #fff;
+  color: #222;
+}
 
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.display = i === index ? "block" : "none";
-    });
-  }
+.section.dark {
+  background-color: #7a1f2e;
+  color: #f9f8f6;
+}
 
-  if (slides.length > 0) {
-    showSlide(currentIndex);
+/* ===== Topics Grid ===== */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
 
-    prev?.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      showSlide(currentIndex);
-    });
+.magic-link {
+  display: inline-block;
+  background-color: #b93047;
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgb(185 48 71 / 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
 
-    next?.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    });
+.magic-link:hover,
+.magic-link:focus {
+  background-color: #7a1f2e;
+  box-shadow: 0 4px 12px rgb(122 31 46 / 0.7);
+  outline: none;
+}
+
+/* ===== Heart Button (Guestbook) ===== */
+.heart-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #b93047;
+  color: white;
+  font-size: 2.25rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgb(185 48 71 / 0.7);
+  transition: background-color 0.3s ease;
+  user-select: none;
+  z-index: 9999;
+  text-align: center;
+  line-height: 1;
+  border: none;
+}
+
+.heart-button:hover,
+.heart-button:focus {
+  background-color: #7a1f2e;
+  outline: none;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  background-color: #fff;
+  user-select: none;
+}
+
+/* ===== Fade-in Animation ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== FAQ Accordion Toggle ===== */
+.faq-toggle {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  text-align: left;
+  background-color: #b93047;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.faq-toggle.active {
+  background-color: #7a1f2e;
+}
+
+.faq-toggle:focus {
+  outline: 3px solid #f9f8f6;
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  background-color: #f4f4f4;
+  padding: 0 1.25rem;
+  border-radius: 0 0 6px 6px;
+  transition: max-height 0.4s ease;
+  margin-bottom: 1rem;
+}
+
+.faq-content.open {
+  max-height: 500px; /* enough for content */
+  padding: 1rem 1.25rem;
+}
+
+/* ===== Image Slider ===== */
+.image-slider {
+  position: relative;
+  max-width: 600px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.image-slider .slide {
+  display: none;
+  width: 100%;
+}
+
+.image-slider .slide img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.prev-slide,
+.next-slide {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(185, 48, 71, 0.8);
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  border-radius: 50%;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.prev-slide:hover,
+.next-slide:hover,
+.prev-slide:focus,
+.next-slide:focus {
+  background-color: rgba(122, 31, 46, 0.9);
+  outline: none;
+}
+
+.prev-slide {
+  left: 10px;
+}
+
+.next-slide {
+  right: 10px;
+}
+
+/* ===== Voice Button ===== */
+.play-voice {
+  background-color: #b93047;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 1rem 0;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.play-voice:hover,
+.play-voice:focus {
+  background-color: #7a1f2e;
+  outline: none;
+}
+
+/* ===== Dark Mode Styles ===== */
+body.dark-mode {
+  background-color: #121212;
+  color: #e4e4e4;
+}
+
+body.dark-mode a {
+  color: #ff6b81;
+}
+
+body.dark-mode a:hover,
+body.dark-mode a:focus {
+  color: #ff3b55;
+}
+
+body.dark-mode .section.light {
+  background-color: #1e1e1e;
+  color: #ddd;
+  box-shadow: 0 4px 10px rgb(255 107 129 / 0.1);
+}
+
+body.dark-mode .section.dark {
+  background-color: #7a1f2e;
+  color: #f9f8f6;
+}
+
+body.dark-mode #progress-bar {
+  background-color: #ff6b81;
+}
+
+body.dark-mode .magic-link {
+  background-color: #ff6b81;
+  box-shadow: 0 2px 8px rgb(255 107 129 / 0.5);
+}
+
+body.dark-mode .magic-link:hover,
+body.dark-mode .magic-link:focus {
+  background-color: #ff3b55;
+  box-shadow: 0 4px 12px rgb(255 59 85 / 0.7);
+}
+
+body.dark-mode .heart-button {
+  background-color: #ff6b81;
+  box-shadow: 0 4px 12px rgb(255 107 129 / 0.7);
+}
+
+body.dark-mode .heart-button:hover,
+body.dark-mode .heart-button:focus {
+  background-color: #ff3b55;
+}
+
+body.dark-mode footer {
+  background-color: #1e1e1e;
+  color: #bbb;
+}
+
+/* ===== Dark Mode Toggle Button ===== */
+#dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #b93047;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgb(185 48 71 / 0.7);
+  user-select: none;
+  transition: background-color 0.3s ease;
+  z-index: 9999;
+}
+
+#dark-mode-toggle:hover,
+#dark-mode-toggle:focus {
+  background-color: #7a1f2e;
+  outline: none;
+}
+
+/* ===== Accessibility & Preferences ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }
 
-document.querySelectorAll(".play-voice").forEach(button => {
-  button.addEventListener("click", () => {
-    const text = button.dataset.text;
-    const utterance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(utterance);
-  });
-});
-
-const menuToggle = document.querySelector(".menu-toggle");
-const navMenu = document.querySelector(".nav-menu");
-
-if (menuToggle && navMenu) {
-  menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("open");
-    menuToggle.classList.toggle("active");
-  });
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  const guestbookInput = document.querySelector("#guest-name, #message, .auto-focus");
-  if (guestbookInput) {
-    guestbookInput.focus();
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem;
+    max-width: 100%;
   }
-});
+
+  .topics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .section {
+    margin: 2rem 1rem;
+    padding: 1rem 1rem;
+  }
+
+  #dark-mode-toggle,
+  .heart-button {
+    font-size: 1.5rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
