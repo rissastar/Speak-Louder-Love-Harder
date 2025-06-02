@@ -260,3 +260,41 @@ footer {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(111, 78, 154, 0.4);
 }
+.heart-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background-color: #a678d1;
+  color: white;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(111, 78, 154, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  z-index: 1000;
+  cursor: pointer;
+  user-select: none;
+  animation: pulse 2.5s infinite;
+}
+
+.heart-button:hover {
+  transform: scale(1.15);
+  background-color: #8e63c9;
+  box-shadow: 0 6px 20px rgba(111, 78, 154, 0.7);
+}
+
+/* Soft pulsing animation */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(111, 78, 154, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(111, 78, 154, 0.7);
+    transform: scale(1.05);
+  }
+}
