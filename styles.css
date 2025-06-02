@@ -277,20 +277,31 @@ footer {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.tab-buttons button {
-  padding: 0.5rem 1rem;
-  background-color: #eaeaea;
+.tab-btn {
+  background: #ccc;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.tab-buttons button.active {
-  background-color: #007acc;
-  color: #fff;
-  border-color: #007acc;
+.tab-btn.active {
+  background-color: #7058ff;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+  margin-top: 12px;
+}
+
+.tab-content.active {
+  display: block;
 }
 
 /* === Responsive Fixes === */
@@ -298,6 +309,7 @@ footer {
   .nav-links {
     display: none;
     flex-direction: column;
+    gap: 0.5rem;
   }
 
   .nav-links.nav-open {
@@ -319,37 +331,15 @@ footer {
     margin: 2rem 1rem;
     padding: 1.5rem;
   }
-  
-  .tab-btn.active {
-  background-color: #333;
-  color: #fff;
-}
-.tab-buttons {
-  margin: 10px 0;
-}
 
-.tab-btn {
-  background: #ccc;
-  border: none;
-  padding: 8px 16px;
-  margin-right: 6px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: background-color 0.3s;
-}
+  h1.typewriter {
+    font-size: 1.75rem;
+    max-width: 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
-.tab-btn.active {
-  background: #7058ff;
-  color: white;
-}
-
-.tab-content {
-  display: none;
-  margin-top: 12px;
-}
-
-.tab-content.active {
-  display: block;
-}
+  .tab-buttons {
+    flex-direction: column;
+  }
 }
