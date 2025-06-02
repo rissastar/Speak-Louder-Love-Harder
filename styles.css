@@ -407,4 +407,34 @@ button#clearTracker:hover {
 .healing-tracker-link a:focus {
   text-decoration: underline;
 }
+
+.healing-tracker-link {
+  background-color: #f5f0ff; /* soft pastel purple */
+  border: 2px solid #d3c4ff;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin: 30px auto;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.healing-tracker-link p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #4a347e;
+}
+
+.healing-tracker-link a {
+  color: #6a42c1;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.healing-tracker-link a:hover {
+  color: #472f91;
+  text-decoration: none;
+}
 }
