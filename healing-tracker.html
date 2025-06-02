@@ -1,40 +1,251 @@
-<button id="healing-toggle" aria-expanded="false" aria-controls="healing-panel" class="healing-toggle-btn">
-  💬 Daily Healing Tracker
-</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Healing Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fefefe;
+      color: #333;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
 
-<section id="healing-panel" class="healing-panel" aria-labelledby="healing-tracker-heading" role="region" hidden>
-  <button id="healing-close" aria-label="Close Healing Tracker" class="healing-close-btn">✖️</button>
+    h1, h2 {
+      text-align: center;
+      color: #4caf50;
+    }
 
-  <h2 id="healing-tracker-heading">Daily Healing Tracker (Optional)</h2>
-  <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
+    section {
+      background: #fafafa;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    }
 
-  <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
-    <div class="form-group mood-container">
-      <label for="mood">How are you feeling today?</label>
-      <span id="mood-emoji" aria-hidden="true">😐</span>
-      <select id="mood" name="mood" required>
-        <option value="">-- Select your mood --</option>
-        <option value="happy">Happy</option>
-        <option value="okay">Okay</option>
-        <option value="sad">Sad</option>
-        <option value="anxious">Anxious</option>
-        <option value="angry">Angry</option>
-        <option value="tired">Tired</option>
-        <option value="numb">Numb</option>
-      </select>
+    .mood-options {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .mood-btn {
+      font-size: 1.4rem;
+      padding: 0.6rem 1.2rem;
+      border: 2px solid #4caf50;
+      border-radius: 6px;
+      background-color: #e8f5e9;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+
+    .mood-btn:hover {
+      background-color: #c8e6c9;
+    }
+
+    .mood-btn.selected {
+      background-color: #4caf50;
+      color: white;
+      border-color: #388e3c;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: vertical;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    button#save-entry {
+      margin-top: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button#save-entry:hover {
+      background-color: #388e3c;
+    }
+
+    #entries-list {
+      list-style: none;
+      padding-left: 0;
+      max-height: 250px;
+      overflow-y: auto;
+      border-top: 1px solid #ddd;
+      margin-top: 1rem;
+    }
+
+    #entries-list li {
+      border-bottom: 1px solid #ddd;
+      padding: 0.6rem 0;
+    }
+
+    #entries-list li:last-child {
+      border-bottom: none;
+    }
+
+    .entry-date {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .entry-mood {
+      font-size: 1.2rem;
+      margin-left: 0.5rem;
+    }
+
+    .entry-text {
+      margin-top: 0.3rem;
+      white-space: pre-wrap;
+    }
+
+    /* Scrollbar styling */
+    #entries-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    #entries-list::-webkit-scrollbar-thumb {
+      background: #4caf50;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Healing Tracker</h1>
+
+  <section id="mood-section">
+    <h2>How do you feel today?</h2>
+    <div class="mood-options">
+      <button class="mood-btn" data-mood="😊">Happy 😊</button>
+      <button class="mood-btn" data-mood="😐">Okay 😐</button>
+      <button class="mood-btn" data-mood="😞">Sad 😞</button>
+      <button class="mood-btn" data-mood="😠">Angry 😠</button>
+      <button class="mood-btn" data-mood="😰">Anxious 😰</button>
     </div>
+  </section>
 
-    <div class="form-group">
-      <label for="prompt">Journal Prompt</label>
-      <input type="text" id="prompt" readonly aria-readonly="true" />
-      <button type="button" id="new-prompt-btn" aria-label="Get a new journal prompt">🔄</button>
-    </div>
+  <section id="journal-section">
+    <h2>Write about your day</h2>
+    <label for="journal-text">Your thoughts, feelings, or anything you want to record:</label>
+    <textarea id="journal-text" placeholder="Type here..."></textarea>
+    <button id="save-entry">Save Entry</button>
+  </section>
 
-    <div class="form-group">
-      <label for="reflection">Want to write more about it?</label>
-      <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
-    </div>
-  </form>
+  <section id="entries-section">
+    <h2>Past Entries</h2>
+    <ul id="entries-list">
+      <li>No entries yet.</li>
+    </ul>
+  </section>
 
-  <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
-</section>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const moodButtons = document.querySelectorAll('.mood-btn');
+      const journalText = document.getElementById('journal-text');
+      const saveBtn = document.getElementById('save-entry');
+      const entriesList = document.getElementById('entries-list');
+
+      let selectedMood = null;
+
+      // Load entries from localStorage
+      function loadEntries() {
+        const saved = localStorage.getItem('healingEntries');
+        if (!saved) {
+          entriesList.innerHTML = '<li>No entries yet.</li>';
+          return [];
+        }
+        const entries = JSON.parse(saved);
+        renderEntries(entries);
+        return entries;
+      }
+
+      // Render entries in list
+      function renderEntries(entries) {
+        if (entries.length === 0) {
+          entriesList.innerHTML = '<li>No entries yet.</li>';
+          return;
+        }
+        entriesList.innerHTML = '';
+        entries.slice().reverse().forEach(entry => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span class="entry-date">${new Date(entry.date).toLocaleString()}</span>
+            <span class="entry-mood">${entry.mood || ''}</span>
+            <p class="entry-text">${entry.text ? entry.text.replace(/\n/g, '<br>') : ''}</p>
+          `;
+          entriesList.appendChild(li);
+        });
+      }
+
+      // Handle mood selection
+      moodButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Clear previous selection
+          moodButtons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedMood = btn.dataset.mood;
+        });
+      });
+
+      // Save new entry
+      saveBtn.addEventListener('click', () => {
+        if (!selectedMood) {
+          alert('Please select a mood before saving.');
+          return;
+        }
+        const text = journalText.value.trim();
+        if (!text) {
+          alert('Please write something in the journal before saving.');
+          return;
+        }
+        const newEntry = {
+          date: new Date().toISOString(),
+          mood: selectedMood,
+          text: text
+        };
+
+        const entries = loadEntries();
+        entries.push(newEntry);
+        localStorage.setItem('healingEntries', JSON.stringify(entries));
+
+        // Reset form
+        journalText.value = '';
+        moodButtons.forEach(b => b.classList.remove('selected'));
+        selectedMood = null;
+
+        // Refresh display
+        renderEntries(entries);
+      });
+
+      // Initial load
+      loadEntries();
+    });
+  </script>
+</body>
+</html>
