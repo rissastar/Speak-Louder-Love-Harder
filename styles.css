@@ -513,3 +513,28 @@ body.dark-mode .collapsible {
 .collapsible.active {
   /* optional styles when active */
 }
+.myth-fact-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.myth {
+  color: #ff4d4d; /* red */
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 0.3em;
+}
+
+.fact {
+  color: #4CAF50; /* green */
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+
+.myth a,
+.fact a {
+  color: #ccc;
+  font-weight: normal;
+  font-size: 0.9em;
+}
