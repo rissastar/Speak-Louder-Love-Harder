@@ -237,3 +237,10 @@ footer {
     justify-content: center;
   }
 }
+.form-container {
+  background-color: #f5ebff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(111, 78, 154, 0.2);
+  margin: 2rem auto;
+  max-width: 750px;
+}
