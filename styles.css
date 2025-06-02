@@ -264,37 +264,32 @@ footer {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 60px;
-  height: 60px;
+  font-size: 28px;
   background-color: #a678d1;
   color: white;
-  font-size: 28px;
-  text-align: center;
-  line-height: 60px;
   border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(111, 78, 154, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  z-index: 1000;
-  cursor: pointer;
-  user-select: none;
-  animation: pulse 2.5s infinite;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  z-index: 999;
 }
 
 .heart-button:hover {
   transform: scale(1.15);
-  background-color: #8e63c9;
-  box-shadow: 0 6px 20px rgba(111, 78, 154, 0.7);
+  background-color: #c299ec;
 }
 
-/* Soft pulsing animation */
 @keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 4px 12px rgba(111, 78, 154, 0.5);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 8px 24px rgba(111, 78, 154, 0.7);
-    transform: scale(1.05);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.heart-button {
+  animation: pulse 2.5s infinite;
 }
