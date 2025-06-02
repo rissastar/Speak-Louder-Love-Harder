@@ -81,13 +81,17 @@
       <details>
         <summary>😔 <strong>Depression</strong></summary>
         <div class="tab-buttons">
-          <button>What it is</button>
-          <button>What it's not</button>
-          <button>Symptoms</button>
+          <button class="tab-btn active" data-tab="depression-what-it-is">What it is</button>
+          <button class="tab-btn" data-tab="depression-what-its-not">What it's not</button>
+          <button class="tab-btn" data-tab="depression-symptoms">Symptoms</button>
         </div>
-        <div class="tab-content">A serious mood disorder that affects how a person feels, thinks, and handles daily activities. It’s often caused by a mix of genetic, biological, environmental, and psychological factors.</div>
-        <div class="tab-content">Just feeling sad, lazy, or being weak. It’s not something someone can just “snap out of.”</div>
-        <div class="tab-content">
+        <div class="tab-content active" id="depression-what-it-is">
+          A serious mood disorder that affects how a person feels, thinks, and handles daily activities. It’s often caused by a mix of genetic, biological, environmental, and psychological factors.
+        </div>
+        <div class="tab-content" id="depression-what-its-not">
+          Just feeling sad, lazy, or being weak. It’s not something someone can just “snap out of.”
+        </div>
+        <div class="tab-content" id="depression-symptoms">
           <ul>
             <li>Persistent sadness or emptiness</li>
             <li>Loss of interest in hobbies</li>
@@ -102,13 +106,17 @@
       <details>
         <summary>😰 <strong>Anxiety Disorders</strong></summary>
         <div class="tab-buttons">
-          <button>What it is</button>
-          <button>What it's not</button>
-          <button>Symptoms</button>
+          <button class="tab-btn active" data-tab="anxiety-what-it-is">What it is</button>
+          <button class="tab-btn" data-tab="anxiety-what-its-not">What it's not</button>
+          <button class="tab-btn" data-tab="anxiety-symptoms">Symptoms</button>
         </div>
-        <div class="tab-content">A group of mental health conditions characterized by excessive fear or worry. Common types include GAD, social anxiety, and panic disorder.</div>
-        <div class="tab-content">Being overly dramatic or attention-seeking. It’s not just worrying about life stressors—it’s persistent and often uncontrollable.</div>
-        <div class="tab-content">
+        <div class="tab-content active" id="anxiety-what-it-is">
+          A group of mental health conditions characterized by excessive fear or worry. Common types include GAD, social anxiety, and panic disorder.
+        </div>
+        <div class="tab-content" id="anxiety-what-its-not">
+          Being overly dramatic or attention-seeking. It’s not just worrying about life stressors—it’s persistent and often uncontrollable.
+        </div>
+        <div class="tab-content" id="anxiety-symptoms">
           <ul>
             <li>Excessive worry or fear</li>
             <li>Racing thoughts</li>
@@ -122,13 +130,17 @@
       <details>
         <summary>💔 <strong>PTSD (Post-Traumatic Stress Disorder)</strong></summary>
         <div class="tab-buttons">
-          <button>What it is</button>
-          <button>What it's not</button>
-          <button>Symptoms</button>
+          <button class="tab-btn active" data-tab="ptsd-what-it-is">What it is</button>
+          <button class="tab-btn" data-tab="ptsd-what-its-not">What it's not</button>
+          <button class="tab-btn" data-tab="ptsd-symptoms">Symptoms</button>
         </div>
-        <div class="tab-content">A condition triggered by experiencing or witnessing a terrifying or traumatic event. PTSD changes the way the brain processes fear and stress.</div>
-        <div class="tab-content">Dwelling on the past or a sign of weakness. It’s a real, diagnosable condition that affects many trauma survivors.</div>
-        <div class="tab-content">
+        <div class="tab-content active" id="ptsd-what-it-is">
+          A condition triggered by experiencing or witnessing a terrifying or traumatic event. PTSD changes the way the brain processes fear and stress.
+        </div>
+        <div class="tab-content" id="ptsd-what-its-not">
+          Dwelling on the past or a sign of weakness. It’s a real, diagnosable condition that affects many trauma survivors.
+        </div>
+        <div class="tab-content" id="ptsd-symptoms">
           <ul>
             <li>Flashbacks and nightmares</li>
             <li>Emotional numbness</li>
@@ -142,13 +154,17 @@
       <details>
         <summary>🌀 <strong>BPD (Borderline Personality Disorder)</strong></summary>
         <div class="tab-buttons">
-          <button>What it is</button>
-          <button>What it's not</button>
-          <button>Symptoms</button>
+          <button class="tab-btn active" data-tab="bpd-what-it-is">What it is</button>
+          <button class="tab-btn" data-tab="bpd-what-its-not">What it's not</button>
+          <button class="tab-btn" data-tab="bpd-symptoms">Symptoms</button>
         </div>
-        <div class="tab-content">A personality disorder that makes it hard to regulate emotions and self-image, often rooted in early trauma or abandonment.</div>
-        <div class="tab-content">Being manipulative, overdramatic, or “crazy.” These are harmful stereotypes, not truths.</div>
-        <div class="tab-content">
+        <div class="tab-content active" id="bpd-what-it-is">
+          A personality disorder that makes it hard to regulate emotions and self-image, often rooted in early trauma or abandonment.
+        </div>
+        <div class="tab-content" id="bpd-what-its-not">
+          Being manipulative, overdramatic, or “crazy.” These are harmful stereotypes, not truths.
+        </div>
+        <div class="tab-content" id="bpd-symptoms">
           <ul>
             <li>Fear of abandonment</li>
             <li>Unstable or intense relationships</li>
@@ -162,13 +178,17 @@
       <details>
         <summary>🧩 <strong>OCD (Obsessive-Compulsive Disorder)</strong></summary>
         <div class="tab-buttons">
-          <button>What it is</button>
-          <button>What it's not</button>
-          <button>Symptoms</button>
+          <button class="tab-btn active" data-tab="ocd-what-it-is">What it is</button>
+          <button class="tab-btn" data-tab="ocd-what-its-not">What it's not</button>
+          <button class="tab-btn" data-tab="ocd-symptoms">Symptoms</button>
         </div>
-        <div class="tab-content">A chronic disorder where a person has uncontrollable, recurring thoughts (obsessions) and behaviors (compulsions) they feel the urge to repeat.</div>
-        <div class="tab-content">Just liking things neat or being “a clean freak.” OCD is not a personality quirk—it’s debilitating for many.</div>
-        <div class="tab-content">
+        <div class="tab-content active" id="ocd-what-it-is">
+          A chronic disorder where a person has uncontrollable, recurring thoughts (obsessions) and behaviors (compulsions) they feel the urge to repeat.
+        </div>
+        <div class="tab-content" id="ocd-what-its-not">
+          Just liking things neat or being “a clean freak.” OCD is not a personality quirk—it’s debilitating for many.
+        </div>
+        <div class="tab-content" id="ocd-symptoms">
           <ul>
             <li>Intrusive thoughts</li>
             <li>Repeated rituals (e.g., washing hands, checking locks)</li>
@@ -181,13 +201,17 @@
       <details>
         <summary>🌪️ <strong>Bipolar Disorder</strong></summary>
         <div class="tab-buttons">
-          <button>What it is</button>
-          <button>What it's not</button>
-          <button>Symptoms</button>
+          <button class="tab-btn active" data-tab="bipolar-what-it-is">What it is</button>
+          <button class="tab-btn" data-tab="bipolar-what-its-not">What it's not</button>
+          <button class="tab-btn" data-tab="bipolar-symptoms">Symptoms</button>
         </div>
-        <div class="tab-content">A mental health condition causing extreme mood shifts that include emotional highs (mania or hypomania) and lows (depression).</div>
-        <div class="tab-content">Just being moody or unpredictable. Bipolar is not just a personality trait—it’s a serious clinical disorder.</div>
-        <div class="tab-content">
+        <div class="tab-content active" id="bipolar-what-it-is">
+          A mental health condition causing extreme mood shifts that include emotional highs (mania or hypomania) and lows (depression).
+        </div>
+        <div class="tab-content" id="bipolar-what-its-not">
+          Just being moody or unpredictable. Bipolar is not just a personality trait—it’s a serious clinical disorder.
+        </div>
+        <div class="tab-content" id="bipolar-symptoms">
           <ul>
             <li>Manic episodes (euphoria, high energy, risky behavior)</li>
             <li>Depressive episodes (sadness, hopelessness, fatigue)</li>
@@ -196,9 +220,6 @@
           </ul>
         </div>
       </details>
-
-    </div>
-  </details>
 </section>
 
   <section class="section light">
