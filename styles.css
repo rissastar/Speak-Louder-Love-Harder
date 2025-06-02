@@ -1,4 +1,4 @@
-/* Define CSS variables for light mode (default) */
+/* === CSS Variables for Light Mode (Default) === */
 :root {
   --bg-color: #1a0033;
   --text-color: #f0d6f7;
@@ -19,7 +19,7 @@
   --border-color: pink;
 }
 
-/* Dark mode overrides */
+/* === Dark Mode Overrides === */
 body.dark-mode {
   --bg-color: #f6f6f6;
   --text-color: #1a0033;
@@ -40,7 +40,7 @@ body.dark-mode {
   --border-color: purple;
 }
 
-/* Reset & base */
+/* === Reset & Base Styles === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -57,6 +57,7 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* === Links === */
 a {
   color: var(--link-color);
   text-decoration: none;
@@ -70,7 +71,7 @@ a:focus {
   outline: none;
 }
 
-/* Scroll progress bar */
+/* === Scroll Progress Bar === */
 #progress-bar {
   position: fixed;
   top: 0;
@@ -82,7 +83,7 @@ a:focus {
   transition: width 0.25s ease-out;
 }
 
-/* Sections */
+/* === Section Styles === */
 .section {
   max-width: 900px;
   margin: 3rem auto;
@@ -102,22 +103,11 @@ a:focus {
   color: var(--section-dark-text);
 }
 
-/* Fade-in animation */
-.fade-in {
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.8s forwards;
-  animation-delay: 0.3s;
+.section.light h2 {
+  color: var(--link-color);
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Hero section */
+/* === Hero Section === */
 .hero {
   background: linear-gradient(135deg, var(--section-dark-bg), var(--link-hover-color));
   color: var(--text-color);
@@ -134,7 +124,7 @@ a:focus {
   margin-bottom: 1rem;
 }
 
-/* --- Typewriter Effect for Header --- */
+/* === Typewriter Header === */
 h1.typewriter {
   font-family: 'Courier New', Courier, monospace;
   white-space: nowrap;
@@ -145,27 +135,32 @@ h1.typewriter {
   margin: 0 auto;
 }
 
-/* Typing effect */
 @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 20ch;
-  }
+  from { width: 0; }
+  to { width: 20ch; }
 }
 
-/* Caret blinking animation */
 @keyframes blink-caret {
-  from, to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: var(--border-color);
+  from, to { border-color: transparent; }
+  50% { border-color: var(--border-color); }
+}
+
+/* === Fade In === */
+.fade-in {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Topics grid */
+/* === Topics Grid === */
 .topics-grid {
   display: flex;
   flex-wrap: wrap;
@@ -173,7 +168,7 @@ h1.typewriter {
   gap: 1rem;
 }
 
-/* --- Interactive Topic Links Hover --- */
+/* === Magic Links === */
 .magic-link {
   display: inline-block;
   padding: 1rem 1.5rem;
@@ -196,18 +191,12 @@ h1.typewriter {
   outline: none;
 }
 
-/* Accessibility focus */
 .magic-link:focus-visible {
   outline: 3px solid var(--link-color);
   outline-offset: 4px;
 }
 
-/* "You Are Not Alone" section */
-.section.light h2 {
-  color: var(--link-color);
-}
-
-/* Heart button */
+/* === Heart Button === */
 .heart-button {
   position: fixed;
   bottom: 1.5rem;
@@ -233,10 +222,9 @@ h1.typewriter {
   transform: scale(1.15);
   box-shadow: 0 10px 25px var(--box-shadow-hover-color);
   outline: none;
-  cursor: pointer; /* added */
 }
 
-/* Dark mode toggle button */
+/* === Dark Mode Toggle === */
 #dark-mode-toggle {
   position: fixed;
   bottom: 1.5rem;
@@ -259,10 +247,9 @@ h1.typewriter {
   background: var(--dark-toggle-hover-bg);
   box-shadow: 0 10px 25px var(--box-shadow-hover-color);
   outline: none;
-  cursor: pointer; /* added */
 }
 
-/* Footer */
+/* === Footer === */
 footer {
   text-align: center;
   padding: 1.5rem 1rem;
@@ -273,55 +260,7 @@ footer {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .magic-link {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-  }
-
-  .section {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
-  }
-
-  /* Fix: Keep progress bar consistent with theme variable */
-  #progress-bar {
-    background: var(--scrollbar-bg);
-    height: 5px;
-    width: 0;
-    transition: width 0.25s ease-out;
-  }
-  
-  .nav-links {
-  display: none; /* Hidden by default */
-  transition: max-height 0.3s ease-out;
-}
-
-.nav-links a {
-  display: block;
-  padding: 8px 16px;
-  text-decoration: none;
-  color: #333;
-}
-
-.collapsible-btn {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 12px 16px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.collapsible-btn:hover {
-  background-color: #555;
-}
-
+/* === Mood Check-In Form === */
 .mood-check-in {
   margin-top: 1em;
   background: #f9f9f9;
@@ -349,7 +288,20 @@ select, textarea {
   box-sizing: border-box;
 }
 
-/* For collapsible nav */
+/* === Collapsible Nav Button & Menu === */
+.collapsible-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.collapsible-btn:hover {
+  background-color: #555;
+}
+
 .nav-links {
   display: flex;
   flex-wrap: wrap;
@@ -366,4 +318,20 @@ select, textarea {
     display: flex;
   }
 }
+
+/* === Responsive Fixes === */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .magic-link {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .section {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
 }
