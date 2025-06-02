@@ -1,87 +1,140 @@
- / Scroll Progress Bar
+// ==============================
+// Scroll Progress Bar
+// ==============================
 window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
+  const scrolled = (scrollTop / docHeight) * 100;
   const progressBar = document.getElementById("progress-bar");
   if (progressBar) {
-    progressBar.style.width = scrollPercent + "%";
+    progressBar.style.width = scrolled + "%";
   }
 });
 
-// Scroll Fade-In Animation using Intersection Observer
-const fadeElements = document.querySelectorAll('.fade-in');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+// ==============================
+// Typewriter Effect
+// ==============================
+const typewriter = document.querySelector(".typewriter");
+
+if (typewriter) {
+  const text = typewriter.textContent.trim();
+  typewriter.textContent = "";
+  let i = 0;
+  const type = () => {
+    if (i < text.length) {
+      typewriter.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, 60);
     }
-  });
-}, { threshold: 0.1 });
+  };
+  type();
+}
+
+// ==============================
+// Fade-In on Scroll
+// ==============================
+const fadeElements = document.querySelectorAll(".fade-in");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
 fadeElements.forEach(el => observer.observe(el));
 
-// Smooth Scroll for nav links
-document.querySelectorAll('nav ul.nav-links a').forEach(link => {
-  link.addEventListener('click', e => {
-    const href = link.getAttribute('href');
-    if (href.startsWith('#')) {
+// ==============================
+// Smooth Scroll for Anchor Links
+// ==============================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    const targetID = this.getAttribute("href").substring(1);
+    const target = document.getElementById(targetID);
+    if (target) {
       e.preventDefault();
-      document.querySelector(href).scrollIntoView({
-        behavior: 'smooth'
-      });
+      target.scrollIntoView({ behavior: "smooth" });
     }
   });
 });
 
-// Pulse animation on button (optional - add pulse class to button element to use)
-const pulseButtons = document.querySelectorAll('.button.pulse');
-pulseButtons.forEach(button => {
-  button.addEventListener('mouseenter', () => {
-    button.classList.add('pulse');
-  });
-  button.addEventListener('animationend', () => {
-    button.classList.remove('pulse');
+// ==============================
+// FAQ Toggle / Collapsible Sections
+// ==============================
+document.querySelectorAll(".faq-toggle").forEach(button => {
+  button.addEventListener("click", () => {
+    const content = button.nextElementSibling;
+    button.classList.toggle("active");
+    content.classList.toggle("open");
   });
 });
-// Progress Bar
-window.addEventListener("scroll", () => {
-  const progress = document.getElementById("progress-bar");
-  const totalHeight = document.body.scrollHeight - window.innerHeight;
-  const progressHeight = (window.pageYOffset / totalHeight) * 100;
-  progress.style.height = progressHeight + "%";
-});
 
-// Fade-in animation on scroll
-const faders = document.querySelectorAll(".fade-in");
-const appearOptions = {
-  threshold: 0.3,
-  rootMargin: "0px 0px -50px 0px"
-};
+// ==============================
+// Image Slider / Gallery (if used)
+// ==============================
+const slider = document.querySelector(".image-slider");
+if (slider) {
+  let currentIndex = 0;
+  const slides = slider.querySelectorAll(".slide");
+  const prev = document.querySelector(".prev-slide");
+  const next = document.querySelector(".next-slide");
 
-const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add("appear");
-    appearOnScroll.unobserve(entry.target);
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.style.display = i === index ? "block" : "none";
+    });
+  }
+
+  if (slides.length > 0) {
+    showSlide(currentIndex);
+
+    prev?.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    });
+
+    next?.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    });
+  }
+}
+
+// ==============================
+// Voice Buttons for Audio Playback
+// ==============================
+document.querySelectorAll(".play-voice").forEach(button => {
+  button.addEventListener("click", () => {
+    const text = button.dataset.text;
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
   });
-}, appearOptions);
-
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
 });
 
-// Guestbook form handler
-document.getElementById("guestbookForm")?.addEventListener("submit", function (e) {
-  e.preventDefault();
+// ==============================
+// Mobile Menu Toggle (if added)
+// ==============================
+const menuToggle = document.querySelector(".menu-toggle");
+const navMenu = document.querySelector(".nav-menu");
 
-  // Optionally, you can send data to a backend here
-  const name = document.getElementById("name").value.trim();
-  const message = document.getElementById("message").value.trim();
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("open");
+    menuToggle.classList.toggle("active");
+  });
+}
 
-  if (message !== "") {
-    document.getElementById("guestbookForm").style.display = "none";
-    document.getElementById("thank-you-message").style.display = "block";
-    console.log("Guestbook submission:", { name, message }); // Optional debug log
+// ==============================
+// Guestbook / Contact Auto Focus
+// ==============================
+window.addEventListener("DOMContentLoaded", () => {
+  const guestbookInput = document.querySelector("#guest-name, #message, .auto-focus");
+  if (guestbookInput) {
+    guestbookInput.focus();
   }
 });
