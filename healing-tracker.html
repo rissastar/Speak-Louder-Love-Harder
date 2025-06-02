@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily Healing Tracker</title>
-
-  <!-- Confetti library -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
-
   <link rel="stylesheet" href="healing-tracker.css" />
+  <!-- Include confetti library CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <main class="container" role="main" aria-labelledby="page-title">
@@ -25,7 +23,7 @@
       <h2 id="tracker-heading">Check In With Yourself</h2>
       <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
       
-      <form class="mood-check-in" aria-label="Daily Healing Check-In">
+      <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
         <div class="form-group">
           <label for="mood">How are you feeling today?</label>
           <select id="mood" name="mood" required>
@@ -47,17 +45,14 @@
       </form>
       
       <div class="buttons">
-        <button id="save-btn" type="button">Save Entry</button>
-        <button id="clear-btn" type="button">Clear Saved Entry</button>
         <button id="export-btn" type="button">Export Entry as .txt</button>
       </div>
 
       <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
-      
       <button id="back-btn" type="button" style="margin-top: 1rem;">← Go Back</button>
     </section>
   </main>
 
-  <script src="healing-tracker.js" defer></script>
+  <script src="healing-tracker.js"></script>
 </body>
 </html>
