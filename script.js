@@ -169,6 +169,24 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
           if (targetContent) {
             targetContent.classList.add('active');
           }
+          <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('details').forEach(detailsElem => {
+      const tabButtons = detailsElem.querySelectorAll('.tab-btn');
+      const tabContents = detailsElem.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-tab');
+
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          button.classList.add('active');
+          const targetContent = detailsElem.querySelector(`#${targetId}`);
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
         });
       });
     });
