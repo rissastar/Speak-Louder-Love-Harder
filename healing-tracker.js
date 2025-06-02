@@ -1,113 +1,97 @@
-// healing-tracker.js
-
-// Motivational quotes array
+// Quotes array for motivational quote of the day
 const quotes = [
   "Strength doesn’t come from what you can do. It comes from overcoming the things you once thought you couldn’t.",
-  "Healing is a journey, not a destination.",
-  "Every day may not be good, but there is something good in every day.",
-  "Your present circumstances don't determine where you can go; they merely determine where you start.",
-  "It’s okay to not be okay — take your time to heal.",
-  "You are stronger than your struggles.",
+  "Healing takes time, and asking for help is a courageous step.",
+  "One small positive thought in the morning can change your whole day.",
+  "You don’t have to control your thoughts. You just have to stop letting them control you.",
+  "Every day may not be good, but there is something good in every day."
 ];
 
-// Elements
-const quoteText = document.getElementById("quote-text");
-const moodSelect = document.getElementById("mood");
-const reflectionInput = document.getElementById("reflection");
-
-const saveBtn = document.getElementById("save-btn");
-const clearBtn = document.getElementById("clear-btn");
-const exportBtn = document.getElementById("export-btn");
-const backBtn = document.getElementById("back-btn");
-
-// LocalStorage key
-const STORAGE_KEY = "healingTrackerEntry";
-
-// Display random motivational quote
-function setRandomQuote() {
+// Select random quote and display it
+function displayQuote() {
+  const quoteText = document.getElementById('quote-text');
   const randomIndex = Math.floor(Math.random() * quotes.length);
   quoteText.textContent = quotes[randomIndex];
 }
-setRandomQuote();
+displayQuote();
 
-// Load saved entry from localStorage (if any)
-function loadSavedEntry() {
+// Elements
+const moodSelect = document.getElementById('mood');
+const reflectionTextarea = document.getElementById('reflection');
+const saveBtn = document.getElementById('save-btn');
+const clearBtn = document.getElementById('clear-btn');
+const exportBtn = document.getElementById('export-btn');
+const backBtn = document.getElementById('back-btn');
+
+const STORAGE_KEY = 'dailyHealingEntry';
+
+// Load saved data on page load
+function loadEntry() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
       const entry = JSON.parse(saved);
       if (entry.mood) moodSelect.value = entry.mood;
-      if (entry.reflection) reflectionInput.value = entry.reflection;
-    } catch {
-      // If parse error, clear localStorage to avoid confusion
-      localStorage.removeItem(STORAGE_KEY);
+      if (entry.reflection) reflectionTextarea.value = entry.reflection;
+    } catch (e) {
+      console.error('Error parsing saved entry:', e);
     }
   }
 }
-loadSavedEntry();
+loadEntry();
 
-// Save entry to localStorage
-function saveEntry() {
-  if (!moodSelect.value) {
-    alert("Please select your mood before saving.");
+// Save current entry to localStorage
+saveBtn.addEventListener('click', () => {
+  const mood = moodSelect.value;
+  const reflection = reflectionTextarea.value.trim();
+  if (!mood) {
+    alert('Please select your mood before saving.');
     return;
   }
-  const entry = {
-    mood: moodSelect.value,
-    reflection: reflectionInput.value.trim(),
-    savedAt: new Date().toISOString(),
-  };
+  const entry = { mood, reflection, timestamp: new Date().toISOString() };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entry));
-  alert("Your healing entry has been saved temporarily.");
-}
+  alert('Your healing entry has been saved.');
+});
 
-// Clear saved entry from localStorage and reset form
-function clearEntry() {
-  if (confirm("Are you sure you want to clear your saved entry?")) {
+// Clear saved entry and form fields
+clearBtn.addEventListener('click', () => {
+  if (confirm('Are you sure you want to clear your saved entry? This cannot be undone.')) {
     localStorage.removeItem(STORAGE_KEY);
-    moodSelect.value = "";
-    reflectionInput.value = "";
-    alert("Saved entry cleared.");
+    moodSelect.value = '';
+    reflectionTextarea.value = '';
   }
-}
+});
 
-// Export current entry to .txt file
-function exportEntry() {
-  if (!moodSelect.value) {
-    alert("Please select your mood before exporting.");
+// Export current entry as .txt file
+exportBtn.addEventListener('click', () => {
+  const mood = moodSelect.value;
+  const reflection = reflectionTextarea.value.trim();
+  if (!mood) {
+    alert('Please select your mood before exporting.');
     return;
   }
-  const moodText = moodSelect.options[moodSelect.selectedIndex].text;
-  const reflection = reflectionInput.value.trim() || "(No reflection written)";
-  const dateStr = new Date().toLocaleString();
+  const exportText =
+`Daily Healing Tracker Entry
+Date: ${new Date().toLocaleString()}
 
-  const content = `Daily Healing Tracker Entry
-Date: ${dateStr}
-
-Mood: ${moodText}
-
+Mood: ${moodSelect.options[moodSelect.selectedIndex].text}
 Reflection:
-${reflection}
-`;
+${reflection || '(No additional reflection provided)'}`;
 
-  const blob = new Blob([content], { type: "text/plain" });
+  const blob = new Blob([exportText], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `HealingTracker_${new Date().toISOString().slice(0,10)}.txt`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-}
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `healing-entry-${new Date().toISOString().slice(0,10)}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 0);
+});
 
-// Go back button: use history.back()
-function goBack() {
+// Go back button navigates back in browser history
+backBtn.addEventListener('click', () => {
   window.history.back();
-}
-
-// Event listeners
-saveBtn.addEventListener("click", saveEntry);
-clearBtn.addEventListener("click", clearEntry);
-exportBtn.addEventListener("click", exportEntry);
-backBtn.addEventListener("click", goBack);
+});
