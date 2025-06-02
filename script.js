@@ -132,3 +132,14 @@ document.querySelectorAll('.collapsible').forEach(button => {
     }
   });
 });
+document.querySelectorAll('.collapsible').forEach(button => {
+  button.addEventListener('click', () => {
+    button.classList.toggle('active');  // optional: toggle an active class for styling
+    const content = button.nextElementSibling;
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;   // collapse
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px"; // expand to fit content
+    }
+  });
+});
