@@ -1,60 +1,74 @@
+// =========================
 // Scroll Progress Bar
+// =========================
 window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
+  const scrolled = (scrollTop / docHeight) * 100;
   const progressBar = document.getElementById("progress-bar");
   if (progressBar) {
-    progressBar.style.width = scrollPercent + "%";
+    progressBar.style.width = scrolled + "%";
   }
 });
 
-// Fade-in Elements on Scroll
-const fadeElements = document.querySelectorAll('.fade-in');
-const fadeObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.3,
-  rootMargin: "0px 0px -50px 0px"
-});
-fadeElements.forEach(el => fadeObserver.observe(el));
+// =========================
+// Typewriter Effect
+// =========================
+const typewriter = document.querySelector(".typewriter");
 
-// Smooth Scroll for Nav Links
-document.querySelectorAll('nav ul.nav-links a').forEach(link => {
-  link.addEventListener('click', e => {
-    const href = link.getAttribute('href');
-    if (href && href.startsWith('#')) {
+if (typewriter) {
+  const text = typewriter.getAttribute("data-text") || typewriter.textContent.trim();
+  typewriter.textContent = ""; // Clear initial text
+  let i = 0;
+
+  const type = () => {
+    if (i < text.length) {
+      typewriter.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, 60);
+    } else {
+      typewriter.classList.remove("blinking-cursor");
+    }
+  };
+
+  type();
+}
+
+// =========================
+// Fade-In on Scroll
+// =========================
+const fadeElements = document.querySelectorAll(".fade-in");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target); // Only fade in once
+      }
+    });
+  },
+  {
+    threshold: 0.3,
+  }
+);
+
+fadeElements.forEach(el => observer.observe(el));
+
+// =========================
+// Smooth Anchor Scrolling
+// =========================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    const targetID = this.getAttribute("href").substring(1);
+    const target = document.getElementById(targetID);
+
+    if (target) {
       e.preventDefault();
-      document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
   });
-});
-
-// Pulse Button Animation (on hover)
-document.querySelectorAll('.button.pulse').forEach(button => {
-  button.addEventListener('mouseenter', () => {
-    button.classList.add('pulse-triggered');
-  });
-  button.addEventListener('animationend', () => {
-    button.classList.remove('pulse-triggered');
-  });
-});
-
-// Guestbook Form Handler
-document.getElementById("guestbookForm")?.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (message !== "") {
-    document.getElementById("guestbookForm").style.display = "none";
-    document.getElementById("thank-you-message").style.display = "block";
-    console.log("Guestbook submission:", { name, message });
-  }
 });
