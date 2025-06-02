@@ -28,16 +28,19 @@
     const toggleBtn = document.getElementById('dark-mode-toggle');
     if (!toggleBtn) return;
 
+    // Initialize button text and body class based on localStorage
     if (localStorage.getItem('darkMode') === 'enabled') {
       document.body.classList.add('dark-mode');
       toggleBtn.textContent = '☀️ Light Mode';
+    } else {
+      toggleBtn.textContent = '🌙 Dark Mode';
     }
 
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
       toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-      localStorage.setItem('darkMode', isDark ? 'enabled' : '');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
     });
   }
 
@@ -97,12 +100,13 @@
       buttons.forEach((btn, i) => {
         btn.addEventListener('click', () => {
           buttons.forEach(b => b.classList.remove('active'));
-          tabContents.forEach(c => c.style.display = 'none');
+          tabContents.forEach(c => (c.style.display = 'none'));
           btn.classList.add('active');
           if (tabContents[i]) tabContents[i].style.display = 'block';
         });
 
-        if (i === 0) btn.click(); // Activate first tab by default
+        // Activate first tab by default
+        if (i === 0) btn.click();
       });
     });
   }
@@ -113,7 +117,15 @@
     if (nav) nav.classList.toggle('active');
   }
 
-  // --- Init on Load ---
+  // Attach toggleNav to mobile nav button on DOM load
+  document.addEventListener('DOMContentLoaded', () => {
+    const navToggleBtn = document.getElementById('mobile-nav-toggle');
+    if (navToggleBtn) {
+      navToggleBtn.addEventListener('click', toggleNav);
+    }
+  });
+
+  // --- Initialize on DOM load ---
   document.addEventListener('DOMContentLoaded', () => {
     fadeInOnScroll();
     updateProgressBar();
@@ -123,14 +135,9 @@
     initDisorderTabs();
   });
 
-  // --- Scroll Events ---
+  // --- Scroll event listeners ---
   window.addEventListener('scroll', () => {
     fadeInOnScroll();
     updateProgressBar();
   });
-  const toggleBtn = document.getElementById('dark-mode-toggle');
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  toggleBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-});
 </script>
