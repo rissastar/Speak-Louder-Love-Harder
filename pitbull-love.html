@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div id="progress-bar"></div>
+
   <header>
     <nav>
-      <div class="logo"><a href="home.html">Speak Louder, Love Harder</a></div>
+      <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
       <ul class="nav-links">
         <li><a href="mental-health.html">Mental Health</a></li>
         <li><a href="addiction.html">Addiction</a></li>
@@ -18,15 +20,21 @@
         <li><a href="physical-abuse.html">Physical Abuse</a></li>
         <li><a href="mental-abuse.html">Mental Abuse</a></li>
         <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html" class="active">Pitbull Love</a></li>
+        <li><a href="pitbull-love.html" aria-current="page">Pitbull Love</a></li>
         <li><a href="foster-children.html">Foster Children</a></li>
         <li><a href="guestbook-connect.html">Connect</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
-    <section class="section light">
+  <section class="hero">
+    <div>
+      <h1>Pitbull Love</h1>
+      <p class="fade-in">Loyal. Loving. Misunderstood. Let’s rewrite the story and show the world what Pitbulls really are.</p>
+    </div>
+  </section>
+
+  <main class="section light fade-in">
       <h1>My Story: How Zayah Saved Me</h1>
       <p>
         In one of the darkest periods of my life, when hope seemed distant and every day felt like a struggle, an unexpected light entered my world—a tiny pitbull puppy.
@@ -79,5 +87,7 @@
   <footer>
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
+  
+   <script src="script.js" defer></script>
 </body>
 </html>
