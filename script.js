@@ -109,8 +109,8 @@
 
   // --- Mobile Nav Toggle ---
   function toggleNav() {
-    const nav = document.getElementById("collapsibleNav");
-    if (nav) nav.classList.toggle("active");
+    const nav = document.getElementById('collapsibleNav');
+    if (nav) nav.classList.toggle('active');
   }
 
   // --- Init on Load ---
@@ -128,7 +128,4 @@
     fadeInOnScroll();
     updateProgressBar();
   });
-function toggleNav() {
-  const nav = document.getElementById('collapsibleNav');
-  nav.classList.toggle('active');
-}
+</script>
