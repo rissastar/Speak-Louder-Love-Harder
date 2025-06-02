@@ -129,4 +129,22 @@ document.querySelectorAll("details").forEach((detail) => {
     }, 10);
   });
 });
+
+document.querySelectorAll(".tab-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const tabId = btn.getAttribute("data-tab");
+
+    // Hide all tab contents
+    document.querySelectorAll(".tab-content").forEach((tab) => {
+      tab.style.display = "none";
+    });
+
+    // Show the selected tab
+    document.getElementById(tabId).style.display = "block";
+
+    // Optional: update button active state
+    document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
 </script>
