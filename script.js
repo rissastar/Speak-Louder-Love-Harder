@@ -1,4 +1,4 @@
-Fix my js / Scroll Progress Bar
+ / Scroll Progress Bar
 window.addEventListener("scroll", () => {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
