@@ -1,0 +1,40 @@
+<button id="healing-toggle" aria-expanded="false" aria-controls="healing-panel" class="healing-toggle-btn">
+  💬 Daily Healing Tracker
+</button>
+
+<section id="healing-panel" class="healing-panel" aria-labelledby="healing-tracker-heading" role="region" hidden>
+  <button id="healing-close" aria-label="Close Healing Tracker" class="healing-close-btn">✖️</button>
+
+  <h2 id="healing-tracker-heading">Daily Healing Tracker (Optional)</h2>
+  <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
+
+  <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
+    <div class="form-group mood-container">
+      <label for="mood">How are you feeling today?</label>
+      <span id="mood-emoji" aria-hidden="true">😐</span>
+      <select id="mood" name="mood" required>
+        <option value="">-- Select your mood --</option>
+        <option value="happy">Happy</option>
+        <option value="okay">Okay</option>
+        <option value="sad">Sad</option>
+        <option value="anxious">Anxious</option>
+        <option value="angry">Angry</option>
+        <option value="tired">Tired</option>
+        <option value="numb">Numb</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="prompt">Journal Prompt</label>
+      <input type="text" id="prompt" readonly aria-readonly="true" />
+      <button type="button" id="new-prompt-btn" aria-label="Get a new journal prompt">🔄</button>
+    </div>
+
+    <div class="form-group">
+      <label for="reflection">Want to write more about it?</label>
+      <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
+    </div>
+  </form>
+
+  <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
+</section>
