@@ -1,68 +1,85 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const moodSelect = document.getElementById("mood");
-  const reflectionBox = document.getElementById("reflection");
-  const messageArea = document.createElement("div");
-  const quoteArea = document.createElement("div");
+// healing-tracker.js
 
-  // --- Quotes of the Day ---
+document.addEventListener('DOMContentLoaded', function () {
+  const moodSelect = document.getElementById('mood');
+  const reflectionText = document.getElementById('reflection');
+  const saveButton = document.getElementById('saveEntry');
+  const clearButton = document.getElementById('clearEntry');
+  const exportButton = document.getElementById('exportEntry');
+  const quoteDisplay = document.getElementById('quoteOfTheDay');
+
+  // 🌟 Motivational Quotes
   const quotes = [
-    "🌟 Healing isn’t linear — be gentle with yourself.",
-    "💪 You’ve survived 100% of your worst days so far.",
-    "🌈 Even small steps forward still count as progress.",
-    "🧘‍♀️ Peace begins with giving yourself grace.",
-    "☀️ Every day is a new chance to heal.",
-    "🌻 You are doing better than you think."
+    "You are doing better than you think.",
+    "Healing takes time, and that’s okay.",
+    "Be proud of how far you’ve come.",
+    "Every step forward is a step toward healing.",
+    "You are not your struggles.",
+    "Rest is part of the process."
   ];
 
-  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-  quoteArea.textContent = `Quote of the Day: "${randomQuote}"`;
-  quoteArea.className = "healing-quote";
-  moodSelect.closest("form").insertAdjacentElement("beforebegin", quoteArea);
+  // Display random quote
+  function showQuoteOfTheDay() {
+    const today = new Date().toDateString();
+    const storedQuote = localStorage.getItem('quoteOfTheDay');
+    const storedDate = localStorage.getItem('quoteDate');
 
-  // --- Confirmation message based on mood ---
-  messageArea.setAttribute("id", "healing-message");
-  messageArea.style.marginTop = "1rem";
-  moodSelect.parentElement.appendChild(messageArea);
-
-  const updateMessage = (mood) => {
-    const moodMessages = {
-      happy: "😊 That’s great to hear. Celebrate the joy!",
-      okay: "😐 Just okay is perfectly fine. You’re getting through.",
-      sad: "😢 It’s okay to feel sad. Let yourself feel it.",
-      anxious: "😰 Take a deep breath. You’re doing your best.",
-      angry: "😠 Anger is valid. What triggered it?",
-      tired: "🥱 Rest is healing. Listen to your body.",
-      numb: "😶 Feeling numb is still a feeling. You’re not alone."
-    };
-    messageArea.textContent = moodMessages[mood] || "";
-  };
-
-  // --- Load from localStorage if available ---
-  const savedMood = localStorage.getItem("healing-mood");
-  const savedReflection = localStorage.getItem("healing-reflection");
-
-  if (savedMood) {
-    moodSelect.value = savedMood;
-    updateMessage(savedMood);
-  }
-  if (savedReflection) {
-    reflectionBox.value = savedReflection;
+    if (storedDate === today && storedQuote) {
+      quoteDisplay.textContent = `"${storedQuote}"`;
+    } else {
+      const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      localStorage.setItem('quoteOfTheDay', newQuote);
+      localStorage.setItem('quoteDate', today);
+      quoteDisplay.textContent = `"${newQuote}"`;
+    }
   }
 
-  // --- Save to localStorage when changed ---
-  moodSelect.addEventListener("change", function () {
-    const selectedMood = moodSelect.value;
-    localStorage.setItem("healing-mood", selectedMood);
-    updateMessage(selectedMood);
+  // Load saved entry
+  function loadSavedEntry() {
+    const savedMood = localStorage.getItem('savedMood');
+    const savedReflection = localStorage.getItem('savedReflection');
+    if (savedMood) moodSelect.value = savedMood;
+    if (savedReflection) reflectionText.value = savedReflection;
+  }
+
+  // Save entry
+  saveButton.addEventListener('click', () => {
+    localStorage.setItem('savedMood', moodSelect.value);
+    localStorage.setItem('savedReflection', reflectionText.value);
+    alert('✅ Entry saved locally.');
   });
 
-  reflectionBox.addEventListener("input", function () {
-    localStorage.setItem("healing-reflection", reflectionBox.value);
+  // Clear entry
+  clearButton.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear your saved entry?')) {
+      localStorage.removeItem('savedMood');
+      localStorage.removeItem('savedReflection');
+      moodSelect.value = '';
+      reflectionText.value = '';
+      alert('🗑️ Entry cleared.');
+    }
   });
 
-  // --- Save Place Note ---
-  const saveNote = document.createElement("p");
-  saveNote.textContent = "💾 Your mood and reflection are saved safely on your device.";
-  saveNote.className = "save-note";
-  reflectionBox.parentElement.appendChild(saveNote);
+  // Export entry
+  exportButton.addEventListener('click', () => {
+    const mood = moodSelect.value || 'Not selected';
+    const reflection = reflectionText.value || 'No reflection written.';
+    const date = new Date().toLocaleString();
+    const content = `📝 Daily Healing Tracker\nDate: ${date}\nMood: ${mood}\n\nReflection:\n${reflection}\n`;
+    
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'daily-healing-export.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
+
+  // Init
+  loadSavedEntry();
+  showQuoteOfTheDay();
 });
