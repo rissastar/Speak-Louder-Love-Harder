@@ -138,6 +138,12 @@ document.querySelectorAll('#mental-health-conditions details').forEach(details =
   } else {
     nav.style.display = 'block';
   }
+  <script>
+  function toggleNav() {
+    const nav = document.getElementById("collapsibleNav");
+    nav.classList.toggle("nav-open");
+  }
+</script>
 }
   });
 });
