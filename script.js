@@ -130,3 +130,35 @@ window.addEventListener('scroll', () => {
   fadeInOnScroll();
   updateProgressBar();
 });
+// Dark Mode Toggle 🌙
+const darkToggle = document.getElementById('dark-mode-toggle');
+darkToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+// Collapsible Sections (FAQ-like)
+document.querySelectorAll('.collapsible').forEach(button => {
+  button.addEventListener('click', () => {
+    const content = button.nextElementSibling;
+    content.classList.toggle('active');
+    button.classList.toggle('active');
+  });
+});
+
+// Tabs Inside <details>
+document.querySelectorAll('.tab-buttons').forEach(buttonGroup => {
+  const buttons = buttonGroup.querySelectorAll('button');
+  const tabContents = buttonGroup.parentElement.querySelectorAll('.tab-content');
+
+  buttons.forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(tab => tab.style.display = 'none');
+
+      btn.classList.add('active');
+      tabContents[index].style.display = 'block';
+    });
+
+    if (index === 0) btn.click(); // Set default active tab
+  });
+});
