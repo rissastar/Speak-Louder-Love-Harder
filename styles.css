@@ -244,3 +244,19 @@ footer {
   margin: 2rem auto;
   max-width: 750px;
 }
+.fancy-link-button {
+  display: inline-block;
+  background: linear-gradient(to right, #a678d1, #8e63c9);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(111, 78, 154, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fancy-link-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(111, 78, 154, 0.4);
+}
