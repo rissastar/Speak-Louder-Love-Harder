@@ -147,4 +147,30 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.classList.add("active");
   });
 });
+
+  // When the DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    // For each group of tab buttons (inside each details)
+    document.querySelectorAll('details').forEach(detailsElem => {
+      const tabButtons = detailsElem.querySelectorAll('.tab-btn');
+      const tabContents = detailsElem.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetId = button.getAttribute('data-tab');
+
+          // Remove active class from all buttons and tab contents in this group
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Add active to clicked button and corresponding content
+          button.classList.add('active');
+          const targetContent = detailsElem.querySelector(`#${targetId}`);
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
+        });
+      });
+    });
+  });
 </script>
