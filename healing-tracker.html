@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily Healing Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healing Tracker</title>
   <link rel="stylesheet" href="healing-tracker.css" />
+  <script defer src="healing-tracker.js"></script>
 </head>
 <body>
-
-  <main>
+  <main class="tracker-container">
     <section class="healing-tracker-widget" aria-labelledby="tracker-heading">
-      <h1 id="tracker-heading">Daily Healing Tracker (Optional)</h1>
-      <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
+      <h1 id="tracker-heading">🌿 Daily Healing Tracker</h1>
+      <p class="intro-text">Use this space to reflect on your emotional state and take small steps toward healing. This won't be saved, but you can write freely or <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">download a worksheet</a>.</p>
 
-      <form id="healing-form" aria-label="Daily Healing Check-In (Not Saved)">
+      <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
         <div class="form-group">
           <label for="mood">How are you feeling today?</label>
           <select id="mood" name="mood" required>
@@ -30,20 +30,16 @@
 
         <div class="form-group">
           <label for="reflection">Want to write more about it?</label>
-          <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
+          <textarea id="reflection" name="reflection" rows="5" placeholder="Write here... (This won't be saved)"></textarea>
         </div>
 
-        <button type="submit">Check In</button>
+        <div class="form-actions">
+          <button type="button" id="clearBtn">Clear</button>
+        </div>
       </form>
 
-      <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
-
-      <div id="thank-you-message" role="alert" aria-live="polite" hidden>
-        Thank you for checking in! Remember, this is your journey.
-      </div>
+      <p class="back-link">← <a href="mental-health.html">Back to Mental Health</a></p>
     </section>
   </main>
-
-  <script src="healing-tracker.js"></script>
 </body>
 </html>
