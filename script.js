@@ -99,6 +99,11 @@
       } else {
         collapsibleNav.classList.add("nav-open");
       }
+      
+      function toggleNav() {
+  const nav = document.getElementById("collapsibleNav");
+  nav.classList.toggle("show-nav");
+}
     };
   });
 </script>
