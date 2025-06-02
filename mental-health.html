@@ -324,35 +324,48 @@
   </details>
 </section>
 
- <section class="healing-tracker-widget" aria-labelledby="tracker-heading">
-  <h2 id="tracker-heading">Daily Healing Tracker (Optional)</h2>
-  <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
-  
-  <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
-    <div class="form-group">
-      <label for="mood">How are you feeling today?</label>
-      <select id="mood" name="mood" required>
-        <option value="">-- Select your mood --</option>
-        <option value="happy">😊 Happy</option>
-        <option value="okay">😐 Okay</option>
-        <option value="sad">😢 Sad</option>
-        <option value="anxious">😰 Anxious</option>
-        <option value="angry">😠 Angry</option>
-        <option value="tired">🥱 Tired</option>
-        <option value="numb">😶 Numb</option>
-      </select>
-    </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Healing Tracker</title>
+  <link rel="stylesheet" href="css/healing-tracker.css" />
+</head>
+<body>
 
-    <div class="form-group">
-      <label for="reflection">Want to write more about it?</label>
-      <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
-    </div>
-  </form>
+  <!-- Healing Tracker widget section here -->
+  <section class="healing-tracker-widget" aria-labelledby="tracker-heading">
+    <h2 id="tracker-heading">Daily Healing Tracker (Optional)</h2>
+    <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
+    
+    <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
+      <div class="form-group">
+        <label for="mood">How are you feeling today?</label>
+        <select id="mood" name="mood" required>
+          <option value="">-- Select your mood --</option>
+          <option value="happy">😊 Happy</option>
+          <option value="okay">😐 Okay</option>
+          <option value="sad">😢 Sad</option>
+          <option value="anxious">😰 Anxious</option>
+          <option value="angry">😠 Angry</option>
+          <option value="tired">🥱 Tired</option>
+          <option value="numb">😶 Numb</option>
+        </select>
+      </div>
 
-  <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
-</section>
+      <div class="form-group">
+        <label for="reflection">Want to write more about it?</label>
+        <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
+      </div>
+    </form>
 
-<script src="js/healing-tracker.js" defer></script>
+    <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
+  </section>
+
+  <script src="js/healing-tracker.js" defer></script>
+
+</body>
+</html>
 
 <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook">❤️</a>
   <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
