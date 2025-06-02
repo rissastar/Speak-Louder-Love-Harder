@@ -381,4 +381,30 @@ button#clearTracker {
 button#clearTracker:hover {
   background-color: #ddd;
 }
+
+/* Healing Tracker Link Styles */
+.healing-tracker-link {
+  margin: 1.5em 0;
+  padding: 1em;
+  background-color: #f0f7f9;
+  border-left: 6px solid #4caf50; /* green accent */
+  font-size: 1.1rem;
+  border-radius: 4px;
+}
+
+.healing-tracker-link p {
+  margin: 0;
+}
+
+.healing-tracker-link a {
+  color: #2e7d32; /* dark green */
+  font-weight: bold;
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+}
+
+.healing-tracker-link a:hover,
+.healing-tracker-link a:focus {
+  text-decoration: underline;
+}
 }
