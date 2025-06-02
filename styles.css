@@ -1,34 +1,55 @@
-/* Reset and base styles */
+:root {
+  --primary-purple: #7f5af0;
+  --primary-purple-dark: #6829f6;
+  --primary-purple-darker: #5938b0;
+  --background-light: #f7f5ff;
+  --background-section-light: #f0e9ff;
+  --background-dark: #1e1a38;
+  --background-section-dark: #6f59f9;
+  --text-light: #2e2e3a;
+  --text-section-light: #3e3e4a;
+  --text-dark: #dcd6f7;
+  --text-section-dark: #fff;
+  --shadow-light: rgba(127, 90, 240, 0.35);
+  --shadow-medium: rgba(127, 90, 240, 0.55);
+  --shadow-strong: rgba(127, 90, 240, 0.7);
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  --border-radius: 10px;
+  --transition-speed: 0.3s;
+  --footer-height: 60px;
+}
+
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background: #f7f5ff;
-  color: #2e2e3a;
-  line-height: 1.6;
+  margin: 0;
+  padding-bottom: var(--footer-height);
+  font-family: var(--font-family);
   font-size: 16px;
+  line-height: 1.6;
+  background: var(--background-light);
+  color: var(--text-light);
   transition: background-color 0.4s ease, color 0.4s ease;
-  padding-bottom: 60px; /* for footer */
   scroll-behavior: smooth;
+  user-select: none;
 }
 
-/* Dark mode */
 body.dark-mode {
-  background-color: #1e1a38;
-  color: #dcd6f7;
+  background-color: var(--background-dark);
+  color: var(--text-dark);
 }
 
-/* Scroll progress bar */
+/* Scroll Progress Bar */
 #progress-bar {
   position: fixed;
   top: 0;
   left: 0;
   height: 5px;
-  background: linear-gradient(90deg, #7f5af0, #c471f5);
+  background: linear-gradient(90deg, var(--primary-purple), #c471f5);
   width: 0;
   z-index: 9999;
   transition: width 0.25s ease-out;
@@ -39,24 +60,24 @@ body.dark-mode {
 button, .heart-button {
   cursor: pointer;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   padding: 12px 24px;
   font-size: 18px;
-  font-weight: 600;
-  background: #7f5af0;
+  font-weight: var(--font-weight-bold);
+  background: var(--primary-purple);
   color: white;
-  box-shadow: 0 4px 12px rgb(127 90 240 / 0.35);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+  user-select: none;
 }
 
 button:hover, .heart-button:hover {
-  background: #6829f6;
-  box-shadow: 0 6px 18px rgb(104 41 246 / 0.55);
+  background: var(--primary-purple-dark);
+  box-shadow: 0 6px 18px var(--shadow-medium);
 }
 
-button:focus, 
-.heart-button:focus {
-  outline: 3px solid #6829f6;
+button:focus, .heart-button:focus {
+  outline: 3px solid var(--primary-purple-dark);
   outline-offset: 2px;
 }
 
@@ -70,8 +91,7 @@ button:focus,
   line-height: 1;
   text-align: center;
   z-index: 10000;
-  user-select: none;
-  box-shadow: 0 6px 20px rgba(127, 90, 240, 0.7);
+  box-shadow: 0 6px 20px var(--shadow-strong);
 }
 
 /* Links */
@@ -81,38 +101,39 @@ a.magic-link {
   margin: 8px;
   background: #9a7ff0;
   color: white;
-  font-weight: 700;
-  border-radius: 10px;
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--border-radius);
   text-decoration: none;
-  box-shadow: 0 4px 12px rgb(154 127 240 / 0.4);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(154, 127, 240, 0.4);
+  transition: background-color var(--transition-speed);
+  user-select: none;
 }
 
 a.magic-link:hover {
-  background-color: #6829f6;
-  box-shadow: 0 6px 18px rgb(104 41 246 / 0.7);
+  background-color: var(--primary-purple-dark);
+  box-shadow: 0 6px 18px rgba(104, 41, 246, 0.7);
 }
 
 a.magic-link:focus {
-  outline: 3px solid #6829f6;
+  outline: 3px solid var(--primary-purple-dark);
   outline-offset: 2px;
 }
 
-/* Hero section */
+/* Hero Section */
 .hero {
-  background: linear-gradient(135deg, #9a7ff0, #7f5af0);
+  background: linear-gradient(135deg, #9a7ff0, var(--primary-purple));
   color: white;
   padding: 60px 20px;
   text-align: center;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgb(127 90 240 / 0.4);
+  box-shadow: 0 8px 20px rgba(127, 90, 240, 0.4);
   margin-bottom: 40px;
   user-select: none;
 }
 
 .typewriter {
   font-size: 3rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-black);
   overflow: hidden;
   border-right: 0.15em solid white;
   white-space: nowrap;
@@ -142,17 +163,17 @@ a.magic-link:focus {
 }
 
 .section.light {
-  background-color: #f0e9ff;
-  color: #3e3e4a;
+  background-color: var(--background-section-light);
+  color: var(--text-section-light);
 }
 
 .section.dark {
-  background-color: #6f59f9;
-  color: white;
+  background-color: var(--background-section-dark);
+  color: var(--text-section-dark);
   box-shadow: 0 4px 16px rgba(111, 89, 249, 0.7);
 }
 
-/* Topics grid */
+/* Topics Grid */
 .topics-grid {
   display: flex;
   flex-wrap: wrap;
@@ -178,38 +199,39 @@ footer {
   text-align: center;
   padding: 20px;
   font-size: 14px;
-  color: #7a6ff0;
+  color: var(--primary-purple);
   user-select: none;
 }
 
-/* Dark mode toggle button */
+/* Dark Mode Toggle Button */
 #dark-mode-toggle {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: #7f5af0;
+  background: var(--primary-purple);
   color: white;
   padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: var(--border-radius);
+  font-weight: var(--font-weight-bold);
   box-shadow: 0 4px 12px rgba(127, 90, 240, 0.4);
   z-index: 10000;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition-speed);
+  user-select: none;
 }
 
 #dark-mode-toggle:hover {
-  background: #6829f6;
+  background: var(--primary-purple-dark);
 }
 
 #dark-mode-toggle:focus {
-  outline: 3px solid #6829f6;
+  outline: 3px solid var(--primary-purple-dark);
   outline-offset: 2px;
 }
 
-/* Collapsible stories */
+/* Collapsible Stories */
 .collapsible {
-  background-color: #7f5af0;
+  background-color: var(--primary-purple);
   color: white;
   cursor: pointer;
   padding: 14px 22px;
@@ -217,25 +239,25 @@ footer {
   border: none;
   text-align: left;
   font-size: 20px;
-  font-weight: 700;
-  border-radius: 10px;
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--border-radius);
   margin: 16px 0 0 0;
   box-shadow: 0 4px 15px rgba(127, 90, 240, 0.5);
+  transition: background-color var(--transition-speed);
   user-select: none;
-  transition: background-color 0.3s ease;
 }
 
 .collapsible:hover {
-  background-color: #6829f6;
+  background-color: var(--primary-purple-dark);
 }
 
 .collapsible.active {
-  background-color: #5938b0;
+  background-color: var(--primary-purple-darker);
   box-shadow: 0 6px 20px rgba(89, 56, 176, 0.7);
 }
 
 .collapsible:focus {
-  outline: 3px solid #5938b0;
+  outline: 3px solid var(--primary-purple-darker);
   outline-offset: 2px;
 }
 
@@ -244,7 +266,7 @@ footer {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 0;
@@ -258,12 +280,12 @@ footer {
 
 /* Show content when active */
 .collapsible.active + .content {
-  max-height: 500px; /* adjust if needed */
+  max-height: 500px;
   padding-top: 12px;
   padding-bottom: 12px;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 600px) {
   .typewriter {
     font-size: 2rem;
@@ -284,7 +306,7 @@ footer {
   }
 }
 
-/* Mood check-in form styles */
+/* Mood check-in form */
 .mood-check-in {
   margin-top: 1rem;
   display: flex;
@@ -293,7 +315,7 @@ footer {
 }
 
 .mood-check-in label {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 
 .mood-check-in select,
@@ -304,11 +326,16 @@ footer {
   font-family: inherit;
   font-size: 1rem;
   resize: vertical;
-  transition: border-color 0.3s ease;
 }
 
-.mood-check-in select:focus,
-.mood-check-in textarea:focus {
-  border-color: #7f5af0;
-  outline: none;
+/* Hide scrollbar for progress bar on mobile */
+@media (hover: none) {
+  #progress-bar {
+    display: none;
+  }
+}
+
+/* User-select reset for interactive elements */
+button, a, input, select, textarea {
+  user-select: text;
 }
