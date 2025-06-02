@@ -233,6 +233,7 @@ h1.typewriter {
   transform: scale(1.15);
   box-shadow: 0 10px 25px var(--box-shadow-hover-color);
   outline: none;
+  cursor: pointer; /* added */
 }
 
 /* Dark mode toggle button */
@@ -258,6 +259,7 @@ h1.typewriter {
   background: var(--dark-toggle-hover-bg);
   box-shadow: 0 10px 25px var(--box-shadow-hover-color);
   outline: none;
+  cursor: pointer; /* added */
 }
 
 /* Footer */
@@ -286,15 +288,12 @@ footer {
     margin: 2rem 1rem;
     padding: 1.5rem;
   }
-  
+
+  /* Fix: Keep progress bar consistent with theme variable */
   #progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 5px;
-  background: #f39c12;
-  width: 0;
-  transition: width 0.25s ease;
-  z-index: 9999;
-}
+    background: var(--scrollbar-bg);
+    height: 5px;
+    width: 0;
+    transition: width 0.25s ease-out;
+  }
 }
