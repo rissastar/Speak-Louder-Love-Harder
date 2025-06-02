@@ -1,153 +1,104 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const progressBar = document.getElementById("progress-bar");
-  const darkModeToggle = document.getElementById("dark-mode-toggle");
-  const body = document.body;
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const body = document.body;
+    const progressBar = document.getElementById("progress-bar");
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+    const collapsibleNav = document.getElementById("collapsibleNav");
 
-  // Initialize dark mode based on saved preference or system preference
-  const savedTheme = localStorage.getItem("dark-mode");
-  if (savedTheme === "enabled") {
-    body.classList.add("dark-mode");
-    darkModeToggle.textContent = "☀️"; // sun icon for light mode toggle
-  } else if (savedTheme === "disabled") {
-    body.classList.remove("dark-mode");
-    darkModeToggle.textContent = "🌙"; // moon icon for dark mode toggle
-  } else {
-    // If no preference saved, check system preference
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    // --- Dark Mode: Load saved preference or system default ---
+    const savedTheme = localStorage.getItem("dark-mode");
+    if (savedTheme === "enabled") {
       body.classList.add("dark-mode");
-      darkModeToggle.textContent = "☀️";
-      localStorage.setItem("dark-mode", "enabled");
+      if (darkModeToggle) darkModeToggle.textContent = "☀️";
+    } else if (savedTheme === "disabled") {
+      body.classList.remove("dark-mode");
+      if (darkModeToggle) darkModeToggle.textContent = "🌙";
     } else {
-      darkModeToggle.textContent = "🌙";
-      localStorage.setItem("dark-mode", "disabled");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (prefersDark) {
+        body.classList.add("dark-mode");
+        localStorage.setItem("dark-mode", "enabled");
+        if (darkModeToggle) darkModeToggle.textContent = "☀️";
+      } else {
+        localStorage.setItem("dark-mode", "disabled");
+        if (darkModeToggle) darkModeToggle.textContent = "🌙";
+      }
     }
-  }
 
-  // Scroll progress bar update function
-  function updateProgressBar() {
-    const scrollTop = window.scrollY || window.pageYOffset;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (scrollTop / docHeight) * 100;
-    progressBar.style.width = scrolled + "%";
-  }
-
-  // Initial call and event listener for scroll
-  window.addEventListener("scroll", updateProgressBar);
-  updateProgressBar();
-
-  // Dark mode toggle button click handler
-  darkModeToggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    if (body.classList.contains("dark-mode")) {
-      localStorage.setItem("dark-mode", "enabled");
-      darkModeToggle.textContent = "☀️"; // sun icon
-    } else {
-      localStorage.setItem("dark-mode", "disabled");
-      darkModeToggle.textContent = "🌙"; // moon icon
-    }
-  });
-
-  // Accessibility: Focus styles on magic links
-  const magicLinks = document.querySelectorAll(".magic-link");
-  magicLinks.forEach(link => {
-    link.addEventListener("focus", () => link.classList.add("hovered"));
-    link.addEventListener("blur", () => link.classList.remove("hovered"));
-  });
-
-  // Tabs functionality
-  document.querySelectorAll('.tab-buttons').forEach(tabGroup => {
-    const buttons = tabGroup.querySelectorAll('button');
-    const tabContents = tabGroup.parentElement.querySelectorAll('.tab-content');
-
-    // Hide all except the first tab content initially
-    tabContents.forEach((content, i) => content.style.display = i === 0 ? 'block' : 'none');
-
-    buttons.forEach((btn, idx) => {
-      btn.addEventListener('click', () => {
-        tabContents.forEach(c => (c.style.display = 'none'));
-        tabContents[idx].style.display = 'block';
+    // --- Dark Mode: Toggle ---
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        if (body.classList.contains("dark-mode")) {
+          localStorage.setItem("dark-mode", "enabled");
+          darkModeToggle.textContent = "☀️";
+        } else {
+          localStorage.setItem("dark-mode", "disabled");
+          darkModeToggle.textContent = "🌙";
+        }
       });
-      
-      // Wait for DOM content to load
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.getElementById('dark-mode-toggle');
-  const body = document.body;
-  const progressBar = document.getElementById('progress-bar');
-
-  // Load saved theme from localStorage (if any)
-  if (localStorage.getItem('darkMode') === 'enabled') {
-    body.classList.add('dark-mode');
-  }
-
-  // Toggle dark mode when button clicked
-  toggleBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-
-    // Save preference
-    if (body.classList.contains('dark-mode')) {
-      localStorage.setItem('darkMode', 'enabled');
-    } else {
-      localStorage.setItem('darkMode', 'disabled');
     }
-  });
 
-  // Scroll progress bar animation
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
+    // --- Scroll Progress Bar ---
+    function updateProgressBar() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      if (progressBar) progressBar.style.width = scrollPercent + "%";
+    }
+    window.addEventListener("scroll", updateProgressBar);
+    updateProgressBar();
 
-    progressBar.style.width = scrollPercent + '%';
-  });
-  
-  // Toggle collapsible navbar
-function toggleNav() {
-  const nav = document.getElementById('collapsibleNav');
-  if (nav.style.display === 'block') {
-    nav.style.display = 'none';
-  } else {
-    nav.style.display = 'block';
-  }
-}
-
-// Tab switching for all mental health disorders
-document.querySelectorAll('#mental-health-conditions details').forEach(details => {
-  const buttons = details.querySelectorAll('.tab-buttons button');
-  const contents = details.querySelectorAll('.tab-content');
-
-  // Hide all tab contents except first by default
-  contents.forEach((content, i) => {
-    content.style.display = i === 0 ? 'block' : 'none';
-  });
-
-  buttons.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-      // Hide all
-      contents.forEach(c => (c.style.display = 'none'));
-      // Show selected
-      contents[i].style.display = 'block';
-
-      // Optional: style active button
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    // --- Magic Link Focus Effects ---
+    document.querySelectorAll(".magic-link").forEach(link => {
+      link.addEventListener("focus", () => link.classList.add("hovered"));
+      link.addEventListener("blur", () => link.classList.remove("hovered"));
     });
-    function toggleNav() {
-  const nav = document.getElementById('collapsibleNav');
-  if (nav.style.display === 'block') {
-    nav.style.display = 'none';
-  } else {
-    nav.style.display = 'block';
-  }
-  <script>
-  function toggleNav() {
-    const nav = document.getElementById("collapsibleNav");
-    nav.classList.toggle("nav-open");
-  }
+
+    // --- Tab Button Functionality ---
+    document.querySelectorAll('.tab-buttons').forEach(tabGroup => {
+      const buttons = tabGroup.querySelectorAll('button');
+      const tabContents = tabGroup.parentElement.querySelectorAll('.tab-content');
+
+      // Show first tab by default
+      tabContents.forEach((content, i) => content.style.display = i === 0 ? 'block' : 'none');
+
+      buttons.forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+          tabContents.forEach(c => c.style.display = 'none');
+          tabContents[idx].style.display = 'block';
+
+          // Optional: Add active class
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    });
+
+    // --- Mental Health Section Tabs (if present) ---
+    document.querySelectorAll('#mental-health-conditions details').forEach(details => {
+      const buttons = details.querySelectorAll('.tab-buttons button');
+      const contents = details.querySelectorAll('.tab-content');
+
+      contents.forEach((content, i) => content.style.display = i === 0 ? 'block' : 'none');
+
+      buttons.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          contents.forEach(c => c.style.display = 'none');
+          contents[i].style.display = 'block';
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    });
+
+    // --- Collapsible Nav ---
+    window.toggleNav = function () {
+      if (collapsibleNav.classList.contains("nav-open")) {
+        collapsibleNav.classList.remove("nav-open");
+      } else {
+        collapsibleNav.classList.add("nav-open");
+      }
+    };
+  });
 </script>
-}
-  });
-});
-});
-    });
-  });
-});
