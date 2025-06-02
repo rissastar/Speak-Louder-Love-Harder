@@ -1,119 +1,89 @@
-.healing-toggle-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  width: 100%;
-  max-width: 320px;
-  margin: 1rem auto;
-  display: block;
-  text-align: center;
-}
-
-.healing-toggle-btn:focus {
-  outline: 3px solid #2a7a2a;
-  outline-offset: 2px;
-}
-
-.healing-panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease;
+/* General Page Styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fffefe;
+  color: #333;
+  margin: 0;
   padding: 0 1rem;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin: 1rem auto;
-  width: 100%;
-  max-width: 360px;
-  box-sizing: border-box;
-  position: relative;
+  line-height: 1.6;
 }
 
-.healing-panel.open {
-  max-height: 700px; /* enough to show all content */
-  padding: 1rem 1.5rem;
+/* Section Container */
+.healing-tracker-widget {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f7fafc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-.healing-close-btn {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #666;
-}
-
-.healing-close-btn:hover,
-.healing-close-btn:focus {
-  color: #000;
-  outline: none;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.mood-container {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-#mood-emoji {
+/* Heading */
+.healing-tracker-widget h2 {
   font-size: 1.8rem;
-  user-select: none;
-  min-width: 1.8rem;
+  color: #4a90e2;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
-#mood {
-  flex-grow: 1;
-  padding: 0.4rem 0.6rem;
+/* Paragraph */
+.healing-tracker-widget p {
   font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  color: #555;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-#prompt {
-  width: calc(100% - 2.5rem);
-  padding: 0.4rem 0.6rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+/* Form Styling */
+.mood-check-in {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-#new-prompt-btn {
-  width: 2rem;
-  height: 2rem;
-  margin-left: 0.3rem;
-  background-color: #0078d7;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  line-height: 1;
-  padding: 0;
+/* Labels and Inputs */
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-#new-prompt-btn:hover,
-#new-prompt-btn:focus {
-  background-color: #005ea3;
-  outline: none;
-}
-
-textarea {
+.form-group select,
+.form-group textarea {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.8rem;
   font-size: 1rem;
-  border-radius: 6px;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
   resize: vertical;
-  min-height: 80px;
+}
+
+/* Download Link */
+.healing-tracker-widget a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.healing-tracker-widget a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .healing-tracker-widget {
+    padding: 1rem;
+  }
+
+  .healing-tracker-widget h2 {
+    font-size: 1.4rem;
+  }
+
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.95rem;
+  }
 }
