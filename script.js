@@ -1,140 +1,63 @@
-// ==============================
 // Scroll Progress Bar
-// ==============================
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY;
+const progressBar = document.getElementById('progress-bar');
+
+function updateProgressBar() {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrolled = (scrollTop / docHeight) * 100;
-  const progressBar = document.getElementById("progress-bar");
-  if (progressBar) {
-    progressBar.style.width = scrolled + "%";
-  }
-});
-
-// ==============================
-// Typewriter Effect
-// ==============================
-const typewriter = document.querySelector(".typewriter");
-
-if (typewriter) {
-  const text = typewriter.textContent.trim();
-  typewriter.textContent = "";
-  let i = 0;
-  const type = () => {
-    if (i < text.length) {
-      typewriter.textContent += text.charAt(i);
-      i++;
-      setTimeout(type, 60);
-    }
-  };
-  type();
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  progressBar.style.width = `${scrollPercent}%`;
 }
 
-// ==============================
+window.addEventListener('scroll', updateProgressBar);
+window.addEventListener('load', updateProgressBar);
+
 // Fade-In on Scroll
-// ==============================
-const fadeElements = document.querySelectorAll(".fade-in");
+const fadeEls = document.querySelectorAll('.fade-in');
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.2 }
-);
+function handleFadeInOnScroll() {
+  fadeEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    // Trigger fade-in when element is 80% visible from top
+    if (rect.top < windowHeight * 0.8) {
+      el.classList.add('visible');
+    }
+  });
+}
 
-fadeElements.forEach(el => observer.observe(el));
+window.addEventListener('scroll', handleFadeInOnScroll);
+window.addEventListener('load', handleFadeInOnScroll);
 
-// ==============================
-// Smooth Scroll for Anchor Links
-// ==============================
+// Add 'visible' class to fade elements initially for CSS fade-in
+fadeEls.forEach(el => {
+  if (!el.classList.contains('visible')) {
+    el.classList.add('visible');
+  }
+});
+
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    const targetID = this.getAttribute("href").substring(1);
-    const target = document.getElementById(targetID);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth" });
+  anchor.addEventListener('click', e => {
+    e.preventDefault();
+    const targetID = anchor.getAttribute('href').slice(1);
+    const targetEl = document.getElementById(targetID);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
+      targetEl.focus({ preventScroll: true });
     }
   });
 });
 
-// ==============================
-// FAQ Toggle / Collapsible Sections
-// ==============================
-document.querySelectorAll(".faq-toggle").forEach(button => {
-  button.addEventListener("click", () => {
-    const content = button.nextElementSibling;
-    button.classList.toggle("active");
-    content.classList.toggle("open");
-  });
+// Typewriter effect (optional, but your CSS already does it)
+// If you want JS-driven typing effect instead, you can implement here
+// But since CSS handles it nicely, no extra JS needed here.
+
+// Accessibility: Add focus styles for keyboard users
+document.body.addEventListener('keydown', e => {
+  if (e.key === 'Tab') {
+    document.body.classList.add('user-is-tabbing');
+  }
 });
-
-// ==============================
-// Image Slider / Gallery (if used)
-// ==============================
-const slider = document.querySelector(".image-slider");
-if (slider) {
-  let currentIndex = 0;
-  const slides = slider.querySelectorAll(".slide");
-  const prev = document.querySelector(".prev-slide");
-  const next = document.querySelector(".next-slide");
-
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.display = i === index ? "block" : "none";
-    });
-  }
-
-  if (slides.length > 0) {
-    showSlide(currentIndex);
-
-    prev?.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      showSlide(currentIndex);
-    });
-
-    next?.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    });
-  }
-}
-
-// ==============================
-// Voice Buttons for Audio Playback
-// ==============================
-document.querySelectorAll(".play-voice").forEach(button => {
-  button.addEventListener("click", () => {
-    const text = button.dataset.text;
-    const utterance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(utterance);
-  });
-});
-
-// ==============================
-// Mobile Menu Toggle (if added)
-// ==============================
-const menuToggle = document.querySelector(".menu-toggle");
-const navMenu = document.querySelector(".nav-menu");
-
-if (menuToggle && navMenu) {
-  menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("open");
-    menuToggle.classList.toggle("active");
-  });
-}
-
-// ==============================
-// Guestbook / Contact Auto Focus
-// ==============================
-window.addEventListener("DOMContentLoaded", () => {
-  const guestbookInput = document.querySelector("#guest-name, #message, .auto-focus");
-  if (guestbookInput) {
-    guestbookInput.focus();
-  }
+document.body.addEventListener('mousedown', e => {
+  document.body.classList.remove('user-is-tabbing');
 });
