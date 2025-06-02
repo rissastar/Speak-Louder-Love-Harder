@@ -1,171 +1,129 @@
-/* healing-tracker.css */
+// healing-tracker.js
 
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+document.addEventListener('DOMContentLoaded', () => {
+  const quoteText = document.getElementById('quote-text');
+  const moodSelect = document.getElementById('mood');
+  const reflectionTextarea = document.getElementById('reflection');
+  const saveBtn = document.getElementById('save-btn');
+  const clearBtn = document.getElementById('clear-btn');
+  const exportBtn = document.getElementById('export-btn');
+  const backBtn = document.getElementById('back-btn');
 
-body {
-  font-family: 'Comfortaa', cursive, sans-serif;
-  background: linear-gradient(135deg, #f9f7f1, #e0f7fa);
-  color: #333;
-  margin: 0;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-}
+  const STORAGE_KEY = 'healingTrackerEntry';
 
-.container {
-  background: white;
-  max-width: 600px;
-  width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  padding: 2rem 2.5rem 3rem;
-  box-sizing: border-box;
-  position: relative;
-}
+  // Array of motivational quotes
+  const quotes = [
+    "🌟 “You are stronger than you think.”",
+    "🌈 “Every day is a new beginning.”",
+    "💪 “Small steps lead to big changes.”",
+    "🌻 “Healing is a journey, not a race.”",
+    "✨ “Be gentle with yourself.”",
+    "🌿 “Growth begins in the moments of struggle.”",
+    "🌞 “You’ve survived 100% of your bad days.”",
+    "🌙 “Rest when you need to, but never quit.”"
+  ];
 
-h1, h2 {
-  color: #00796b;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: 2.8rem;
-  letter-spacing: 1px;
-}
-
-h2 {
-  font-size: 1.8rem;
-  margin-top: 0;
-}
-
-#quote-text {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #004d40;
-  user-select: none;
-  line-height: 1.5;
-  min-height: 48px;
-}
-
-/* Sparkle animation for quote emoji */
-@keyframes sparkle {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.5) drop-shadow(0 0 8px gold); }
-}
-
-.animate-emoji {
-  animation: sparkle 3s ease-in-out;
-}
-
-/* Form styling */
-form.mood-check-in {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #00695c;
-}
-
-select, textarea {
-  border: 2px solid #b2dfdb;
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
-  resize: vertical;
-  min-height: 50px;
-  background-color: #e0f2f1;
-  color: #004d40;
-}
-
-select:focus, textarea:focus {
-  border-color: #00796b;
-  outline: none;
-  background-color: #b2dfdb;
-}
-
-/* Buttons container */
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-/* Buttons styling */
-button {
-  background: linear-gradient(45deg, #00796b, #004d40);
-  border: none;
-  border-radius: 25px;
-  color: #e0f2f1;
-  padding: 0.8rem 1.8rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,121,107,0.4);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  font-weight: 700;
-  user-select: none;
-}
-
-button:hover, button:focus {
-  background: linear-gradient(45deg, #004d40, #00251a);
-  box-shadow: 0 6px 20px rgba(0,77,64,0.6);
-  outline: none;
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-/* Download link styling */
-p a {
-  display: inline-block;
-  margin-top: 1.5rem;
-  font-weight: 600;
-  color: #00796b;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease;
-}
-
-p a:hover, p a:focus {
-  border-color: #004d40;
-  outline: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-  body {
-    padding: 1rem;
+  // Show a random quote on page load
+  function showRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    quoteText.textContent = quotes[randomIndex];
   }
 
-  .container {
-    padding: 1.5rem 1.8rem 2rem;
+  // Load saved entry from localStorage if any
+  function loadSavedEntry() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        moodSelect.value = data.mood || '';
+        reflectionTextarea.value = data.reflection || '';
+      } catch {
+        // If JSON parse fails, clear the storage
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
   }
 
-  h1 {
-    font-size: 2rem;
+  // Save current entry to localStorage
+  function saveEntry() {
+    const mood = moodSelect.value;
+    const reflection = reflectionTextarea.value.trim();
+
+    if (!mood) {
+      alert('Please select your mood before saving.');
+      return;
+    }
+
+    const data = { mood, reflection };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    alert('Your entry has been saved!');
   }
 
-  h2 {
-    font-size: 1.4rem;
+  // Clear saved entry and reset form
+  function clearEntry() {
+    localStorage.removeItem(STORAGE_KEY);
+    moodSelect.value = '';
+    reflectionTextarea.value = '';
+    alert('Saved entry cleared.');
   }
 
-  button {
-    font-size: 1rem;
-    padding: 0.7rem 1.5rem;
+  // Export current entry as a .txt file
+  function exportEntry() {
+    const mood = moodSelect.value;
+    const reflection = reflectionTextarea.value.trim();
+
+    if (!mood) {
+      alert('Please select your mood before exporting.');
+      return;
+    }
+
+    const dateStr = new Date().toLocaleDateString();
+    const content =
+      `Daily Healing Tracker Entry - ${dateStr}\n\n` +
+      `Mood: ${moodSelect.options[moodSelect.selectedIndex].text}\n\n` +
+      `Reflection:\n${reflection || '(No additional reflection provided)'}\n`;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Healing_Tracker_${dateStr.replace(/\//g, '-')}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
-}
+
+  // Go back button to previous page
+  function goBack() {
+    window.history.back();
+  }
+
+  // Animate emoji in quote for subtle movement
+  function animateEmoji() {
+    quoteText.classList.add('animate-emoji');
+    setTimeout(() => {
+      quoteText.classList.remove('animate-emoji');
+    }, 4000);
+  }
+
+  // Initialize app
+  showRandomQuote();
+  loadSavedEntry();
+  animateEmoji();
+
+  saveBtn.addEventListener('click', () => {
+    saveEntry();
+    animateEmoji();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear the saved entry?')) {
+      clearEntry();
+    }
+  });
+
+  exportBtn.addEventListener('click', exportEntry);
+  backBtn.addEventListener('click', goBack);
+});
