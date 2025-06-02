@@ -115,3 +115,19 @@ button:hover {
   background-color: #6c63ff;
   color: white;
 }
+
+.healing-quote {
+  font-style: italic;
+  color: #444;
+  background-color: #f0f8ff;
+  padding: 1rem;
+  border-left: 4px solid #5aa9e6;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
+.save-note {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
