@@ -139,3 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const moodSelect = document.getElementById("mood");
+  const reflectionTextarea = document.getElementById("reflection");
+  const clearButton = document.getElementById("clearTracker");
+
+  clearButton.addEventListener("click", () => {
+    moodSelect.value = "";
+    reflectionTextarea.value = "";
+  });
+});
