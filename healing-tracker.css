@@ -94,3 +94,24 @@ button:hover {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.go-back {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.go-back button {
+  background-color: transparent;
+  color: #6c63ff;
+  border: 2px solid #6c63ff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.go-back button:hover {
+  background-color: #6c63ff;
+  color: white;
+}
