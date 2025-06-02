@@ -209,3 +209,42 @@ body.user-is-tabbing .heart-button:focus {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
+/* Dark mode overrides */
+body.dark-mode {
+  background: #1a002d;
+  color: #cfc8ff;
+}
+
+body.dark-mode .section {
+  background: rgba(45, 0, 70, 0.85);
+  box-shadow: 0 8px 30px rgba(138, 98, 255, 0.8);
+  color: #d6cfff;
+}
+
+body.dark-mode .magic-link {
+  background: linear-gradient(145deg, #451a90, #7032cc);
+  box-shadow:
+    0 4px 12px rgba(112, 50, 204, 0.7),
+    inset 0 -3px 6px rgba(69, 26, 144, 0.9);
+}
+
+body.dark-mode .magic-link:hover {
+  background: linear-gradient(145deg, #7032cc, #451a90);
+  box-shadow:
+    0 6px 18px rgba(112, 50, 204, 1),
+    inset 0 3px 8px rgba(138, 98, 255, 0.9);
+}
+
+body.dark-mode .heart-button {
+  background: linear-gradient(135deg, #4a006d, #7a1eb3);
+  box-shadow: 0 5px 14px rgba(122, 30, 179, 0.9);
+}
+
+body.dark-mode .heart-button:hover {
+  background: linear-gradient(135deg, #7a1eb3, #4a006d);
+}
+
+body.dark-mode footer {
+  color: #9c91cc;
+  text-shadow: 0 0 6px #472a86;
+}
