@@ -113,3 +113,49 @@ window.addEventListener('scroll', () => {
   fadeInOnScroll();
   updateProgressBar();
 });
+// Accordion: Only one disorder open at a time
+function initDetailsToggle() {
+  const detailsList = document.querySelectorAll('#mental-health-conditions .collapsible-content > details');
+
+  detailsList.forEach((detail) => {
+    detail.addEventListener('toggle', () => {
+      if (detail.open) {
+        detailsList.forEach((other) => {
+          if (other !== detail) other.removeAttribute('open');
+        });
+      }
+    });
+  });
+}
+
+// Tab functionality within each disorder
+function initDisorderTabs() {
+  const allTabGroups = document.querySelectorAll('#mental-health-conditions .tab-buttons');
+
+  allTabGroups.forEach((tabGroup) => {
+    const buttons = tabGroup.querySelectorAll('button');
+    const tabContents = tabGroup.parentElement.querySelectorAll('.tab-content');
+
+    buttons.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        // Toggle active tab button
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Show corresponding tab content
+        tabContents.forEach((c, index) => {
+          c.style.display = index === i ? 'block' : 'none';
+        });
+      });
+
+      // Auto-select the first tab on load
+      if (i === 0) btn.click();
+    });
+  });
+}
+
+// Initialize mental health section
+document.addEventListener('DOMContentLoaded', () => {
+  initDetailsToggle();
+  initDisorderTabs();
+});
