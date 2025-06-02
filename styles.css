@@ -1,3 +1,45 @@
+/* Define CSS variables for light mode (default) */
+:root {
+  --bg-color: #1a0033;
+  --text-color: #f0d6f7;
+  --section-light-bg: #310045;
+  --section-light-text: #f8c8f9;
+  --section-dark-bg: #9c27b0;
+  --section-dark-text: #fff0fa;
+  --link-color: #ff78c8;
+  --link-hover-color: #e91e63;
+  --scrollbar-bg: linear-gradient(90deg, #e91e63, #9c27b0);
+  --heart-bg: #e91e63;
+  --dark-toggle-bg: #9c27b0;
+  --dark-toggle-hover-bg: #e91e63;
+  --footer-bg: #2a0055;
+  --footer-text: #bb86fc;
+  --box-shadow-color: rgba(156, 39, 176, 0.3);
+  --box-shadow-hover-color: rgba(233, 30, 99, 0.8);
+  --border-color: pink;
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+  --bg-color: #f6f6f6;
+  --text-color: #1a0033;
+  --section-light-bg: #e8d6f7;
+  --section-light-text: #310045;
+  --section-dark-bg: #ce9de8;
+  --section-dark-text: #310045;
+  --link-color: #9c27b0;
+  --link-hover-color: #6a007a;
+  --scrollbar-bg: linear-gradient(90deg, #9c27b0, #6a007a);
+  --heart-bg: #9c27b0;
+  --dark-toggle-bg: #e91e63;
+  --dark-toggle-hover-bg: #9c27b0;
+  --footer-bg: #ddd6f7;
+  --footer-text: #6a007a;
+  --box-shadow-color: rgba(156, 39, 176, 0.2);
+  --box-shadow-hover-color: rgba(156, 39, 176, 0.5);
+  --border-color: purple;
+}
+
 /* Reset & base */
 * {
   box-sizing: border-box;
@@ -7,20 +49,23 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #1a0033; /* deep dark purple background */
-  color: #f0d6f7; /* soft light pinkish-purple text */
+  background: var(--bg-color);
+  color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
   scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 a {
-  color: #ff78c8;
+  color: var(--link-color);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 a:hover,
 a:focus {
+  color: var(--link-hover-color);
   text-decoration: underline;
   outline: none;
 }
@@ -31,7 +76,7 @@ a:focus {
   top: 0;
   left: 0;
   height: 5px;
-  background: linear-gradient(90deg, #e91e63, #9c27b0);
+  background: var(--scrollbar-bg);
   width: 0;
   z-index: 9999;
   transition: width 0.25s ease-out;
@@ -43,18 +88,18 @@ a:focus {
   margin: 3rem auto;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(156, 39, 176, 0.3);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 15px var(--box-shadow-color);
+  transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .section.light {
-  background: #310045; /* darker purple */
-  color: #f8c8f9;
+  background: var(--section-light-bg);
+  color: var(--section-light-text);
 }
 
 .section.dark {
-  background: #9c27b0; /* bright purple */
-  color: #fff0fa;
+  background: var(--section-dark-bg);
+  color: var(--section-dark-text);
 }
 
 /* Fade-in animation */
@@ -74,12 +119,13 @@ a:focus {
 
 /* Hero section */
 .hero {
-  background: linear-gradient(135deg, #9c27b0 0%, #e91e63 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--section-dark-bg), var(--link-hover-color));
+  color: var(--text-color);
   padding: 6rem 1rem;
   text-align: center;
   border-radius: 0 0 50% 50% / 30%;
-  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.7);
+  box-shadow: 0 8px 20px var(--box-shadow-hover-color);
+  transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .hero h1 {
@@ -93,7 +139,7 @@ h1.typewriter {
   font-family: 'Courier New', Courier, monospace;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid pink;
+  border-right: 3px solid var(--border-color);
   animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
   max-width: 20ch;
   margin: 0 auto;
@@ -115,7 +161,7 @@ h1.typewriter {
     border-color: transparent;
   }
   50% {
-    border-color: pink;
+    border-color: var(--border-color);
   }
 }
 
@@ -132,12 +178,12 @@ h1.typewriter {
   display: inline-block;
   padding: 1rem 1.5rem;
   border-radius: 12px;
-  background: linear-gradient(135deg, #9c27b0, #e91e63);
+  background: linear-gradient(135deg, var(--section-dark-bg), var(--link-hover-color));
   color: white;
   font-weight: 600;
   font-size: 1.15rem;
-  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px var(--box-shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
   cursor: pointer;
   user-select: none;
 }
@@ -146,19 +192,19 @@ h1.typewriter {
 .magic-link:focus,
 .magic-link.hovered {
   transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(233, 30, 99, 0.8);
+  box-shadow: 0 8px 24px var(--box-shadow-hover-color);
   outline: none;
 }
 
 /* Accessibility focus */
 .magic-link:focus-visible {
-  outline: 3px solid #ff78c8;
+  outline: 3px solid var(--link-color);
   outline-offset: 4px;
 }
 
 /* "You Are Not Alone" section */
 .section.light h2 {
-  color: #ff78c8;
+  color: var(--link-color);
 }
 
 /* Heart button */
@@ -166,15 +212,15 @@ h1.typewriter {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  background: #e91e63;
+  background: var(--heart-bg);
   color: white;
   font-size: 2.25rem;
   padding: 0.5rem 0.75rem;
   border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(233, 30, 99, 0.8);
+  box-shadow: 0 5px 15px var(--box-shadow-hover-color);
   border: none;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background-color 0.5s ease;
   text-align: center;
   line-height: 1;
   user-select: none;
@@ -185,7 +231,7 @@ h1.typewriter {
 .heart-button:hover,
 .heart-button:focus {
   transform: scale(1.15);
-  box-shadow: 0 10px 25px rgba(233, 30, 99, 1);
+  box-shadow: 0 10px 25px var(--box-shadow-hover-color);
   outline: none;
 }
 
@@ -194,14 +240,14 @@ h1.typewriter {
   position: fixed;
   bottom: 1.5rem;
   left: 1.5rem;
-  background: #9c27b0;
+  background: var(--dark-toggle-bg);
   color: #fff;
   border: none;
   border-radius: 50%;
   font-size: 1.75rem;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.8);
+  box-shadow: 0 5px 15px var(--box-shadow-hover-color);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   user-select: none;
   z-index: 10000;
@@ -209,8 +255,8 @@ h1.typewriter {
 
 #dark-mode-toggle:hover,
 #dark-mode-toggle:focus {
-  background: #e91e63;
-  box-shadow: 0 10px 25px rgba(233, 30, 99, 1);
+  background: var(--dark-toggle-hover-bg);
+  box-shadow: 0 10px 25px var(--box-shadow-hover-color);
   outline: none;
 }
 
@@ -219,9 +265,10 @@ footer {
   text-align: center;
   padding: 1.5rem 1rem;
   font-size: 0.9rem;
-  color: #bb86fc;
-  background: #2a0055;
-  box-shadow: inset 0 1px 0 #d39de8;
+  color: var(--footer-text);
+  background: var(--footer-bg);
+  box-shadow: inset 0 1px 0 var(--link-hover-color);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* Responsive */
