@@ -83,3 +83,19 @@ document.addEventListener('DOMContentLoaded', function () {
   loadSavedEntry();
   showQuoteOfTheDay();
 });
+
+// Optional: Floating emoji sparkle effect
+function createEmoji() {
+  const emojiList = ['✨', '💖', '🌈', '🌸', '🦋'];
+  const emoji = document.createElement('div');
+  emoji.classList.add('emoji');
+  emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+  emoji.style.left = `${Math.random() * 100}vw`;
+  emoji.style.top = '100vh';
+  emoji.style.animationDuration = `${5 + Math.random() * 5}s`;
+  document.body.appendChild(emoji);
+
+  setTimeout(() => emoji.remove(), 10000);
+}
+
+setInterval(createEmoji, 800);
