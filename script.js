@@ -15,7 +15,7 @@ function fadeInOnScroll() {
 function updateProgressBar() {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
+  const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
   const progressBar = document.getElementById('progress-bar');
   if (progressBar) {
     progressBar.style.width = scrollPercent + '%';
@@ -28,8 +28,10 @@ if (toggleBtn) {
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     if (document.body.classList.contains('dark-mode')) {
+      toggleBtn.textContent = '☀️ Light Mode';
       localStorage.setItem('darkMode', 'enabled');
     } else {
+      toggleBtn.textContent = '🌙 Dark Mode';
       localStorage.removeItem('darkMode');
     }
   });
@@ -39,6 +41,9 @@ if (toggleBtn) {
 function initCollapsibles() {
   const collapsibles = document.querySelectorAll('.collapsible');
   collapsibles.forEach(button => {
+    // Initialize aria-expanded attribute
+    button.setAttribute('aria-expanded', 'false');
+
     button.addEventListener('click', () => {
       button.classList.toggle('active');
       const content = button.nextElementSibling;
@@ -48,10 +53,12 @@ function initCollapsibles() {
         content.style.maxHeight = content.scrollHeight + "px";
         content.style.paddingTop = "10px";
         content.style.paddingBottom = "10px";
+        button.setAttribute('aria-expanded', 'true');
       } else {
         content.style.maxHeight = null;
         content.style.paddingTop = "0";
         content.style.paddingBottom = "0";
+        button.setAttribute('aria-expanded', 'false');
       }
     });
   });
@@ -102,6 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (localStorage.getItem('darkMode') === 'enabled') {
     document.body.classList.add('dark-mode');
+  }
+
+  // Sync toggle button text to current mode on load
+  if (toggleBtn) {
+    if (document.body.classList.contains('dark-mode')) {
+      toggleBtn.textContent = '☀️ Light Mode';
+    } else {
+      toggleBtn.textContent = '🌙 Dark Mode';
+    }
   }
 
   initCollapsibles();
