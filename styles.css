@@ -296,4 +296,29 @@ footer {
     width: 0;
     transition: width 0.25s ease-out;
   }
+  
+  .nav-links {
+  display: none; /* Hidden by default */
+  transition: max-height 0.3s ease-out;
+}
+
+.nav-links a {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #333;
+}
+
+.collapsible-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.collapsible-btn:hover {
+  background-color: #555;
+}
 }
