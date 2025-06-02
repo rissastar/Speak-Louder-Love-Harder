@@ -61,3 +61,20 @@ document.body.addEventListener('keydown', e => {
 document.body.addEventListener('mousedown', e => {
   document.body.classList.remove('user-is-tabbing');
 });
+
+// Fade-in elements when scrolled into view
+function fadeInOnScroll() {
+  const elements = document.querySelectorAll('.fade-in');
+  const windowBottom = window.innerHeight;
+
+  elements.forEach(el => {
+    const elementTop = el.getBoundingClientRect().top;
+
+    if (elementTop < windowBottom - 100) { // 100px offset
+      el.classList.add('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', fadeInOnScroll);
+window.addEventListener('load', fadeInOnScroll);
