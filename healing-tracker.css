@@ -1,120 +1,171 @@
 /* healing-tracker.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #f7d9e5, #d2eafd);
-  margin: 0;
-  padding: 0 1rem;
+  font-family: 'Comfortaa', cursive, sans-serif;
+  background: linear-gradient(135deg, #f9f7f1, #e0f7fa);
   color: #333;
-  line-height: 1.6;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: white;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 2rem 2.5rem 3rem;
+  box-sizing: border-box;
+  position: relative;
 }
 
 h1, h2 {
+  color: #00796b;
   text-align: center;
-  margin-top: 2rem;
-  color: #444;
+  margin-bottom: 1rem;
 }
 
-.quote-box {
-  text-align: center;
-  font-style: italic;
+h1 {
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 0;
+}
+
+#quote-text {
   font-size: 1.2rem;
-  margin: 1rem auto 2rem;
-  padding: 1rem;
-  max-width: 600px;
-  background-color: #ffffffaa;
-  border-left: 5px solid #ff6e91;
-  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #004d40;
+  user-select: none;
+  line-height: 1.5;
+  min-height: 48px;
 }
 
-section.healing-tracker-widget {
-  max-width: 700px;
-  margin: 0 auto;
-  background: #fff9fc;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+/* Sparkle animation for quote emoji */
+@keyframes sparkle {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 8px gold); }
+}
+
+.animate-emoji {
+  animation: sparkle 3s ease-in-out;
+}
+
+/* Form styling */
+form.mood-check-in {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-  display: block;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #00695c;
 }
 
-select,
-textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
+select, textarea {
+  border: 2px solid #b2dfdb;
   border-radius: 8px;
+  padding: 0.8rem 1rem;
   font-size: 1rem;
-  box-sizing: border-box;
-  background-color: #fefefe;
-}
-
-textarea {
+  font-family: inherit;
+  transition: border-color 0.3s ease;
   resize: vertical;
+  min-height: 50px;
+  background-color: #e0f2f1;
+  color: #004d40;
 }
 
+select:focus, textarea:focus {
+  border-color: #00796b;
+  outline: none;
+  background-color: #b2dfdb;
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Buttons styling */
 button {
-  display: inline-block;
-  margin: 0.5rem 0.5rem 0 0;
-  padding: 0.6rem 1.2rem;
+  background: linear-gradient(45deg, #00796b, #004d40);
   border: none;
-  border-radius: 8px;
-  background-color: #ff85a2;
-  color: white;
-  font-size: 1rem;
+  border-radius: 25px;
+  color: #e0f2f1;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,121,107,0.4);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  font-weight: 700;
+  user-select: none;
 }
 
-button:hover {
-  background-color: #e86588;
+button:hover, button:focus {
+  background: linear-gradient(45deg, #004d40, #00251a);
+  box-shadow: 0 6px 20px rgba(0,77,64,0.6);
+  outline: none;
 }
 
-a {
-  color: #0077cc;
+button:active {
+  transform: scale(0.97);
+}
+
+/* Download link styling */
+p a {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: #00796b;
   text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
-a:hover {
-  text-decoration: underline;
+p a:hover, p a:focus {
+  border-color: #004d40;
+  outline: none;
 }
 
-.back-button {
-  display: block;
-  text-align: center;
-  margin: 2rem auto 1rem;
-  text-decoration: none;
-  color: #555;
-  font-weight: 500;
-  border: 2px solid #aaa;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background-color: #f0f0f0;
-  width: fit-content;
-  transition: background 0.2s ease;
-}
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  body {
+    padding: 1rem;
+  }
 
-.back-button:hover {
-  background-color: #e0e0e0;
-}
+  .container {
+    padding: 1.5rem 1.8rem 2rem;
+  }
 
-/* Optional animated emoji background */
-@keyframes floatEmojis {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-}
+  h1 {
+    font-size: 2rem;
+  }
 
-.emoji {
-  position: fixed;
-  font-size: 1.5rem;
-  animation: floatEmojis 8s linear infinite;
-  pointer-events: none;
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+  }
 }
