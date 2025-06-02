@@ -1,4 +1,4 @@
-// Scroll Progress Bar
+// Scroll Progress Bar (width-based)
 window.addEventListener("scroll", () => {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -9,7 +9,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Scroll Fade-In Animation using Intersection Observer
+// Fade-in animation using Intersection Observer
 const fadeElements = document.querySelectorAll('.fade-in');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -19,22 +19,24 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.1 });
+
 fadeElements.forEach(el => observer.observe(el));
 
-// Smooth Scroll for nav links
+// Smooth scroll for internal nav links
 document.querySelectorAll('nav ul.nav-links a').forEach(link => {
   link.addEventListener('click', e => {
     const href = link.getAttribute('href');
-    if (href.startsWith('#')) {
+    if (href && href.startsWith('#')) {
       e.preventDefault();
-      document.querySelector(href).scrollIntoView({
-        behavior: 'smooth'
-      });
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   });
 });
 
-// Pulse animation on button (optional - add pulse class to button element to use)
+// Pulse animation (optional)
 const pulseButtons = document.querySelectorAll('.button.pulse');
 pulseButtons.forEach(button => {
   button.addEventListener('mouseenter', () => {
@@ -44,44 +46,19 @@ pulseButtons.forEach(button => {
     button.classList.remove('pulse');
   });
 });
-// Progress Bar
-window.addEventListener("scroll", () => {
-  const progress = document.getElementById("progress-bar");
-  const totalHeight = document.body.scrollHeight - window.innerHeight;
-  const progressHeight = (window.pageYOffset / totalHeight) * 100;
-  progress.style.height = progressHeight + "%";
-});
-
-// Fade-in animation on scroll
-const faders = document.querySelectorAll(".fade-in");
-const appearOptions = {
-  threshold: 0.3,
-  rootMargin: "0px 0px -50px 0px"
-};
-
-const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add("appear");
-    appearOnScroll.unobserve(entry.target);
-  });
-}, appearOptions);
-
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
-});
 
 // Guestbook form handler
-document.getElementById("guestbookForm")?.addEventListener("submit", function (e) {
-  e.preventDefault();
+const guestbookForm = document.getElementById("guestbookForm");
+if (guestbookForm) {
+  guestbookForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const message = document.getElementById("message").value.trim();
 
-  // Optionally, you can send data to a backend here
-  const name = document.getElementById("name").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (message !== "") {
-    document.getElementById("guestbookForm").style.display = "none";
-    document.getElementById("thank-you-message").style.display = "block";
-    console.log("Guestbook submission:", { name, message }); // Optional debug log
-  }
-});
+    if (message !== "") {
+      guestbookForm.style.display = "none";
+      document.getElementById("thank-you-message").style.display = "block";
+      console.log("Guestbook submission:", { name, message });
+    }
+  });
+}
