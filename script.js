@@ -159,3 +159,43 @@ document.addEventListener('DOMContentLoaded', () => {
   initDetailsToggle();
   initDisorderTabs();
 });
+function initJourneyCollapsible() {
+  const buttons = document.querySelectorAll('.collapsible');
+
+  buttons.forEach(button => {
+    const content = button.nextElementSibling;
+
+    if (!content || !content.classList.contains('content')) return;
+
+    // Set initial collapsed state
+    content.style.maxHeight = null;
+    content.style.overflow = 'hidden';
+    content.style.transition = 'max-height 0.5s ease, padding 0.3s ease';
+
+    button.addEventListener('click', () => {
+      const isOpen = button.classList.toggle('active');
+
+      if (isOpen) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.paddingTop = '10px';
+        content.style.paddingBottom = '10px';
+      } else {
+        content.style.maxHeight = null;
+        content.style.paddingTop = '0';
+        content.style.paddingBottom = '0';
+      }
+    });
+
+    // Accessibility
+    button.setAttribute('aria-expanded', 'false');
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', !expanded);
+    });
+  });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  initJourneyCollapsible();
+});
