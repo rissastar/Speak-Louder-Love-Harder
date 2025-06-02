@@ -309,3 +309,43 @@ iframe {
   height: 700px;
   border-radius: 10px;
 }
+.collapsible {
+  background-color: #7b5de8; /* Pretty purple */
+  color: white;
+  cursor: pointer;
+  padding: 12px 20px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.collapsible:hover {
+  background-color: #5a3ac9;
+}
+
+.collapsible:after {
+  content: '\002B'; /* plus sign */
+  font-weight: bold;
+  float: right;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.collapsible.active:after {
+  content: "\2212"; /* minus sign */
+}
+
+.content {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  background-color: #f4f0ff;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 15px;
+}
