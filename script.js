@@ -98,4 +98,23 @@
       }
     };
   });
+  
+  document.querySelectorAll('details').forEach((detail) => {
+    const buttons = detail.querySelectorAll('.tab-buttons button');
+    const tabs = detail.querySelectorAll('.tab-content');
+
+    if (buttons.length && tabs.length) {
+      // Set the first tab as active
+      tabs.forEach((tab, i) => {
+        tab.style.display = i === 0 ? 'block' : 'none';
+      });
+
+      buttons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          tabs.forEach(tab => tab.style.display = 'none');
+          tabs[index].style.display = 'block';
+        });
+      });
+    }
+  });
 </script>
