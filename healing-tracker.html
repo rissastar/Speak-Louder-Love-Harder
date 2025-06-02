@@ -7,19 +7,21 @@
   <link rel="stylesheet" href="healing-tracker.css" />
 </head>
 <body>
-  <main>
-    <h1>Daily Healing Tracker</h1>
+  <main class="container" role="main" aria-labelledby="page-title">
+    <h1 id="page-title">Daily Healing Tracker</h1>
 
-    <section class="quote-box" aria-live="polite" aria-atomic="true">
-      <!-- Quote will appear here -->
-      <p id="quote-text">Loading motivational quote...</p>
+    <section aria-labelledby="quote-heading">
+      <h2 id="quote-heading">Motivational Quote of the Day</h2>
+      <p id="quote-text" aria-live="polite" aria-atomic="true" class="animate-emoji">
+        Loading quote...
+      </p>
     </section>
 
-    <section class="healing-tracker-widget" aria-labelledby="tracker-heading">
-      <h2 id="tracker-heading">Reflect & Heal</h2>
+    <section aria-labelledby="tracker-heading">
+      <h2 id="tracker-heading">Check In With Yourself</h2>
       <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
       
-      <form id="healing-form" aria-label="Daily Healing Check-In">
+      <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
         <div class="form-group">
           <label for="mood">How are you feeling today?</label>
           <select id="mood" name="mood" required>
@@ -36,18 +38,19 @@
 
         <div class="form-group">
           <label for="reflection">Want to write more about it?</label>
-          <textarea id="reflection" name="reflection" rows="5" placeholder="Write here..."></textarea>
+          <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
         </div>
-
-        <button type="button" id="save-btn">Save Entry</button>
-        <button type="button" id="clear-btn">Clear Saved Entry</button>
-        <button type="button" id="export-btn">Export as Text File</button>
       </form>
+      
+      <div class="buttons">
+        <button id="save-btn" type="button">Save Entry</button>
+        <button id="clear-btn" type="button">Clear Saved Entry</button>
+        <button id="export-btn" type="button">Export Entry as .txt</button>
+      </div>
 
       <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
+      <button id="back-btn" type="button" style="margin-top: 1rem;">← Go Back</button>
     </section>
-
-    <a href="mental-health.html" class="back-button" role="button" aria-label="Go back to Mental Health page">← Go Back</a>
   </main>
 
   <script src="healing-tracker.js"></script>
