@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Healing Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Healing Tracker</title>
   <link rel="stylesheet" href="healing-tracker.css" />
-  <script defer src="healing-tracker.js"></script>
 </head>
 <body>
-  <main class="tracker-container">
-    <section class="healing-tracker-widget" aria-labelledby="tracker-heading">
-      <h1 id="tracker-heading">🌿 Daily Healing Tracker</h1>
-      <p class="intro-text">Use this space to reflect on your emotional state and take small steps toward healing. This won't be saved, but you can write freely or <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">download a worksheet</a>.</p>
+  <main>
+    <h1>Daily Healing Tracker</h1>
 
-      <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
+    <section class="quote-box" aria-live="polite" aria-atomic="true">
+      <!-- Quote will appear here -->
+      <p id="quote-text">Loading motivational quote...</p>
+    </section>
+
+    <section class="healing-tracker-widget" aria-labelledby="tracker-heading">
+      <h2 id="tracker-heading">Reflect & Heal</h2>
+      <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
+      
+      <form id="healing-form" aria-label="Daily Healing Check-In">
         <div class="form-group">
           <label for="mood">How are you feeling today?</label>
           <select id="mood" name="mood" required>
@@ -30,20 +36,20 @@
 
         <div class="form-group">
           <label for="reflection">Want to write more about it?</label>
-          <textarea id="reflection" name="reflection" rows="5" placeholder="Write here... (This won't be saved)"></textarea>
+          <textarea id="reflection" name="reflection" rows="5" placeholder="Write here..."></textarea>
         </div>
 
-        <div class="form-actions">
-          <button type="button" id="clearBtn">Clear</button>
-        </div>
+        <button type="button" id="save-btn">Save Entry</button>
+        <button type="button" id="clear-btn">Clear Saved Entry</button>
+        <button type="button" id="export-btn">Export as Text File</button>
       </form>
-      
-      <div class="go-back">
-  <button onclick="history.back()">← Go Back</button>
-</div>
 
-      <p class="back-link">← <a href="mental-health.html">Back to Mental Health</a></p>
+      <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
     </section>
+
+    <a href="mental-health.html" class="back-button" role="button" aria-label="Go back to Mental Health page">← Go Back</a>
   </main>
+
+  <script src="healing-tracker.js"></script>
 </body>
 </html>
