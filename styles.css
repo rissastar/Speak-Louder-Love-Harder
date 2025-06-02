@@ -324,4 +324,32 @@ footer {
   background-color: #333;
   color: #fff;
 }
+.tab-buttons {
+  margin: 10px 0;
+}
+
+.tab-btn {
+  background: #ccc;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.tab-btn.active {
+  background: #7058ff;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+  margin-top: 12px;
+}
+
+.tab-content.active {
+  display: block;
+}
 }
