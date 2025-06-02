@@ -298,28 +298,32 @@
   </details>
 </section>
 
-<section class="section light">
-  <h2>Daily Healing Tracker (Optional)</h2>
+<section class="section light" aria-labelledby="healing-tracker-heading">
+  <h2 id="healing-tracker-heading">Daily Healing Tracker (Optional)</h2>
   <p>Use this space to reflect on your emotional state and take small steps toward healing. You can print the worksheet or keep your own journal.</p>
   
-  <div class="mood-check-in">
-    <label for="mood">How are you feeling today?</label>
-    <select id="mood" name="mood">
-      <option value="">Select...</option>
-      <option value="happy">😊 Happy</option>
-      <option value="okay">😐 Okay</option>
-      <option value="sad">😢 Sad</option>
-      <option value="anxious">😰 Anxious</option>
-      <option value="angry">😠 Angry</option>
-      <option value="tired">🥱 Tired</option>
-      <option value="numb">😶 Numb</option>
-    </select>
+  <form class="mood-check-in" aria-label="Daily Healing Check-In (Not Saved)">
+    <div class="form-group">
+      <label for="mood">How are you feeling today?</label>
+      <select id="mood" name="mood" required>
+        <option value="">-- Select your mood --</option>
+        <option value="happy">😊 Happy</option>
+        <option value="okay">😐 Okay</option>
+        <option value="sad">😢 Sad</option>
+        <option value="anxious">😰 Anxious</option>
+        <option value="angry">😠 Angry</option>
+        <option value="tired">🥱 Tired</option>
+        <option value="numb">😶 Numb</option>
+      </select>
+    </div>
 
-    <label for="reflection">Want to write more about it?</label>
-    <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
-  </div>
+    <div class="form-group">
+      <label for="reflection">Want to write more about it?</label>
+      <textarea id="reflection" name="reflection" rows="4" placeholder="Write here... (This won't be saved)"></textarea>
+    </div>
+  </form>
 
-  <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank">Click here to download the Daily Healing Tracker Worksheet (PDF)</a></p>
+  <p>📥 <a href="downloads/daily-healing-tracker.pdf" target="_blank" rel="noopener">Download the Daily Healing Tracker Worksheet (PDF)</a></p>
 </section>
 
 <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook">❤️</a>
