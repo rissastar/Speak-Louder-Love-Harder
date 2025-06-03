@@ -1,26 +1,21 @@
-// Wait until DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.getElementById('theme-toggle');
   const body = document.body;
 
-  const audioBtn = document.getElementById('audio-btn');
-  const bgMusic = document.getElementById('bg-music');
+  // Elements to fade in/out (all sections)
+  const sections = document.querySelectorAll('section');
 
-  const sparkleToggleBtn = document.getElementById('sparkle-btn');
-  const sparkleButton = document.getElementById('sparkle-button');
-
-  let sparklesEnabled = true;
-
-  // Load theme from localStorage or default to dark
+  // Load saved theme or default to dark
   const savedTheme = localStorage.getItem('theme') || 'dark';
   setTheme(savedTheme);
 
-  // Theme toggle handler
+  // Theme toggle click handler
   themeToggle.addEventListener('click', () => {
     const newTheme = body.classList.contains('light-theme') ? 'dark' : 'light';
-    setTheme(newTheme);
+    fadeOutIn(() => setTheme(newTheme));
   });
 
+  // Keyboard accessibility for theme toggle
   themeToggle.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -32,66 +27,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (theme === 'light') {
       body.classList.add('light-theme');
       body.classList.remove('dark-theme');
-      themeToggle.textContent = '🌙'; // Moon icon for light theme to switch back to dark
+      themeToggle.textContent = '🌙'; // Show moon to switch back to dark
     } else {
       body.classList.add('dark-theme');
       body.classList.remove('light-theme');
-      themeToggle.textContent = '🌓'; // Sun/moon icon for dark theme
+      themeToggle.textContent = '🌓'; // Show sun/moon icon for dark
     }
     localStorage.setItem('theme', theme);
   }
 
-  // AUDIO BUTTON (example - toggle play/pause)
-  audioBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-      bgMusic.play();
-      audioBtn.textContent = '🔊';
-    } else {
-      bgMusic.pause();
-      audioBtn.textContent = '🔈';
-    }
-  });
-
-  // SPARKLE BUTTON (example toggle)
-  sparkleToggleBtn.addEventListener('click', () => {
-    sparklesEnabled = !sparklesEnabled;
-    sparkleButton.style.display = sparklesEnabled ? 'inline-block' : 'none';
-    sparkleToggleBtn.textContent = sparklesEnabled ? 'Disable Sparkles' : 'Enable Sparkles';
-  });
-
-  // --- TAB FADE IN/OUT LOGIC ---
-
-  const tabs = document.querySelectorAll('.tab');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetId = tab.dataset.target;
-      const targetContent = document.getElementById(targetId);
-
-      const currentActive = document.querySelector('.tab-content.active');
-
-      if (currentActive && currentActive !== targetContent) {
-        currentActive.style.opacity = '0';
-
-        currentActive.addEventListener('transitionend', function handler() {
-          currentActive.classList.remove('active');
-          currentActive.style.opacity = '';
-          currentActive.style.visibility = '';
-          currentActive.style.maxHeight = '';
-          currentActive.style.padding = '';
-          currentActive.removeEventListener('transitionend', handler);
-        });
-      }
-
-      if (!targetContent.classList.contains('active')) {
-        targetContent.classList.add('active');
-        void targetContent.offsetWidth; // trigger reflow
-        targetContent.style.opacity = '1';
-      }
-
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  // Fade out all sections, then run callback, then fade in
+  function fadeOutIn(callback) {
+    // Add fade-out class to all sections
+    sections.forEach(section => {
+      section.classList.add('fade-out');
+      section.classList.remove('fade-in');
     });
-  });
+
+    // Wait for fade-out transition (~600ms)
+    setTimeout(() => {
+      callback();
+
+      // Fade sections back in
+      sections.forEach(section => {
+        section.classList.remove('fade-out');
+        section.classList.add('fade-in');
+      });
+    }, 600);
+  }
+
+  // On initial load, add fade-in to sections
+  sections.forEach(section => section.classList.add('fade-in'));
 });
