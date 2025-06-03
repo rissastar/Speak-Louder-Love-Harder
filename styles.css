@@ -233,4 +233,13 @@ button:focus-visible,
     font-size: 1rem;
     padding: 0.4rem 1rem;
   }
+  
+  .fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
