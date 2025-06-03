@@ -112,3 +112,19 @@ function switchThemeImages(theme) {
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('fade-in');
 });
+
+// 🎵 Audio Toggle
+const audioBtn = document.getElementById('audio-btn');
+const bgAudio = document.getElementById('bg-music');
+let playing = false;
+
+audioBtn.addEventListener('click', () => {
+  if (playing) {
+    bgAudio.pause();
+    audioBtn.textContent = '🔈 Play';
+  } else {
+    bgAudio.play();
+    audioBtn.textContent = '🔇 Pause';
+  }
+  playing = !playing;
+});
