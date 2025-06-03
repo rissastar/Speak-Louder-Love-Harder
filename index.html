@@ -8,30 +8,22 @@
 </head>
 <body>
 
-  <!-- 🌗 Theme Toggle Button -->
-  <div id="theme-toggle" class="theme-toggle">
-    <button id="theme-toggle" aria-label="Toggle Theme">
-      <span class="icon sun">☀️</span>
-      <span class="icon moon">🌙</span>
-    </button>
-  </div>
+  <!-- 🌙 Theme Toggle Button -->
+  <button id="theme-toggle" aria-label="Toggle Light/Dark Mode">🌓</button>
 
-  <!-- ✨ Sparkle Button -->
-  <button id="sparkle-button" aria-label="Sparkle Effect">✨ Sparkle!</button>
-
-  <!-- ✨ Sparkle Toggle Button -->
-  <div id="sparkle-toggle">
-    <button id="sparkle-btn">✨ Sparkles On</button>
+  <!-- ✨ Sparkle Buttons -->
+  <button id="sparkle-button" aria-label="Celebrate with Sparkles!">✨ Sparkle!</button>
+  <div id="sparkle-toggle" style="position: fixed; bottom: 70px; right: 20px; z-index: 1000;">
+    <button id="sparkle-btn" aria-label="Sparkles On">✨ Sparkles On</button>
   </div>
 
   <!-- 🔈 Audio Control -->
-  <div id="audio-control">
-    <button id="audio-btn">🔈 Play</button>
+  <div id="audio-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="audio-btn" aria-label="Play/Pause Background Music">🔈 Play</button>
   </div>
 
-  <!-- 🎵 Background Music -->
   <audio id="bg-music" loop>
-    <source src="audio/background.mp3" type="audio/mpeg">
+    <source src="audio/background.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
@@ -59,7 +51,7 @@
   <section class="fade-out">
     <h2>Let’s get started — your journey begins here.</h2>
     <p>
-      This is a space for <strong>advocacy, sharing, healing, and learning.</strong><br>
+      This is a space for <strong>advocacy, sharing, healing, and learning.</strong><br />
       We believe in the power of <strong>voice</strong>, the strength of <strong>community</strong>, and the necessity of <strong>compassion</strong>.
     </p>
     <p>
@@ -72,7 +64,7 @@
       <li>📚 <strong>Learn</strong> to do better and be better</li>
     </ul>
     <p>
-      <em>Each link above leads to real-world issues that deserve love and awareness.</em><br>
+      <em>Each link above leads to real-world issues that deserve love and awareness.</em><br />
       We invite you to explore with an open heart and a courageous mind.
     </p>
   </section>
@@ -88,8 +80,10 @@
     <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- External JS Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
+  <!-- Your Script -->
   <script src="script.js" defer></script>
 </body>
 </html>
