@@ -228,3 +228,61 @@ body.light-theme .theme-toggle button {
   color: #222;
   border-color: var(--accent-purple);
 }
+
+/* Fancy Toggle Button Styles */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+}
+
+#theme-btn {
+  background: none;
+  border: 2px solid var(--accent-pink);
+  border-radius: 30px;
+  padding: 6px 12px;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
+
+#theme-btn .icon {
+  position: absolute;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  font-size: 1.2rem;
+}
+
+#theme-btn .sun {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#theme-btn .moon {
+  transform: translateY(-40px);
+  opacity: 0;
+}
+
+body.light-theme #theme-btn .sun {
+  transform: translateY(-40px);
+  opacity: 0;
+}
+
+body.light-theme #theme-btn .moon {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+body.light-theme #theme-btn {
+  border-color: var(--accent-purple);
+  color: #222;
+}
