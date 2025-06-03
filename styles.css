@@ -1,25 +1,28 @@
-/* Layout container */
-main.content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
-  margin: 2rem auto;
-  padding: 0 1rem;
+/* Reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #3b0a45, #6a0572);
+  color: #eee;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.5s ease, color 0.5s ease;
+  padding-top: 4rem;
 }
 
-/* Card styling */
-.card {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 0 20px #bb33ff33;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Light/dark themes */
+body.light-theme {
+  background: linear-gradient(135deg, #f9f6ff, #dcd0ff);
+  color: #222;
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 30px #cc33ffaa;
+body.dark-theme {
+  background: linear-gradient(135deg, #3b0a45, #6a0572);
+  color: #eee;
 }
 
 /* Theme toggle */
@@ -39,13 +42,13 @@ main.content-grid {
   z-index: 1100;
 }
 .theme-toggle:hover,
-.theme-toggle:focus-visible {
+.theme-toggle:focus {
   background: #bb66e2;
   transform: scale(1.15);
   outline: none;
 }
 
-/* Buttons */
+/* Button styling */
 button {
   background: linear-gradient(45deg, #ff66cc, #cc33ff);
   border: none;
@@ -61,7 +64,7 @@ button {
   outline-offset: 3px;
 }
 button:hover,
-button:focus-visible {
+button:focus {
   background: linear-gradient(45deg, #cc33ff, #ff66cc);
   box-shadow: 0 0 15px #ff99dd;
   transform: scale(1.1);
@@ -71,19 +74,10 @@ button:active {
   transform: scale(0.95);
 }
 
-/*  header  */
-.site-header {
+/* Header */
+header {
   text-align: center;
   padding: 2rem 1rem 1rem;
-}
-.site-header h1 {
-  font-size: 3.2rem;
-}
-.site-header p {
-  font-size: 1.4rem;
-  color: #ddd;
-}
-
 }
 header h1 {
   font-size: 3rem;
@@ -99,68 +93,60 @@ header h1 {
 header p {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #eee;
   text-shadow: 0 0 8px #a05bccaa;
 }
 
-/* Nav */
+/* Navigation */
 nav.main-nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
-  padding: 1rem 0;
+  margin: 1rem 0 2rem;
 }
 .magic-link {
-  padding: 0.6rem 1.3rem;
-  border-radius: 30px;
   background: linear-gradient(45deg, #9b59b6, #e91e63);
   color: white;
+  padding: 0.6rem 1.3rem;
+  border-radius: 30px;
   font-weight: 700;
   font-size: 1.1rem;
-  box-shadow: 0 0 10px #cc33ffaa;
   text-decoration: none;
+  box-shadow: 0 0 10px #cc33ffaa;
   transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  user-select: none;
-  text-align: center;
-  white-space: nowrap;
 }
 .magic-link:hover,
-.magic-link:focus-visible {
+.magic-link:focus {
   background: linear-gradient(45deg, #e91e63, #9b59b6);
   box-shadow: 0 0 20px #ff66cc;
   transform: scale(1.1);
   outline: none;
 }
 
-/* Sections */
-section {
-  background: rgba(255, 255, 255, 0.05);
+/* Layout content grid */
+main.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* Card styling */
+.card {
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 20px;
   padding: 2.5rem 2rem;
-  margin-bottom: 3rem;
-  max-width: 700px;
-  width: 100%;
-  box-shadow: 0 0 15px #bb33ff44 inset;
-  user-select: none;
-  transition: box-shadow 0.4s ease, opacity 0.6s ease, transform 0.6s ease;
-  opacity: 1;
-  transform: translateY(0);
+  box-shadow: 0 0 20px #bb33ff33;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-section.fade-out {
-  opacity: 0;
-  transform: translateY(20px);
-  pointer-events: none;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px #cc33ffaa;
 }
-section.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-section:hover {
-  box-shadow: 0 0 30px #cc33ffbb inset;
-}
-section h2 {
+.card h2 {
   font-size: 2.2rem;
   font-weight: 800;
   color: #d290ff;
@@ -168,28 +154,13 @@ section h2 {
   letter-spacing: 0.06em;
   text-shadow: 0 0 12px #bb33ff99;
 }
-section p {
+.card p {
   font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: 1.2rem;
   color: #eee;
 }
-section ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 1.2rem;
-  color: #d0b0ff;
-}
-section ul li {
-  margin-bottom: 0.6rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 
-/* Footer layout */
+/* Footer */
 footer {
   text-align: center;
   padding: 2rem 1rem;
@@ -200,7 +171,18 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Animations */
+/* Fade-in animation */
+.fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glow animation */
 @keyframes glowPulse {
   0%, 100% {
     text-shadow: 0 0 15px #cc33ff88, 0 0 30px #bb33ff99;
@@ -210,7 +192,7 @@ footer {
   }
 }
 
-/* Accessibility Focus */
+/* Accessibility */
 button:focus-visible,
 .magic-link:focus-visible,
 .theme-toggle:focus-visible {
@@ -220,26 +202,14 @@ button:focus-visible,
 
 /* Responsive tweaks */
 @media (max-width: 650px) {
-  nav {
-    gap: 0.8rem 1rem;
-  }
   header h1 {
     font-size: 2.2rem;
-  }
-  section {
-    padding: 2rem 1rem;
   }
   button {
     font-size: 1rem;
     padding: 0.4rem 1rem;
   }
-  
-  .fade-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-.fade-section.visible {
-  opacity: 1;
-  transform: translateY(0);
+  .card {
+    padding: 2rem 1rem;
+  }
 }
