@@ -1,26 +1,19 @@
-/* Base Reset */
+/* Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  scroll-behavior: smooth;
 }
 
-body {
-  background: #d9c9e3; /* Light lavender background */
-  color: #5a2a83; /* Deep purple text */
-  line-height: 1.6;
-  min-height: 100vh;
-  transition: background 0.4s ease, color 0.4s ease;
+html, body {
   overflow-x: hidden;
-  position: relative;
-}
-
-/* Dark Mode */
-body.dark-mode {
-  background: #5a2a83; /* Dark purple background */
-  color: #d9c9e3; /* Light lavender text */
+  max-width: 100vw;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff0f6;
+  color: #333;
+  line-height: 1.6;
+  padding-top: 5px;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* Scroll Progress Bar */
@@ -29,188 +22,243 @@ body.dark-mode {
   top: 0;
   left: 0;
   height: 5px;
-  background: #f254a5; /* Pink accent */
+  background: linear-gradient(to right, #ff4081, #7c4dff);
   width: 0%;
-  z-index: 9999;
-  transition: width 0.2s ease;
+  z-index: 100;
+  transition: width 0.2s ease-in-out;
 }
 
 /* Hero Section */
 .hero {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background:
-    linear-gradient(135deg, #f254a5 0%, #3ecf8e 100%);
-  color: white;
+  background: linear-gradient(135deg, #ffe3ec, #e0f7fa);
   text-align: center;
-  padding: 2rem;
-  border-radius: 20px;
-  margin: 1rem auto;
-  max-width: 900px;
-  box-shadow: 0 10px 25px rgba(242, 84, 165, 0.4);
-  font-weight: 700;
+  padding: 4rem 1rem;
 }
 
 .hero h1 {
   font-size: 3rem;
-  margin-bottom: 0.5rem;
   font-weight: 900;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  color: #7c4dff;
+  animation: typewriter 3s steps(30) 1s 1 normal both;
+  max-width: 95vw;
+  margin: 0 auto;
 }
 
-/* Typewriter effect */
-.typewriter {
-  overflow: hidden;
-  border-right: .15em solid #fff;
-  white-space: nowrap;
-  animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+.hero p {
+  font-size: 1.3rem;
+  color: #555;
+  margin-top: 0.8rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-@keyframes blink-caret {
-  50% { border-color: transparent }
+/* Typewriter animation */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-/* Sections */
+/* Section Styling */
 .section {
-  padding: 2rem 1rem;
-  max-width: 900px;
-  margin: 1.5rem auto;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(90, 42, 131, 0.1);
-  transition: background 0.4s ease, color 0.4s ease;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .section.light {
-  background: #f9f6fc; /* very light lavender */
-  color: #5a2a83;
-}
-
-body.dark-mode .section.light {
-  background: #7c4bdc20; /* semi-transparent lighter purple */
-  color: #d9c9e3;
+  background-color: #fff0f6;
 }
 
 .section.dark {
-  background: #5a2a83; /* deep purple */
-  color: #d9c9e3;
-  box-shadow: 0 5px 20px rgba(242, 84, 165, 0.3);
+  background-color: #f3e5f5;
 }
 
-body.dark-mode .section.dark {
-  background: #3b1d58;
-  color: #d9c9e3;
-}
-
-/* Fade-in animation for sections */
-.fade-in {
-  animation: fadeInUp 1.1s ease forwards;
-  opacity: 0;
-  transform: translateY(25px);
-}
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.section h2 {
+  color: #7c4dff;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
 }
 
 /* Topics Grid */
 .topics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 1rem;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .magic-link {
-  display: block;
-  padding: 0.85rem 1rem;
-  background: #f254a5; /* pink accent */
+  background: linear-gradient(135deg, #ff80ab, #7c4dff);
   color: white;
-  text-align: center;
-  border-radius: 12px;
+  padding: 1rem 1.8rem;
   text-decoration: none;
+  border-radius: 15px;
   font-weight: 600;
-  box-shadow: 0 5px 10px rgba(242, 84, 165, 0.4);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 10px rgba(124, 77, 255, 0.4);
+  transition: background 0.3s, transform 0.2s;
   user-select: none;
+  flex: 1 1 150px;
+  text-align: center;
+  min-width: 140px;
 }
+
 .magic-link:hover,
 .magic-link:focus {
-  background: #ff6f61; /* coral red */
-  box-shadow: 0 7px 15px rgba(255, 111, 97, 0.6);
+  background: linear-gradient(135deg, #ec407a, #5c2d91);
+  transform: scale(1.05);
   outline: none;
-  cursor: pointer;
 }
 
-/* Heart button (Guestbook) */
+/* You Are Not Alone Section */
+.section.light p,
+.section.dark p {
+  font-size: 1.15rem;
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #212121;
+  color: #eee;
+}
+
+body.dark-mode .section.light {
+  background: #2c2c2c;
+}
+
+body.dark-mode .section.dark {
+  background: #1e1e1e;
+}
+
+body.dark-mode h1,
+body.dark-mode h2 {
+  color: #ffab91;
+}
+
+body.dark-mode .magic-link {
+  background: linear-gradient(135deg, #ff7043, #7c4dff);
+  box-shadow: 0 4px 10px rgba(255, 112, 67, 0.5);
+}
+
+body.dark-mode .magic-link:hover {
+  background: linear-gradient(135deg, #ff5722, #5c2d91);
+}
+
+/* Dark Mode Toggle Button */
+#dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1.7rem;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem 0.7rem;
+  cursor: pointer;
+  z-index: 99;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+
+#dark-mode-toggle:hover,
+#dark-mode-toggle:focus {
+  background: #f0f0f0;
+  outline: none;
+}
+
+/* Heart Button */
 .heart-button {
   position: fixed;
-  bottom: 140px;
-  right: 20px;
-  font-size: 2.8rem;
-  background: #f254a5;
-  border-radius: 50%;
-  padding: 0.3rem 0.4rem;
-  box-shadow: 0 5px 20px rgba(242, 84, 165, 0.6);
-  color: #fff;
+  bottom: 20px;
+  left: 20px;
+  font-size: 2.2rem;
   text-decoration: none;
-  transition: background 0.3s ease, transform 0.3s ease;
-  z-index: 102;
+  z-index: 99;
   user-select: none;
-}
-.heart-button:hover {
-  background: #ff6f61;
-  transform: scale(1.15);
-  box-shadow: 0 8px 25px rgba(255, 111, 97, 0.8);
+  transition: transform 0.2s;
 }
 
-/* Buttons: Dark mode toggle and music toggle styled in JS */
-
-/* Quote Popup */
-#quote-popup {
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  user-select: none;
-  border-radius: 16px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 4px 18px rgba(255, 111, 97, 0.7);
-  pointer-events: none;
+.heart-button:hover,
+.heart-button:focus {
+  transform: scale(1.2);
+  outline: none;
 }
 
-/* Paw prints */
-.paw-print {
-  border-radius: 50%;
-  filter: drop-shadow(0 0 1px rgba(0,0,0,0.15));
-  pointer-events: none;
-  position: fixed;
-  opacity: 0.5;
-  transition: opacity 1.2s ease;
-  width: 12px;
-  height: 12px;
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #ffe0e0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Fade-In Animation */
+.fade-in {
+  animation: fadeIn 1.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .section h2 {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 600px) {
   .hero h1 {
     font-size: 2rem;
   }
-  .topics-grid {
-    grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+  .hero p {
+    font-size: 1rem;
   }
+
   .section {
-    margin: 1rem 1rem;
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .topics-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .magic-link {
+    width: 90%;
+    min-width: auto;
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+  }
+
+  #dark-mode-toggle,
+  .heart-button {
+    padding: 0.4rem;
+    font-size: 1.5rem;
+    bottom: 15px;
+  }
+  #dark-mode-toggle {
+    right: 15px;
   }
   .heart-button {
-    font-size: 2.2rem;
-    bottom: 120px;
+    left: 15px;
   }
 }
