@@ -1,11 +1,11 @@
-/* Global Reset */
+/* GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Root Variables for Theme */
+/* THEME COLORS */
 :root {
   --bg-dark: #1f1b24;
   --text-light: #f0f0f5;
@@ -16,7 +16,7 @@
   --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Base Styling */
+/* BASE STYLES */
 body {
   background: linear-gradient(160deg, #1f1b24, #2b2c3b);
   color: var(--text-light);
@@ -24,32 +24,34 @@ body {
   line-height: 1.6;
   scroll-behavior: smooth;
   padding: 0 20px;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+body.fade-in {
+  opacity: 1;
 }
 
+/* HEADER */
 header {
   padding: 40px 0 20px;
   text-align: center;
 }
-
 header h1 {
   font-size: 3rem;
   color: var(--accent-pink);
-  margin-bottom: 10px;
   text-shadow: 0 0 10px rgba(255, 154, 162, 0.4);
 }
-
 header p {
   font-size: 1.2rem;
   color: var(--accent-blue);
 }
 
-/* Navigation */
+/* NAVIGATION */
 nav {
   text-align: center;
   margin: 30px 0;
   flex-wrap: wrap;
 }
-
 nav a {
   color: var(--accent-green);
   text-decoration: none;
@@ -59,7 +61,6 @@ nav a {
   display: inline-block;
   transition: color 0.3s ease;
 }
-
 nav a::after {
   content: "";
   position: absolute;
@@ -72,55 +73,52 @@ nav a::after {
   transform-origin: right;
   transition: transform 0.3s ease;
 }
-
 nav a:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
-
 nav a:hover {
   color: var(--accent-pink);
 }
-
-/* Glow effect */
 .magic-link {
   text-shadow: 0 0 5px var(--accent-green);
 }
 
-/* Sections */
+/* MAGIC LINK SPARKLE */
+.magic-link::before {
+  content: "✨";
+  position: absolute;
+  right: -20px;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 0.3s ease;
+}
+.magic-link:hover::before {
+  right: 0;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* SECTIONS */
 section {
   padding: 60px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   max-width: 900px;
   margin: auto;
 }
-
 section h2 {
   font-size: 2rem;
   color: var(--accent-blue);
   margin-bottom: 20px;
   text-align: center;
 }
-
 section p {
   font-size: 1.1rem;
   line-height: 1.8;
   text-align: justify;
 }
 
-/* Fade-in animation for scroll */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
-}
-
-.fade-in-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Footer */
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px 0;
@@ -129,114 +127,24 @@ footer {
   margin-top: 40px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 2.2rem;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav a {
-    margin: 10px 0;
-  }
-
-  section {
-    padding: 40px 10px;
-  }
-  
-  /* Theme Toggle Button Styling */
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
+/* FADE-IN ANIMATION ON SCROLL */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.theme-toggle button {
-  background: none;
-  border: 2px solid var(--accent-pink);
-  border-radius: 6px;
-  padding: 8px 12px;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.theme-toggle button:hover {
-  background-color: var(--accent-pink);
-  color: var(--bg-dark);
-}
-
-/* Light Theme Overrides */
-body.light-theme {
-  background: linear-gradient(160deg, #f7f8fc, #e8eaf6);
-  color: #333;
-}
-
-body.light-theme header h1 {
-  color: var(--accent-purple);
-  text-shadow: none;
-}
-
-body.light-theme header p {
-  color: #666;
-}
-
-body.light-theme nav a {
-  color: #222;
-}
-
-body.light-theme nav a:hover {
-  color: var(--accent-purple);
-}
-
-body.light-theme .theme-toggle button {
-  color: #222;
-  border-color: var(--accent-purple);
-}
-
-body.light-theme .theme-toggle button:hover {
-  background-color: var(--accent-purple);
-  color: #fff;
-}
-
-/* Already included, but ensure this is there or updated */
-.theme-toggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 999;
-}
-
-.theme-toggle button {
-  font-size: 1rem;
-  padding: 8px 14px;
-  background: none;
-  border-radius: 5px;
-  border: 2px solid var(--accent-pink);
-  color: var(--text-light);
-  transition: all 0.3s ease;
-}
-
-body.light-theme .theme-toggle button {
-  color: #222;
-  border-color: var(--accent-purple);
-}
-
-/* Fancy Toggle Button Styles */
+/* THEME TOGGLE BUTTON */
 .theme-toggle {
   position: fixed;
   top: 16px;
   right: 16px;
   z-index: 9999;
 }
-
 #theme-btn {
   background: none;
   border: 2px solid var(--accent-pink);
@@ -249,90 +157,34 @@ body.light-theme .theme-toggle button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.4s ease;
-  overflow: hidden;
-  position: relative;
   width: 60px;
   height: 34px;
+  position: relative;
+  transition: all 0.4s ease;
 }
-
 #theme-btn .icon {
   position: absolute;
   transition: transform 0.6s ease, opacity 0.6s ease;
   font-size: 1.2rem;
 }
-
 #theme-btn .sun {
   transform: translateY(0);
   opacity: 1;
 }
-
 #theme-btn .moon {
   transform: translateY(-40px);
   opacity: 0;
 }
-
 body.light-theme #theme-btn .sun {
   transform: translateY(-40px);
   opacity: 0;
 }
-
 body.light-theme #theme-btn .moon {
   transform: translateY(0);
   opacity: 1;
 }
 
-body.light-theme #theme-btn {
-  border-color: var(--accent-purple);
-  color: #222;
-}
-/* Page Transition Fade */
-body {
-  opacity: 0;
-  transition: opacity 0.7s ease;
-}
-
-body.fade-in {
-  opacity: 1;
-}
-/* Magic Link Sparkle */
-.magic-link {
-  position: relative;
-  color: var(--accent-green);
-  overflow: hidden;
-}
-
-.magic-link::before {
-  content: "✨";
-  position: absolute;
-  right: -20px;
-  opacity: 0;
-  transform: scale(0.3);
-  transition: all 0.3s ease;
-}
-
-.magic-link:hover::before {
-  right: 0;
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-#audio-btn {
-  padding: 8px 14px;
-  background: #444;
-  color: white;
-  border: 2px solid var(--accent-pink);
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s ease;
-}
-
-#audio-btn:hover {
-  background: var(--accent-pink);
-  color: black;
-}
-
+/* SPARKLE TOGGLE BUTTON */
 #sparkle-btn {
   padding: 8px 14px;
   background: #444;
@@ -343,14 +195,70 @@ body.fade-in {
   font-size: 0.9rem;
   transition: background 0.3s ease;
 }
-
 #sparkle-btn:hover {
   background-color: var(--accent-blue);
   color: black;
 }
-
 body.light-theme #sparkle-btn {
   border-color: var(--accent-purple);
   background-color: white;
   color: #222;
+}
+
+/* AUDIO TOGGLE BUTTON */
+#audio-btn {
+  padding: 8px 14px;
+  background: #444;
+  color: white;
+  border: 2px solid var(--accent-pink);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+#audio-btn:hover {
+  background-color: var(--accent-pink);
+  color: black;
+}
+body.light-theme #audio-btn {
+  border-color: var(--accent-purple);
+  background-color: white;
+  color: #222;
+}
+
+/* LIGHT THEME OVERRIDES */
+body.light-theme {
+  background: linear-gradient(160deg, #f7f8fc, #e8eaf6);
+  color: #333;
+}
+body.light-theme header h1 {
+  color: var(--accent-purple);
+  text-shadow: none;
+}
+body.light-theme header p {
+  color: #666;
+}
+body.light-theme nav a {
+  color: #222;
+}
+body.light-theme nav a:hover {
+  color: var(--accent-purple);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  nav a {
+    margin: 10px 0;
+  }
+  section {
+    padding: 40px 10px;
+  }
 }
