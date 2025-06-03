@@ -8,36 +8,37 @@
 </head>
 <body>
 
-<!-- Audio Toggle -->
-<div id="audio-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-  <button id="audio-btn">🔈 Play</button>
-</div>
+  <!-- 🌙 THEME TOGGLE BUTTON -->
+  <div id="theme-toggle" class="theme-toggle">
+    <button id="theme-btn" aria-label="Toggle Light/Dark Mode">
+      <span class="icon sun">☀️</span>
+      <span class="icon moon">🌙</span>
+    </button>
+  </div>
 
-<!-- Sparkle Toggle -->
-<div id="sparkle-toggle" style="position: fixed; bottom: 70px; right: 20px; z-index: 1000;">
-  <button id="sparkle-btn">✨ Sparkles On</button>
-</div>
+  <!-- ✨ SPARKLE TOGGLE BUTTON -->
+  <div id="sparkle-toggle">
+    <button id="sparkle-btn">✨ Sparkles On</button>
+  </div>
 
-<audio id="bg-music" loop>
-  <source src="audio/background.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-  <!-- Header -->
+  <!-- 🔈 AUDIO TOGGLE BUTTON -->
+  <div id="audio-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="audio-btn">🔈 Play</button>
+  </div>
+
+  <!-- 🎶 AUDIO ELEMENT -->
+  <audio id="bg-music" loop>
+    <source src="audio/background.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 💬 HEADER -->
   <header>
-    <!-- Fancy Animated Theme Toggle -->
-<div id="theme-toggle" class="theme-toggle">
-  <button id="theme-btn" aria-label="Toggle Light/Dark Mode">
-    <span class="icon sun">☀️</span>
-    <span class="icon moon">🌙</span>
-  </button>
-</div>
-  <button aria-label="Toggle Light/Dark Mode">🌓 Toggle Theme</button>
-</div>
     <h1>Speak Louder, Love Harder</h1>
     <p>Voices that need to be heard. Stories that must be told.</p>
   </header>
 
-  <!-- Navigation Bar -->
+  <!-- 🔗 NAVIGATION BAR -->
   <nav>
     <a href="mental-health.html" class="magic-link">Mental Health</a>
     <a href="addiction.html" class="magic-link">Addiction</a>
@@ -51,23 +52,24 @@
     <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
   </nav>
 
-  <!-- Optional Intro Section -->
+  <!-- 👋 WELCOME SECTION -->
   <section class="fade-in">
     <h2>Welcome</h2>
     <p>This space is dedicated to compassion, connection, and courageous storytelling. Each link above leads to real-world issues that deserve love and awareness.</p>
   </section>
 
-  <!-- Optional CTA Section -->
+  <!-- 📣 CALL TO ACTION SECTION -->
   <section class="fade-in">
     <h2>Get Involved</h2>
-    <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out.</p>
+    <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out and speak from your heart.</p>
   </section>
 
-  <!-- Footer -->
+  <!-- 👣 FOOTER -->
   <footer>
     <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
+  <!-- 🚀 SCRIPT -->
   <script src="script.js"></script>
 </body>
 </html>
