@@ -11,6 +11,28 @@
   <!-- Scroll Progress Bar -->
   <div id="progress-bar"></div>
 
+  <!-- Animated SVG Hearts Background -->
+  <svg id="animated-hearts" class="hearts-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
+    <!-- Hearts will be animated via CSS & JS -->
+    <g class="heart" fill="#ff66cc" opacity="0.6">
+      <path d="M10 30 
+               A20 20 0 0 1 50 30 
+               Q50 60 30 90 
+               Q10 60 10 30Z"/>
+    </g>
+    <g class="heart" fill="#cc33ff" opacity="0.4" transform="translate(100,20)">
+      <path d="M10 30 
+               A20 20 0 0 1 50 30 
+               Q50 60 30 90 
+               Q10 60 10 30Z"/>
+    </g>
+    <g class="heart" fill="#ff99cc" opacity="0.5" transform="translate(220,40)">
+      <path d="M10 30 
+               A20 20 0 0 1 50 30 
+               Q50 60 30 90 
+               Q10 60 10 30Z"/>
+    </g>
+  </svg>
 
   <section class="hero fade-in">
     <div>
@@ -38,7 +60,7 @@
       <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
       <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
       <a href="foster-children.html" class="magic-link">Foster Children</a>
-       <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
+      <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
     </div>
   </section>
 
@@ -49,11 +71,24 @@
     </p>
   </section>
 
-<a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook">❤️</a>
+  <!-- Ambient Music Toggle -->
+  <button id="music-toggle" aria-label="Toggle ambient music" title="Toggle ambient music">🎶</button>
+
+  <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook">❤️</a>
   <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+
   <footer>
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
+
+  <!-- Quote of the Day Popup -->
+  <div id="quote-popup" role="dialog" aria-modal="true" aria-labelledby="quote-title" aria-describedby="quote-text" hidden>
+    <div class="quote-content">
+      <button id="close-quote" aria-label="Close quote popup">✖️</button>
+      <h3 id="quote-title">Quote of the Day</h3>
+      <p id="quote-text"></p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
