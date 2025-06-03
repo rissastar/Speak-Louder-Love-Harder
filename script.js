@@ -1,117 +1,104 @@
-// 🌗 Theme Toggle
-const themeBtn = document.getElementById('theme-toggle');
+// Theme toggle (light/dark)
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+function setTheme(theme) {
+  if (theme === 'dark') {
+    body.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    body.classList.remove('dark');
+    localStorage.setItem('theme', 'light');
+  }
+}
+
 const savedTheme = localStorage.getItem('theme');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-document.documentElement.setAttribute('data-theme', currentTheme);
+if (savedTheme) {
+  setTheme(savedTheme);
+} else {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(prefersDark ? 'dark' : 'light');
+}
 
-// Toggle theme with pulse animation feedback
-themeBtn.addEventListener('click', () => {
-  const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  
-  themeBtn.classList.add('pulse');
-  setTimeout(() => themeBtn.classList.remove('pulse'), 600);
-});
-
-// Live update if system preference changes and user hasn't set preference
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-  if(!localStorage.getItem('theme')) {
-    document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-  }
-});
-
-// 🎉 Party Sparkles
-document.getElementById('sparkle-button')?.addEventListener('click', (event) => {
-  party.confetti(event.target, {
-    count: party.variation.range(20, 40),
-    size: party.variation.range(0.6, 1.2),
-    spread: 90,
-  });
-});
-
-// Sticky Nav Bar on Scroll
-const nav = document.querySelector('nav');
-const header = document.querySelector('header');
-const stickyOffset = header.offsetHeight;
-
-// Back to top button setup
-const backToTopBtn = document.createElement('button');
-backToTopBtn.id = 'back-to-top';
-backToTopBtn.title = 'Back to Top';
-backToTopBtn.textContent = '⬆️';
-document.body.appendChild(backToTopBtn);
-backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-window.addEventListener('scroll', () => {
-  // Sticky nav
-  if(window.pageYOffset > stickyOffset) {
-    nav.classList.add('sticky');
+themeToggle.addEventListener('click', () => {
+  if (body.classList.contains('dark')) {
+    setTheme('light');
   } else {
-    nav.classList.remove('sticky');
-  }
-
-  // Show/hide back to top
-  if(window.pageYOffset > 300) {
-    backToTopBtn.classList.add('show');
-  } else {
-    backToTopBtn.classList.remove('show');
+    setTheme('dark');
   }
 });
 
-// Fade in sections with stagger on scroll
-const faders = document.querySelectorAll('.fade-out');
-const appearOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if(!entry.isIntersecting) return;
-    entry.target.style.setProperty('--delay', `${entry.target.dataset.delay || 0}s`);
-    entry.target.classList.add('visible');
-    observer.unobserve(entry.target);
+themeToggle.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    themeToggle.click();
+  }
+});
+
+// Sparkle effect with party.js
+const sparkleBtn = document.getElementById('sparkle-button');
+const sparkleToggleBtn = document.getElementById('sparkle-btn');
+let sparklesEnabled = true;
+
+function emitSparkles() {
+  if (!sparklesEnabled) return;
+  party.sparkles(sparkleBtn, {
+    count: party.variation.range(12, 20),
+    spread: 50,
   });
-}, appearOptions);
-faders.forEach((fader, i) => {
-  fader.dataset.delay = (i * 0.2).toFixed(2);
-  appearOnScroll.observe(fader);
+  // Add a quick "pop" scale animation on the button
+  sparkleBtn.animate([
+    { transform: 'scale(1)' },
+    { transform: 'scale(1.25)' },
+    { transform: 'scale(1)' }
+  ], {
+    duration: 300,
+    easing: 'ease-out'
+  });
+}
+
+sparkleBtn.addEventListener('click', () => {
+  emitSparkles();
 });
 
-// 🔈 Audio controls
-const bgMusic = document.getElementById('bg-music');
+// Toggle sparkles on/off with style feedback
+sparkleToggleBtn.addEventListener('click', () => {
+  sparklesEnabled = !sparklesEnabled;
+  sparkleToggleBtn.textContent = sparklesEnabled ? '✨ Sparkles On' : '❌ Sparkles Off';
+  sparkleToggleBtn.classList.toggle('active', sparklesEnabled);
+  // Animate toggle button pulse
+  sparkleToggleBtn.animate([
+    { transform: 'scale(1)' },
+    { transform: 'scale(1.1)' },
+    { transform: 'scale(1)' }
+  ], { duration: 200, easing: 'ease-in-out' });
+});
+
+// Audio control with button glow and text changes
 const audioBtn = document.getElementById('audio-btn');
-const audioVolume = document.createElement('input');
-audioVolume.type = 'range';
-audioVolume.min = 0;
-audioVolume.max = 1;
-audioVolume.step = 0.01;
-audioVolume.value = 0.5;
-audioVolume.id = 'audio-volume';
-document.body.appendChild(audioVolume);
+const bgMusic = document.getElementById('bg-music');
 
-// Play/pause background music
 audioBtn.addEventListener('click', () => {
-  if(bgMusic.paused) {
+  if (bgMusic.paused) {
     bgMusic.play();
     audioBtn.textContent = '🔊 Pause';
+    audioBtn.classList.add('playing');
+    // Add pulse glow on play
+    audioBtn.animate([
+      { boxShadow: '0 0 10px 4px #e91e63cc' },
+      { boxShadow: '0 0 25px 8px #e91e63dd' },
+      { boxShadow: '0 0 10px 4px #e91e63cc' }
+    ], { duration: 1500, iterations: Infinity });
   } else {
     bgMusic.pause();
     audioBtn.textContent = '🔈 Play';
+    audioBtn.classList.remove('playing');
+    audioBtn.getAnimations().forEach(anim => anim.cancel());
   }
 });
 
-// Volume control
-audioVolume.value = bgMusic.volume;
-audioVolume.addEventListener('input', e => {
-  bgMusic.volume = e.target.value;
-});
-
-// 🎨 Reset Theme Preference Button
-const resetThemeBtn = document.createElement('button');
-resetThemeBtn.id = 'reset-theme-btn';
-resetThemeBtn.textContent = 'Reset Theme';
-document.body.appendChild(resetThemeBtn);
-resetThemeBtn.addEventListener('click', () => {
-  localStorage.removeItem('theme');
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.setAttribute('data-theme', systemPrefersDark ? 'dark' : 'light');
+bgMusic.addEventListener('ended', () => {
+  audioBtn.textContent = '🔈 Play';
+  audioBtn.classList.remove('playing');
+  audioBtn.getAnimations().forEach(anim => anim.cancel());
 });
