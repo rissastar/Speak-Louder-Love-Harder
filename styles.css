@@ -1,3 +1,19 @@
+project-folder/
+├── index.html
+├── styles.css
+├── script.js
+└── pages/
+    ├── mental-health.html
+    ├── addiction.html
+    ├── cystic-fibrosis.html
+    ├── cirrhosis.html
+    ├── physical-abuse.html
+    ├── mental-abuse.html
+    ├── sexual-abuse.html
+    ├── pitbull-love.html
+    ├── foster-children.html
+    └── guestbook-connect.html
+    
 /* Reset and Base Styles */
 * {
   margin: 0;
