@@ -1,20 +1,25 @@
-/* Reset & base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Layout container */
+main.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #3b0a45, #6a0572);
-  color: #eee;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 2rem;
-  transition: background 0.5s ease, color 0.5s ease;
-  overflow-x: hidden;
+
+/* Card styling */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 20px #bb33ff33;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px #cc33ffaa;
 }
 
 /* Theme toggle */
@@ -66,13 +71,19 @@ button:active {
   transform: scale(0.95);
 }
 
-/* Header */
-header {
+/*  header  */
+.site-header {
   text-align: center;
-  margin: 4rem 0 3rem;
-  max-width: 700px;
-  width: 100%;
-  user-select: none;
+  padding: 2rem 1rem 1rem;
+}
+.site-header h1 {
+  font-size: 3.2rem;
+}
+.site-header p {
+  font-size: 1.4rem;
+  color: #ddd;
+}
+
 }
 header h1 {
   font-size: 3rem;
@@ -93,14 +104,12 @@ header p {
 }
 
 /* Nav */
-nav {
+nav.main-nav {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem 1.5rem;
-  margin-bottom: 3rem;
-  max-width: 900px;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
 }
 .magic-link {
   padding: 0.6rem 1.3rem;
@@ -180,14 +189,15 @@ section ul li {
   gap: 0.5rem;
 }
 
-/* Footer */
+/* Footer layout */
 footer {
-  width: 100%;
   text-align: center;
-  padding: 1rem 0 2rem;
-  color: #a087bbcc;
-  font-size: 0.9rem;
-  user-select: none;
+  padding: 2rem 1rem;
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Animations */
