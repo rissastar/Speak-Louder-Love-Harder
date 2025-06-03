@@ -59,3 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // On initial load, add fade-in to sections
   sections.forEach(section => section.classList.add('fade-in'));
 });
+
+// Fade in sections when scrolled into view
+const fadeSections = document.querySelectorAll('.fade-section');
+
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+fadeSections.forEach(section => {
+  fadeObserver.observe(section);
+});
