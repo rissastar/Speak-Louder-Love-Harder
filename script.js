@@ -81,5 +81,31 @@ function switchThemeImages(theme) {
     const src = img.getAttribute(`data-src-${theme}`);
     if (src) img.src = src;
   });
+  const themeBtn = document.getElementById('theme-btn');
+const storedTheme = localStorage.getItem('theme');
+const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+// Init theme
+if (storedTheme === 'light' || (!storedTheme && prefersLight)) {
+  document.body.classList.add('light-theme');
+  switchThemeImages('light');
+} else {
+  switchThemeImages('dark');
+}
+
+// Toggle logic
+themeBtn.addEventListener('click', () => {
+  const isLight = document.body.classList.toggle('light-theme');
+  const theme = isLight ? 'light' : 'dark';
+  localStorage.setItem('theme', theme);
+  switchThemeImages(theme);
+});
+
+// Swap images based on theme
+function switchThemeImages(theme) {
+  document.querySelectorAll('[data-theme-src]').forEach(img => {
+    const src = img.getAttribute(`data-src-${theme}`);
+    if (src) img.src = src;
+  });
 }
 });
