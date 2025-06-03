@@ -1,105 +1,276 @@
-const themeToggle = document.getElementById('theme-toggle');
-const sparkleBtn = document.getElementById('sparkle-btn');
-const sparkleButton = document.getElementById('sparkle-button');
-const audioBtn = document.getElementById('audio-btn');
-const bgMusic = document.getElementById('bg-music');
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #6b3fa0, #ff6ec7);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-let sparklesEnabled = true;
-let darkMode = false;
+main {
+  max-width: 900px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  margin-top: 20px;
+  flex-grow: 1;
+}
 
-// THEME TOGGLE
-themeToggle.addEventListener('click', () => {
-  darkMode = !darkMode;
-  if (darkMode) {
-    document.body.style.background = 'linear-gradient(135deg, #1e1e2f, #4b007b)';
-    themeToggle.textContent = '🌞';
-  } else {
-    document.body.style.background = 'linear-gradient(135deg, #6b3fa0, #ff6ec7)';
-    themeToggle.textContent = '🌓';
-  }
-});
+/* Sticky header */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(107, 63, 160, 0.9);
+  padding: 20px 40px;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
 
-// SPARKLES TOGGLE
-sparkleBtn.addEventListener('click', () => {
-  sparklesEnabled = !sparklesEnabled;
-  sparkleBtn.classList.toggle('active', sparklesEnabled);
-  sparkleBtn.textContent = sparklesEnabled ? '✨ Sparkles On' : '✨ Sparkles Off';
-});
+header h1 {
+  margin: 0 0 6px 0;
+  font-size: 2.8rem;
+  font-weight: 900;
+  text-shadow: 2px 2px 6px #ff6ec7cc;
+}
 
-// SPARKLE EMIT FUNCTION
-function emitSparkles() {
-  if (!sparklesEnabled) return;
+header p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f3d3f0;
+}
 
-  for (let i = 0; i < 12; i++) {
-    createSparkle();
+/* Navigation Bar */
+nav {
+  margin: 20px 0 30px 0;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #ff6ec7;
+  scrollbar-width: thin;
+  scrollbar-color: #ff6ec7 transparent;
+}
+
+nav::-webkit-scrollbar {
+  height: 8px;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background-color: #ff6ec7;
+  border-radius: 20px;
+}
+
+.magic-link {
+  flex-shrink: 0;
+  background: #a259ffcc;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 8px #a259ff88;
+}
+
+.magic-link:hover,
+.magic-link:focus {
+  background-color: #ff6ec7;
+  color: #fff;
+  box-shadow: 0 0 15px #ff6ec7;
+  outline: none;
+}
+
+/* Sections */
+section {
+  background: rgba(255 255 255 / 0.1);
+  border-radius: 16px;
+  padding: 25px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 15px #a259ff33;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+section.fade-out {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-function createSparkle() {
-  const sparkle = document.createElement('div');
-  sparkle.classList.add('sparkle');
-
-  // Random size between 6-12px
-  const size = Math.random() * 6 + 6;
-  sparkle.style.width = `${size}px`;
-  sparkle.style.height = `${size}px`;
-
-  // Random color from pink, purple, green
-  const colors = ['#ff6ec7', '#a259ff', '#4ade80'];
-  sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-
-  // Random position near sparkle button
-  const rect = sparkleButton.getBoundingClientRect();
-  const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 60;
-  const y = rect.top + rect.height / 2 + (Math.random() - 0.5) * 60;
-  sparkle.style.position = 'fixed';
-  sparkle.style.left = `${x}px`;
-  sparkle.style.top = `${y}px`;
-
-  // Random animation duration between 0.8-1.5s
-  const duration = (Math.random() * 0.7 + 0.8).toFixed(2);
-  sparkle.style.setProperty('--duration', `${duration}s`);
-
-  document.body.appendChild(sparkle);
-
-  // Animate sparkle floating up and fading out
-  sparkle.animate(
-    [
-      { opacity: 1, transform: 'translateY(0) scale(1) rotate(0deg)' },
-      { opacity: 0, transform: 'translateY(-40px) scale(1.4) rotate(180deg)' }
-    ],
-    {
-      duration: duration * 1000,
-      easing: 'ease-out',
-      fill: 'forwards',
-    }
-  );
-
-  // Remove sparkle after animation
-  setTimeout(() => sparkle.remove(), duration * 1000);
+section h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ff6ec7;
+  margin-bottom: 12px;
+  text-shadow: 1px 1px 3px #6b3fa0cc;
 }
 
-// Sparkle button emits sparkles on click
-sparkleButton.addEventListener('click', () => {
-  emitSparkles();
-});
+section p, section ul {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
 
-// AUDIO CONTROL
-audioBtn.addEventListener('click', () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    audioBtn.textContent = '🔊 Pause Audio';
-    audioBtn.classList.add('active');
-  } else {
-    bgMusic.pause();
-    audioBtn.textContent = '🔈 Play Audio';
-    audioBtn.classList.remove('active');
+section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+section ul li {
+  margin: 8px 0;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+/* Footer */
+footer {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  padding: 18px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #f3d3f0;
+  background: rgba(107, 63, 160, 0.9);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.5);
+  margin-top: auto;
+}
+
+/* Control Buttons (theme, sparkle toggle, audio) */
+#theme-toggle, #sparkle-toggle, #audio-control {
+  background: #a259ffcc;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 15px #a259ff88;
+  transition: background-color 0.3s ease;
+  font-size: 1.7rem;
+  user-select: none;
+  position: fixed;
+  right: 20px;
+  z-index: 1100;
+}
+
+#theme-toggle {
+  top: 20px;
+}
+
+#sparkle-toggle {
+  bottom: 110px;
+}
+
+#audio-control {
+  bottom: 20px;
+}
+
+/* Sparkle Button */
+#sparkle-button {
+  background: #ff6ec7cc;
+  border: none;
+  border-radius: 16px;
+  color: white;
+  padding: 12px 24px;
+  font-weight: 900;
+  font-size: 1.3rem;
+  box-shadow: 0 0 12px #ff6ec7cc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px auto;
+  display: block;
+}
+
+#sparkle-button:hover,
+#sparkle-button:focus {
+  background-color: #a259ffcc;
+  outline: none;
+  box-shadow: 0 0 25px #a259ffcc;
+}
+
+/* Active button highlight */
+button.active {
+  background-color: #6b3fa0;
+  box-shadow: 0 0 20px #6b3fa0;
+  color: #fff;
+}
+
+/* Sparkle styles */
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px #fff);
+  animation: sparklePulse var(--duration, 1.2s) ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes sparklePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
-});
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
 
-// Fade-in for sections
-window.addEventListener('load', () => {
-  document.querySelectorAll('section').forEach(section => {
-    section.classList.add('fade-out');
-  });
-});
+/* Trail fade animation for sparkle trails */
+@keyframes trailFade {
+  0% {
+    opacity: 0.5;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px) scale(0.7);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  main, header, nav, footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  nav {
+    gap: 8px;
+  }
+
+  .magic-link {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  section h2 {
+    font-size: 1.6rem;
+  }
+}
