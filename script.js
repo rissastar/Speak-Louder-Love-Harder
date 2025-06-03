@@ -1,68 +1,82 @@
 // Scroll Progress Bar
-window.onscroll = function () {
-  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  document.getElementById("progress-bar").style.width = scrolled + "%";
-};
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  progressBar.style.width = scrollPercent + '%';
+});
 
 // Dark Mode Toggle
-const toggle = document.getElementById("dark-mode-toggle");
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  toggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+const toggleBtn = document.getElementById('dark-mode-toggle');
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
 });
 
-// FAQ Collapse
-document.querySelectorAll('.faq-question').forEach(button => {
-  button.addEventListener('click', () => {
-    const faq = button.parentElement;
-    faq.classList.toggle('open');
-  });
-});
+// Confetti Burst on Click with Soft Pastels
+const pastelColors = ['#ff80ab', '#7c4dff', '#ec407a', '#ba68c8', '#f48fb1', '#ce93d8'];
+const confettiCount = 25;
 
-// Image Slider
-let currentSlide = 0;
-const slides = document.querySelectorAll(".slide");
+function createConfetti(x, y) {
+  const confetti = document.createElement('div');
+  confetti.style.position = 'fixed';
+  confetti.style.left = `${x}px`;
+  confetti.style.top = `${y}px`;
+  confetti.style.width = '7px';
+  confetti.style.height = '7px';
+  confetti.style.backgroundColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+  confetti.style.borderRadius = '50%';
+  confetti.style.pointerEvents = 'none';
+  confetti.style.opacity = '1';
+  confetti.style.zIndex = '10000';
+  confetti.style.transform = 'translate(0, 0)';
+  confetti.style.transition = 'transform 600ms ease-out, opacity 600ms ease-out';
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.toggle("active", i === index);
+  document.body.appendChild(confetti);
+
+  const angle = Math.random() * 2 * Math.PI;
+  const distance = 70 + Math.random() * 40;
+  const rotate = (Math.random() * 360) + 180;
+
+  requestAnimationFrame(() => {
+    confetti.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) rotate(${rotate}deg)`;
+    confetti.style.opacity = '0';
   });
+
+  setTimeout(() => confetti.remove(), 600);
 }
 
-if (document.querySelector(".prev") && document.querySelector(".next")) {
-  document.querySelector(".prev").addEventListener("click", () => {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(currentSlide);
-  });
-
-  document.querySelector(".next").addEventListener("click", () => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-  });
-
-  showSlide(currentSlide); // Show first slide on load
-}
-
-// Voice/Audio Button
-function playAudio() {
-  const audio = document.getElementById("voiceClip");
-  if (audio) {
-    audio.play();
+window.addEventListener('click', e => {
+  for(let i = 0; i < confettiCount; i++) {
+    createConfetti(e.clientX, e.clientY);
   }
+});
+
+// Glitter Effect on Magic Links (adds/removes a CSS class to trigger animation)
+const magicLinks = document.querySelectorAll('.magic-link');
+
+magicLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => link.classList.add('glitter'));
+  link.addEventListener('mouseleave', () => link.classList.remove('glitter'));
+});
+
+// Gentle Floating Scroll Bounce Effect
+let lastScrollY = 0;
+let floatOffset = 0;
+let direction = 1;
+
+function floatBounce() {
+  const currentScrollY = window.scrollY;
+  if (currentScrollY > lastScrollY) {
+    floatOffset += direction * 0.4;
+  } else {
+    floatOffset -= direction * 0.4;
+  }
+  if (floatOffset > 8 || floatOffset < -8) direction *= -1;
+  document.body.style.transform = `translateY(${floatOffset}px)`;
+  lastScrollY = currentScrollY;
+  requestAnimationFrame(floatBounce);
 }
 
-// Story Share Submission
-const storyButton = document.querySelector(".submit-story");
-if (storyButton) {
-  storyButton.addEventListener("click", () => {
-    const text = document.querySelector(".story-share textarea").value.trim();
-    if (text.length > 0) {
-      alert("Thank you for sharing your story 💖");
-      document.querySelector(".story-share textarea").value = "";
-    } else {
-      alert("Please write something before submitting.");
-    }
-  });
-}
+floatBounce();
