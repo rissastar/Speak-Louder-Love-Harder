@@ -258,3 +258,34 @@ body.dark-mode #dark-mode-toggle {
   background-color: #ff867f;
   box-shadow: 0 4px 10px rgba(255,135,127,0.8);
 }
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  background: hsl(calc(360 * var(--i, 0.5)), 80%, 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fall 2s linear forwards;
+  z-index: 2000;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Heart Button Animation */
+.heart-button.animate {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
