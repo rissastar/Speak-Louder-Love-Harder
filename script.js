@@ -1,23 +1,18 @@
 // 🌗 Theme Toggle
-const themeToggleBtn = document.getElementById('theme-toggle');
-const root = document.documentElement;
-
-// Check and apply saved or system theme
+const themeBtn = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('theme');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-root.setAttribute('data-theme', currentTheme);
+document.documentElement.setAttribute('data-theme', currentTheme);
 
-// Toggle between light and dark mode
-themeToggleBtn?.addEventListener('click', () => {
-  const newTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-  root.setAttribute('data-theme', newTheme);
+themeBtn.addEventListener('click', () => {
+  const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
 });
 
-// ✨ Sparkle Button
-const sparkleBtn = document.getElementById('sparkle-button');
-sparkleBtn?.addEventListener('click', (event) => {
+// 🎉 Party Sparkles
+document.getElementById('sparkle-button')?.addEventListener('click', (event) => {
   party.confetti(event.target, {
     count: party.variation.range(20, 40),
     size: party.variation.range(0.6, 1.2),
@@ -25,45 +20,58 @@ sparkleBtn?.addEventListener('click', (event) => {
   });
 });
 
-// ✨ Sparkle Toggle (Optional Sparkle Trigger Button)
-const sparkleToggleBtn = document.getElementById('sparkle-btn');
-sparkleToggleBtn?.addEventListener('click', () => {
-  party.confetti(sparkleToggleBtn, {
-    count: party.variation.range(15, 30),
-    spread: 70,
-    size: party.variation.range(0.5, 1.1),
+document.getElementById('sparkle-btn')?.addEventListener('click', (event) => {
+  party.confetti(event.target, {
+    count: party.variation.range(20, 40),
+    size: party.variation.range(0.6, 1.2),
+    spread: 90,
   });
 });
 
-// 🔈 Audio Controls
+// 🔈 Audio Control
 const audioBtn = document.getElementById('audio-btn');
-const audio = document.getElementById('bg-music');
+const bgMusic = document.getElementById('bg-music');
 
-audioBtn?.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-    audioBtn.textContent = '🔇 Pause';
+audioBtn.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    audioBtn.textContent = '🔊 Pause';
   } else {
-    audio.pause();
+    bgMusic.pause();
     audioBtn.textContent = '🔈 Play';
   }
 });
 
-// 📜 Fade-In on Scroll
-const fadeElements = document.querySelectorAll('.fade-out');
+// 👣 Scroll Fade-In + Slide-Up Animation for sections
+const faders = document.querySelectorAll('.fade-out');
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // Optional: observe once
-      }
-    });
-  },
-  {
-    threshold: 0.1,
-  }
-);
+const appearOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
 
-fadeElements.forEach((el) => observer.observe(el));
+const appearOnScroll = new IntersectionObserver((entries, appearOnScroll) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    appearOnScroll.unobserve(entry.target);
+  });
+}, appearOptions);
+
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
+
+// 🧭 Animate nav links on page load (staggered fade + slide)
+window.addEventListener('load', () => {
+  const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach((link, index) => {
+    link.style.opacity = 0;
+    link.style.transform = 'translateY(10px)';
+    setTimeout(() => {
+      link.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      link.style.opacity = 1;
+      link.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+});
