@@ -1,209 +1,204 @@
-/* Root purple palette */
-:root {
-  --purple-light: #a76fff;
-  --purple-medium: #7a3ff2;
-  --purple-dark: #4b0082;
-  --purple-glow: #9b59b6;
-  --text-light: #f5f5ff;
-  --text-dark: #2e0854;
-  --shadow-purple: rgba(122, 63, 242, 0.6);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speak Louder, Love Harder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #ff69b4;
+      --purple: #a76fff;
+      --dark-purple: #4b0082;
+      --light-purple: #d6b3ff;
+      --white: #fff;
+      --glow: #ff9ff3;
+    }
 
-/* Global body and fonts */
-body {
-  background: linear-gradient(135deg, var(--purple-dark), var(--purple-medium));
-  color: var(--text-light);
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  transition: background 0.5s ease;
-  overflow-x: hidden;
-}
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark-purple), var(--purple));
+      color: var(--white);
+      overflow-x: hidden;
+    }
 
-/* Container with subtle purple glow */
-.container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: rgba(75, 0, 130, 0.7);
-  border-radius: 20px;
-  box-shadow: 0 0 20px var(--shadow-purple);
-  backdrop-filter: blur(10px);
-}
+    header {
+      background: linear-gradient(to right, var(--purple), var(--pink));
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 10px var(--glow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-/* Headers with gradient text and glowing effect */
-h1, h2, h3 {
-  background: linear-gradient(45deg, var(--purple-light), var(--purple-medium), var(--purple-dark));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: glowText 3s ease-in-out infinite alternate;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 1rem;
-}
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
 
-/* Glow animation for headers */
-@keyframes glowText {
-  0% {
-    text-shadow: 0 0 5px var(--purple-glow), 0 0 10px var(--purple-glow), 0 0 20px var(--purple-glow);
-  }
-  100% {
-    text-shadow: 0 0 20px var(--purple-glow), 0 0 30px var(--purple-glow), 0 0 40px var(--purple-glow);
-  }
-}
+    nav {
+      margin-top: 1rem;
+    }
 
-/* Buttons with interactive hover effect */
-button, .btn {
-  background: var(--purple-medium);
-  color: var(--text-light);
-  border: none;
-  padding: 0.75rem 2rem;
-  font-size: 1.1rem;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 5px 15px var(--shadow-purple);
-  transition: all 0.3s ease;
-  user-select: none;
-  display: inline-block;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--white);
+      position: relative;
+    }
 
-button:hover, .btn:hover {
-  background: var(--purple-light);
-  color: var(--purple-dark);
-  box-shadow: 0 10px 20px var(--shadow-purple);
-  transform: scale(1.1) rotate(3deg);
-  animation: pulse 1.5s infinite;
-}
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--pink);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
 
-/* Pulse animation on hover */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1.1) rotate(3deg);
-  }
-  50% {
-    transform: scale(1.2) rotate(-3deg);
-  }
-}
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
 
-/* Links with underline animation */
-a {
-  color: var(--purple-light);
-  text-decoration: none;
-  position: relative;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
+    .container {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-a::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background: var(--purple-light);
-  left: 0;
-  bottom: -3px;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px var(--glow);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-a:hover {
-  color: var(--purple-dark);
-}
+    .card:hover {
+      transform: translateY(-10px) rotate(-1deg);
+      box-shadow: 0 0 25px var(--pink);
+    }
 
-a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
+    button {
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.5);
+      transition: all 0.3s ease;
+    }
 
-/* Cards with hover 3D lift and shadow */
-.card {
-  background: rgba(122, 63, 242, 0.3);
-  border-radius: 15px;
-  padding: 2rem;
-  margin: 1.5rem 0;
-  box-shadow: 0 8px 25px rgba(122, 63, 242, 0.4);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: pointer;
-  color: var(--text-light);
-}
+    button:hover {
+      background: var(--light-purple);
+      color: var(--dark-purple);
+      transform: scale(1.1) rotate(2deg);
+    }
 
-.card:hover {
-  transform: translateY(-15px) scale(1.05) rotate(-1deg);
-  box-shadow: 0 15px 40px var(--shadow-purple);
-}
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border: 2px solid var(--pink);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      font-size: 1rem;
+    }
 
-/* Interactive inputs with purple focus glow */
-input[type="text"], input[type="email"], textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  border: 2px solid var(--purple-light);
-  background: rgba(122, 63, 242, 0.15);
-  color: var(--text-light);
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px var(--pink);
+      border-color: var(--glow);
+    }
 
-input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
-  border-color: var(--purple-glow);
-  box-shadow: 0 0 10px var(--purple-glow);
-  outline: none;
-  background: rgba(155, 89, 182, 0.2);
-}
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: var(--dark-purple);
+      color: var(--light-purple);
+      font-size: 0.9rem;
+    }
 
-/* Fun animated background shapes */
-@keyframes floating {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-15px) rotate(10deg);
-  }
-}
+    @keyframes glowText {
+      0% {
+        text-shadow: 0 0 5px var(--glow);
+      }
+      100% {
+        text-shadow: 0 0 20px var(--glow), 0 0 30px var(--pink);
+      }
+    }
 
-/* Example floating decorative element */
-.floating-purple {
-  width: 60px;
-  height: 60px;
-  background: var(--purple-light);
-  border-radius: 50%;
-  position: absolute;
-  animation: floating 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px var(--purple-glow));
-}
+    /* Floating fun shapes */
+    .bubble {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: var(--pink);
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 6s infinite ease-in-out;
+      pointer-events: none;
+      filter: blur(2px);
+    }
 
-/* Footer with gradient and soft glow */
-footer {
-  background: linear-gradient(90deg, var(--purple-dark), var(--purple-medium));
-  padding: 2rem 1rem;
-  text-align: center;
-  color: var(--text-light);
-  box-shadow: inset 0 5px 10px var(--shadow-purple);
-  font-weight: 500;
-  font-size: 1rem;
-  user-select: none;
-}
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-50px) rotate(180deg);
+      }
+      100% {
+        transform: translateY(0) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
 
-/* Scrollbar with purple style */
-::-webkit-scrollbar {
-  width: 12px;
-}
+  <header>
+    <h1>Speak Louder, Love Harder</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Connect</a>
+    </nav>
+  </header>
 
-::-webkit-scrollbar-track {
-  background: var(--purple-dark);
-}
+  <div class="container">
+    <div class="card">
+      <h2>Welcome!</h2>
+      <p>This is a playful, purple-pink themed site just for you. It's glowing, floating, and fun!</p>
+      <button>Click Me</button>
+    </div>
 
-::-webkit-scrollbar-thumb {
-  background: var(--purple-medium);
-  border-radius: 10px;
-  border: 3px solid var(--purple-dark);
-  transition: background 0.3s ease;
-}
+    <div class="card">
+      <h3>Get in Touch</h3>
+      <input type="text" placeholder="Your Name">
+      <input type="email" placeholder="Your Email">
+      <textarea rows="4" placeholder="Message"></textarea>
+      <button>Send</button>
+    </div>
+  </div>
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--purple-light);
-}
+  <footer>
+    &copy; 2025 Larissa | Built with 💜 & fun
+  </footer>
+
+  <!-- JS to generate floating bubbles -->
+  <script>
+    for (let i = 0; i < 20; i
