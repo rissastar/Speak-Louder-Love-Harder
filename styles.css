@@ -16,6 +16,20 @@ body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 
+/* Light theme overrides */
+body.light-theme {
+  background: linear-gradient(135deg, #f5f0ff, #cfc3f5);
+  color: #333;
+}
+body.light-theme section {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px #aa88ff44 inset;
+}
+body.light-theme header h1 {
+  background: linear-gradient(90deg, #8855ff, #cc99ff);
+  text-shadow: 0 0 15px #bb99ff88;
+}
+
 /* Theme toggle */
 .theme-toggle {
   position: fixed;
@@ -185,25 +199,63 @@ footer {
   }
 }
 
-/* Fade out animation for sections */
-.fade-out {
-  animation: fadeInUp 1.6s ease forwards;
+/* Fade in/out for tab content */
+.tab-content {
   opacity: 0;
-  transform: translateY(20px);
+  visibility: hidden;
+  max-height: 0;
+  padding: 0 0;
+  overflow: hidden;
+  transition:
+    opacity 0.4s ease,
+    max-height 0.5s ease,
+    padding 0.3s ease,
+    visibility 0.4s ease;
 }
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+.tab-content.active {
+  opacity: 1;
+  visibility: visible;
+  max-height: 1000px; /* large enough for content */
+  padding: 1rem 0;
 }
 
 /* Accessibility Focus */
 button:focus-visible,
 .magic-link:focus-visible,
-.theme-toggle:focus-visible {
+.theme-toggle:focus-visible,
+.tab:focus-visible {
   outline: 3px solid #ff99ff;
   outline-offset: 3px;
+}
+
+/* Tabs */
+.tab {
+  background: linear-gradient(45deg, #8e44ad, #bb33ff);
+  border-radius: 30px;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px #bb33ffaa;
+  user-select: none;
+  margin: 0 0.3rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+.tab:hover, .tab:focus {
+  background: linear-gradient(45deg, #bb33ff, #8e44ad);
+  box-shadow: 0 0 20px #cc33ff;
+  transform: scale(1.05);
+  outline: none;
+}
+.tab.active {
+  background: linear-gradient(45deg, #cc33ff, #ff66cc);
+  box-shadow: 0 0 25px #ff99dd;
+  cursor: default;
+  transform: scale(1.1);
+  pointer-events: none;
 }
 
 /* Responsive tweaks */
@@ -221,75 +273,8 @@ button:focus-visible,
     font-size: 1rem;
     padding: 0.4rem 1rem;
   }
-  
-  /* Tab content containers */
-.tab-content {
-  opacity: 0;
-  visibility: hidden;
-  max-height: 0;
-  overflow: hidden;
-  transition: opacity 0.5s ease, max-height 0.5s ease;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 0 1.5rem; /* Remove vertical padding when hidden */
-  box-shadow: 0 0 15px #bb33ff44 inset;
-  color: #eee;
-  font-size: 1.1rem;
-  user-select: text;
-}
-
-/* Show active tab content with fade-in */
-.tab-content.active {
-  opacity: 1;
-  visibility: visible;
-  max-height: 500px; /* large enough to fit content */
-  padding: 1.8rem 1.5rem; /* restore vertical padding */
-  transition: opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease;
-}
-
-/* Individual tab button */
-.tab-btn {
-  background: linear-gradient(45deg, #9b59b6, #e91e63);
-  padding: 0.5rem 1.2rem;
-  border-radius: 30px;
-  color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-  box-shadow: 0 0 10px #cc33ffaa;
-  transition: background 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
-  user-select: none;
-  border: none;
-}
-.tab-btn:hover, .tab-btn:focus {
-  background: linear-gradient(45deg, #e91e63, #9b59b6);
-  box-shadow: 0 0 20px #ff66cc;
-  transform: scale(1.1);
-  outline: none;
-}
-
-/* Active tab button style */
-.tab-btn.active {
-  background: linear-gradient(45deg, #bb33ff, #ff33cc);
-  box-shadow: 0 0 25px #ff33cc;
-  cursor: default;
-  transform: scale(1.15);
-}
-
-/* Tab content containers */
-.tab-content {
-  display: none;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 1.8rem 1.5rem;
-  box-shadow: 0 0 15px #bb33ff44 inset;
-  color: #eee;
-  font-size: 1.1rem;
-  user-select: text;
-  transition: box-shadow 0.4s ease;
-}
-
-/* Show active tab content */
-.tab-content.active {
-  display: block;
+  .tab {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
 }
