@@ -1,24 +1,50 @@
-/* Reset and Base */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(135deg, #6a0572, #03c8a8);
-  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #3b0a45, #6a0572);
+  color: #eee;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  overflow-x: hidden;
+  padding: 1rem 2rem;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+body.light-theme {
+  background: #fdfdfd;
+  color: #222;
 }
 
-/* Header with Animation */
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  background: #8e44ad;
+  color: #fff;
+  font-size: 1.8rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px #9b59b6;
+  z-index: 1100;
+  transition: transform 0.3s, background 0.3s;
+}
+.theme-toggle:hover, .theme-toggle:focus {
+  background: #bb66e2;
+  transform: scale(1.15);
+  outline: none;
+}
+
+/* Animated Header */
 header {
   text-align: center;
+  margin-top: 4rem;
   margin-bottom: 3rem;
   animation: floaty 6s ease-in-out infinite;
 }
@@ -40,7 +66,7 @@ header p {
   text-shadow: 0 0 8px #44ffbb;
 }
 
-/* Floating header movement */
+/* Header animations */
 @keyframes floaty {
   0%, 100% {
     transform: translateY(0px);
@@ -49,8 +75,6 @@ header p {
     transform: translateY(-20px);
   }
 }
-
-/* Text Color Animation */
 @keyframes colorShift {
   0%, 100% {
     background-position: 0%;
@@ -60,63 +84,94 @@ header p {
   }
 }
 
-/* Buttons & Links */
-button, .magic-link {
-  background: linear-gradient(135deg, #d633ff, #33ffc1);
-  border: none;
-  color: white;
-  padding: 0.7rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 15px #ff77ffaa;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Nav + Buttons */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  margin-bottom: 3rem;
+  max-width: 900px;
+  width: 100%;
 }
-button:hover, .magic-link:hover {
-  transform: scale(1.1) rotate(2deg);
-  box-shadow: 0 0 25px #66ffdd;
+.magic-link {
+  padding: 0.6rem 1.3rem;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #9b59b6, #e91e63);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 0 10px #cc33ffaa;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.magic-link:hover,
+.magic-link:focus {
+  background: linear-gradient(45deg, #e91e63, #9b59b6);
+  box-shadow: 0 0 20px #ff66cc;
+  transform: scale(1.1);
+  outline: none;
 }
 
-/* Fun Sections */
+/* Sections */
 section {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px dashed #ff33cc;
-  border-radius: 25px;
-  padding: 2rem;
-  margin: 1.5rem 0;
-  width: 90%;
-  max-width: 800px;
-  color: #ffeaff;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px #c600ff66;
-  transition: transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 0 15px #bb33ff44 inset;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: box-shadow 0.4s ease;
 }
 section:hover {
-  transform: scale(1.02);
+  box-shadow: 0 0 30px #cc33ffbb inset;
+}
+.fade-out.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
+/* Lists */
+section ul {
+  list-style: none;
+  padding-left: 0;
+  color: #d0b0ff;
+}
+section ul li {
+  margin-bottom: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Footer */
 footer {
-  font-size: 1rem;
-  color: #ffeaffaa;
-  margin-top: auto;
-  padding: 2rem;
+  width: 100%;
   text-align: center;
-  border-top: 2px solid #ff66ff66;
+  padding: 1rem 0 2rem;
+  color: #a087bbcc;
+  font-size: 0.9rem;
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
+  nav {
+    gap: 0.8rem 1rem;
+  }
   header h1 {
     font-size: 2.2rem;
   }
   section {
-    padding: 1rem;
+    padding: 2rem 1rem;
   }
-  
-  body.funky-theme {
-  background: linear-gradient(135deg, #ff00cc, #3333ff);
-  color: #fff;
-}
+  .magic-link {
+    font-size: 1rem;
+    padding: 0.5rem 1.1rem;
+  }
 }
