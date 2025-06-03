@@ -148,4 +148,35 @@ document.addEventListener("DOMContentLoaded", () => {
     moodSelect.value = "";
     reflectionTextarea.value = "";
   });
+  
+  // === Addiction Page JS (matches mental-health.html functionality) ===
+
+// Collapsible toggles
+document.querySelectorAll(".collapsible").forEach((button) => {
+  button.addEventListener("click", function () {
+    const content = this.nextElementSibling;
+    const expanded = this.getAttribute("aria-expanded") === "true";
+    this.setAttribute("aria-expanded", !expanded);
+    content.style.display = expanded ? "none" : "block";
+  });
+});
+
+// Optional dark mode toggle
+const toggle = document.getElementById("dark-mode-toggle");
+if (toggle) {
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+}
+
+// Optional scroll progress bar
+const progressBar = document.getElementById("progress-bar");
+if (progressBar) {
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = `${scrollPercent}%`;
+  });
+}
 });
