@@ -1,4 +1,4 @@
-// Scroll Progress Bar
+// === Scroll Progress Bar ===
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -6,28 +6,29 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress-bar').style.width = scrollPercent + '%';
 });
 
-// Dark Mode Toggle
+// === Dark Mode Toggle ===
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const body = document.body;
 
-// Check for saved preference
+// Load saved dark mode preference
 if (localStorage.getItem('darkMode') === 'enabled') {
   body.classList.add('dark-mode');
   darkModeToggle.textContent = '☀️';
+  darkModeToggle.setAttribute('aria-pressed', 'true');
+} else {
+  darkModeToggle.textContent = '🌙';
+  darkModeToggle.setAttribute('aria-pressed', 'false');
 }
 
 darkModeToggle.addEventListener('click', () => {
   body.classList.toggle('dark-mode');
-  if (body.classList.contains('dark-mode')) {
-    darkModeToggle.textContent = '☀️';
-    localStorage.setItem('darkMode', 'enabled');
-  } else {
-    darkModeToggle.textContent = '🌙';
-    localStorage.setItem('darkMode', 'disabled');
-  }
+  const isDark = body.classList.contains('dark-mode');
+  darkModeToggle.textContent = isDark ? '☀️' : '🌙';
+  darkModeToggle.setAttribute('aria-pressed', isDark);
+  localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
 });
 
-// Smooth Scroll for Internal Links
+// === Smooth Scroll for Internal Links ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
     e.preventDefault();
@@ -39,7 +40,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Typewriter effect - optional enhancement for text cycling
+// === Typewriter Effect with Rotating Messages ===
 const typewriterElement = document.querySelector('.typewriter');
 const messages = [
   'Speak Louder, Love Harder',
@@ -60,13 +61,12 @@ function typeWriterEffect(text, i, callback) {
 
 function startTypingLoop() {
   typeWriterEffect(messages[msgIndex], 0, () => {
-    setTimeout(() => {
-      msgIndex = (msgIndex + 1) % messages.length;
-      startTypingLoop();
-    }, 1000);
+    msgIndex = (msgIndex + 1) % messages.length;
+    startTypingLoop();
   });
 }
 
-if(typewriterElement){
+if (typewriterElement) {
+  typewriterElement.textContent = '';
   startTypingLoop();
 }
