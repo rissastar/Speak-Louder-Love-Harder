@@ -26,6 +26,11 @@ body {
   padding-bottom: 100px;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* 🎯 Header */
 header {
   background-color: var(--primary-color);
@@ -46,6 +51,10 @@ nav {
   background: white;
   padding: 1rem;
   box-shadow: var(--box-shadow);
+}
+
+[data-theme="dark"] nav {
+  background-color: #2a2a2a;
 }
 
 nav a {
@@ -92,6 +101,7 @@ ul li {
 button {
   cursor: pointer;
   background: var(--accent-color);
+  color: #111;
   border: none;
   padding: 1rem 1.5rem;
   font-size: 1rem;
@@ -107,7 +117,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* ☀️ Theme Button */
+/* ☀️ Theme Toggle Button */
 #theme-toggle {
   position: fixed;
   top: 1rem;
@@ -116,16 +126,74 @@ button:hover {
   background: var(--primary-color);
   color: white;
   border: none;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 50%;
   box-shadow: var(--box-shadow);
   z-index: 1000;
 }
 
+.icon {
+  display: none;
+}
+
+[data-theme="light"] .icon.sun {
+  display: inline;
+}
+
+[data-theme="dark"] .icon.moon {
+  display: inline;
+}
+
+/* ✨ Sparkle Toggle */
+#sparkle-toggle {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* 🔈 Audio Control */
+#audio-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
 /* ✨ Animations */
 @keyframes popIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ✨ Fade-in on Scroll */
+.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-out.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 👣 Footer */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--primary-color);
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  box-shadow: var(--box-shadow);
 }
 
 /* 📱 Responsive */
@@ -138,5 +206,10 @@ button:hover {
   button {
     width: 90%;
     margin: 0.5rem 0;
+  }
+
+  #theme-toggle {
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }
