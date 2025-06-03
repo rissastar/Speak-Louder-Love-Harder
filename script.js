@@ -4,13 +4,23 @@ window.addEventListener('scroll', () => {
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   const scrollPercent = (scrollTop / docHeight) * 100;
   document.getElementById('progress-bar').style.width = scrollPercent + '%';
+
+  // Show/hide scroll-to-top button with fade effect
+  if (scrollTop > 300) {
+    scrollToTopBtn.style.opacity = '1';
+    scrollToTopBtn.style.pointerEvents = 'auto';
+    scrollToTopBtn.style.transform = 'translateY(0)';
+  } else {
+    scrollToTopBtn.style.opacity = '0';
+    scrollToTopBtn.style.pointerEvents = 'none';
+    scrollToTopBtn.style.transform = 'translateY(20px)';
+  }
 });
 
 // Dark Mode Toggle
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
-  // Save preference
   if (document.body.classList.contains('dark-mode')) {
     localStorage.setItem('darkMode', 'enabled');
     darkModeToggle.textContent = '☀️';
@@ -20,7 +30,6 @@ darkModeToggle.addEventListener('click', () => {
   }
 });
 
-// Load dark mode preference
 if (localStorage.getItem('darkMode') === 'enabled') {
   document.body.classList.add('dark-mode');
   darkModeToggle.textContent = '☀️';
@@ -38,43 +47,44 @@ const quotes = [
 ];
 
 function showQuoteOfTheDay() {
-  // Create popup container
   const popup = document.createElement('div');
   popup.id = 'quote-popup';
-  popup.style.position = 'fixed';
-  popup.style.top = '20px';
-  popup.style.right = '20px';
-  popup.style.background = 'rgba(124, 77, 255, 0.9)';
-  popup.style.color = 'white';
-  popup.style.padding = '1rem 1.5rem';
-  popup.style.borderRadius = '10px';
-  popup.style.boxShadow = '0 4px 15px rgba(124, 77, 255, 0.7)';
-  popup.style.zIndex = '9999';
-  popup.style.fontSize = '1.2rem';
-  popup.style.fontWeight = '600';
-  popup.style.maxWidth = '250px';
-  popup.style.cursor = 'pointer';
-  popup.style.userSelect = 'none';
+  Object.assign(popup.style, {
+    position: 'fixed',
+    top: '20px',
+    right: '20px',
+    background: 'rgba(124, 77, 255, 0.9)',
+    color: 'white',
+    padding: '1rem 1.5rem',
+    borderRadius: '10px',
+    boxShadow: '0 4px 15px rgba(124, 77, 255, 0.7)',
+    zIndex: '9999',
+    fontSize: '1.2rem',
+    fontWeight: '600',
+    maxWidth: '250px',
+    cursor: 'pointer',
+    userSelect: 'none'
+  });
 
-  // Pick quote of the day based on date
   const day = new Date().getDate();
   const quote = quotes[day % quotes.length];
   popup.textContent = quote;
 
-  // Close popup on click
   popup.addEventListener('click', () => {
     popup.remove();
   });
 
   document.body.appendChild(popup);
 
-  // Auto remove after 12 seconds
   setTimeout(() => {
     if (popup.parentNode) popup.remove();
   }, 12000);
 }
 
-window.addEventListener('load', showQuoteOfTheDay);
+window.addEventListener('load', () => {
+  showQuoteOfTheDay();
+  checkMobileAndMute();
+});
 
 // Ambient Music Toggle
 let musicPlaying = false;
@@ -86,18 +96,20 @@ const musicToggleBtn = document.createElement('button');
 musicToggleBtn.id = 'music-toggle';
 musicToggleBtn.textContent = '🔈';
 musicToggleBtn.title = 'Toggle ambient music';
-musicToggleBtn.style.position = 'fixed';
-musicToggleBtn.style.bottom = '20px';
-musicToggleBtn.style.right = '70px';
-musicToggleBtn.style.fontSize = '1.7rem';
-musicToggleBtn.style.background = '#fff';
-musicToggleBtn.style.border = 'none';
-musicToggleBtn.style.borderRadius = '50%';
-musicToggleBtn.style.padding = '0.6rem 0.7rem';
-musicToggleBtn.style.cursor = 'pointer';
-musicToggleBtn.style.zIndex = '99';
-musicToggleBtn.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
-musicToggleBtn.style.transition = 'background 0.3s';
+Object.assign(musicToggleBtn.style, {
+  position: 'fixed',
+  bottom: '20px',
+  right: '70px',
+  fontSize: '1.7rem',
+  background: '#fff',
+  border: 'none',
+  borderRadius: '50%',
+  padding: '0.6rem 0.7rem',
+  cursor: 'pointer',
+  zIndex: '99',
+  boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+  transition: 'background 0.3s'
+});
 
 musicToggleBtn.addEventListener('click', () => {
   if (!musicPlaying) {
@@ -111,8 +123,6 @@ musicToggleBtn.addEventListener('click', () => {
   }
 });
 
-document.body.appendChild(musicToggleBtn);
-
 musicToggleBtn.addEventListener('mouseover', () => {
   musicToggleBtn.style.background = '#f0f0f0';
 });
@@ -120,16 +130,30 @@ musicToggleBtn.addEventListener('mouseout', () => {
   musicToggleBtn.style.background = '#fff';
 });
 
+document.body.appendChild(musicToggleBtn);
+
+// Mute ambient music on mobile autoplay to avoid unexpected sound
+function checkMobileAndMute() {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    audio.muted = true;
+    musicToggleBtn.textContent = '🔇'; // show muted icon initially
+    musicPlaying = false;
+  }
+}
+
 // Animated SVG Hearts Background
 const heartsContainer = document.createElement('div');
 heartsContainer.id = 'hearts-container';
-heartsContainer.style.position = 'fixed';
-heartsContainer.style.top = '0';
-heartsContainer.style.left = '0';
-heartsContainer.style.width = '100vw';
-heartsContainer.style.height = '100vh';
-heartsContainer.style.pointerEvents = 'none';
-heartsContainer.style.zIndex = '0';
+Object.assign(heartsContainer.style, {
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  width: '100vw',
+  height: '100vh',
+  pointerEvents: 'none',
+  zIndex: '0'
+});
 document.body.appendChild(heartsContainer);
 
 function createHeart() {
@@ -151,7 +175,6 @@ function createHeart() {
 
   heartsContainer.appendChild(heart);
 
-  // Animate upwards and sideways with random speed
   let posY = window.innerHeight + 40;
   let posX = parseFloat(heart.style.left);
   const speedY = 1 + Math.random() * 2;
@@ -174,7 +197,6 @@ function createHeart() {
   animate();
 }
 
-// Create hearts continuously but limited number to prevent lag
 setInterval(() => {
   if (heartsContainer.childElementCount < 25) {
     createHeart();
@@ -184,13 +206,15 @@ setInterval(() => {
 // Paw prints following the cursor
 const pawContainer = document.createElement('div');
 pawContainer.id = 'paw-container';
-pawContainer.style.position = 'fixed';
-pawContainer.style.top = '0';
-pawContainer.style.left = '0';
-pawContainer.style.width = '100vw';
-pawContainer.style.height = '100vh';
-pawContainer.style.pointerEvents = 'none';
-pawContainer.style.zIndex = '10';
+Object.assign(pawContainer.style, {
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  width: '100vw',
+  height: '100vh',
+  pointerEvents: 'none',
+  zIndex: '10'
+});
 document.body.appendChild(pawContainer);
 
 function createPaw(x, y) {
@@ -198,40 +222,72 @@ function createPaw(x, y) {
   paw.setAttribute('viewBox', '0 0 64 64');
   paw.setAttribute('width', '25');
   paw.setAttribute('height', '25');
-  paw.style.position = 'absolute';
-  paw.style.left = x + 'px';
-  paw.style.top = y + 'px';
-  paw.style.opacity = '0.8';
-  paw.style.fill = '#7c4dff';
-  paw.style.pointerEvents = 'none';
-  paw.style.willChange = 'transform, opacity';
+  Object.assign(paw.style, {
+    position: 'absolute',
+    left: x + 'px',
+    top: y + 'px',
+    opacity: '0.8',
+    fill: '#7c4dff',
+    pointerEvents: 'none',
+    willChange: 'transform, opacity'
+  });
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute('d', 'M47.3 22.1c-3.4 0-6.2 4-6.2 9 0 5 2.8 9 6.2 9s6.2-4 6.2-9-2.8-9-6.2-9zm-19.6 0c-3.4 0-6.2 4-6.2 9 0 5 2.8 9 6.2 9s6.2-4 6.2-9-2.8-9-6.2-9zm10.2-13.3c-2.1 0-3.8 3-3.8 6.7 0 3.7 1.7 6.7 3.8 6.7s3.8-3 3.8-6.7c0-3.8-1.7-6.7-3.8-6.7zm-15.7 1.7c-1.9 0-3.5 2.4-3.5 5.3 0 2.9 1.6 5.3 3.5 5.3s3.5-2.4 3.5-5.3c0-2.9-1.6-5.3-3.5-5.3zm7.8 15.8c-8.6 0-15.6 7-15.6 15.6 0 2.4 0.6 4.7 1.7 6.7 3.2-1.5 9-5.2 13.9-5.2 4.9 0 10.6 3.7 13.9 5.2 1.1-2 1.7-4.3 1.7-6.7-0.1-8.6-7-15.6-15.6-15.6z');
+  path.setAttribute('d', 'M47.3 22.1c-3.4 0-6.2 4-6.2 9 0 5 2.8 9 6.2 9s6.2-4 6.2-9-2.8-9-6.2-9zm-19.6 0c-3.4 0-6.2 4-6.2 9 0 5 2.8 9 6.2 9s6.2-4 6.2-9-2.8-9-6.2-9zm10.2-13.3c-2.1 0-3.8 3-3.8 6.7 0 3.7 1.7 6.7 3.8 6.7s3.8-3 3.8-6.7c0-3.7-1.7-6.7-3.8-6.7zm-9.3 2.3c-1.7 0-3.1 2.3-3.1 5.1 0 2.8 1.4 5.1 3.1 5.1s3.1-2.3 3.1-5.1c0-2.8-1.4-5.1-3.1-5.1zM32 27.1c-9 0-17.8 8.5-17.8 17.7 0 10.1 17.8 20.9 17.8 20.9s17.8-10.7 17.8-20.9c0-9.3-8.8-17.7-17.8-17.7z');
   paw.appendChild(path);
-
   pawContainer.appendChild(paw);
 
-  // Animate paw fade out and move up
   let opacity = 0.8;
-  let posY = y;
-  let life = 0;
+  let scale = 1;
+  let yPos = y;
 
   function animate() {
+    opacity -= 0.02;
+    scale += 0.01;
+    yPos -= 0.7;
+
     if (opacity <= 0) {
       pawContainer.removeChild(paw);
       return;
     }
-    life++;
-    posY -= 0.7;
-    opacity -= 0.02;
-    paw.style.top = posY + 'px';
+
     paw.style.opacity = opacity;
+    paw.style.transform = `translateY(${yPos - y}px) scale(${scale})`;
     requestAnimationFrame(animate);
   }
   animate();
 }
 
-document.addEventListener('mousemove', (e) => {
-  createPaw(e.clientX, e.clientY);
+window.addEventListener('mousemove', (e) => {
+  createPaw(e.clientX - 12, e.clientY - 12);
 });
+
+// Scroll-to-top button with fade-in effect
+const scrollToTopBtn = document.createElement('button');
+scrollToTopBtn.id = 'scroll-to-top';
+scrollToTopBtn.innerHTML = '⬆️';
+scrollToTopBtn.title = 'Scroll to Top';
+
+Object.assign(scrollToTopBtn.style, {
+  position: 'fixed',
+  bottom: '20px',
+  right: '20px',
+  fontSize: '1.7rem',
+  backgroundColor: '#f7f7f7',
+  border: '2px solid #ccc',
+  borderRadius: '50%',
+  padding: '0.6rem 0.8rem',
+  cursor: 'pointer',
+  zIndex: '1000',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+  transition: 'opacity 0.4s ease, transform 0.3s ease',
+  opacity: '0',
+  transform: 'translateY(20px)',
+  pointerEvents: 'none'
+});
+
+scrollToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+document.body.appendChild(scrollToTopBtn);
