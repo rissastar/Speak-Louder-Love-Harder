@@ -184,4 +184,8 @@ footer {
     font-size: 1rem;
     padding: 0.5rem 1.1rem;
   }
-}
+  
+  body.funky-theme {
+  background: linear-gradient(135deg, #ff00cc, #3333ff);
+  color: #fff;
+  }
