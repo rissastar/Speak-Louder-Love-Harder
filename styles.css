@@ -31,16 +31,11 @@ header {
   background-color: var(--primary-color);
   color: white;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem;
   font-size: 2rem;
   font-weight: bold;
-  animation: popIn 1s ease forwards;
+  animation: popIn 1s ease;
   box-shadow: var(--box-shadow);
-}
-
-header h1 {
-  animation: popIn 1s ease forwards;
-  transform-origin: center;
 }
 
 /* 🧭 Navigation */
@@ -51,6 +46,16 @@ nav {
   background: white;
   padding: 1rem;
   box-shadow: var(--box-shadow);
+  transition: background 0.3s ease;
+}
+
+nav.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--bg-color);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  z-index: 999;
 }
 
 nav a {
@@ -62,31 +67,20 @@ nav a {
   border-radius: 10px;
   border: 2px solid var(--primary-color);
   transition: var(--transition);
-  position: relative;
-  overflow: hidden;
 }
 
+/* Bounce animation on nav hover */
 nav a:hover {
+  animation: bounce 0.4s ease;
   background: var(--primary-color);
   color: white;
   transform: scale(1.05);
 }
 
-nav a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 3px;
-  background: var(--primary-color);
-  transition: width 0.3s ease, left 0.3s ease;
-  border-radius: 5px;
-}
-
-nav a:hover::after {
-  width: 100%;
-  left: 0;
+/* Bounce Keyframes */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 /* 🧠 Content Sections */
@@ -95,18 +89,6 @@ section {
   max-width: 800px;
   margin: auto;
   text-align: center;
-}
-
-/* Fade-in + slide-up for .fade-out sections */
-.fade-out {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-out.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 section h2 {
@@ -135,28 +117,17 @@ button {
   border-radius: 50px;
   box-shadow: var(--box-shadow);
   transition: var(--transition);
-  outline-offset: 4px;
 }
 
+/* Button hover glow */
 button:hover {
   background: var(--primary-color);
   color: white;
+  box-shadow: 0 0 15px var(--primary-color);
   transform: scale(1.05);
-  animation: bounce 0.5s;
-  transform-origin: center bottom;
 }
 
-/* Bounce animation for buttons on hover */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-/* ☀️ Theme Toggle Button */
+/* ☀️ Theme Button */
 #theme-toggle {
   position: fixed;
   top: 1rem;
@@ -169,32 +140,96 @@ button:hover {
   border-radius: 50%;
   box-shadow: var(--box-shadow);
   z-index: 1000;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
 }
 
-/* ✨ Sparkle Buttons Glow Pulse */
-#sparkle-button, #sparkle-btn {
-  animation: glowPulse 2.5s infinite alternate;
+/* Theme toggle pulse */
+#theme-toggle.pulse {
+  animation: pulse 0.6s ease;
 }
 
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 0 8px var(--accent-color);
-  }
-  100% {
-    box-shadow: 0 0 20px var(--accent-color);
-  }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 var(--accent-color); }
+  70% { box-shadow: 0 0 10px 10px var(--accent-color); }
+  100% { box-shadow: 0 0 0 0 var(--accent-color); }
 }
 
 /* ✨ Animations */
 @keyframes popIn {
-  0% { 
-    transform: scale(0.8); 
-    opacity: 0; 
-  }
-  100% { 
-    transform: scale(1); 
-    opacity: 1; 
-  }
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Fade in and slide up for sections */
+section.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.fade-out.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: var(--delay, 0s);
+}
+
+/* Sticky back to top button */
+#back-to-top {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  padding: 1rem 1.3rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+  display: none;
+  z-index: 1000;
+  font-size: 1.5rem;
+  transition: opacity 0.3s ease;
+}
+
+#back-to-top.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Volume slider */
+#audio-volume {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 120px;
+  z-index: 1000;
+  opacity: 0.8;
+}
+
+/* Reset theme button */
+#reset-theme-btn {
+  position: fixed;
+  bottom: 140px;
+  right: 20px;
+  z-index: 1000;
+  padding: 0.7rem 1rem;
+  border-radius: 50px;
+  background: var(--accent-color);
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: var(--box-shadow);
+  transition: background 0.3s ease;
+}
+
+#reset-theme-btn:hover {
+  background: var(--primary-color);
+  color: white;
 }
 
 /* 📱 Responsive */
@@ -209,12 +244,17 @@ button:hover {
     margin: 0.5rem 0;
   }
 
-  header {
-    font-size: 1.5rem;
-    padding: 1.5rem 1rem;
+  #audio-volume {
+    width: 90px;
   }
 
-  section {
-    padding: 2rem 1rem;
+  #back-to-top {
+    right: 15px;
+    bottom: 80px;
+  }
+
+  #reset-theme-btn {
+    bottom: 120px;
+    right: 15px;
   }
 }
