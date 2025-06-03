@@ -62,3 +62,21 @@ function getRandomPurpleColor() {
   ];
   return purples[Math.floor(Math.random() * purples.length)];
 }
+
+const sections = document.querySelectorAll('.section, .hero');
+
+function floatingEffect() {
+  if(window.innerWidth <= 768) {
+    // Disable floating on small screens
+    sections.forEach(section => section.style.transform = 'none');
+    return;
+  }
+  sections.forEach(section => {
+    section.style.transform = `translateY(${Math.sin(Date.now() / 700) * 5}px)`;
+  });
+}
+
+window.addEventListener('scroll', floatingEffect);
+window.addEventListener('resize', floatingEffect);
+
+floatingEffect(); // Initial call
