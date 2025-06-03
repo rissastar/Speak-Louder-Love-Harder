@@ -39,4 +39,18 @@ document.querySelectorAll('.menu-toggle')?.forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelector('nav').classList.toggle('open');
   });
+  
+  // Theme toggle logic
+const themeToggleBtn = document.querySelector('#theme-toggle button');
+const currentTheme = localStorage.getItem('theme');
+
+if (currentTheme === 'light') {
+  document.body.classList.add('light-theme');
+}
+
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light-theme');
+  const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+  localStorage.setItem('theme', theme);
+});
 });
