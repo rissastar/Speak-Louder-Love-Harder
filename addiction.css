@@ -1,118 +1,139 @@
-/* Addiction page specific styles */
-
+/* addiction.css */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  line-height: 1.6;
-  background-color: var(--background-color, #f9f9f9);
-  color: var(--text-color, #333);
-}
-
-h1, h2, h3 {
-  color: var(--heading-color, #2c3e50);
-}
-
-a {
-  color: #007acc;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-.hero {
   background: #f4f4f4;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background: #121212;
+  color: #eaeaea;
+}
+
+header.hero {
+  background: #ff6f61;
+  color: white;
   padding: 2rem;
   text-align: center;
-  border-bottom: 2px solid #ddd;
 }
-.hero h1 {
-  font-size: 2.5rem;
-}
+
 .intro-quote {
   font-style: italic;
-  margin-top: 1rem;
-  color: #666;
+  margin-top: 0.5rem;
 }
 
-section {
+.section {
   padding: 2rem;
-  border-bottom: 1px solid #ddd;
+  max-width: 900px;
+  margin: auto;
 }
 
-ul {
-  list-style-type: disc;
-  margin-left: 1.5rem;
+.section.dark {
+  background: #333;
+  color: white;
+  border-top: 4px solid #ff6f61;
+}
+
+.collapsible {
+  background-color: #ff6f61;
+  color: white;
+  padding: 1rem;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.collapsible-content {
+  display: none;
+  padding: 1rem;
+  border-left: 4px solid #ff6f61;
+  background-color: #fff;
+  color: #333;
+}
+
+body.dark-mode .collapsible-content {
+  background: #1f1f1f;
+  color: #eaeaea;
+}
+
+details.collapsible-section summary {
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.myth-fact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.myth-fact-list li {
+  margin-bottom: 1.5rem;
+}
+
+.myth {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.fact {
+  color: #5cb85c;
+  display: block;
+  margin-top: 0.3rem;
 }
 
 .resource-links a {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #005fa3;
+  margin: 0.5rem 0;
+  color: #007acc;
 }
 
 form textarea {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: 1rem;
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 form button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
   padding: 0.75rem 1.5rem;
-  background-color: #007acc;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-}
-form button:hover {
-  background-color: #005fa3;
+  border-radius: 4px;
 }
 
-.collapsible-section {
-  margin-bottom: 1rem;
-}
-.collapsible {
-  background-color: #eaeaea;
+#dark-mode-toggle {
+  margin-top: 1rem;
+  background: white;
+  color: #ff6f61;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  padding: 1rem;
+}
+
+#progress-container {
+  height: 5px;
   width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-.collapsible:after {
-  content: ' ▼';
-  float: right;
-}
-.collapsible[aria-expanded="true"]:after {
-  content: ' ▲';
-}
-.collapsible-content {
-  display: none;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ccc;
+  background: #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
-/* Dark Mode Support */
-body.dark-mode {
-  background-color: #121212;
-  color: #f0f0f0;
-}
-body.dark-mode .hero {
-  background-color: #1e1e1e;
-}
-body.dark-mode .collapsible {
-  background-color: #333;
-  color: #f0f0f0;
-}
-body.dark-mode .collapsible-content {
-  background-color: #1c1c1c;
+#progress-bar {
+  height: 100%;
+  background: #ff6f61;
+  width: 0%;
 }
