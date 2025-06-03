@@ -28,143 +28,20 @@
 
   <!-- Navigation Bar -->
   <nav>
-    // Dark/Light Theme Toggle
-const themeToggleBtn = document.querySelector('.theme-toggle');
-const body = document.body;
-
-function setTheme(theme) {
-  if (theme === 'dark') {
-    body.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    body.classList.remove('dark');
-    localStorage.setItem('theme', 'light');
-  }
-}
-
-// Initialize theme from localStorage or system
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  setTheme(savedTheme);
-} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  setTheme('dark');
-}
-
-themeToggleBtn.addEventListener('click', () => {
-  if (body.classList.contains('dark')) {
-    setTheme('light');
-  } else {
-    setTheme('dark');
-  }
-});
-
-// Progress Bar on scroll
-const progressBar = document.getElementById('progress-bar');
-
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
-  progressBar.style.width = scrollPercent + '%';
-
-  // Sticky header shrink
-  if (scrollTop > 60) {
-    body.classList.add('scrolled');
-  } else {
-    body.classList.remove('scrolled');
-  }
-
-  // Back to top button show/hide
-  if (scrollTop > 300) {
-    backToTopBtn.classList.add('show');
-  } else {
-    backToTopBtn.classList.remove('show');
-  }
-});
-
-// Fade-in sections on scroll
-const faders = document.querySelectorAll('.fade-in-on-scroll');
-
-const appearOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -50px 0px"
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) {
-      return;
-    } else {
-      entry.target.classList.add('visible');
-      appearOnScroll.unobserve(entry.target);
-    }
-  });
-}, appearOptions);
-
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
-});
-
-// Animated sliding underline for nav
-const nav = document.querySelector('nav');
-const navLinks = nav.querySelectorAll('a');
-const navUnderline = nav.querySelector('.nav-underline');
-
-function updateUnderline(el) {
-  const rect = el.getBoundingClientRect();
-  const navRect = nav.getBoundingClientRect();
-  navUnderline.style.width = rect.width + 'px';
-  navUnderline.style.left = (rect.left - navRect.left) + 'px';
-  navUnderline.style.backgroundColor = getComputedStyle(el).color;
-}
-
-// Initialize underline on first nav link
-if (navLinks.length > 0) {
-  updateUnderline(navLinks[0]);
-}
-
-navLinks.forEach(link => {
-  link.addEventListener('mouseenter', (e) => {
-    updateUnderline(e.target);
-  });
-  link.addEventListener('focus', (e) => {
-    updateUnderline(e.target);
-  });
-});
-
-nav.addEventListener('mouseleave', () => {
-  // Reset underline to first link or active (if you want)
-  updateUnderline(navLinks[0]);
-});
-
-// Smooth scroll for nav links (internal anchors only)
-navLinks.forEach(link => {
-  if (link.hash) {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelector(link.hash)?.scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-});
-
-// Back to Top button
-const backToTopBtn = document.getElementById('back-to-top');
-backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Splash screen hide on load
-window.addEventListener('load', () => {
-  const splash = document.getElementById('splash-screen');
-  splash.style.opacity = '0';
-  setTimeout(() => {
-    splash.style.display = 'none';
-  }, 500);
-});
-    <span class="nav-underline"></span>
-  </nav>
-
-  <!-- Progress Bar -->
+  <a href="mental-health.html" class="magic-link">Mental Health</a>
+  <a href="addiction.html" class="magic-link">Addiction</a>
+  <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
+  <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
+  <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
+  <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
+  <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
+  <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
+  <a href="foster-children.html" class="magic-link">Foster Children</a>
+  <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
+  <span class="nav-underline"></span>
+</nav>
+  
+   <!-- Progress Bar -->
   <div id="progress-bar"></div>
 
   <!-- Welcome Section -->
