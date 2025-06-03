@@ -1,4 +1,27 @@
-// Scroll Progress Bar
+// Dark Mode Toggle with localStorage persistence
+const toggle = document.getElementById('dark-mode-toggle');
+const body = document.body;
+
+// Load saved mode on page load
+if (localStorage.getItem('darkMode') === 'enabled') {
+  body.classList.add('dark-mode');
+  toggle.textContent = '☀️'; // sun icon
+} else {
+  toggle.textContent = '🌙'; // moon icon
+}
+
+toggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  if (body.classList.contains('dark-mode')) {
+    localStorage.setItem('darkMode', 'enabled');
+    toggle.textContent = '☀️';
+  } else {
+    localStorage.setItem('darkMode', 'disabled');
+    toggle.textContent = '🌙';
+  }
+});
+
+// Scroll progress bar
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
@@ -7,76 +30,53 @@ window.addEventListener('scroll', () => {
   progressBar.style.width = scrollPercent + '%';
 });
 
-// Dark Mode Toggle
-const toggleBtn = document.getElementById('dark-mode-toggle');
-toggleBtn.addEventListener('click', () => {
+// Confetti animation on clicking hero h1
+const heroHeading = document.querySelector('.hero h1');
+heroHeading.style.cursor = 'pointer';
+
+heroHeading.addEventListener('click', () => {
+  launchConfetti();
+});
+
+// Simple confetti function
+function launchConfetti() {
+  const confettiCount = 100;
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    confetti.style.backgroundColor = getRandomPurpleColor();
+    document.body.appendChild(confetti);
+    setTimeout(() => {
+      confetti.remove();
+    }, 5000);
+  }
+}
+
+// Helper to get random purple shades
+function getRandomPurpleColor() {
+  const purples = [
+    '#b366ff', '#7c4dff', '#a64ca6', '#d1a3ff', '#5b3fc4',
+    '#b08de6', '#9269e6', '#a67de6', '#c9a1ff', '#8358ff'
+  ];
+  return purples[Math.floor(Math.random() * purples.length)];
+}
+
+// Floating effect on sections on scroll
+const sections = document.querySelectorAll('.section, .hero');
+
+window.addEventListener('scroll', () => {
+  const scrollPos = window.scrollY + window.innerHeight;
+  sections.forEach(section => {
+    const offsetTop = section.offsetTop;
+    if (scrollPos > offsetTop + 100) {
+      section.style.transform = `translateY(${Math.sin(Date.now() / 700) * 5}px)`;
+    } else {
+      section.style.transform = 'translateY(0)';
+    }
+
+const toggle = document.getElementById('dark-mode-toggle');
+toggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
-  toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
 });
-
-// Confetti Burst on Click with Soft Pastels
-const pastelColors = ['#ff80ab', '#7c4dff', '#ec407a', '#ba68c8', '#f48fb1', '#ce93d8'];
-const confettiCount = 25;
-
-function createConfetti(x, y) {
-  const confetti = document.createElement('div');
-  confetti.style.position = 'fixed';
-  confetti.style.left = `${x}px`;
-  confetti.style.top = `${y}px`;
-  confetti.style.width = '7px';
-  confetti.style.height = '7px';
-  confetti.style.backgroundColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
-  confetti.style.borderRadius = '50%';
-  confetti.style.pointerEvents = 'none';
-  confetti.style.opacity = '1';
-  confetti.style.zIndex = '10000';
-  confetti.style.transform = 'translate(0, 0)';
-  confetti.style.transition = 'transform 600ms ease-out, opacity 600ms ease-out';
-
-  document.body.appendChild(confetti);
-
-  const angle = Math.random() * 2 * Math.PI;
-  const distance = 70 + Math.random() * 40;
-  const rotate = (Math.random() * 360) + 180;
-
-  requestAnimationFrame(() => {
-    confetti.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) rotate(${rotate}deg)`;
-    confetti.style.opacity = '0';
-  });
-
-  setTimeout(() => confetti.remove(), 600);
-}
-
-window.addEventListener('click', e => {
-  for(let i = 0; i < confettiCount; i++) {
-    createConfetti(e.clientX, e.clientY);
-  }
-});
-
-// Glitter Effect on Magic Links (adds/removes a CSS class to trigger animation)
-const magicLinks = document.querySelectorAll('.magic-link');
-
-magicLinks.forEach(link => {
-  link.addEventListener('mouseenter', () => link.classList.add('glitter'));
-  link.addEventListener('mouseleave', () => link.classList.remove('glitter'));
-});
-
-// Gentle Floating Scroll Bounce Effect
-let lastScrollY = 0;
-let floatOffset = 0;
-let direction = 1;
-
-function floatBounce() {
-  const currentScrollY = window.scrollY;
-  if (currentScrollY > lastScrollY) {
-    floatOffset += direction * 0.4;
-  } else {
-    floatOffset -= direction * 0.4;
-  }
-  if (floatOffset > 8 || floatOffset < -8) direction *= -1;
-  document.body.style.transform = `translateY(${floatOffset}px)`;
-  lastScrollY = currentScrollY;
-  requestAnimationFrame(floatBounce);
-}
-
-floatBounce();
