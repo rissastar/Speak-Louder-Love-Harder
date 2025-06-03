@@ -107,5 +107,8 @@ function switchThemeImages(theme) {
     const src = img.getAttribute(`data-src-${theme}`);
     if (src) img.src = src;
   });
-}
+
+// Page fade in
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('fade-in');
 });
