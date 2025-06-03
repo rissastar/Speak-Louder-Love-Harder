@@ -178,6 +178,60 @@ nav a:focus {
   outline: none;
 }
 
+/* Magic link base style */
+.magic-link {
+  position: relative;
+  overflow: hidden;
+  color: var(--link);
+  transition: color 0.4s ease;
+}
+
+/* Magic effect: animated gradient underline */
+.magic-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff3e8d, #4ade80, #a78bfa);
+  background-size: 300% 100%;
+  animation: magic-underline 3s linear infinite;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  border-radius: 2px;
+  z-index: 5;
+}
+
+/* Reveal underline on hover & focus */
+.magic-link:hover::after,
+.magic-link:focus::after {
+  transform: translateX(0);
+}
+
+.magic-link:hover,
+.magic-link:focus {
+  color: var(--green);
+  outline: none;
+}
+
+/* Subtle shimmer animation */
+@keyframes magic-underline {
+  0% {
+    background-position: 0% 50%;
+    transform: translateX(-100%);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: translateX(0);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: translateX(-100%);
+  }
+}
+
 /* Animated underline */
 .nav-underline {
   position: absolute;
