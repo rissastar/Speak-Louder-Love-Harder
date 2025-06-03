@@ -1,70 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Theme Toggle Button (dynamically created)
   const body = document.body;
-  const toggleButton = document.createElement("button");
+  const themeToggle = document.getElementById('theme-toggle');
+  const progressBar = document.getElementById('progress-bar');
 
-  toggleButton.textContent = "🎨 Toggle Theme";
-  toggleButton.className = "magic-link";
-  toggleButton.style.position = "fixed";
-  toggleButton.style.top = "1rem";
-  toggleButton.style.right = "1rem";
-
-  document.body.appendChild(toggleButton);
-
-  toggleButton.addEventListener("click", () => {
-    body.classList.toggle("funky-theme");
-  });
-
-  // Tabs functionality for mental health disorder details
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parent = btn.closest('details');
-      if (!parent) return;
-
-      // Remove active class from all buttons in this details
-      const siblingsBtns = parent.querySelectorAll('.tab-btn');
-      siblingsBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      // Hide all tab contents in this details
-      const tabContents = parent.querySelectorAll('.tab-content');
-      tabContents.forEach(tc => tc.classList.remove('active'));
-
-      // Show the selected tab content
-      const tabId = btn.dataset.tab;
-      const selectedContent = parent.querySelector(`#${tabId}`);
-      if (selectedContent) selectedContent.classList.add('active');
-    });
-  });
-
-  // Dark mode toggle button (existing button with ID 'dark-mode-toggle')
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      // Save preference to localStorage
-      if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-      } else {
-        localStorage.setItem('darkMode', 'disabled');
-      }
-    });
-
-    // On load, apply saved mode
-    if (localStorage.getItem('darkMode') === 'enabled') {
-      document.body.classList.add('dark-mode');
-    }
+  // Apply saved theme preference on load
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark-mode');
   }
 
-  // Scroll progress bar
-  const progressBar = document.getElementById('progress-bar');
+  // Theme toggle click handler
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+
+  // Accessibility: allow toggle via keyboard (Enter or Space)
+  themeToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      themeToggle.click();
+    }
+  });
+
+  // Scroll progress bar update on scroll
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (scrollTop / docHeight) * 100;
+    const scrolledPercent = (scrollTop / docHeight) * 100;
+
     if (progressBar) {
-      progressBar.style.width = scrolled + '%';
+      progressBar.style.width = scrolledPercent + '%';
     }
   });
 });
