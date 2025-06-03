@@ -37,55 +37,6 @@ if (localStorage.getItem('darkMode') === 'enabled') {
   darkModeToggle.textContent = '🌙';
 }
 
-// Quote of the Day Popup
-const quotes = [
-  "“Speak louder than the noise around you.”",
-  "“Love harder, fight stronger, live freer.”",
-  "“Your story is your power.”",
-  "“Healing begins when you’re heard.”",
-  "“You are not alone.”",
-];
-
-function showQuoteOfTheDay() {
-  const popup = document.createElement('div');
-  popup.id = 'quote-popup';
-  Object.assign(popup.style, {
-    position: 'fixed',
-    top: '20px',
-    right: '20px',
-    background: 'rgba(124, 77, 255, 0.9)',
-    color: 'white',
-    padding: '1rem 1.5rem',
-    borderRadius: '10px',
-    boxShadow: '0 4px 15px rgba(124, 77, 255, 0.7)',
-    zIndex: '9999',
-    fontSize: '1.2rem',
-    fontWeight: '600',
-    maxWidth: '250px',
-    cursor: 'pointer',
-    userSelect: 'none'
-  });
-
-  const day = new Date().getDate();
-  const quote = quotes[day % quotes.length];
-  popup.textContent = quote;
-
-  popup.addEventListener('click', () => {
-    popup.remove();
-  });
-
-  document.body.appendChild(popup);
-
-  setTimeout(() => {
-    if (popup.parentNode) popup.remove();
-  }, 12000);
-}
-
-window.addEventListener('load', () => {
-  showQuoteOfTheDay();
-  checkMobileAndMute();
-});
-
 // Ambient Music Toggle
 let musicPlaying = false;
 const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_3f8ff72cd3.mp3?filename=relaxing-ambient-background-music-11157.mp3');
