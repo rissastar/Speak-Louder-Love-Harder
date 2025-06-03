@@ -19,21 +19,6 @@
   <!-- Site Header -->
   <header>
     <h1 class="site-title">Speak Louder, Love Harder</h1>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="addiction-awareness.html">Addiction Awareness</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-        <li><a href="domestic-violence.html">Domestic Violence</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="connect.html">Connect</a></li>
-      </ul>
-    </nav>
   </header>
 
   <!-- Main Content -->
@@ -45,22 +30,37 @@
       </div>
     </section>
 
-    <section class="section light fade-in">
-      <h2>Our Mission</h2>
+    <section class="section light fade-in" aria-labelledby="mission-title">
+      <h2 id="mission-title">Our Mission</h2>
       <p>
         "Speak Louder, Love Harder" is a community-driven space to share raw, real experiences around mental health, illness, abuse, recovery, and unconditional love. We amplify voices that need to be heard and offer hope, understanding, and advocacy.
       </p>
     </section>
 
-    <section class="section light fade-in">
-      <h2>You Are Not Alone</h2>
+    <section class="section light fade-in" aria-labelledby="alone-title">
+      <h2 id="alone-title">You Are Not Alone</h2>
       <p>
         If you’ve ever felt silenced, judged, or invisible—this is your space. We believe in stories as survival, empathy as action, and love that never gives up.
       </p>
     </section>
 
-    <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook">❤️</a>
+    <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook" aria-label="Sign the Guestbook">❤️</a>
   </main>
+
+  <!-- Navigation below main -->
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+      <li><a href="cirrhosis.html">Cirrhosis</a></li>
+      <li><a href="pitbull-love.html">Pitbull Love</a></li>
+      <li><a href="addiction-awareness.html">Addiction Awareness</a></li>
+      <li><a href="foster-children.html">Foster Children</a></li>
+      <li><a href="domestic-violence.html">Domestic Violence</a></li>
+      <li><a href="connect.html">Connect</a></li>
+    </ul>
+  </nav>
 
   <!-- Footer -->
   <footer>
