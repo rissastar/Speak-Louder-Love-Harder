@@ -11,7 +11,7 @@
 <body>
 
   <!-- Scroll Progress Bar -->
-  <div id="progress-bar"></div>
+  <div id="progress-bar" aria-hidden="true"></div>
 
   <!-- Dark Mode Toggle Button -->
   <button id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
@@ -20,30 +20,8 @@
   <header>
     <h1 class="site-title">Speak Louder, Love Harder</h1>
   </header>
-
-  <!-- Main Content -->
-  <main>
-    <section class="hero fade-in">
-      <div>
-        <h2 class="typewriter">Speak Louder. Love Harder.</h2>
-        <p>Stories, support, and strength—for those who fight and those who rise.</p>
-      </div>
-    </section>
-
-    <section class="section light fade-in" aria-labelledby="mission-title">
-      <h2 id="mission-title">Our Mission</h2>
-      <p>
-        "Speak Louder, Love Harder" is a community-driven space to share raw, real experiences around mental health, illness, abuse, recovery, and unconditional love. We amplify voices that need to be heard and offer hope, understanding, and advocacy.
-      </p>
-    </section>
-
-    <section class="section light fade-in" aria-labelledby="alone-title">
-      <h2 id="alone-title">You Are Not Alone</h2>
-      <p>
-        If you’ve ever felt silenced, judged, or invisible—this is your space. We believe in stories as survival, empathy as action, and love that never gives up.
-      </p>
-    </section>
-
+  
+  <!-- Navigation -->
   <nav class="main-nav" role="navigation" aria-label="Main navigation">
     <ul>
       <li><a href="index.html" aria-current="page">Home</a></li>
@@ -58,20 +36,37 @@
     </ul>
   </nav>
 
- <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook" aria-label="Sign the Guestbook">❤️</a>
+  <!-- Main Content -->
+  <main>
+    <section class="hero fade-in">
+      <div>
+        <h2 class="typewriter" aria-live="polite" aria-atomic="true">Speak Louder. Love Harder.</h2>
+        <p>Stories, support, and strength—for those who fight and those who rise.</p>
+      </div>
+    </section>
+
+    <section class="section light fade-in" aria-labelledby="mission-title">
+      <h2 id="mission-title">Our Mission 🎯</h2>
+      <p>
+        "Speak Louder, Love Harder" is a community-driven space to share raw, real experiences around mental health, illness, abuse, recovery, and unconditional love. We amplify voices that need to be heard and offer hope, understanding, and advocacy.
+      </p>
+    </section>
+
+    <section class="section light fade-in" aria-labelledby="alone-title">
+      <h2 id="alone-title">You Are Not Alone 🤝</h2>
+      <p>
+        If you’ve ever felt silenced, judged, or invisible—this is your space. We believe in stories as survival, empathy as action, and love that never gives up.
+      </p>
+    </section>
+
+    <a href="guestbook-connect.html" class="heart-button" title="Sign the Guestbook" aria-label="Sign the Guestbook">❤️</a>
   </main>
-  
+
   <!-- Footer -->
   <footer>
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
-    <p>
-      Follow me on 
-      <a href="https://twitter.com/rissastar" target="_blank" rel="noopener noreferrer">Twitter</a>, 
-      <a href="https://instagram.com/rissastar" target="_blank" rel="noopener noreferrer">Instagram</a>, and 
-      <a href="https://facebook.com/rissastar" target="_blank" rel="noopener noreferrer">Facebook</a>.
-    </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
