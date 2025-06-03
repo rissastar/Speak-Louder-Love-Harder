@@ -16,7 +16,7 @@ body {
   transition: background 0.5s ease, color 0.5s ease;
 }
 body.light-theme {
-  background: #fdfdfd;
+  background: #fafafa;
   color: #222;
 }
 
@@ -41,7 +41,7 @@ body.light-theme {
   outline: none;
 }
 
-/* Animated Header */
+/* Header Animation */
 header {
   text-align: center;
   margin-top: 4rem;
@@ -84,7 +84,7 @@ header p {
   }
 }
 
-/* Nav + Buttons */
+/* Navigation */
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -129,13 +129,20 @@ section {
 section:hover {
   box-shadow: 0 0 30px #cc33ffbb inset;
 }
-.fade-out.fade-in {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  transition: opacity 1.4s ease, transform 1.4s ease;
+section h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #d290ff;
+  margin-bottom: 1rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 12px #bb33ff99;
 }
-
-/* Lists */
+section p, section ul {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  color: inherit;
+}
 section ul {
   list-style: none;
   padding-left: 0;
@@ -150,6 +157,13 @@ section ul li {
   gap: 0.5rem;
 }
 
+/* Fade in animation trigger */
+.fade-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
 /* Footer */
 footer {
   width: 100%;
@@ -159,7 +173,14 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Responsive */
+/* Focus accessibility */
+.theme-toggle:focus-visible,
+.magic-link:focus-visible {
+  outline: 3px solid #ff99ff;
+  outline-offset: 3px;
+}
+
+/* Responsive Design */
 @media (max-width: 650px) {
   nav {
     gap: 0.8rem 1rem;
