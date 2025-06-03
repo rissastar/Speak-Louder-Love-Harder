@@ -1,101 +1,64 @@
 /* Base Styles */
 :root {
-  --font-main: 'Segoe UI', sans-serif;
-  --color-bg-light: #fdf9ff;
-  --color-bg-dark: #1b1b2f;
-  --color-primary: #7c4dff;
-  --color-accent: #32cd32;
-  --color-text-light: #333;
-  --color-text-dark: #f1f1f1;
-  --color-link-hover: #9b59b6;
+  --primary: #9b59b6;
+  --accent: #2ecc71;
+  --text: #222;
+  --bg: #fff;
+  --link: #8e44ad;
+  --glow: rgba(155, 89, 182, 0.6);
+  --transition: 0.3s ease-in-out;
+  --font-main: 'Quicksand', sans-serif;
 }
 
 body {
-  margin: 0;
   font-family: var(--font-main);
-  background-color: var(--color-bg-light);
-  color: var(--color-text-light);
-  transition: background 0.3s ease, color 0.3s ease;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  transition: background-color var(--transition), color var(--transition);
 }
 
-.dark-mode {
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-dark);
-}
-
-.dark-mode a {
-  color: #a6e3a1;
-}
-
-.dark-mode .magic-link:hover {
-  color: #bb86fc;
-  text-shadow: 0 0 6px #bb86fc;
-}
-
-/* Scroll Progress Bar */
-#progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 5px;
-  background: var(--color-primary);
-  width: 0%;
-  z-index: 999;
-  transition: width 0.2s ease;
-}
-
-/* Header */
-header {
+header, footer {
+  padding: 1.5rem;
   text-align: center;
-  padding: 2rem 1rem 1rem;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  color: white;
 }
 
 .site-title {
-  font-size: 2.8rem;
-  font-weight: bold;
-  color: var(--color-primary);
+  font-size: 2.2rem;
+  margin: 0;
 }
 
-/* Hero Section */
 .hero {
   text-align: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f5ff, #e0ffe0);
-  border-radius: 12px;
-  margin: 1rem;
+  padding: 3rem 1rem;
+  background: linear-gradient(to bottom, #ffffff, #f9f1ff);
 }
 
-.dark-mode .hero {
-  background: linear-gradient(135deg, #2c2c44, #1c2c1c);
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-}
-
-/* Typewriter */
 .typewriter {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: var(--color-primary);
+  color: var(--primary);
   margin-bottom: 1rem;
+  height: 2.5rem;
 }
 
-/* Heart Button */
+p {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+
 .heart-button {
   display: inline-block;
   font-size: 2rem;
   margin-top: 1rem;
-  text-decoration: none;
-  animation: pulse 1.5s infinite;
-  color: var(--color-accent);
+  transition: transform var(--transition);
 }
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+.heart-button:hover {
+  transform: scale(1.2);
 }
 
 /* Navigation */
@@ -103,106 +66,134 @@ header {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 1.5rem 1rem;
-  background-color: #f0ebff;
-  border-top: 2px solid var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
-}
-
-.dark-mode .main-nav {
-  background-color: #2b2b3f;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
 }
 
 .magic-link {
-  color: var(--color-primary);
-  text-decoration: none;
   position: relative;
-  font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition), text-shadow var(--transition);
 }
 
 .magic-link::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -3px;
-  height: 2px;
+  bottom: 0;
   width: 0%;
-  background-color: var(--color-accent);
-  transition: width 0.3s ease;
+  height: 2px;
+  background: var(--link);
+  transition: width var(--transition);
 }
 
+.magic-link:hover {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--glow);
+}
 .magic-link:hover::after {
   width: 100%;
 }
 
-.magic-link:hover {
-  color: var(--color-link-hover);
-  text-shadow: 0 0 6px var(--color-primary);
-}
-
-/* Section Styles */
-.section {
-  padding: 2rem;
-  text-align: center;
-}
-
-.section h2 {
-  color: var(--color-primary);
-  font-size: 2rem;
+/* Scroll Progress Bar */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 0%;
+  background: var(--primary);
+  z-index: 1000;
+  transition: width 0.25s;
 }
 
 /* Footer */
 footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #f4f4ff;
+  margin-top: 3rem;
   font-size: 0.9rem;
 }
 
-.dark-mode footer {
+/* Theme Switcher Dropdown */
+.theme-toggle {
+  margin-top: 1rem;
+  text-align: center;
+}
+#theme-select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Dark Mode */
+body.dark {
+  --bg: #181818;
+  --text: #f2f2f2;
+  --link: #bb86fc;
+  --glow: rgba(187, 134, 252, 0.7);
+  background-color: var(--bg);
+  color: var(--text);
+}
+body.dark .main-nav {
   background-color: #222;
 }
+body.dark header, body.dark footer {
+  background: linear-gradient(to right, #6a0dad, #00b894);
+}
 
-/* Dark Mode Toggle Button */
+/* Theme Variants */
+body.pastel {
+  --primary: #c084fc;
+  --accent: #a3f7bf;
+  --link: #ab73d4;
+  --glow: rgba(172, 133, 224, 0.5);
+}
+
+body.bold {
+  --primary: #8e44ad;
+  --accent: #2ecc71;
+  --link: #e67e22;
+  --glow: rgba(230, 126, 34, 0.6);
+}
+
+body.dark {
+  --primary: #bb86fc;
+  --accent: #03dac6;
+  --link: #bb86fc;
+  --glow: rgba(187, 134, 252, 0.6);
+}
+
+/* Dark Mode Button */
 #dark-mode-toggle {
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: var(--color-primary);
-  color: #fff;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  background: transparent;
   border: none;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  width: 42px;
-  height: 42px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  transition: transform var(--transition);
 }
-
 #dark-mode-toggle:hover {
-  background-color: var(--color-accent);
+  transform: rotate(20deg);
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
   .main-nav {
     flex-direction: column;
     align-items: center;
   }
-
-  .site-title {
-    font-size: 2rem;
-  }
-
   .typewriter {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
-
-  .hero {
-    padding: 1rem;
+  .site-title {
+    font-size: 1.5rem;
   }
 }
