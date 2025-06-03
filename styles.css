@@ -1,67 +1,64 @@
-/* === CSS Variables for Light Mode (Default) === */
-:root {
-  --bg-color: #1a0033;
-  --text-color: #f0d6f7;
-  --section-light-bg: #310045;
-  --section-light-text: #f8c8f9;
-  --section-dark-bg: #9c27b0;
-  --section-dark-text: #fff0fa;
-  --link-color: #ff78c8;
-  --link-hover-color: #e91e63;
-  --scrollbar-bg: linear-gradient(90deg, #e91e63, #9c27b0);
-  --heart-bg: #e91e63;
-  --dark-toggle-bg: #9c27b0;
-  --dark-toggle-hover-bg: #e91e63;
-  --footer-bg: #2a0055;
-  --footer-text: #bb86fc;
-  --box-shadow-color: rgba(156, 39, 176, 0.3);
-  --box-shadow-hover-color: rgba(233, 30, 99, 0.8);
-  --border-color: pink;
-}
-
-/* === Dark Mode Overrides === */
-body.dark-mode {
-  --bg-color: #f6f6f6;
-  --text-color: #1a0033;
-  --section-light-bg: #e8d6f7;
-  --section-light-text: #310045;
-  --section-dark-bg: #ce9de8;
-  --section-dark-text: #310045;
-  --link-color: #9c27b0;
-  --link-hover-color: #6a007a;
-  --scrollbar-bg: linear-gradient(90deg, #9c27b0, #6a007a);
-  --heart-bg: #9c27b0;
-  --dark-toggle-bg: #e91e63;
-  --dark-toggle-hover-bg: #9c27b0;
-  --footer-bg: #ddd6f7;
-  --footer-text: #6a007a;
-  --box-shadow-color: rgba(156, 39, 176, 0.2);
-  --box-shadow-hover-color: rgba(156, 39, 176, 0.5);
-  --border-color: purple;
-}
-
-/* === Reset & Base Styles === */
-* {
+/* ================================
+   1. CSS Reset (Modern Approach)
+   ================================ */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  min-height: 100vh;
+html {
   scroll-behavior: smooth;
-  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* === Links === */
+body {
+  line-height: 1.6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ================================
+   2. CSS Variables for Theming
+   ================================ */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --primary-color: #007BFF;
+  --secondary-color: #6c757d;
+  --accent-color: #17a2b8;
+  --link-color: #007BFF;
+  --link-hover-color: #0056b3;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --primary-color: #0d6efd;
+  --secondary-color: #adb5bd;
+  --accent-color: #0dcaf0;
+  --link-color: #0d6efd;
+  --link-hover-color: #0a58ca;
+}
+
+/* ================================
+   3. Typography
+   ================================ */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 a:hover,
@@ -71,496 +68,178 @@ a:focus {
   outline: none;
 }
 
-/* === Header & Nav === */
-header,
-nav,
-.site-header {
-  background-color: var(--section-light-bg);
-  color: var(--section-light-text);
+/* ================================
+   4. Navigation
+   ================================ */
+nav {
+  background-color: var(--primary-color);
   padding: 1rem;
-  box-shadow: 0 4px 10px var(--box-shadow-color);
-  border-bottom: 1px solid #ddd;
 }
 
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+nav a {
+  color: #ffffff;
+  margin-right: 1rem;
 }
 
-nav ul li {
-  display: inline;
+nav a:hover,
+nav a:focus {
+  text-decoration: underline;
 }
 
-/* === Dark Mode Toggle (Mobile override included) === */
-#dark-mode-toggle {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  background: var(--dark-toggle-bg);
-  color: #fff;
+/* ================================
+   5. Buttons
+   ================================ */
+button,
+input[type="button"],
+input[type="submit"] {
+  background-color: var(--primary-color);
+  color: #ffffff;
   border: none;
-  border-radius: 50%;
-  font-size: 1.75rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
-  box-shadow: 0 5px 15px var(--box-shadow-hover-color);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  user-select: none;
-  z-index: 10000;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-#dark-mode-toggle:hover,
-#dark-mode-toggle:focus {
-  background: var(--dark-toggle-hover-bg);
-  box-shadow: 0 10px 25px var(--box-shadow-hover-color);
+button:hover,
+button:focus,
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  background-color: var(--link-hover-color);
   outline: none;
 }
 
-/* === Progress Bar === */
+/* ================================
+   6. Forms
+   ================================ */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="password"],
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  border: 1px solid #333333;
+}
+
+/* ================================
+   7. Scroll Progress Bar
+   ================================ */
 #progress-bar {
   position: fixed;
   top: 0;
   left: 0;
-  height: 5px;
-  background: var(--scrollbar-bg);
-  width: 0;
+  height: 4px;
+  background-color: var(--accent-color);
+  width: 0%;
   z-index: 9999;
-  transition: width 0.25s ease-out;
 }
 
-/* === Containers / Cards / Sections === */
-.container,
-.card,
-section,
-.section {
-  max-width: 1000px;
-  margin: 2rem auto;
+/* ================================
+   8. Collapsible Sections
+   ================================ */
+.collapsible {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  cursor: pointer;
   padding: 1rem;
-  background-color: var(--section-light-bg);
-  color: var(--section-light-text);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-.section.light {
-  background: var(--section-light-bg);
-  color: var(--section-light-text);
-}
-
-.section.dark {
-  background: var(--section-dark-bg);
-  color: var(--section-dark-text);
-}
-
-.section.light h2 {
-  color: var(--link-color);
-}
-
-/* === Hero Section === */
-.hero {
-  background: linear-gradient(135deg, var(--section-dark-bg), var(--link-hover-color));
-  color: var(--text-color);
-  padding: 6rem 1rem;
-  text-align: center;
-  border-radius: 0 0 50% 50% / 30%;
-  box-shadow: 0 8px 20px var(--box-shadow-hover-color);
-}
-
-/* === Typewriter Header === */
-h1.typewriter {
-  font-family: 'Courier New', Courier, monospace;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid var(--border-color);
-  animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
-  max-width: 20ch;
-  margin: 0 auto;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 20ch; }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent; }
-  50% { border-color: var(--border-color); }
-}
-
-/* === Fade In Animation === */
-.fade-in {
-  opacity: 0;
-  transform: translateY(15px);
-  animation: fadeInUp 0.8s forwards 0.3s;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === Topics Grid === */
-.topics-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-/* === Magic Links === */
-.magic-link {
-  display: inline-block;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--section-dark-bg), var(--link-hover-color));
-  color: white;
-  font-weight: 600;
-  font-size: 1.15rem;
-  box-shadow: 0 4px 12px var(--box-shadow-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
-  cursor: pointer;
-  user-select: none;
-}
-
-.magic-link:hover,
-.magic-link:focus,
-.magic-link.hovered {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px var(--box-shadow-hover-color);
-  outline: none;
-}
-
-/* === Magic Link Fallback Hover Style === */
-.magic-link.hovered {
-  background-color: #ddd;
-  outline: 2px solid #007acc;
-  border-radius: 4px;
-}
-
-/* === Heart Button === */
-.heart-button {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  background: var(--heart-bg);
-  color: white;
-  font-size: 2.25rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 50%;
-  box-shadow: 0 5px 15px var(--box-shadow-hover-color);
+  width: 100%;
   border: none;
-  cursor: pointer;
-  z-index: 10000;
-  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  text-align: left;
+  outline: none;
+  font-size: 1rem;
+  transition: background-color 0.3s;
 }
 
-/* === Footer === */
-footer {
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: 0.9rem;
-  color: var(--footer-text);
-  background: var(--footer-bg);
-  box-shadow: inset 0 1px 0 var(--link-hover-color);
-  transition: background-color 0.5s ease, color 0.5s ease;
+.collapsible:hover,
+.collapsible:focus {
+  background-color: var(--accent-color);
 }
 
-/* === Tab Buttons === */
+.collapsible.active {
+  background-color: var(--accent-color);
+}
+
+.collapsible + .content {
+  padding: 0 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s;
+}
+
+.collapsible.active + .content {
+  max-height: 500px; /* Adjust as needed */
+  padding: 1rem;
+}
+
+/* ================================
+   9. Tabs
+   ================================ */
 .tab-buttons {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
-.tab-btn {
-  background: #ccc;
+.tab-buttons button {
+  background-color: var(--secondary-color);
+  color: #ffffff;
   border: none;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
   cursor: pointer;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px 4px 0 0;
+  transition: background-color 0.3s;
 }
 
-.tab-btn.active {
-  background-color: #7058ff;
-  color: white;
+.tab-buttons button.active,
+.tab-buttons button:hover,
+.tab-buttons button:focus {
+  background-color: var(--primary-color);
+  outline: none;
 }
 
 .tab-content {
   display: none;
-  margin-top: 12px;
+  padding: 1rem;
+  border: 1px solid var(--secondary-color);
+  border-top: none;
 }
 
 .tab-content.active {
   display: block;
 }
 
-/* === Responsive Fixes === */
+/* ================================
+   10. Responsive Design
+   ================================ */
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
+  nav {
     flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .nav-links.nav-open {
-    display: flex;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .magic-link {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-  }
-
-  .section {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
-  }
-
-  h1.typewriter {
-    font-size: 1.75rem;
-    max-width: 80%;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 
   .tab-buttons {
     flex-direction: column;
   }
-  .mood-check-in {
-  margin-top: 1em;
-  padding: 1em;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  max-width: 600px;
-}
 
-.form-group {
-  margin-bottom: 1em;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
-
-select,
-textarea {
-  width: 100%;
-  padding: 0.75em;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1em;
-}
-
-button#clearTracker {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  padding: 0.5em 1em;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-button#clearTracker:hover {
-  background-color: #ddd;
-}
-
-/* Healing Tracker Link Styles */
-.healing-tracker-link {
-  margin: 1.5em 0;
-  padding: 1em;
-  background-color: #f0f7f9;
-  border-left: 6px solid #4caf50; /* green accent */
-  font-size: 1.1rem;
-  border-radius: 4px;
-}
-
-.healing-tracker-link p {
-  margin: 0;
-}
-
-.healing-tracker-link a {
-  color: #2e7d32; /* dark green */
-  font-weight: bold;
-  text-decoration: none;
-  transition: text-decoration 0.3s ease;
-}
-
-.healing-tracker-link a:hover,
-.healing-tracker-link a:focus {
-  text-decoration: underline;
-}
-
-.healing-tracker-link {
-  background-color: #f5f0ff; /* soft pastel purple */
-  border: 2px solid #d3c4ff;
-  border-radius: 12px;
-  padding: 15px 20px;
-  margin: 30px auto;
-  max-width: 700px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(100, 100, 100, 0.1);
-  font-family: 'Poppins', sans-serif;
-}
-
-.healing-tracker-link p {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #4a347e;
-}
-
-.healing-tracker-link a {
-  color: #6a42c1;
-  text-decoration: underline;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.healing-tracker-link a:hover {
-  color: #472f91;
-  text-decoration: none;
-}
-
-// === Addiction Page JS (matches mental-health.html functionality) ===
-
-// Collapsible toggles
-document.querySelectorAll(".collapsible").forEach((button) => {
-  button.addEventListener("click", function () {
-    const content = this.nextElementSibling;
-    const expanded = this.getAttribute("aria-expanded") === "true";
-    this.setAttribute("aria-expanded", !expanded);
-    content.style.display = expanded ? "none" : "block";
-  });
-});
-
-// Optional dark mode toggle
-const toggle = document.getElementById("dark-mode-toggle");
-if (toggle) {
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-  });
-}
-
-// Optional scroll progress bar
-const progressBar = document.getElementById("progress-bar");
-if (progressBar) {
-  window.addEventListener("scroll", () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    progressBar.style.width = `${scrollPercent}%`;
-  });
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #fff;
-}
-
-.collapsible-box {
-  margin: 0 auto 1.2rem auto;
-  max-width: 800px;
-}
-
-.collapsible {
-  background-color: #444;
-  color: #fff;
-  cursor: pointer;
-  padding: 16px 20px;
-  width: 100%;
-  text-align: left;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.collapsible:hover {
-  background-color: #555;
-}
-
-.collapsible.active {
-  background-color: #6ae3ff;
-  color: #000;
-}
-
-.content {
-  background-color: #222;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.3s ease;
-  padding: 0 20px;
-  border-left: 4px solid #6ae3ff;
-  border-radius: 0 0 6px 6px;
-}
-
-.content p {
-  padding: 15px 0;
-  color: #eee;
-  margin: 0;
-}
-
-a {
-  color: #6ae3ff;
-  text-decoration: underline;
-}
-
-.collapsible-section summary {
-  cursor: pointer;
-  font-size: 1.3rem;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.collapsible-content {
-  padding: 10px 20px;
-  background-color: #222;
-  color: #eee;
-  border-left: 4px solid #6ae3ff;
-  border-radius: 5px;
-}
-
-.myth-fact-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.myth-fact-list li {
-  margin-bottom: 20px;
-}
-
-.myth, .fact {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.myth {
-  color: #ff9999;
-}
-
-.fact {
-  color: #a3fca3;
-}
+  .tab-buttons button {
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+  }
 }
