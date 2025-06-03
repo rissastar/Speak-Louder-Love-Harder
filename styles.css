@@ -1,236 +1,209 @@
-/* Root Variables for Theming */
+/* Root purple palette */
 :root {
-  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  --font-size-base: 16px;
-  --line-height-base: 1.6;
-
-  --color-text: #222;
-  --color-background: #fff;
-  --color-primary: #007acc;
-  --color-secondary: #005f99;
-  --color-accent: #e91e63;
-
-  --color-link: var(--color-primary);
-  --color-link-hover: var(--color-secondary);
-
-  --color-border: #ccc;
-  --color-focus: #ff9800;
-
-  --transition-speed: 0.3s;
+  --purple-light: #a76fff;
+  --purple-medium: #7a3ff2;
+  --purple-dark: #4b0082;
+  --purple-glow: #9b59b6;
+  --text-light: #f5f5ff;
+  --text-dark: #2e0854;
+  --shadow-purple: rgba(122, 63, 242, 0.6);
 }
 
-/* Dark Mode Variables */
-body.dark-mode {
-  --color-text: #f0f0f0;
-  --color-background: #121212;
-  --color-primary: #90caf9;
-  --color-secondary: #64b5f6;
-  --color-accent: #f48fb1;
-
-  --color-link: var(--color-primary);
-  --color-link-hover: var(--color-secondary);
-
-  --color-border: #444;
-  --color-focus: #ffb74d;
-}
-
-/* Box Sizing Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* Remove Default Margins and Set Base Font */
+/* Global body and fonts */
 body {
+  background: linear-gradient(135deg, var(--purple-dark), var(--purple-medium));
+  color: var(--text-light);
+  font-family: 'Poppins', sans-serif;
   margin: 0;
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-base);
-  color: var(--color-text);
-  background-color: var(--color-background);
-  transition: background-color var(--transition-speed), color var(--transition-speed);
+  padding: 0;
+  transition: background 0.5s ease;
+  overflow-x: hidden;
 }
 
-/* Smooth Scroll Behavior */
-html {
-  scroll-behavior: smooth;
+/* Container with subtle purple glow */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(75, 0, 130, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 0 20px var(--shadow-purple);
+  backdrop-filter: blur(10px);
 }
 
-/* Media Defaults */
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
+/* Headers with gradient text and glowing effect */
+h1, h2, h3 {
+  background: linear-gradient(45deg, var(--purple-light), var(--purple-medium), var(--purple-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowText 3s ease-in-out infinite alternate;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-/* Form Elements Inherit Fonts */
-input, button, textarea, select {
-  font: inherit;
+/* Glow animation for headers */
+@keyframes glowText {
+  0% {
+    text-shadow: 0 0 5px var(--purple-glow), 0 0 10px var(--purple-glow), 0 0 20px var(--purple-glow);
+  }
+  100% {
+    text-shadow: 0 0 20px var(--purple-glow), 0 0 30px var(--purple-glow), 0 0 40px var(--purple-glow);
+  }
 }
 
-/* Headings and Paragraphs */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 0.5em 0;
+/* Buttons with interactive hover effect */
+button, .btn {
+  background: var(--purple-medium);
+  color: var(--text-light);
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px var(--shadow-purple);
+  transition: all 0.3s ease;
+  user-select: none;
+  display: inline-block;
   font-weight: 600;
-  overflow-wrap: break-word;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-p {
-  margin: 0 0 1em 0;
-  overflow-wrap: break-word;
+button:hover, .btn:hover {
+  background: var(--purple-light);
+  color: var(--purple-dark);
+  box-shadow: 0 10px 20px var(--shadow-purple);
+  transform: scale(1.1) rotate(3deg);
+  animation: pulse 1.5s infinite;
 }
 
-/* Link Styling */
+/* Pulse animation on hover */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(-3deg);
+  }
+}
+
+/* Links with underline animation */
 a {
-  color: var(--color-link);
+  color: var(--purple-light);
   text-decoration: none;
-  transition: color var(--transition-speed);
+  position: relative;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-a:hover,
-a:focus {
-  color: var(--color-link-hover);
-  outline: none;
-  text-decoration: underline;
-}
-
-a:focus-visible {
-  outline: 2px dashed var(--color-focus);
-  outline-offset: 2px;
-}
-
-/* Collapsible Navigation */
-#collapsibleNav {
-  display: none;
-  flex-direction: column;
-  background-color: var(--color-background);
-  border-top: 1px solid var(--color-border);
-}
-
-#collapsibleNav.nav-open {
-  display: flex;
-}
-
-/* Collapsible Buttons */
-.collapsible {
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 1em;
-  font-size: 1em;
-  cursor: pointer;
-  color: var(--color-text);
-  transition: background-color var(--transition-speed);
-}
-
-.collapsible:hover,
-.collapsible:focus {
-  background-color: var(--color-border);
-  outline: none;
-}
-
-.collapsible:focus-visible {
-  outline: 2px dashed var(--color-focus);
-  outline-offset: 2px;
-}
-
-/* Collapsible Content */
-.collapsible + .content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--transition-speed) ease-out, padding var(--transition-speed);
-  padding: 0 1em;
-}
-
-.collapsible.active + .content {
-  max-height: 500px; /* Adjust as needed */
-  padding: 1em;
-}
-
-/* Tab Buttons */
-.tab-buttons {
-  display: flex;
-  gap: 0.5em;
-  margin-bottom: 1em;
-}
-
-.tab-buttons button,
-.tab-btn {
-  background: none;
-  border: 1px solid var(--color-border);
-  padding: 0.5em 1em;
-  cursor: pointer;
-  color: var(--color-text);
-  transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-.tab-buttons button:hover,
-.tab-btn:hover,
-.tab-buttons button:focus,
-.tab-btn:focus {
-  background-color: var(--color-border);
-  outline: none;
-}
-
-.tab-buttons button:focus-visible,
-.tab-btn:focus-visible {
-  outline: 2px dashed var(--color-focus);
-  outline-offset: 2px;
-}
-
-.tab-buttons .active,
-.tab-btn.active {
-  background-color: var(--color-primary);
-  color: var(--color-background);
-  border-color: var(--color-primary);
-}
-
-/* Tab Content */
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* Dark Mode Toggle */
-#dark-mode-toggle {
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: var(--color-text);
-  transition: color var(--transition-speed);
-}
-
-#dark-mode-toggle:hover,
-#dark-mode-toggle:focus {
-  color: var(--color-accent);
-  outline: none;
-}
-
-#dark-mode-toggle:focus-visible {
-  outline: 2px dashed var(--color-focus);
-  outline-offset: 2px;
-}
-
-/* Scroll Progress Bar */
-#progress-bar {
-  position: fixed;
-  top: 0;
+a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: var(--purple-light);
   left: 0;
-  height: 4px;
-  background-color: var(--color-accent);
-  width: 0%;
-  z-index: 1000;
-  transition: width var(--transition-speed);
+  bottom: -3px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
 }
 
-/* Focus Styles for Interactive Elements */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px dashed var(--color-focus);
-  outline-offset: 2px;
+a:hover {
+  color: var(--purple-dark);
+}
+
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Cards with hover 3D lift and shadow */
+.card {
+  background: rgba(122, 63, 242, 0.3);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 25px rgba(122, 63, 242, 0.4);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.card:hover {
+  transform: translateY(-15px) scale(1.05) rotate(-1deg);
+  box-shadow: 0 15px 40px var(--shadow-purple);
+}
+
+/* Interactive inputs with purple focus glow */
+input[type="text"], input[type="email"], textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--purple-light);
+  background: rgba(122, 63, 242, 0.15);
+  color: var(--text-light);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  border-color: var(--purple-glow);
+  box-shadow: 0 0 10px var(--purple-glow);
+  outline: none;
+  background: rgba(155, 89, 182, 0.2);
+}
+
+/* Fun animated background shapes */
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(10deg);
+  }
+}
+
+/* Example floating decorative element */
+.floating-purple {
+  width: 60px;
+  height: 60px;
+  background: var(--purple-light);
+  border-radius: 50%;
+  position: absolute;
+  animation: floating 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px var(--purple-glow));
+}
+
+/* Footer with gradient and soft glow */
+footer {
+  background: linear-gradient(90deg, var(--purple-dark), var(--purple-medium));
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-light);
+  box-shadow: inset 0 5px 10px var(--shadow-purple);
+  font-weight: 500;
+  font-size: 1rem;
+  user-select: none;
+}
+
+/* Scrollbar with purple style */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--purple-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--purple-medium);
+  border-radius: 10px;
+  border: 3px solid var(--purple-dark);
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--purple-light);
 }
