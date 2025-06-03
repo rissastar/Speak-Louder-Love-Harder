@@ -62,21 +62,3 @@ function getRandomPurpleColor() {
   ];
   return purples[Math.floor(Math.random() * purples.length)];
 }
-
-// Floating effect on sections on scroll
-const sections = document.querySelectorAll('.section, .hero');
-
-window.addEventListener('scroll', () => {
-  const scrollPos = window.scrollY + window.innerHeight;
-  sections.forEach(section => {
-    const offsetTop = section.offsetTop;
-    if (scrollPos > offsetTop + 100) {
-      section.style.transform = `translateY(${Math.sin(Date.now() / 700) * 5}px)`;
-    } else {
-      section.style.transform = 'translateY(0)';
-    }
-
-const toggle = document.getElementById('dark-mode-toggle');
-toggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-});
