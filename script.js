@@ -1,4 +1,7 @@
 // script.js for Speak Louder, Love Harder website
+(function() {
+  // your mental-health.js code here
+})();
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Smooth scrolling for nav links (for topic sections)
