@@ -316,3 +316,19 @@ body.fade-in {
   opacity: 1;
   transform: scale(1.2);
 }
+
+#audio-btn {
+  padding: 8px 14px;
+  background: #444;
+  color: white;
+  border: 2px solid var(--accent-pink);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+#audio-btn:hover {
+  background: var(--accent-pink);
+  color: black;
+}
