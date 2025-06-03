@@ -148,4 +148,60 @@ footer {
   section {
     padding: 40px 10px;
   }
+  
+  /* Theme Toggle Button Styling */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.theme-toggle button {
+  background: none;
+  border: 2px solid var(--accent-pink);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle button:hover {
+  background-color: var(--accent-pink);
+  color: var(--bg-dark);
+}
+
+/* Light Theme Overrides */
+body.light-theme {
+  background: linear-gradient(160deg, #f7f8fc, #e8eaf6);
+  color: #333;
+}
+
+body.light-theme header h1 {
+  color: var(--accent-purple);
+  text-shadow: none;
+}
+
+body.light-theme header p {
+  color: #666;
+}
+
+body.light-theme nav a {
+  color: #222;
+}
+
+body.light-theme nav a:hover {
+  color: var(--accent-purple);
+}
+
+body.light-theme .theme-toggle button {
+  color: #222;
+  border-color: var(--accent-purple);
+}
+
+body.light-theme .theme-toggle button:hover {
+  background-color: var(--accent-purple);
+  color: #fff;
 }
