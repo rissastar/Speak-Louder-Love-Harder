@@ -1,62 +1,29 @@
-// Scroll Progress
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
-  document.getElementById('progress-bar').style.width = scrollPercent + '%';
-});
+// script.js
 
-// Dark Mode
-const toggleBtn = document.getElementById('dark-mode-toggle');
-const body = document.body;
+document.addEventListener("DOMContentLoaded", () => {
+  const tabGroups = document.querySelectorAll("details");
 
-if (localStorage.getItem('darkMode') === 'enabled') {
-  body.classList.add('dark');
-  toggleBtn.textContent = '☀️';
-}
+  tabGroups.forEach(group => {
+    const tabs = group.querySelectorAll(".tab-btn");
+    const contents = group.querySelectorAll(".tab-content");
 
-toggleBtn.addEventListener('click', () => {
-  body.classList.toggle('dark');
-  toggleBtn.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
-  localStorage.setItem('darkMode', body.classList.contains('dark') ? 'enabled' : 'disabled');
-});
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(btn => btn.classList.remove("active"));
+        contents.forEach(content => content.classList.remove("active"));
 
-// Theme Switcher
-const themeSelect = document.getElementById('theme-select');
-const currentTheme = localStorage.getItem('theme') || 'pastel';
-body.classList.add(currentTheme);
-themeSelect.value = currentTheme;
-
-themeSelect.addEventListener('change', () => {
-  body.classList.remove('pastel', 'bold', 'dark');
-  body.classList.add(themeSelect.value);
-  localStorage.setItem('theme', themeSelect.value);
-});
-
-// Typewriter
-const typewriter = document.querySelector('.typewriter');
-const messages = [
-  'Speak Louder, Love Harder',
-  'Your Voice Matters',
-  'Heal. Advocate. Empower.',
-  'Together We Rise.'
-];
-let index = 0;
-
-function typeText(text, i, callback) {
-  if (i < text.length) {
-    typewriter.textContent = text.substring(0, i + 1);
-    setTimeout(() => typeText(text, i + 1, callback), 80);
-  } else {
-    setTimeout(callback, 1500);
-  }
-}
-
-function startTyping() {
-  typeText(messages[index], 0, () => {
-    index = (index + 1) % messages.length;
-    startTyping();
+        tab.classList.add("active");
+        const activeContent = group.querySelector(`#${tab.dataset.tab}`);
+        if (activeContent) {
+          activeContent.classList.add("active");
+        }
+      });
+    });
   });
-}
 
-if (typewriter) startTyping();
+  // Dark Mode Toggle
+  const darkToggle = document.getElementById("dark-mode-toggle");
+  darkToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+});
