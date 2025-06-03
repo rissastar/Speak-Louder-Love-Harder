@@ -295,3 +295,24 @@ body {
 body.fade-in {
   opacity: 1;
 }
+/* Magic Link Sparkle */
+.magic-link {
+  position: relative;
+  color: var(--accent-green);
+  overflow: hidden;
+}
+
+.magic-link::before {
+  content: "✨";
+  position: absolute;
+  right: -20px;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 0.3s ease;
+}
+
+.magic-link:hover::before {
+  right: 0;
+  opacity: 1;
+  transform: scale(1.2);
+}
