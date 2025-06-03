@@ -1,245 +1,236 @@
-/* ================================
-   1. CSS Reset (Modern Approach)
-   ================================ */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Root Variables for Theming */
+:root {
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+
+  --color-text: #222;
+  --color-background: #fff;
+  --color-primary: #007acc;
+  --color-secondary: #005f99;
+  --color-accent: #e91e63;
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-secondary);
+
+  --color-border: #ccc;
+  --color-focus: #ff9800;
+
+  --transition-speed: 0.3s;
 }
 
+/* Dark Mode Variables */
+body.dark-mode {
+  --color-text: #f0f0f0;
+  --color-background: #121212;
+  --color-primary: #90caf9;
+  --color-secondary: #64b5f6;
+  --color-accent: #f48fb1;
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-secondary);
+
+  --color-border: #444;
+  --color-focus: #ffb74d;
+}
+
+/* Box Sizing Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove Default Margins and Set Base Font */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Smooth Scroll Behavior */
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  line-height: 1.6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+/* Media Defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
-/* ================================
-   2. CSS Variables for Theming
-   ================================ */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --primary-color: #007BFF;
-  --secondary-color: #6c757d;
-  --accent-color: #17a2b8;
-  --link-color: #007BFF;
-  --link-hover-color: #0056b3;
+/* Form Elements Inherit Fonts */
+input, button, textarea, select {
+  font: inherit;
 }
 
-body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #f1f1f1;
-  --primary-color: #0d6efd;
-  --secondary-color: #adb5bd;
-  --accent-color: #0dcaf0;
-  --link-color: #0d6efd;
-  --link-hover-color: #0a58ca;
-}
-
-/* ================================
-   3. Typography
-   ================================ */
+/* Headings and Paragraphs */
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 1rem;
+  margin: 0 0 0.5em 0;
   font-weight: 600;
+  overflow-wrap: break-word;
 }
 
 p {
-  margin-bottom: 1rem;
+  margin: 0 0 1em 0;
+  overflow-wrap: break-word;
 }
 
+/* Link Styling */
 a {
-  color: var(--link-color);
+  color: var(--color-link);
   text-decoration: none;
+  transition: color var(--transition-speed);
 }
 
 a:hover,
 a:focus {
-  color: var(--link-hover-color);
-  text-decoration: underline;
+  color: var(--color-link-hover);
   outline: none;
-}
-
-/* ================================
-   4. Navigation
-   ================================ */
-nav {
-  background-color: var(--primary-color);
-  padding: 1rem;
-}
-
-nav a {
-  color: #ffffff;
-  margin-right: 1rem;
-}
-
-nav a:hover,
-nav a:focus {
   text-decoration: underline;
 }
 
-/* ================================
-   5. Buttons
-   ================================ */
-button,
-input[type="button"],
-input[type="submit"] {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+a:focus-visible {
+  outline: 2px dashed var(--color-focus);
+  outline-offset: 2px;
 }
 
-button:hover,
-button:focus,
-input[type="button"]:hover,
-input[type="button"]:focus,
-input[type="submit"]:hover,
-input[type="submit"]:focus {
-  background-color: var(--link-hover-color);
-  outline: none;
+/* Collapsible Navigation */
+#collapsibleNav {
+  display: none;
+  flex-direction: column;
+  background-color: var(--color-background);
+  border-top: 1px solid var(--color-border);
 }
 
-/* ================================
-   6. Forms
-   ================================ */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea,
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid var(--secondary-color);
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  background-color: #ffffff;
-  color: #000000;
+#collapsibleNav.nav-open {
+  display: flex;
 }
 
-body.dark-mode input[type="text"],
-body.dark-mode input[type="email"],
-body.dark-mode input[type="password"],
-body.dark-mode textarea,
-body.dark-mode select {
-  background-color: #1e1e1e;
-  color: #f1f1f1;
-  border: 1px solid #333333;
-}
-
-/* ================================
-   7. Scroll Progress Bar
-   ================================ */
-#progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  background-color: var(--accent-color);
-  width: 0%;
-  z-index: 9999;
-}
-
-/* ================================
-   8. Collapsible Sections
-   ================================ */
+/* Collapsible Buttons */
 .collapsible {
-  background-color: var(--secondary-color);
-  color: #ffffff;
-  cursor: pointer;
-  padding: 1rem;
-  width: 100%;
+  background: none;
   border: none;
   text-align: left;
-  outline: none;
-  font-size: 1rem;
-  transition: background-color 0.3s;
+  padding: 1em;
+  font-size: 1em;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: background-color var(--transition-speed);
 }
 
 .collapsible:hover,
 .collapsible:focus {
-  background-color: var(--accent-color);
+  background-color: var(--color-border);
+  outline: none;
 }
 
-.collapsible.active {
-  background-color: var(--accent-color);
+.collapsible:focus-visible {
+  outline: 2px dashed var(--color-focus);
+  outline-offset: 2px;
 }
 
+/* Collapsible Content */
 .collapsible + .content {
-  padding: 0 1rem;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out, padding 0.3s;
+  transition: max-height var(--transition-speed) ease-out, padding var(--transition-speed);
+  padding: 0 1em;
 }
 
 .collapsible.active + .content {
   max-height: 500px; /* Adjust as needed */
-  padding: 1rem;
+  padding: 1em;
 }
 
-/* ================================
-   9. Tabs
-   ================================ */
+/* Tab Buttons */
 .tab-buttons {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+  gap: 0.5em;
+  margin-bottom: 1em;
 }
 
-.tab-buttons button {
-  background-color: var(--secondary-color);
-  color: #ffffff;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
+.tab-buttons button,
+.tab-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 0.5em 1em;
   cursor: pointer;
-  border-radius: 4px 4px 0 0;
-  transition: background-color 0.3s;
+  color: var(--color-text);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-.tab-buttons button.active,
 .tab-buttons button:hover,
-.tab-buttons button:focus {
-  background-color: var(--primary-color);
+.tab-btn:hover,
+.tab-buttons button:focus,
+.tab-btn:focus {
+  background-color: var(--color-border);
   outline: none;
 }
 
+.tab-buttons button:focus-visible,
+.tab-btn:focus-visible {
+  outline: 2px dashed var(--color-focus);
+  outline-offset: 2px;
+}
+
+.tab-buttons .active,
+.tab-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+/* Tab Content */
 .tab-content {
   display: none;
-  padding: 1rem;
-  border: 1px solid var(--secondary-color);
-  border-top: none;
 }
 
 .tab-content.active {
   display: block;
 }
 
-/* ================================
-   10. Responsive Design
-   ================================ */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-  }
+/* Dark Mode Toggle */
+#dark-mode-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: color var(--transition-speed);
+}
 
-  .tab-buttons {
-    flex-direction: column;
-  }
+#dark-mode-toggle:hover,
+#dark-mode-toggle:focus {
+  color: var(--color-accent);
+  outline: none;
+}
 
-  .tab-buttons button {
-    margin-bottom: 0.5rem;
-    border-radius: 4px;
-  }
+#dark-mode-toggle:focus-visible {
+  outline: 2px dashed var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Scroll Progress Bar */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--color-accent);
+  width: 0%;
+  z-index: 1000;
+  transition: width var(--transition-speed);
+}
+
+/* Focus Styles for Interactive Elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px dashed var(--color-focus);
+  outline-offset: 2px;
 }
