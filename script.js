@@ -70,3 +70,31 @@ if (typewriterElement) {
   typewriterElement.textContent = '';
   startTypingLoop();
 }
+
+// === Heart Button Confetti & Sound ===
+const heartBtn = document.querySelector('.heart-button');
+
+if (heartBtn) {
+  heartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Animate the heart
+    heartBtn.classList.add('animate');
+    setTimeout(() => heartBtn.classList.remove('animate'), 400);
+
+    // Create confetti
+    for (let i = 0; i < 30; i++) {
+      const confetti = document.createElement('span');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.animationDuration = 1 + Math.random() * 1.5 + 's';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 2000);
+    }
+
+    // Optional: play sound
+    const pop = new Audio('https://freesound.org/data/previews/341/341695_5260877-lq.mp3');
+    pop.volume = 0.4;
+    pop.play();
+  });
+}
