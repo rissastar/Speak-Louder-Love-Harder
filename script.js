@@ -53,4 +53,33 @@ themeToggleBtn.addEventListener('click', () => {
   const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
   localStorage.setItem('theme', theme);
 });
+
+// Enhanced Theme Initialization and Toggle
+const themeBtn = document.querySelector('#theme-toggle button');
+
+// Initial setup
+const storedTheme = localStorage.getItem('theme');
+const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+if (storedTheme === 'light' || (!storedTheme && systemPrefersLight)) {
+  document.body.classList.add('light-theme');
+  switchThemeImages('light');
+} else {
+  switchThemeImages('dark');
+}
+
+// Toggle handler
+themeBtn.addEventListener('click', () => {
+  const isLight = document.body.classList.toggle('light-theme');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  switchThemeImages(isLight ? 'light' : 'dark');
+});
+
+// Optional: Image/logo switcher
+function switchThemeImages(theme) {
+  document.querySelectorAll('[data-theme-src]').forEach(img => {
+    const src = img.getAttribute(`data-src-${theme}`);
+    if (src) img.src = src;
+  });
+}
 });
