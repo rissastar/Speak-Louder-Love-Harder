@@ -23,12 +23,13 @@ body {
   color: var(--text-color);
   transition: var(--transition);
   line-height: 1.6;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 /* 🎯 Header */
@@ -36,8 +37,8 @@ header {
   background-color: var(--primary-color);
   color: white;
   text-align: center;
-  padding: 2rem;
-  font-size: 2rem;
+  padding: 2rem 1rem;
+  font-size: 1.8rem;
   font-weight: bold;
   animation: popIn 1s ease;
   box-shadow: var(--box-shadow);
@@ -48,7 +49,8 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background: white;
+  gap: 0.5rem;
+  background-color: white;
   padding: 1rem;
   box-shadow: var(--box-shadow);
 }
@@ -59,10 +61,9 @@ nav {
 
 nav a {
   color: var(--primary-color);
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 1rem;
   text-decoration: none;
-  font-weight: bold;
-  margin: 0.25rem;
+  font-weight: 600;
   border-radius: 10px;
   border: 2px solid var(--primary-color);
   transition: var(--transition);
@@ -76,8 +77,8 @@ nav a:hover {
 
 /* 🧠 Content Sections */
 section {
-  padding: 3rem 1rem;
-  max-width: 800px;
+  padding: 2.5rem 1rem;
+  max-width: 900px;
   margin: auto;
   text-align: center;
 }
@@ -85,11 +86,13 @@ section {
 section h2 {
   color: var(--primary-color);
   margin-bottom: 1rem;
+  font-size: 1.6rem;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 1rem 0;
 }
 
 ul li {
@@ -103,7 +106,7 @@ button {
   background: var(--accent-color);
   color: #111;
   border: none;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.4rem;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 50px;
@@ -117,7 +120,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* ☀️ Theme Toggle Button */
+/* 🌗 Theme Toggle */
 #theme-toggle {
   position: fixed;
   top: 1rem;
@@ -131,36 +134,41 @@ button:hover {
   box-shadow: var(--box-shadow);
   z-index: 1000;
 }
-
 .icon {
   display: none;
 }
-
 [data-theme="light"] .icon.sun {
   display: inline;
 }
-
 [data-theme="dark"] .icon.moon {
   display: inline;
 }
 
-/* ✨ Sparkle Toggle */
-#sparkle-toggle {
-  position: fixed;
-  bottom: 70px;
-  right: 20px;
-  z-index: 1000;
-}
-
-/* 🔈 Audio Control */
+/* ✨ Sparkle + 🔈 Audio Controls */
+#sparkle-toggle,
 #audio-control {
   position: fixed;
-  bottom: 20px;
   right: 20px;
   z-index: 1000;
 }
+#sparkle-toggle {
+  bottom: 70px;
+}
+#audio-control {
+  bottom: 20px;
+}
 
-/* ✨ Animations */
+/* ✨ Fade-in Animations */
+.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-out.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @keyframes popIn {
   0% {
     transform: scale(0.8);
@@ -170,18 +178,6 @@ button:hover {
     transform: scale(1);
     opacity: 1;
   }
-}
-
-/* ✨ Fade-in on Scroll */
-.fade-out {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-out.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* 👣 Footer */
@@ -194,13 +190,41 @@ footer {
   bottom: 0;
   width: 100%;
   box-shadow: var(--box-shadow);
+  font-size: 0.9rem;
 }
 
-/* 📱 Responsive */
-@media screen and (max-width: 600px) {
+/* 🎛️ Custom Scrollbar */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 3px solid var(--bg-color);
+}
+
+/* 📱 Responsive Design */
+@media screen and (max-width: 768px) {
   nav {
     flex-direction: column;
     align-items: center;
+    gap: 0.75rem;
+  }
+
+  section {
+    padding: 2rem 1rem;
+  }
+
+  header {
+    font-size: 1.5rem;
+  }
+
+  nav a {
+    width: 100%;
+    text-align: center;
   }
 
   button {
