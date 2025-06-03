@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -13,18 +13,18 @@
     🌓
   </div>
 
-  <!-- Sparkle Button -->
-  <button id="sparkle-button" aria-label="Sparkle!">✨ Sparkle!</button>
-
-  <!-- ✨ Sparkle Toggle -->
-  <div id="sparkle-toggle" style="position: fixed; bottom: 110px; right: 20px; z-index: 1000;">
-    <button id="sparkle-btn" class="active">✨ Sparkles On</button>
+  <!-- Sparkle Toggle -->
+  <div id="sparkle-toggle" aria-label="Toggle Sparkles">
+    <button id="sparkle-btn" class="active" aria-pressed="true">✨ Sparkles On</button>
   </div>
 
   <!-- 🔈 Audio Control -->
-  <div id="audio-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+  <div id="audio-control" aria-label="Toggle Background Audio">
     <button id="audio-btn">🔈 Play Audio</button>
   </div>
+
+  <!-- Sparkle Button -->
+  <button id="sparkle-button" aria-label="Sparkle!">✨ Sparkle!</button>
 
   <audio id="bg-music" loop>
     <source src="audio/background.mp3" type="audio/mpeg" />
@@ -37,56 +37,55 @@
     <p>Voices that need to be heard. Stories that must be told.</p>
   </header>
 
-  <!-- 🔗 Navigation Bar -->
-  <nav>
-    <a href="mental-health.html" class="magic-link">Mental Health</a>
-    <a href="addiction.html" class="magic-link">Addiction</a>
-    <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
-    <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
-    <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
-    <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
-    <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
-    <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
-    <a href="foster-children.html" class="magic-link">Foster Children</a>
-    <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
-  </nav>
-  
-  <!-- 🧡 Welcome Section -->
-  <section class="fade-out">
-    <h2>Let’s get started — your journey begins here.</h2>
-    <p>
-      This is a space for <strong>advocacy, sharing, healing, and learning.</strong><br />
-      We believe in the power of <strong>voice</strong>, the strength of <strong>community</strong>, and the necessity of <strong>compassion</strong>.
-    </p>
-    <p>
-      Whether you’re here to listen, speak up, grow, or simply feel seen — <strong>you belong</strong>.
-    </p>
-    <ul>
-      <li>🗣️ <strong>Advocate</strong> for change</li>
-      <li>💬 <strong>Share</strong> our stories</li>
-      <li>💖 <strong>Heal</strong> through connection</li>
-      <li>📚 <strong>Learn</strong> to do better and be better</li>
-    </ul>
-    <p>
-      <em>Each link above leads to real-world issues that deserve love and awareness.</em><br />
-      We invite you to explore with an open heart and a courageous mind.
-    </p>
-  </section>
+  <main>
+    <!-- 🔗 Navigation Bar -->
+    <nav>
+      <a href="mental-health.html" class="magic-link">Mental Health</a>
+      <a href="addiction.html" class="magic-link">Addiction</a>
+      <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
+      <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
+      <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
+      <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
+      <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
+      <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
+      <a href="foster-children.html" class="magic-link">Foster Children</a>
+      <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
+    </nav>
 
-  <!-- 📣 Call to Action Section -->
-  <section class="fade-out">
-    <h2>Get Involved</h2>
-    <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out and speak from your heart.</p>
-  </section>
+    <!-- 🧡 Welcome Section -->
+    <section class="fade-out">
+      <h2>Let’s get started — your journey begins here.</h2>
+      <p>
+        This is a space for <strong>advocacy, sharing, healing, and learning.</strong><br />
+        We believe in the power of <strong>voice</strong>, the strength of <strong>community</strong>, and the necessity of <strong>compassion</strong>.
+      </p>
+      <p>
+        Whether you’re here to listen, speak up, grow, or simply feel seen — <strong>you belong</strong>.
+      </p>
+      <ul>
+        <li>🗣️ <strong>Advocate</strong> for change</li>
+        <li>💬 <strong>Share</strong> our stories</li>
+        <li>💖 <strong>Heal</strong> through connection</li>
+        <li>📚 <strong>Learn</strong> to do better and be better</li>
+      </ul>
+      <p>
+        <em>Each link above leads to real-world issues that deserve love and awareness.</em><br />
+        We invite you to explore with an open heart and a courageous mind.
+      </p>
+    </section>
+
+    <!-- 📣 Call to Action Section -->
+    <section class="fade-out">
+      <h2>Get Involved</h2>
+      <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out and speak from your heart.</p>
+    </section>
+  </main>
 
   <!-- 👣 Footer -->
   <footer>
     <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
   <script src="script.js" defer></script>
-
 </body>
 </html>
