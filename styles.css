@@ -523,4 +523,44 @@ a {
   color: #6ae3ff;
   text-decoration: underline;
 }
+
+.collapsible-section summary {
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.collapsible-content {
+  padding: 10px 20px;
+  background-color: #222;
+  color: #eee;
+  border-left: 4px solid #6ae3ff;
+  border-radius: 5px;
+}
+
+.myth-fact-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.myth-fact-list li {
+  margin-bottom: 20px;
+}
+
+.myth, .fact {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.myth {
+  color: #ff9999;
+}
+
+.fact {
+  color: #a3fca3;
+}
 }
