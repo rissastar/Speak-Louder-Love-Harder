@@ -72,35 +72,3 @@ const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll
 faders.forEach(fader => {
   appearOnScroll.observe(fader);
 });
-
-// Animated sliding underline on nav links (.magic-link)
-const nav = document.querySelector('nav');
-const navLinks = nav.querySelectorAll('a.magic-link');
-const navUnderline = nav.querySelector('.nav-underline');
-
-// Initialize underline position and style on first link
-function updateUnderline(el) {
-  const rect = el.getBoundingClientRect();
-  const navRect = nav.getBoundingClientRect();
-  navUnderline.style.width = rect.width + 'px';
-  navUnderline.style.left = (rect.left - navRect.left) + 'px';
-  navUnderline.style.backgroundColor = getComputedStyle(el).color;
-}
-
-if (navLinks.length > 0) {
-  updateUnderline(navLinks[0]);
-}
-
-navLinks.forEach(link => {
-  link.addEventListener('mouseenter', (e) => {
-    updateUnderline(e.target);
-  });
-  link.addEventListener('focus', (e) => {
-    updateUnderline(e.target);
-  });
-});
-
-nav.addEventListener('mouseleave', () => {
-  // Reset underline to first magic link
-  updateUnderline(navLinks[0]);
-});
