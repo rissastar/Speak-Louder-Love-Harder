@@ -33,15 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('theme', theme);
   }
 
-  // Section fade-in on scroll
-  const fadeSections = document.querySelectorAll('.fade-section');
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  fadeSections.forEach(section => fadeObserver.observe(section));
+  // Fade-in animation for sections
+  const faders = document.querySelectorAll('.fade-out');
+  faders.forEach((el, i) => {
+    setTimeout(() => {
+      el.classList.add('fade-in');
+    }, i * 300);
+  });
 });
