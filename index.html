@@ -9,17 +9,21 @@
 <body>
 
   <!-- 🌙 Theme Toggle Button -->
-  <button id="theme-toggle" aria-label="Toggle Light/Dark Mode">🌓</button>
+  <div id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Mode" role="button" tabindex="0">
+    🌓
+  </div>
 
-  <!-- ✨ Sparkle Buttons -->
-  <button id="sparkle-button" aria-label="Celebrate with Sparkles!">✨ Sparkle!</button>
-  <div id="sparkle-toggle" style="position: fixed; bottom: 70px; right: 20px; z-index: 1000;">
-    <button id="sparkle-btn" aria-label="Sparkles On">✨ Sparkles On</button>
+  <!-- Sparkle Button -->
+  <button id="sparkle-button" aria-label="Sparkle!">✨ Sparkle!</button>
+
+  <!-- ✨ Sparkle Toggle -->
+  <div id="sparkle-toggle" style="position: fixed; bottom: 110px; right: 20px; z-index: 1000;">
+    <button id="sparkle-btn">✨ Sparkles On</button>
   </div>
 
   <!-- 🔈 Audio Control -->
   <div id="audio-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-    <button id="audio-btn" aria-label="Play/Pause Background Music">🔈 Play</button>
+    <button id="audio-btn">🔈 Play</button>
   </div>
 
   <audio id="bg-music" loop>
@@ -46,7 +50,7 @@
     <a href="foster-children.html" class="magic-link">Foster Children</a>
     <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
   </nav>
-
+  
   <!-- 🧡 Welcome Section -->
   <section class="fade-out">
     <h2>Let’s get started — your journey begins here.</h2>
@@ -80,10 +84,8 @@
     <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <!-- External JS Libraries -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
-
-  <!-- Your Script -->
   <script src="script.js" defer></script>
 </body>
 </html>
