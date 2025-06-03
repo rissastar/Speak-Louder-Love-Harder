@@ -1,72 +1,85 @@
-/* addiction.css */
+/* addiction.css — Custom styling for addiction.html */
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  padding: 0;
-  background: #f4f4f4;
-  color: #333;
-  transition: background 0.3s, color 0.3s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #fefefe;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 body.dark-mode {
-  background: #121212;
-  color: #eaeaea;
+  background-color: #121212;
+  color: #f5f5f5;
 }
 
 header.hero {
-  background: #ff6f61;
-  color: white;
   padding: 2rem;
   text-align: center;
+  background-color: #d64161;
+  color: #fff;
 }
 
-.intro-quote {
+header.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+header.hero .intro-quote {
   font-style: italic;
-  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+
+button#dark-mode-toggle {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #fff;
+  color: #d64161;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+body.dark-mode button#dark-mode-toggle {
+  background-color: #444;
+  color: #fff;
 }
 
 .section {
-  padding: 2rem;
+  padding: 2rem 1rem;
   max-width: 900px;
   margin: auto;
 }
 
-.section.dark {
-  background: #333;
-  color: white;
-  border-top: 4px solid #ff6f61;
+.collapsible-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  overflow: hidden;
 }
 
-.collapsible {
-  background-color: #ff6f61;
-  color: white;
+.collapsible-section summary {
+  background: #eee;
   padding: 1rem;
-  border: none;
-  width: 100%;
-  text-align: left;
   cursor: pointer;
-  font-size: 1.2rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+body.dark-mode .collapsible-section summary {
+  background: #222;
 }
 
 .collapsible-content {
-  display: none;
   padding: 1rem;
-  border-left: 4px solid #ff6f61;
   background-color: #fff;
-  color: #333;
 }
 
 body.dark-mode .collapsible-content {
-  background: #1f1f1f;
-  color: #eaeaea;
-}
-
-details.collapsible-section summary {
-  cursor: pointer;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  background-color: #1e1e1e;
 }
 
 .myth-fact-list {
@@ -75,65 +88,70 @@ details.collapsible-section summary {
 }
 
 .myth-fact-list li {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .myth {
-  color: #d9534f;
+  color: #d64161;
   font-weight: bold;
 }
 
 .fact {
-  color: #5cb85c;
-  display: block;
-  margin-top: 0.3rem;
+  color: #2c9f45;
 }
 
-.resource-links a {
-  display: block;
-  margin: 0.5rem 0;
-  color: #007acc;
+.resource-links li {
+  margin-bottom: 0.75rem;
 }
 
-form textarea {
+textarea {
   width: 100%;
-  padding: 1rem;
+  padding: 0.8rem;
   font-size: 1rem;
-  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: vertical;
 }
 
-form button {
-  background-color: #ff6f61;
-  color: white;
+button[type="submit"] {
+  background-color: #d64161;
+  color: #fff;
   border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 4px;
+  margin-top: 0.8rem;
 }
 
-#dark-mode-toggle {
-  margin-top: 1rem;
-  background: white;
-  color: #ff6f61;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+footer.section {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #222;
+  color: #fff;
 }
 
 #progress-container {
-  height: 5px;
   width: 100%;
+  height: 4px;
   background: #ccc;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1000;
 }
 
 #progress-bar {
   height: 100%;
-  background: #ff6f61;
   width: 0%;
+  background: #d64161;
+  transition: width 0.2s;
+}
+
+@media (max-width: 600px) {
+  header.hero h1 {
+    font-size: 2rem;
+  }
+  .section {
+    padding: 1rem;
+  }
 }
