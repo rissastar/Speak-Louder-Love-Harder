@@ -82,16 +82,15 @@ html, body {
   text-align: center;
 }
 
-/* Topics Grid */
-.topics-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  max-width: 1000px;
+/* You Are Not Alone Section */
+.section p {
+  font-size: 1.15rem;
+  max-width: 650px;
   margin: 0 auto;
+  text-align: center;
 }
 
+/* Magic Link Buttons */
 .magic-link {
   background: linear-gradient(135deg, #ff80ab, #7c4dff);
   color: white;
@@ -115,13 +114,14 @@ html, body {
   outline: none;
 }
 
-/* You Are Not Alone Section */
-.section.light p,
-.section.dark p {
-  font-size: 1.15rem;
-  max-width: 650px;
+/* Topics Grid (if used later) */
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 1000px;
   margin: 0 auto;
-  text-align: center;
 }
 
 /* Dark Mode */
@@ -211,14 +211,17 @@ footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
+/* Responsive Breakpoints */
 @media (max-width: 900px) {
   .hero h1 {
     font-size: 2.5rem;
   }
-  .hero p {
+
+  .hero p,
+  .section p {
     font-size: 1.1rem;
   }
+
   .section h2 {
     font-size: 1.7rem;
   }
@@ -228,6 +231,7 @@ footer {
   .hero h1 {
     font-size: 2rem;
   }
+
   .hero p {
     font-size: 1rem;
   }
@@ -236,17 +240,11 @@ footer {
     padding: 2rem 1rem;
   }
 
-  .topics-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
   .magic-link {
     width: 90%;
     min-width: auto;
-    font-size: 1.1rem;
-    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+    padding: 0.9rem 1.2rem;
   }
 
   #dark-mode-toggle,
@@ -255,10 +253,18 @@ footer {
     font-size: 1.5rem;
     bottom: 15px;
   }
+
   #dark-mode-toggle {
     right: 15px;
   }
+
   .heart-button {
     left: 15px;
+  }
+
+  .topics-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
   }
 }
