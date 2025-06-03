@@ -1,3 +1,6 @@
+(function() {
+  // your mental-health.js code here
+})();
 // === 1. Tab Toggle Logic ===
 document.querySelectorAll('details').forEach(section => {
   const tabBtns = section.querySelectorAll('.tab-btn');
