@@ -38,24 +38,6 @@ body {
   outline: none;
 }
 
-/* Sparkle toggle & audio controls */
-#sparkle-toggle, #audio-control {
-  position: fixed;
-  right: 1.5rem;
-  z-index: 1000;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.8rem;
-  font-family: 'Poppins', sans-serif;
-}
-
-#sparkle-toggle {
-  bottom: 5.5rem;
-}
-#audio-control {
-  bottom: 1rem;
-}
-
 /* Buttons */
 button {
   background: linear-gradient(45deg, #ff66cc, #cc33ff);
@@ -79,25 +61,6 @@ button:hover, button:focus {
 }
 button:active {
   transform: scale(0.95);
-}
-
-/* Sparkle button separate style */
-#sparkle-button {
-  position: fixed;
-  bottom: 12rem;
-  right: 1.5rem;
-  font-size: 1.4rem;
-  padding: 0.6rem 1.6rem;
-  box-shadow: 0 0 20px #a0f2a0, inset 0 0 10px #6fdc6f;
-  background: linear-gradient(135deg, #33cc99, #66ffcc);
-  color: #074;
-  font-weight: 800;
-  border-radius: 50px;
-}
-#sparkle-button:hover, #sparkle-button:focus {
-  box-shadow: 0 0 30px #8ef08e, inset 0 0 20px #3fc63f;
-  transform: scale(1.15);
-  outline: none;
 }
 
 /* Header */
