@@ -1,76 +1,59 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Dark Mode Toggle
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      darkModeToggle.setAttribute('aria-pressed', isDark);
-    });
-  }
+// 1. Floating sparkles all over background
+for (let i = 0; i < 30; i++) {
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.style.left = `${Math.random() * 100}vw`;
+  sparkle.style.top = `${Math.random() * 100}vh`;
+  sparkle.style.width = sparkle.style.height = `${Math.random() * 15 + 5}px`;
+  sparkle.style.animationDelay = `${Math.random() * 5}s`;
+  document.body.appendChild(sparkle);
+}
 
-  // Collapsible Sections
-  const collapsibles = document.querySelectorAll('.collapsible');
-  collapsibles.forEach(button => {
-    const content = button.nextElementSibling;
-    button.setAttribute('aria-expanded', 'false');
-    if (content) {
-      content.setAttribute('aria-hidden', 'true');
-    }
-
-    button.addEventListener('click', () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', String(!expanded));
-      button.classList.toggle('active');
-
-      if (content) {
-        content.setAttribute('aria-hidden', String(expanded));
-        if (expanded) {
-          content.style.maxHeight = null;
-          content.style.padding = '0 1em';
-        } else {
-          content.style.maxHeight = content.scrollHeight + 'px';
-          content.style.padding = '1em';
-        }
-      }
-    });
+// 2. Button bounce animation on click
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', () => {
+    button.classList.add('bounce');
+    button.addEventListener('animationend', () => {
+      button.classList.remove('bounce');
+    }, { once: true });
   });
-
-  // Tabbed Content
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const target = button.getAttribute('data-tab');
-
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      button.classList.add('active');
-      button.setAttribute('aria-selected', 'true');
-
-      tabContents.forEach(content => {
-        if (content.id === target) {
-          content.classList.add('active');
-          content.removeAttribute('hidden');
-        } else {
-          content.classList.remove('active');
-          content.setAttribute('hidden', 'true');
-        }
-      });
-    });
-  });
-
-  // Scroll Progress Bar
-  const progressBar = document.getElementById('progress-bar');
-  if (progressBar) {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      progressBar.style.width = scrollPercent + '%';
-    });
-  }
 });
+
+// 3. Sparkle bursts on card hover
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    for(let i=0; i<10; i++) {
+      const sparkle = document.createElement('span');
+      sparkle.className = 'sparkle-burst';
+      sparkle.style.top = `${Math.random() * card.clientHeight}px`;
+      sparkle.style.left = `${Math.random() * card.clientWidth}px`;
+      card.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1000);
+    }
+  });
+});
+
+// 4. Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(anchor.getAttribute('href'))?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+// 5. Dark/light mode toggle (optional)
+// Assumes you have a button with id 'theme-toggle' and CSS for [data-theme="dark"]
+const themeToggleBtn = document.getElementById('theme-toggle');
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener('click', () => {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+      themeToggleBtn.textContent = '🌙 Dark Mode';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggleBtn.textContent = '☀️ Light Mode';
+    }
+  });
+}
