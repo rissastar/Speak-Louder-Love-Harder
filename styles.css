@@ -222,13 +222,29 @@ button:focus-visible,
     padding: 0.4rem 1rem;
   }
   
-  /* Tab buttons container */
-.tab-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  user-select: none;
+  /* Tab content containers */
+.tab-content {
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 0 1.5rem; /* Remove vertical padding when hidden */
+  box-shadow: 0 0 15px #bb33ff44 inset;
+  color: #eee;
+  font-size: 1.1rem;
+  user-select: text;
+}
+
+/* Show active tab content with fade-in */
+.tab-content.active {
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px; /* large enough to fit content */
+  padding: 1.8rem 1.5rem; /* restore vertical padding */
+  transition: opacity 0.5s ease, max-height 0.5s ease, padding 0.5s ease;
 }
 
 /* Individual tab button */
