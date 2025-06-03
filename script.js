@@ -129,8 +129,9 @@ audioBtn.addEventListener('click', () => {
   playing = !playing;
 });
 
-// Floating Hearts on Click
+// Floating Heart on Click
 document.addEventListener('click', function (e) {
+  if (!sparklesEnabled) return;
   const heart = document.createElement('div');
   heart.textContent = '💖';
   heart.style.position = 'fixed';
@@ -150,6 +151,38 @@ document.addEventListener('click', function (e) {
     if (heart.style.opacity <= 0) {
       clearInterval(anim);
       heart.remove();
+    }
+  }, 16);
+});
+
+
+// Emoji Trail on Move
+let trailIndex = 0;
+const trailEmojis = ['✨', '💫', '🌈', '💜', '💖'];
+
+document.addEventListener('mousemove', function (e) {
+  if (!sparklesEnabled) return;
+  const sparkle = document.createElement('div');
+  sparkle.textContent = trailEmojis[trailIndex % trailEmojis.length];
+  trailIndex++;
+
+  sparkle.style.position = 'fixed';
+  sparkle.style.left = `${e.clientX}px`;
+  sparkle.style.top = `${e.clientY}px`;
+  sparkle.style.fontSize = '1.2rem';
+  sparkle.style.opacity = 1;
+  sparkle.style.pointerEvents = 'none';
+  sparkle.style.zIndex = 9999;
+  document.body.appendChild(sparkle);
+
+  let float = 0;
+  const sparkleAnim = setInterval(() => {
+    float++;
+    sparkle.style.top = `${e.clientY - float}px`;
+    sparkle.style.opacity -= 0.03;
+    if (sparkle.style.opacity <= 0) {
+      clearInterval(sparkleAnim);
+      sparkle.remove();
     }
   }, 16);
 });
