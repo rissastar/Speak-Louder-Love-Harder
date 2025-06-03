@@ -1,4 +1,4 @@
-// === Scroll Progress Bar ===
+// Scroll Progress Bar
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -6,41 +6,43 @@ window.addEventListener('scroll', () => {
   document.getElementById('progress-bar').style.width = scrollPercent + '%';
 });
 
-// === Dark Mode Toggle ===
+// Dark Mode Toggle
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const body = document.body;
 
-// Load saved dark mode preference
+// Load saved mode
 if (localStorage.getItem('darkMode') === 'enabled') {
   body.classList.add('dark-mode');
   darkModeToggle.textContent = '☀️';
-  darkModeToggle.setAttribute('aria-pressed', 'true');
 } else {
   darkModeToggle.textContent = '🌙';
-  darkModeToggle.setAttribute('aria-pressed', 'false');
 }
 
+// Toggle behavior
 darkModeToggle.addEventListener('click', () => {
   body.classList.toggle('dark-mode');
-  const isDark = body.classList.contains('dark-mode');
-  darkModeToggle.textContent = isDark ? '☀️' : '🌙';
-  darkModeToggle.setAttribute('aria-pressed', isDark);
-  localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+  if (body.classList.contains('dark-mode')) {
+    darkModeToggle.textContent = '☀️';
+    localStorage.setItem('darkMode', 'enabled');
+  } else {
+    darkModeToggle.textContent = '🌙';
+    localStorage.setItem('darkMode', 'disabled');
+  }
 });
 
-// === Smooth Scroll for Internal Links ===
+// Smooth Scroll for Internal Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
     e.preventDefault();
     const targetID = anchor.getAttribute('href').substring(1);
-    const targetSection = document.getElementById(targetID);
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: 'smooth' });
+    const target = document.getElementById(targetID);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
 
-// === Typewriter Effect with Rotating Messages ===
+// Typewriter Effect
 const typewriterElement = document.querySelector('.typewriter');
 const messages = [
   'Speak Louder, Love Harder',
@@ -51,6 +53,7 @@ const messages = [
 let msgIndex = 0;
 
 function typeWriterEffect(text, i, callback) {
+  if (!typewriterElement) return;
   if (i < text.length) {
     typewriterElement.textContent = text.substring(0, i + 1);
     setTimeout(() => typeWriterEffect(text, i + 1, callback), 100);
@@ -61,40 +64,13 @@ function typeWriterEffect(text, i, callback) {
 
 function startTypingLoop() {
   typeWriterEffect(messages[msgIndex], 0, () => {
-    msgIndex = (msgIndex + 1) % messages.length;
-    startTypingLoop();
+    setTimeout(() => {
+      msgIndex = (msgIndex + 1) % messages.length;
+      startTypingLoop();
+    }, 1000);
   });
 }
 
 if (typewriterElement) {
-  typewriterElement.textContent = '';
   startTypingLoop();
-}
-
-// === Heart Button Confetti & Sound ===
-const heartBtn = document.querySelector('.heart-button');
-
-if (heartBtn) {
-  heartBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    // Animate the heart
-    heartBtn.classList.add('animate');
-    setTimeout(() => heartBtn.classList.remove('animate'), 400);
-
-    // Create confetti
-    for (let i = 0; i < 30; i++) {
-      const confetti = document.createElement('span');
-      confetti.classList.add('confetti');
-      confetti.style.left = Math.random() * 100 + '%';
-      confetti.style.animationDuration = 1 + Math.random() * 1.5 + 's';
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 2000);
-    }
-
-    // Optional: play sound
-    const pop = new Audio('https://freesound.org/data/previews/341/341695_5260877-lq.mp3');
-    pop.volume = 0.4;
-    pop.play();
-  });
 }
