@@ -68,6 +68,20 @@
     <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <script src="script.js" defer></script>
+  <!-- 🎯 Script -->
+  <script>
+    const toggle = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    toggle.addEventListener("click", () => {
+      body.classList.toggle("light-theme");
+    });
+
+    toggle.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        body.classList.toggle("light-theme");
+      }
+    });
+  </script>
 </body>
 </html>
