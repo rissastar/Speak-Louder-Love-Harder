@@ -349,3 +349,85 @@ body.dark-mode footer {
   right: 10px;
 }
 
+.audio-button {
+  background-color: #ff66b2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(255, 102, 178, 0.3);
+}
+
+.audio-button:hover {
+  background-color: #f72585;
+  transform: scale(1.05);
+}
+
+.quote-banner {
+  background: linear-gradient(135deg, #ffdde1, #fbc2eb);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.3rem;
+  margin: 40px 20px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  color: #5a189a;
+}
+
+.story-share {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff0f6;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+}
+
+.story-share h3 {
+  font-size: 1.6rem;
+  color: #d00067;
+  margin-bottom: 15px;
+}
+
+.story-share textarea {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  padding: 15px;
+  font-family: 'Poppins', sans-serif;
+  border: 2px solid #ff66b2;
+  resize: none;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.story-share textarea:focus {
+  outline: none;
+  border-color: #f72585;
+  background: #fffdfd;
+}
+
+.submit-story {
+  background: #ff66b2;
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.submit-story:hover {
+  background: #d00067;
+  transform: scale(1.05);
+}
