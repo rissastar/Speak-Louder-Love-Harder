@@ -1,0 +1,104 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root Variables for Theme */
+:root {
+  --bg-dark: #1f1b24;
+  --text-light: #f0f0f5;
+  --accent-pink: #ff9aa2;
+  --accent-blue: #a0c4ff;
+  --accent-green: #b5ead7;
+  --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Base Styling */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: var(--font-primary);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  padding: 0 20px;
+}
+
+header {
+  padding: 40px 0 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 3rem;
+  color: var(--accent-pink);
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: var(--accent-blue);
+}
+
+/* Navigation */
+nav {
+  text-align: center;
+  margin: 30px 0;
+}
+
+nav a {
+  color: var(--accent-green);
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--accent-pink);
+  text-decoration: underline;
+}
+
+/* Sections */
+section {
+  padding: 60px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+section h2 {
+  font-size: 2rem;
+  color: var(--accent-blue);
+  margin-bottom: 20px;
+}
+
+section p {
+  font-size: 1rem;
+  max-width: 800px;
+  margin: auto;
+  text-align: justify;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  section {
+    padding: 40px 0;
+  }
+}
