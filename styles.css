@@ -1,4 +1,3 @@
-/* Variables */
 :root {
   --purple: #A259FF;
   --pink: #FF6EC7;
@@ -7,21 +6,21 @@
   --bg-dark: #121212;
   --text-light: #222;
   --text-dark: #eee;
-  --button-bg: linear-gradient(135deg, var(--purple), var(--pink), var(--green));
-  --button-hover-bg: linear-gradient(135deg, var(--pink), var(--green), var(--purple));
   --font-family: 'Poppins', sans-serif;
 }
 
-/* Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Animate background gradient */
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 body {
   font-family: var(--font-family);
-  background-color: var(--bg-light);
+  background: linear-gradient(270deg, var(--purple), var(--pink), var(--green));
+  background-size: 600% 600%;
+  animation: gradientBackground 25s ease infinite;
   color: var(--text-light);
   line-height: 1.6;
   min-height: 100vh;
@@ -30,7 +29,9 @@ body {
 }
 
 body.dark {
-  background-color: var(--bg-dark);
+  background: linear-gradient(270deg, #33184d, #4a2a57, #144d3f);
+  background-size: 600% 600%;
+  animation: gradientBackground 25s ease infinite;
   color: var(--text-dark);
 }
 
@@ -38,51 +39,78 @@ body.dark {
 header {
   text-align: center;
   margin-bottom: 2rem;
+  user-select: none;
 }
 
 header h1 {
   font-weight: 900;
-  font-size: 3.2rem;
+  font-size: 3.5rem;
   background: linear-gradient(45deg, var(--purple), var(--pink), var(--green));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textGradient 6s ease infinite;
+  letter-spacing: 0.06em;
 }
 
 header p {
   font-weight: 600;
-  font-size: 1.3rem;
-  color: var(--purple);
+  font-size: 1.4rem;
+  color: var(--pink);
   margin-top: 0.3rem;
+  text-shadow: 0 0 6px var(--pink);
 }
 
-/* Navigation */
+/* Nav */
 nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 3rem;
+  user-select: none;
+  scroll-behavior: smooth;
 }
 
 .magic-link {
-  padding: 0.8rem 1.2rem;
-  background: var(--button-bg);
+  padding: 0.9rem 1.4rem;
+  background: var(--purple);
   color: white;
   font-weight: 700;
   border-radius: 40px;
   text-decoration: none;
-  box-shadow: 0 4px 10px rgba(162, 89, 255, 0.5);
-  transition: background 0.4s ease, transform 0.3s ease;
-  user-select: none;
+  box-shadow: 0 4px 12px var(--purple);
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.magic-link::before {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(45deg, var(--pink), var(--green), var(--purple));
+  top: -10%;
+  left: -10%;
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 40px;
+  z-index: -1;
+}
+
+.magic-link:hover::before,
+.magic-link:focus::before {
+  opacity: 1;
 }
 
 .magic-link:hover,
 .magic-link:focus {
-  background: var(--button-hover-bg);
+  background: var(--pink);
+  box-shadow: 0 6px 20px var(--pink);
   transform: scale(1.12);
-  box-shadow: 0 6px 14px rgba(255, 110, 199, 0.8);
   outline: none;
+  color: white;
 }
 
 /* Sections */
@@ -91,6 +119,7 @@ section {
   margin: 0 auto 3rem;
   padding: 0 1rem;
   animation: fadeInUp 1s ease forwards;
+  user-select: none;
 }
 
 .fade-out {
@@ -104,18 +133,21 @@ section {
 
 section h2 {
   font-weight: 800;
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   margin-bottom: 1rem;
-  color: var(--purple);
+  color: var(--green);
   text-align: center;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 6px var(--green);
 }
 
 section p {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-bottom: 1.2rem;
   text-align: center;
   color: var(--pink);
+  text-shadow: 0 0 3px var(--pink);
 }
 
 section ul {
@@ -124,20 +156,24 @@ section ul {
   padding-left: 1rem;
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--green);
+  color: var(--purple);
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
 section ul li {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.7rem;
   cursor: default;
-  transition: color 0.3s ease;
+  transition: color 0.4s ease, transform 0.3s ease;
+  user-select: none;
+  position: relative;
 }
 
 section ul li:hover {
   animation: pulse 2s ease-in-out infinite;
+  color: var(--green);
+  transform: scale(1.1);
 }
 
 /* Footer */
@@ -145,8 +181,10 @@ footer {
   text-align: center;
   margin-top: 4rem;
   font-weight: 600;
-  color: var(--purple);
+  color: var(--pink);
   font-size: 1rem;
+  text-shadow: 0 0 4px var(--pink);
+  user-select: none;
 }
 
 /* Buttons */
@@ -156,11 +194,11 @@ button {
   font-weight: 700;
   border: none;
   border-radius: 30px;
-  padding: 0.8rem 1.8rem;
-  font-size: 1.1rem;
+  padding: 0.9rem 2rem;
+  font-size: 1.15rem;
   background: var(--button-bg);
   color: white;
-  box-shadow: 0 4px 12px rgba(162, 89, 255, 0.6);
+  box-shadow: 0 4px 16px rgba(162, 89, 255, 0.6);
   transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
   user-select: none;
   position: relative;
@@ -170,8 +208,8 @@ button {
 button:hover,
 button:focus {
   background: var(--button-hover-bg);
-  transform: scale(1.08);
-  box-shadow: 0 6px 18px rgba(255, 110, 199, 0.85);
+  transform: scale(1.1);
+  box-shadow: 0 8px 28px rgba(255, 110, 199, 0.9);
   outline: none;
 }
 
@@ -180,12 +218,12 @@ button:focus {
   position: fixed;
   top: 20px;
   right: 20px;
-  font-size: 2.5rem;
-  padding: 0.5rem 0.9rem;
+  font-size: 2.7rem;
+  padding: 0.55rem 1.1rem;
   border-radius: 50%;
   background: var(--button-bg);
   color: white;
-  box-shadow: 0 4px 12px rgba(162, 89, 255, 0.6);
+  box-shadow: 0 4px 14px rgba(162, 89, 255, 0.6);
   cursor: pointer;
   user-select: none;
   transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
@@ -195,9 +233,10 @@ button:focus {
 .theme-toggle:hover,
 .theme-toggle:focus {
   background: var(--button-hover-bg);
-  transform: scale(1.12);
-  box-shadow: 0 6px 20px rgba(255, 110, 199, 0.9);
+  transform: scale(1.15);
+  box-shadow: 0 8px 24px rgba(255, 110, 199, 0.95);
   outline: none;
+  animation: glowPulse 1.8s ease-in-out infinite;
 }
 
 /* Sparkle styles */
@@ -211,22 +250,27 @@ button:focus {
 /* Sparkle container */
 #sparkle-toggle button.active {
   background: var(--pink);
-  box-shadow: 0 0 12px 4px var(--pink);
+  box-shadow: 0 0 14px 5px var(--pink);
 }
 
 /* Sparkle particles */
 .sparkle {
   position: absolute;
   border-radius: 50%;
-  filter: drop-shadow(0 0 4px currentColor);
+  filter: drop-shadow(0 0 5px currentColor);
   opacity: 1;
   pointer-events: none;
-  animation-name: sparkleFloat;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
-  box-shadow: 0 0 6px 2px currentColor;
+  box-shadow: 0 0 7px 3px currentColor;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  animation-name: sparkleFloat, sparkleRotate, sparklePulse;
+  animation-duration: var(--duration, 2s), var(--duration, 2s), var(--duration, 2s);
+  animation-iteration-count: 1, 1, infinite;
 }
 
+/* Float up and fade out */
 @keyframes sparkleFloat {
   0% {
     transform: translateY(0) scale(1);
@@ -235,6 +279,38 @@ button:focus {
   100% {
     transform: translateY(-30px) scale(0.5);
     opacity: 0;
+  }
+}
+
+/* Rotate sparkle */
+@keyframes sparkleRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse scale */
+@keyframes sparklePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px 4px rgba(233, 30, 99, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 22px 8px rgba(233, 30, 99, 0.9);
+    transform: scale(1.08);
   }
 }
 
@@ -248,29 +324,6 @@ button:focus {
     transform: scale(1.1);
     color: var(--pink);
   }
-}
-
-/* Glow pulse for buttons and theme toggle */
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 0 0 10px 4px rgba(233, 30, 99, 0.6);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 22px 8px rgba(233, 30, 99, 0.9);
-    transform: scale(1.08);
-  }
-}
-
-#sparkle-button:hover,
-#sparkle-button:focus {
-  animation: glowPulse 1.8s ease-in-out infinite;
-}
-
-#theme-toggle:hover,
-#theme-toggle:focus {
-  animation: glowPulse 1.8s ease-in-out infinite;
-  background: var(--pink);
 }
 
 /* Fade in up for sections */
