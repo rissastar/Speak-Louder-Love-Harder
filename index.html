@@ -2,35 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="progress-bar"></div>
 
+  <!-- Header -->
   <header>
-    <h1 class="site-title">Speak Louder, Love Harder</h1>
-    <div class="theme-toggle">
-      <label for="theme-select">Theme:</label>
-      <select id="theme-select" aria-label="Choose color theme">
-        <option value="pastel">Pastel</option>
-        <option value="bold">Bold</option>
-        <option value="dark">Dark</option>
-      </select>
-    </div>
+    <h1>Speak Louder, Love Harder</h1>
+    <p>Voices that need to be heard. Stories that must be told.</p>
   </header>
 
-  <main>
-    <div class="hero">
-      <div class="typewriter" aria-label="Site slogan or motto"></div>
-      <p>Welcome to a place where your voice is amplified, your story honored, and love shared deeply.</p>
-      <a href="#connect" class="heart-button" aria-label="Go to Connect section">❤️</a>
-    </div>
-  </main>
-
-  <nav class="main-nav">
+  <!-- Navigation Bar -->
+  <nav>
     <a href="mental-health.html" class="magic-link">Mental Health</a>
     <a href="addiction.html" class="magic-link">Addiction</a>
     <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
@@ -43,11 +28,23 @@
     <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
   </nav>
 
+  <!-- Optional Intro Section -->
+  <section class="fade-in">
+    <h2>Welcome</h2>
+    <p>This space is dedicated to compassion, connection, and courageous storytelling. Each link above leads to real-world issues that deserve love and awareness.</p>
+  </section>
+
+  <!-- Optional CTA Section -->
+  <section class="fade-in">
+    <h2>Get Involved</h2>
+    <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out.</p>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Speak Louder, Love Harder | <a href="privacy.html">Privacy Policy</a></p>
+    <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
-  <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
-  <script src="scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
