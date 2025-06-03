@@ -1,29 +1,30 @@
 // addiction.js
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Dark mode toggle
-  const toggle = document.getElementById('dark-mode-toggle');
-  toggle?.addEventListener('click', function () {
-    document.body.classList.toggle('dark-mode');
-  });
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress-bar').style.width = `${scrolled}%`;
+});
 
-  // Collapsible sections
-  const collapsibles = document.querySelectorAll('.collapsible');
-  collapsibles.forEach(button => {
-    button.addEventListener('click', function () {
-      const content = this.nextElementSibling;
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', String(!isExpanded));
-      content.style.display = isExpanded ? 'none' : 'block';
-    });
-  });
+// Dark Mode Toggle
+document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
 
-  // Scroll progress bar
-  const progressBar = document.getElementById('progress-bar');
-  window.addEventListener('scroll', function () {
-    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    progressBar.style.width = scrolled + '%';
+// Collapsible Button
+const collapsibles = document.querySelectorAll('.collapsible');
+collapsibles.forEach(button => {
+  button.addEventListener('click', function () {
+    this.classList.toggle('active');
+    const content = this.nextElementSibling;
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !expanded);
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+    } else {
+      content.style.display = 'block';
+    }
   });
 });
