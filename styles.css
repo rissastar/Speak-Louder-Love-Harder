@@ -272,7 +272,7 @@ footer {
 /* Ambient Music Toggle Button */
 #music-toggle {
   position: fixed;
-  bottom: 80px; /* above dark mode toggle and scroll top */
+  bottom: 40px;
   right: 20px;
   background: #fff;
   border: none;
@@ -351,24 +351,6 @@ footer {
 #paw-container svg path {
   fill: #7c4dff;
   filter: drop-shadow(0 0 2px rgba(124, 77, 255, 0.8));
-}
-
-/* Quote of the Day Popup */
-#quote-popup {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  user-select: none;
-  position: fixed;
-  bottom: 180px; /* above scroll top & toggles */
-  right: 20px;
-  background: #fff0f6;
-  border-radius: 10px;
-  padding: 1rem 1.2rem;
-  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
-  color: #7c4dff;
-  max-width: 280px;
-  font-size: 1rem;
-  z-index: 1000;
-  line-height: 1.4;
 }
 
 /* Optional: add fade-in to popup */
