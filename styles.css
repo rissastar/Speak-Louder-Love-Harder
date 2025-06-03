@@ -6,52 +6,75 @@
 }
 
 :root {
-  /* Light Theme Colors */
+  /* Default Light Theme Variables */
+:root {
   --bg-color: #ffffff;
   --text-color: #222222;
-  --primary-color: #6a0dad;
-  --secondary-color: #ff69b4;
+  --section-bg: rgba(255, 255, 255, 0.9);
   --nav-bg: rgba(255, 255, 255, 0.8);
   --nav-link-bg: linear-gradient(45deg, #ff6ec4, #7873f5);
   --nav-link-hover-bg: linear-gradient(45deg, #42e695, #3bb2b8);
-  --section-bg: rgba(255, 255, 255, 0.9);
   --footer-bg: #6a0dad;
-  --header-title-color: #6a0dad;
-  --header-subtitle-color: #555555;
-  --section-heading-color: #ff1493;
-  --section-text-color: #333333;
-  --theme-toggle-bg: #ffffff;
-  --theme-toggle-border: #cccccc;
-  --theme-toggle-hover-bg: #f0f0f0;
+  --highlight-color: #ff69b4;
 }
 
+/* Dark Theme Overrides */
 body.dark-theme {
   --bg-color: linear-gradient(135deg, #18002f, #32004f);
-  --text-color: #eeeeee;
-  --nav-bg: rgba(255, 255, 255, 0.1);
-  --nav-link-bg: linear-gradient(45deg, #ff6ec4, #7873f5);
-  --nav-link-hover-bg: linear-gradient(45deg, #42e695, #3bb2b8);
+  --text-color: #eee;
   --section-bg: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(255, 255, 255, 0.05);
+  --nav-link-bg: linear-gradient(45deg, #6a0dad, #a45fc7);
+  --nav-link-hover-bg: linear-gradient(45deg, #3bb2b8, #42e695);
   --footer-bg: #6a0dad;
-  --header-title-color: #ff69b4;
-  --header-subtitle-color: #dddddd;
-  --section-heading-color: #ff69b4;
-  --section-text-color: #dddddd;
-  --theme-toggle-bg: #333333;
-  --theme-toggle-border: #555555;
-  --theme-toggle-hover-bg: #444444;
+  --highlight-color: #ff69b4;
 }
 
+/* Apply Variables */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 2rem;
-  transition: background 0.5s ease, color 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+nav {
+  background: var(--nav-bg);
+}
+
+nav a {
+  background: var(--nav-link-bg);
+}
+
+nav a:hover {
+  background: var(--nav-link-hover-bg);
+}
+
+section {
+  background: var(--section-bg);
+}
+
+footer {
+  background: var(--footer-bg);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  z-index: 1000;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+body.dark-theme .theme-toggle {
+  background: #333;
+  color: #fff;
+  border-color: #666;
 }
 
 /* Theme Toggle Button */
