@@ -166,39 +166,47 @@
         transform: translateY(0) rotate(360deg);
       }
     }
-  </style>
-</head>
-<body>
+    
+    /* Sparkle (background) */
+.sparkle {
+  position: absolute;
+  background: #ff69b4;
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: blur(2px);
+  pointer-events: none;
+  animation: floatSparkles 6s infinite ease-in-out;
+}
 
-  <header>
-    <h1>Speak Louder, Love Harder</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Connect</a>
-    </nav>
-  </header>
+@keyframes floatSparkles {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-60px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
 
-  <div class="container">
-    <div class="card">
-      <h2>Welcome!</h2>
-      <p>This is a playful, purple-pink themed site just for you. It's glowing, floating, and fun!</p>
-      <button>Click Me</button>
-    </div>
+/* Sparkle burst on card hover */
+.sparkle-burst {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #a76fff;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 3px #a76fff);
+  animation: sparkleFade 1s ease forwards;
+  pointer-events: none;
+}
 
-    <div class="card">
-      <h3>Get in Touch</h3>
-      <input type="text" placeholder="Your Name">
-      <input type="email" placeholder="Your Email">
-      <textarea rows="4" placeholder="Message"></textarea>
-      <button>Send</button>
-    </div>
-  </div>
+@keyframes sparkleFade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2); }
+}
 
-  <footer>
-    &copy; 2025 Larissa | Built with 💜 & fun
-  </footer>
+/* Button bounce */
+@keyframes bounceAnim {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2) rotate(10deg); }
+}
 
-  <!-- JS to generate floating bubbles -->
-  <script>
-    for (let i = 0; i < 20; i
+button.bounce {
+  animation: bounceAnim 0.4s ease;
+}
