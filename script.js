@@ -128,3 +128,28 @@ audioBtn.addEventListener('click', () => {
   }
   playing = !playing;
 });
+
+// Floating Hearts on Click
+document.addEventListener('click', function (e) {
+  const heart = document.createElement('div');
+  heart.textContent = '💖';
+  heart.style.position = 'fixed';
+  heart.style.left = `${e.clientX}px`;
+  heart.style.top = `${e.clientY}px`;
+  heart.style.fontSize = '1.8rem';
+  heart.style.opacity = 1;
+  heart.style.pointerEvents = 'none';
+  heart.style.zIndex = 9999;
+  document.body.appendChild(heart);
+
+  let rise = 0;
+  const anim = setInterval(() => {
+    rise += 2;
+    heart.style.top = `${e.clientY - rise}px`;
+    heart.style.opacity -= 0.02;
+    if (heart.style.opacity <= 0) {
+      clearInterval(anim);
+      heart.remove();
+    }
+  }, 16);
+});
