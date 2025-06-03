@@ -205,3 +205,26 @@ body.light-theme .theme-toggle button:hover {
   background-color: var(--accent-purple);
   color: #fff;
 }
+
+/* Already included, but ensure this is there or updated */
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+}
+
+.theme-toggle button {
+  font-size: 1rem;
+  padding: 8px 14px;
+  background: none;
+  border-radius: 5px;
+  border: 2px solid var(--accent-pink);
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+body.light-theme .theme-toggle button {
+  color: #222;
+  border-color: var(--accent-purple);
+}
