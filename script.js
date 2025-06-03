@@ -235,6 +235,22 @@ document.addEventListener("DOMContentLoaded", () => {
     area.addEventListener('input', () => {
       localStorage.setItem(key, area.value);
     });
-  });
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+  const themeToggle = document.querySelector('.theme-toggle');
+  const body = document.body;
 
+  // Load saved theme from localStorage
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    body.classList.toggle('dark-theme', savedTheme === 'dark');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+    // Save the current theme in localStorage
+    const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+    localStorage.setItem('theme', currentTheme);
+  });
 });
