@@ -217,4 +217,44 @@ footer a:focus {
   .section {
     padding: 1rem 1.25rem;
   }
+  
+  /* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ddd;
+}
+
+body.dark-mode header {
+  background-color: #222;
+  color: #f8bfbf;
+}
+
+body.dark-mode .main-nav {
+  background-color: #333;
+}
+
+body.dark-mode .main-nav a {
+  color: #f8bfbf;
+}
+
+body.dark-mode .main-nav a:hover,
+body.dark-mode .main-nav a:focus {
+  background-color: #ff6f61;
+  color: white;
+}
+
+body.dark-mode .section {
+  background-color: #222;
+  color: #ccc;
+  box-shadow: 0 3px 6px rgba(255,111,97,0.3);
+}
+
+body.dark-mode footer {
+  background-color: #222;
+  color: #ccc;
+}
+
+body.dark-mode #dark-mode-toggle {
+  background-color: #ff867f;
+  box-shadow: 0 4px 10px rgba(255,135,127,0.8);
 }
