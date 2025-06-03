@@ -65,4 +65,45 @@
 
     // Optional: you can add any other listeners you want here, e.g., audio, sparkles, etc.
   });
-</script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.target;
+      const targetContent = document.getElementById(targetId);
+
+      // Find currently active tab content
+      const currentActive = document.querySelector('.tab-content.active');
+
+      if (currentActive && currentActive !== targetContent) {
+        // Start fade-out by removing 'active' class AFTER transition ends
+        currentActive.style.opacity = '0';
+
+        // Listen for the transition end event to hide the content properly
+        currentActive.addEventListener('transitionend', function handler() {
+          currentActive.classList.remove('active');
+          currentActive.style.opacity = '';
+          currentActive.style.visibility = '';
+          currentActive.style.maxHeight = '';
+          currentActive.style.padding = '';
+          currentActive.removeEventListener('transitionend', handler);
+        });
+      }
+
+      // Show the clicked tab content by adding active class and forcing fade-in styles
+      if (!targetContent.classList.contains('active')) {
+        targetContent.classList.add('active');
+        // Force reflow to restart CSS transition (optional but safer)
+        void targetContent.offsetWidth;
+        targetContent.style.opacity = '1';
+      }
+
+      // Update tab active classes (if you want to highlight active tab)
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+});
