@@ -24,8 +24,8 @@ html, body {
   height: 5px;
   background: linear-gradient(to right, #ff4081, #7c4dff);
   width: 0%;
-  z-index: 100;
-  transition: width 0.2s ease-in-out;
+  z-index: 10000; /* raised from 100 for better overlay */
+  transition: width 0.25s ease;
 }
 
 /* Hero Section */
@@ -163,9 +163,9 @@ body.dark-mode .magic-link:hover {
   border-radius: 50%;
   padding: 0.6rem 0.7rem;
   cursor: pointer;
-  z-index: 99;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  transition: background 0.3s;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(124, 77, 255, 0.6);
+  transition: background 0.3s ease;
 }
 
 #dark-mode-toggle:hover,
@@ -181,7 +181,7 @@ body.dark-mode .magic-link:hover {
   left: 20px;
   font-size: 2.2rem;
   text-decoration: none;
-  z-index: 99;
+  z-index: 1000;
   user-select: none;
   transition: transform 0.2s;
 }
@@ -267,4 +267,111 @@ footer {
     align-items: center;
     gap: 0.7rem;
   }
+}
+
+/* Ambient Music Toggle Button */
+#music-toggle {
+  position: fixed;
+  bottom: 80px; /* above dark mode toggle and scroll top */
+  right: 20px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 0.6rem 0.7rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(124, 77, 255, 0.6);
+  transition: background 0.3s ease;
+  z-index: 1000;
+}
+
+#music-toggle:hover,
+#music-toggle:focus {
+  background: #f0f0f0;
+  outline: none;
+}
+
+/* Scroll-to-top Button */
+#scroll-to-top {
+  background-color: #f7f7f7;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  padding: 0.6rem 0.8rem;
+  font-size: 1.7rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  bottom: 140px; /* above music & dark toggle */
+  right: 20px;
+  z-index: 1000;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+  transform: translateY(20px);
+}
+
+#scroll-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+#scroll-to-top:hover {
+  background-color: #e0e0e0;
+  border-color: #7c4dff;
+}
+
+/* Hearts Container */
+#hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+#hearts-container svg path {
+  filter: drop-shadow(0 0 2px rgba(124, 77, 255, 0.7));
+}
+
+/* Paw Prints Container */
+#paw-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#paw-container svg path {
+  fill: #7c4dff;
+  filter: drop-shadow(0 0 2px rgba(124, 77, 255, 0.8));
+}
+
+/* Quote of the Day Popup */
+#quote-popup {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+  position: fixed;
+  bottom: 180px; /* above scroll top & toggles */
+  right: 20px;
+  background: #fff0f6;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+  color: #7c4dff;
+  max-width: 280px;
+  font-size: 1rem;
+  z-index: 1000;
+  line-height: 1.4;
+}
+
+/* Optional: add fade-in to popup */
+#quote-popup.fade-in {
+  animation: fadeIn 1.2s ease-in;
 }
