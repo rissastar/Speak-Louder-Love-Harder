@@ -20,12 +20,7 @@ Visit here 👉 https://rissastar.github.io/Speak-Louder-Love-Harder/
 
 📂 Folder Structure
 Speak-Louder-Love-Harder/
-│
-├── index.html            # Home page
-├── styles.css            # Animated, interactive site-wide styles
-├── scripts.js            # Theme toggle, quote rotator, animations
-├── README.md             # You’re reading it!
-│
+├── index.html
 ├── mental-health.htm
 ├── addiction.htm
 ├── cystic-fibrosis.html
@@ -35,7 +30,10 @@ Speak-Louder-Love-Harder/
 ├── sexual-abuse.html
 ├── pitbull-love.html
 ├── foster-children.html
-└── guestbook-connect.html
+├── guestbook-connect.html
+├── styles.css
+├── script.js
+└── README.md
 
 ⸻
 
