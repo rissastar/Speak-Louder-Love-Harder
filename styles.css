@@ -1,42 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder 🌟</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header>
-    <h1 id="animated-header"></h1><span id="cursor">|</span>
-    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌓</button>
-  </header>
+/* Theme variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --accent-color: #9b59b6;
+  --link-color: #2ecc71;
+  --hover-color: #e91e63;
+}
 
-  <nav class="nav-links">
-    <a href="mental-health.htm">Mental Health</a>
-    <a href="addiction.htm">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
-    <a href="guestbook-connect.html">Guestbook</a>
-  </nav>
+body.dark-mode {
+  --bg-color: #1e1e1e;
+  --text-color: #f5f5f5;
+  --accent-color: #8e44ad;
+  --link-color: #27ae60;
+  --hover-color: #ff69b4;
+}
 
-  <main>
-    <!-- Dynamic quote box -->
-    <div class="quote-box">
-      <p id="quote-text">Loading quote...</p>
-      <p id="quote-author"></p>
-    </div>
-  </main>
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 
-  <footer>
-    &copy; 2025 Speak Louder, Love Harder 🌟
-  </footer>
+/* Header Styles */
+header {
+  /* Adapted to your flex layout and accent background */
+  display: flex;
+  justify-content: center; /* center for typing header */
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: var(--accent-color);
+  color: #fff;
+  position: relative;
+  opacity: 1;
+  transition: opacity 1s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 3rem;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+/* Animated typing header text */
+#animated-header {
+  font-size: 3rem;
+  color: #fff;
+  /* no need for extra styles, inherits from header */
+}
+
+/* Blinking cursor */
+#cursor {
+  display: inline-block;
+  font-weight: bold;
+  color: #fff;
+  animation: blink 1s step-start infinite;
+  user-select: none;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Glow text example, in case you want to use it */
+.glow-text {
+  font-size: 2rem;
+  text-shadow: 0 0 5px #fff, 0 0 10px var(--hover-color), 0 0 20px var(--hover-color);
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px var(--hover-color), 0 0 20px var(--hover-color);
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px var(--hover-color), 0 0 30px var(--hover-color);
+  }
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  position: absolute;
+  right: 1rem;
+  top: 1.5rem;
+}
+
+/* Navigation bar */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: var(--link-color);
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.nav-links a {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: var(--hover-color);
+  transform: scale(1.05);
+}
+
+/* Main content */
+main {
+  padding: 2rem;
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+  flex-grow: 1;
+}
+
+/* Quote box */
+.quote-box {
+  font-style: italic;
+  font-size: 1.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  color: var(--text-color);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--accent-color);
+  color: #fff;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links a {
+    width: 80%;
+    text-align: center;
+  }
+}
