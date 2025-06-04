@@ -1,9 +1,10 @@
-/* ==== Base Reset ==== */
+/* ====== Base Reset & Core Styles ====== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -14,23 +15,32 @@ html, body {
   transition: background-color 0.5s ease, color 0.5s ease;
   cursor: url('data:image/svg+xml;utf8,<svg fill="purple" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C8.13 2 5 5.13 5 9c0 7 7 13 7 13s7-6 7-13c0-3.87-3.13-7-7-7z"/></svg>') 12 12, auto;
 }
+
 a {
   color: var(--link);
   text-decoration: none;
   transition: color 0.3s ease;
 }
+
 a:hover,
-a:focus {
+a:focus-visible {
   color: var(--link-hover);
   outline: none;
 }
+
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* ==== CSS Variables - Light Theme ==== */
+/* Add focus-visible outlines for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ====== CSS Variables - Light Theme Defaults ====== */
 :root {
   --bg: #fdfdff;
   --fg: #111;
@@ -47,7 +57,7 @@ ul {
   --header-bg: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
-/* ==== Dark Theme Overrides ==== */
+/* ====== Dark Theme Overrides ====== */
 [data-theme='dark'] {
   --bg: #121212;
   --fg: #fdfdfd;
@@ -62,7 +72,7 @@ ul {
   --glow-3: #66bb6a;
 }
 
-/* ==== Additional Color Themes ==== */
+/* ====== Additional Color Themes ====== */
 .theme-green {
   --primary: #4caf50;
   --accent: #8bc34a;
@@ -95,18 +105,25 @@ ul {
   --glow-3: #f06292;
 }
 
-/* ==== Header ==== */
+/* ====== Header ====== */
 header {
   position: sticky;
   top: 0;
   z-index: 9999;
   background: var(--header-bg);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 1.25rem 2.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: padding 0.3s ease;
+  transition: padding 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: saturate(180%) blur(10px);
+  user-select: none;
+}
+
+header:hover,
+header:focus-within {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
 
 header h1 {
@@ -119,89 +136,102 @@ header h1 {
     0 0 30px var(--glow-3);
   animation: pulseGlow 3s ease-in-out infinite alternate;
   margin: 0;
-  user-select: none;
 }
 
-/* ==== Navigation ==== */
+/* ====== Navigation ====== */
 .nav-bar {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   overflow-x: auto;
-  padding: 0.5rem 0;
+  padding: 0.75rem 1rem;
   background-color: var(--nav-bg);
   border-radius: 100px;
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
+  transition: background-color 0.3s ease;
+  user-select: none;
 }
 
 .nav-bar::-webkit-scrollbar {
   height: 8px;
 }
+
 .nav-bar::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .nav-bar::-webkit-scrollbar-thumb {
   background-color: var(--accent);
   border-radius: 10px;
 }
 
+/* Nav links styled as "magic links" */
 .magic-link {
   display: inline-block;
-  padding: 0.5rem 1.5rem;
+  padding: 0.55rem 1.6rem;
   font-weight: 700;
   border-radius: 100px;
   color: var(--fg);
   background-color: var(--card-bg);
   box-shadow: 0 0 10px var(--glow-1);
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.5s ease;
-  user-select: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.5s ease,
+    transform 0.3s ease;
   cursor: pointer;
   white-space: nowrap;
   text-align: center;
+  user-select: none;
+  will-change: transform;
 }
 
 .magic-link:hover,
-.magic-link:focus {
+.magic-link:focus-visible {
   background-color: var(--primary);
   color: white;
   box-shadow:
     0 0 20px var(--glow-2),
     0 0 30px var(--glow-3),
     0 0 40px var(--glow-1);
-  outline: none;
-  transform: scale(1.05);
+  outline-offset: 4px;
+  transform: scale(1.08);
 }
 
-/* ==== Theme Toggle Button ==== */
+/* ====== Theme Toggle Button ====== */
 #theme-toggle {
   background-color: var(--card-bg);
   border: none;
   border-radius: 50%;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: var(--primary);
   box-shadow:
-    0 0 8px var(--glow-1);
-  transition: color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    0 0 9px var(--glow-1);
+  transition:
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
+  will-change: transform;
 }
 
 #theme-toggle:hover,
-#theme-toggle:focus {
+#theme-toggle:focus-visible {
   color: var(--accent);
   box-shadow:
-    0 0 12px var(--glow-2),
-    0 0 15px var(--glow-3);
-  outline: none;
-  transform: scale(1.2);
+    0 0 15px var(--glow-2),
+    0 0 20px var(--glow-3);
+  outline-offset: 3px;
+  transform: scale(1.25);
 }
 
-/* ==== Hero Section ==== */
+/* ====== Hero Section ====== */
 .hero {
   padding: 6rem 2rem 4rem;
   text-align: center;
@@ -210,7 +240,7 @@ header h1 {
 .hero h2 {
   font-size: 3rem;
   font-weight: 900;
-  margin: 0 0 1rem;
+  margin-bottom: 1rem;
   color: var(--primary);
   text-shadow:
     0 0 15px var(--glow-1),
@@ -219,7 +249,7 @@ header h1 {
   animation: glowPulse 3s ease-in-out infinite alternate;
 }
 
-/* ==== Quote Rotator ==== */
+/* ====== Quote Rotator ====== */
 .quote-rotator {
   max-width: 600px;
   margin: 3rem auto;
@@ -231,23 +261,24 @@ header h1 {
   font-style: italic;
   font-size: 1.25rem;
   user-select: none;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
 }
 
-/* ==== Cause Cards Container ==== */
+/* ====== Causes Container & Cards ====== */
 .causes-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2.5rem;
   justify-content: center;
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* ==== Individual Cause Card ==== */
 .cause-card {
   background-color: var(--card-bg);
-  box-shadow: 0 0 10px var(--glow-1);
+  box-shadow: 0 0 14px var(--glow-1);
   border-radius: 1rem;
   padding: 2rem;
   width: 280px;
@@ -258,109 +289,82 @@ header h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  will-change: transform, box-shadow;
 }
 
 .cause-card:hover,
-.cause-card:focus {
+.cause-card:focus-visible {
   box-shadow:
-    0 0 25px var(--glow-2),
-    0 0 35px var(--glow-3);
+    0 0 30px var(--glow-2),
+    0 0 45px var(--glow-3);
   transform: translateY(-8px);
-  outline: none;
+  outline-offset: 4px;
 }
 
-/* ==== Daily Affirmation Section ==== */
+/* ====== Daily Affirmation Section ====== */
 .daily-affirmation {
   background-color: var(--card-bg);
   max-width: 600px;
-  margin: 3rem auto;
-  padding: 2rem 3rem;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px var(--card-shadow);
+  margin: 3rem auto 5rem;
+  padding: 2.5rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 20px var(--card-shadow);
   text-align: center;
-  user-select: none;
   color: var(--primary);
+  font-weight: 700;
   font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.daily-affirmation button {
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.8rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  background-color: var(--primary);
-  border: none;
-  border-radius: 100px;
-  color: white;
-  cursor: pointer;
-  box-shadow:
-    0 0 10px var(--glow-1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  letter-spacing: 0.05em;
   user-select: none;
+  animation: subtlePulse 5s ease-in-out infinite alternate;
 }
 
-.daily-affirmation button:hover,
-.daily-affirmation button:focus {
-  background-color: var(--accent);
-  box-shadow:
-    0 0 15px var(--glow-2),
-    0 0 20px var(--glow-3);
-  outline: none;
-  transform: scale(1.05);
-}
-
-/* ==== Scroll To Top Button ==== */
-#scrollToTopBtn {
+/* ====== Scroll to Top Button ====== */
+#scroll-to-top {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-color: var(--primary);
-  color: white;
+  bottom: 2.25rem;
+  right: 2.25rem;
+  background-color: var(--card-bg);
   border: none;
+  padding: 0.8rem 1.1rem;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
+  box-shadow: 0 0 12px var(--glow-1);
+  font-size: 1.75rem;
   cursor: pointer;
-  box-shadow:
-    0 0 15px var(--glow-1);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+  color: var(--primary);
   user-select: none;
-  z-index: 999;
+  display: none; /* Hidden by default */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  will-change: transform;
 }
 
-#scrollToTopBtn.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* ==== Custom Cursor ==== */
-#custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  background-color: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
+#scroll-to-top:hover,
+#scroll-to-top:focus-visible {
+  color: var(--accent);
   box-shadow:
-    0 0 8px var(--accent),
-    0 0 12px var(--accent);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  z-index: 9999;
+    0 0 20px var(--glow-2),
+    0 0 25px var(--glow-3);
+  outline-offset: 3px;
+  transform: scale(1.25);
 }
 
-/* ==== Animations ==== */
+/* ====== Footer ====== */
+footer {
+  background-color: var(--nav-bg);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--fg);
+  font-size: 0.9rem;
+  user-select: none;
+  box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* ====== Animations ====== */
 @keyframes pulseGlow {
-  0% {
+  0%, 100% {
     text-shadow:
       0 0 10px var(--glow-1),
       0 0 20px var(--glow-2),
@@ -368,20 +372,14 @@ header h1 {
   }
   50% {
     text-shadow:
-      0 0 20px var(--glow-2),
-      0 0 30px var(--glow-3),
-      0 0 40px var(--glow-1);
-  }
-  100% {
-    text-shadow:
-      0 0 10px var(--glow-1),
-      0 0 20px var(--glow-2),
-      0 0 30px var(--glow-3);
+      0 0 20px var(--glow-1),
+      0 0 40px var(--glow-2),
+      0 0 60px var(--glow-3);
   }
 }
 
 @keyframes glowPulse {
-  0% {
+  0%, 100% {
     text-shadow:
       0 0 15px var(--glow-1),
       0 0 30px var(--glow-2),
@@ -389,37 +387,29 @@ header h1 {
   }
   50% {
     text-shadow:
-      0 0 30px var(--glow-3),
-      0 0 40px var(--glow-1),
-      0 0 50px var(--glow-2);
-  }
-  100% {
-    text-shadow:
-      0 0 15px var(--glow-1),
-      0 0 30px var(--glow-2),
-      0 0 45px var(--glow-3);
+      0 0 30px var(--glow-1),
+      0 0 60px var(--glow-2),
+      0 0 90px var(--glow-3);
   }
 }
 
-/* ==== Responsive ==== */
-@media (max-width: 600px) {
+@keyframes subtlePulse {
+  0%, 100% {
+    box-shadow: 0 8px 20px var(--card-shadow);
+  }
+  50% {
+    box-shadow: 0 12px 30px var(--card-shadow);
+  }
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
   header h1 {
-    font-size: 1.8rem;
-  }
-
-  .nav-bar {
-    gap: 0.5rem;
-    padding: 0.3rem 0.5rem;
-  }
-
-  .magic-link {
-    padding: 0.4rem 1rem;
-    font-size: 0.85rem;
+    font-size: 2rem;
   }
 
   .hero h2 {
     font-size: 2rem;
-    padding: 0 1rem;
   }
 
   .causes-container {
@@ -429,14 +419,20 @@ header h1 {
 
   .cause-card {
     width: 90%;
+    max-width: 320px;
   }
 
-  .daily-affirmation {
-    padding: 1.5rem 2rem;
-    font-size: 1.2rem;
+  .nav-bar {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  header {
+    padding: 1rem 1.5rem;
   }
 
-  .daily-affirmation button {
-    font-size: 1rem;
+  .hero {
+    padding: 4rem 1rem 3rem;
   }
 }
