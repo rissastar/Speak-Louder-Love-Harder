@@ -1,249 +1,233 @@
-// ========== Custom Cursor ==========
-const cursor = document.getElementById('custom-cursor');
-window.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
+// Wait for DOM content
+document.addEventListener('DOMContentLoaded', () => {
+  /* ==== CUSTOM CURSOR === */
+  const cursor = document.getElementById('custom-cursor');
+  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  let cursorX = mouseX, cursorY = mouseY;
+  const ease = 0.15;
 
-// ========== Scroll to Top Button ==========
-const scrollBtn = document.getElementById('scrollToTopBtn');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 250) {
-    scrollBtn.classList.add('show');
-  } else {
-    scrollBtn.classList.remove('show');
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animateCursor() {
+    cursorX += (mouseX - cursorX) * ease;
+    cursorY += (mouseY - cursorY) * ease;
+    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateCursor);
   }
-});
-scrollBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+  animateCursor();
 
-// ========== Animated Typing Effect for Header ==========
-const typingText = 'Speak Louder, Love Harder 🌟';
-const titleEl = document.getElementById('animated-title');
-let typingIndex = 0;
-let isDeleting = false;
-let typingSpeed = 120;
+  /* ==== MAGNETIC HOVER EFFECT === */
+  const magneticEls = document.querySelectorAll('.magnetic-hover');
+  magneticEls.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const relX = e.clientX - rect.left;
+      const relY = e.clientY - rect.top;
+      const midX = rect.width / 2;
+      const midY = rect.height / 2;
 
-function typeWriter() {
-  if (!titleEl) return;
-  if (!isDeleting) {
-    titleEl.textContent = typingText.slice(0, typingIndex + 1);
-    typingIndex++;
-    if (typingIndex === typingText.length) {
-      isDeleting = true;
-      typingSpeed = 1500; // pause at end
+      const deltaX = (relX - midX) / midX;
+      const deltaY = (relY - midY) / midY;
+
+      // Pull cursor toward element center
+      cursor.style.transform = `translate(${mouseX + deltaX * 15}px, ${mouseY + deltaY * 15}px) translate(-50%, -50%)`;
+
+      // Move element slightly to mouse
+      el.style.transform = `translate(${deltaX * 10}px, ${deltaY * 10}px) scale(1.05)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
+  });
+
+  /* ==== SCROLL TO TOP BUTTON === */
+  const scrollBtn = document.getElementById('scrollToTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight / 2) {
+      scrollBtn.classList.add('show');
     } else {
-      typingSpeed = 120;
+      scrollBtn.classList.remove('show');
     }
-  } else {
-    titleEl.textContent = typingText.slice(0, typingIndex - 1);
-    typingIndex--;
-    if (typingIndex === 0) {
-      isDeleting = false;
-      typingSpeed = 500; // pause at start
-    } else {
-      typingSpeed = 60;
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ==== NAV PILL HIGHLIGHT === */
+  const navList = document.querySelector('.nav-list');
+  const navLinks = navList.querySelectorAll('a');
+  const navPill = document.createElement('div');
+  navPill.className = 'nav-pill-highlight';
+  navList.appendChild(navPill);
+
+  function updateNavPill(el) {
+    if (!el) {
+      navPill.style.opacity = '0';
+      return;
     }
-  }
-  setTimeout(typeWriter, typingSpeed);
-}
-typeWriter();
-
-// ========== Quote Rotator ==========
-const quotes = [
-  "Healing begins when we choose to speak up.",
-  "Your voice is your power—use it wisely.",
-  "Love harder, live louder.",
-  "From pain comes strength.",
-  "Hope shines brightest in the darkest moments.",
-  "Every story matters; every life counts.",
-  "Compassion is the cure.",
-];
-const quoteEl = document.getElementById('quote-rotator');
-let currentQuoteIndex = 0;
-
-function rotateQuotes() {
-  if (!quoteEl) return;
-  quoteEl.classList.remove('fade-in');
-  quoteEl.classList.add('fade-out');
-  setTimeout(() => {
-    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-    quoteEl.textContent = quotes[currentQuoteIndex];
-    quoteEl.classList.remove('fade-out');
-    quoteEl.classList.add('fade-in');
-  }, 1000);
-}
-setInterval(rotateQuotes, 8000); // Change every 8 seconds
-quoteEl.classList.add('fade-in');
-
-// ========== Affirmation Generator ==========
-const affirmations = [
-  "I am worthy of love and kindness.",
-  "My past does not define me.",
-  "Every day, I grow stronger and more resilient.",
-  "I choose to heal and thrive.",
-  "My voice matters and will be heard.",
-  "I am deserving of happiness and peace.",
-  "I embrace hope and new beginnings.",
-];
-const affirmationBox = document.getElementById('affirmation-box');
-const newAffirmationBtn = document.getElementById('new-affirmation');
-
-function showNewAffirmation() {
-  let newAffirm;
-  do {
-    newAffirm = affirmations[Math.floor(Math.random() * affirmations.length)];
-  } while (newAffirm === affirmationBox.textContent);
-  affirmationBox.textContent = newAffirm;
-  burstConfetti();
-}
-if (newAffirmationBtn) {
-  newAffirmationBtn.addEventListener('click', showNewAffirmation);
-}
-
-// ========== Navigation Pill Highlight ==========
-const navList = document.querySelector('.nav-list');
-const navLinks = document.querySelectorAll('.nav-list a');
-const navPill = document.createElement('div');
-navPill.className = 'nav-pill-highlight';
-navList.appendChild(navPill);
-
-function updatePill(link) {
-  const rect = link.getBoundingClientRect();
-  const navRect = navList.getBoundingClientRect();
-  navPill.style.width = rect.width + 'px';
-  navPill.style.left = (rect.left - navRect.left) + 'px';
-  navPill.style.opacity = '1';
-}
-function hidePill() {
-  navPill.style.opacity = '0';
-}
-
-navLinks.forEach(link => {
-  link.addEventListener('mouseenter', () => updatePill(link));
-  link.addEventListener('focus', () => updatePill(link));
-  link.addEventListener('mouseleave', hidePill);
-  link.addEventListener('blur', hidePill);
-});
-
-// ========== Scroll-triggered Animations ==========
-const scrollAnimElems = document.querySelectorAll('[data-scroll-animate]');
-function onScrollAnimate() {
-  const triggerBottom = window.innerHeight * 0.9;
-  scrollAnimElems.forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top < triggerBottom) {
-      el.classList.add('visible');
-    }
-  });
-}
-window.addEventListener('scroll', onScrollAnimate);
-window.addEventListener('load', onScrollAnimate);
+    const parentRect = navList.getBoundingClientRect();
 
-// ========== Confetti Burst on Affirmation Change ==========
-const confettiCanvas = document.getElementById('confetti-canvas');
-const ctx = confettiCanvas.getContext('2d');
-let confettiPieces = [];
-let confettiAnimationFrame;
-
-function randomRange(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-class ConfettiPiece {
-  constructor() {
-    this.x = randomRange(0, window.innerWidth);
-    this.y = randomRange(-20, -100);
-    this.size = randomRange(6, 12);
-    this.speedY = randomRange(2, 5);
-    this.speedX = randomRange(-2, 2);
-    this.color = `hsl(${randomRange(0, 360)}, 70%, 60%)`;
-    this.tilt = randomRange(-10, 10);
-    this.tiltSpeed = randomRange(0.05, 0.1);
-    this.tiltAngle = 0;
+    navPill.style.width = rect.width + 'px';
+    navPill.style.left = (rect.left - parentRect.left) + 'px';
+    navPill.style.opacity = '1';
   }
-  update() {
-    this.y += this.speedY;
-    this.x += this.speedX;
-    this.tiltAngle += this.tiltSpeed;
-    this.tilt = Math.sin(this.tiltAngle) * 15;
-    if (this.y > window.innerHeight) {
-      this.y = randomRange(-20, -100);
-      this.x = randomRange(0, window.innerWidth);
+
+  // Initially highlight first nav link or current page link
+  let activeLink = navLinks[0];
+  updateNavPill(activeLink);
+
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => updateNavPill(link));
+    link.addEventListener('focus', () => updateNavPill(link));
+  });
+  navList.addEventListener('mouseleave', () => updateNavPill(activeLink));
+
+  /* ==== TYPING EFFECT FOR HEADER TITLE === */
+  const fullText = "Speak Louder, Love Harder 🌟";
+  const titleEl = document.getElementById('animated-title');
+  let currentIndex = 0;
+
+  function typeNext() {
+    if (currentIndex <= fullText.length) {
+      titleEl.textContent = fullText.slice(0, currentIndex) + (currentIndex < fullText.length ? '|' : '');
+      currentIndex++;
+      setTimeout(typeNext, 120);
+    } else {
+      // Remove blinking cursor after typing done
+      titleEl.textContent = fullText;
     }
   }
-  draw() {
-    ctx.beginPath();
-    ctx.lineWidth = this.size / 2;
-    ctx.strokeStyle = this.color;
-    ctx.moveTo(this.x + this.tilt, this.y);
-    ctx.lineTo(this.x, this.y + this.tilt + this.size / 2);
-    ctx.stroke();
-  }
-}
+  typeNext();
 
-function burstConfetti() {
-  confettiPieces = [];
-  const count = 100;
-  for (let i = 0; i < count; i++) {
-    confettiPieces.push(new ConfettiPiece());
-  }
-  if (!confettiAnimationFrame) {
-    animateConfetti();
-  }
-}
+  /* ==== QUOTE ROTATOR === */
+  const quotes = [
+    "Healing begins when we choose to speak up.",
+    "Love is the strongest force of all.",
+    "Your story matters, and your voice counts.",
+    "Together, we rise stronger and kinder.",
+    "Speak louder, love harder — every day."
+  ];
+  const quoteEl = document.getElementById('quote-rotator');
+  let quoteIndex = 0;
 
-function animateConfetti() {
-  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-  confettiPieces.forEach(p => {
-    p.update();
-    p.draw();
-  });
-  confettiAnimationFrame = requestAnimationFrame(animateConfetti);
-  // Stop animation after 3 seconds
-  setTimeout(() => {
-    cancelAnimationFrame(confettiAnimationFrame);
-    confettiAnimationFrame = null;
+  function rotateQuote() {
+    // fade out
+    quoteEl.classList.add('fade-out');
+    setTimeout(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      quoteEl.textContent = quotes[quoteIndex];
+      // fade in
+      quoteEl.classList.remove('fade-out');
+      quoteEl.classList.add('fade-in');
+    }, 600);
+    setTimeout(() => {
+      quoteEl.classList.remove('fade-in');
+    }, 1200);
+  }
+  setInterval(rotateQuote, 7000);
+
+  /* ==== DAILY AFFIRMATION GENERATOR === */
+  const affirmations = [
+    "I am worthy of love and kindness.",
+    "Every day, I grow stronger and more resilient.",
+    "I choose to heal and move forward.",
+    "My voice makes a difference in the world.",
+    "Compassion and courage guide me."
+  ];
+  const affirmationBox = document.getElementById('affirmation-box');
+  const newAffirmBtn = document.getElementById('new-affirmation');
+
+  function showAffirmation() {
+    affirmationBox.style.opacity = 0;
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * affirmations.length);
+      affirmationBox.textContent = affirmations[randomIndex];
+      affirmationBox.style.opacity = 1;
+    }, 400);
+  }
+  newAffirmBtn.addEventListener('click', showAffirmation);
+
+  // Show first affirmation initially
+  showAffirmation();
+
+  /* ==== SCROLL-TRIGGERED ANIMATIONS === */
+  const scrollAnimElements = document.querySelectorAll('[data-scroll-animate]');
+  function checkScroll() {
+    const triggerBottom = window.innerHeight * 0.85;
+    scrollAnimElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < triggerBottom) {
+        el.classList.add('visible');
+      }
+    });
+  }
+  window.addEventListener('scroll', checkScroll);
+  checkScroll(); // run once on load
+
+  /* ==== CONFETTI BURST ON AFFIRMATION BUTTON CLICK ==== */
+  // Minimal confetti effect
+  const confettiCanvas = document.getElementById('confetti-canvas');
+  const ctx = confettiCanvas.getContext('2d');
+  let confettiParticles = [];
+
+  function resizeCanvas() {
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function createConfetti() {
+    for (let i = 0; i < 30; i++) {
+      confettiParticles.push({
+        x: Math.random() * confettiCanvas.width,
+        y: Math.random() * confettiCanvas.height + confettiCanvas.height / 2,
+        size: Math.random() * 6 + 4,
+        speedX: (Math.random() - 0.5) * 4,
+        speedY: Math.random() * -6 - 4,
+        color: `hsl(${Math.random() * 360}, 80%, 70%)`,
+        angle: Math.random() * 360,
+        angularSpeed: (Math.random() - 0.5) * 0.2,
+        opacity: 1
+      });
+    }
+  }
+
+  function updateConfetti() {
     ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-  }, 3000);
-}
+    confettiParticles.forEach((p, i) => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      p.speedY += 0.15; // gravity
+      p.angle += p.angularSpeed;
+      p.opacity -= 0.02;
 
-function resizeCanvas() {
-  confettiCanvas.width = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+      if (p.opacity <= 0) {
+        confettiParticles.splice(i, 1);
+      } else {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle * Math.PI / 180);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.opacity;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      }
+    });
+    if (confettiParticles.length > 0) {
+      requestAnimationFrame(updateConfetti);
+    }
+  }
 
-// ========== Dark/Light Mode & Color Theme Toggle ==========
-const themeToggleBtn = document.getElementById('theme-toggle');
-const colorThemeSelector = document.getElementById('color-theme-selector');
-
-function setTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-}
-
-function setColorTheme(color) {
-  document.body.setAttribute('data-color-theme', color);
-  localStorage.setItem('colorTheme', color);
-}
-
-themeToggleBtn.addEventListener('click', () => {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  setTheme(newTheme);
-});
-colorThemeSelector.addEventListener('change', e => {
-  setColorTheme(e.target.value);
-});
-
-// Load saved preferences or defaults
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  setTheme(savedTheme);
-  const savedColor = localStorage.getItem('colorTheme') || 'default';
-  setColorTheme(savedColor);
+  newAffirmBtn.addEventListener('click', () => {
+    createConfetti();
+    if (confettiParticles.length === 30) {
+      updateConfetti();
+    }
+  });
 });
