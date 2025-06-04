@@ -1,4 +1,4 @@
-// Theme Toggle (Light <-> Dark)
+// Theme Toggle
 function toggleTheme() {
   const body = document.body;
   const isDark = body.classList.toggle('dark');
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleScrollReveal();
 });
 
-// Quote Rotator
+// Rotating Quotes
 function startQuoteRotation() {
   const quotes = [
     "You are stronger than your silence.",
@@ -35,13 +35,13 @@ function startQuoteRotation() {
   setInterval(() => {
     index = (index + 1) % quotes.length;
     rotator.classList.remove("fade-in");
-    void rotator.offsetWidth; // reset animation
+    void rotator.offsetWidth;
     rotator.classList.add("fade-in");
     rotator.textContent = quotes[index];
   }, 5000);
 }
 
-// Scroll-Based Navbar Animation (optional)
+// Header Scroll Animation
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
   if (window.scrollY > 20) {
@@ -51,25 +51,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Button Ripple Effect
-document.addEventListener("click", function (e) {
-  const target = e.target;
-  if (target.classList.contains("btn-link") || target.tagName === "A") {
-    const circle = document.createElement("span");
-    circle.classList.add("ripple");
-    target.appendChild(circle);
-
-    const diameter = Math.max(target.clientWidth, target.clientHeight);
-    const radius = diameter / 2;
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${e.offsetX - radius}px`;
-    circle.style.top = `${e.offsetY - radius}px`;
-
-    setTimeout(() => circle.remove(), 600);
-  }
-});
-
-// Scroll Reveal (Simple fade-in on scroll)
+// Scroll Reveal
 function handleScrollReveal() {
   const revealElements = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(entries => {
@@ -78,9 +60,7 @@ function handleScrollReveal() {
         entry.target.classList.add("revealed");
       }
     });
-  }, {
-    threshold: 0.1
-  });
+  }, { threshold: 0.1 });
 
   revealElements.forEach(el => observer.observe(el));
 }
