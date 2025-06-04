@@ -1,242 +1,300 @@
-/* --- Reset & Base --- */
+/* ==== main.css ==== */
+
+/* ===== Root Variables & Themes ===== */
+:root {
+  --bg-color: #f0f4f8;
+  --text-color: #222;
+  --glow-color: #d147a3;
+  --btn-bg: #d147a3;
+  --btn-text: #fff;
+  --btn-hover-bg: #ad3c87;
+  --btn-hover-text: #fff;
+  --btn-shadow: 0 0 8px rgba(209, 71, 163, 0.7);
+  --btn-hover-shadow: 0 0 14px rgba(173, 60, 135, 0.9);
+  --scroll-btn-bg: #d147a3;
+  --scroll-btn-color: #fff;
+  --scroll-btn-shadow: 0 0 8px rgba(209, 71, 163, 0.7);
+  --nav-bg: #fff;
+  --nav-text: #222;
+  --nav-hover-bg: #f7d7e8;
+  --nav-pill-bg: #d147a3;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #eee;
+  --glow-color: #ff66cc;
+  --btn-bg: #ff66cc;
+  --btn-text: #222;
+  --btn-hover-bg: #ff4db8;
+  --btn-hover-text: #222;
+  --btn-shadow: 0 0 10px rgba(255, 102, 204, 0.8);
+  --btn-hover-shadow: 0 0 16px rgba(255, 77, 184, 1);
+  --scroll-btn-bg: #ff66cc;
+  --scroll-btn-color: #222;
+  --scroll-btn-shadow: 0 0 10px rgba(255, 102, 204, 0.8);
+  --nav-bg: #1e1e1e;
+  --nav-text: #eee;
+  --nav-hover-bg: #331a33;
+  --nav-pill-bg: #ff66cc;
+}
+
+[data-color-theme="pink"] {
+  --glow-color: #e75480;
+  --btn-bg: #e75480;
+  --btn-hover-bg: #cc3f6d;
+  --btn-shadow: 0 0 10px #e75480aa;
+  --btn-hover-shadow: 0 0 15px #cc3f6daa;
+  --scroll-btn-bg: #e75480;
+  --scroll-btn-shadow: 0 0 10px #e75480aa;
+  --nav-pill-bg: #e75480;
+}
+
+[data-color-theme="green"] {
+  --glow-color: #3aa14a;
+  --btn-bg: #3aa14a;
+  --btn-hover-bg: #2d7f38;
+  --btn-shadow: 0 0 10px #3aa14aaa;
+  --btn-hover-shadow: 0 0 15px #2d7f3888;
+  --scroll-btn-bg: #3aa14a;
+  --scroll-btn-shadow: 0 0 10px #3aa14aaa;
+  --nav-pill-bg: #3aa14a;
+}
+
+[data-color-theme="blue"] {
+  --glow-color: #3b7dd8;
+  --btn-bg: #3b7dd8;
+  --btn-hover-bg: #305db5;
+  --btn-shadow: 0 0 10px #3b7dd8aa;
+  --btn-hover-shadow: 0 0 15px #305db588;
+  --scroll-btn-bg: #3b7dd8;
+  --scroll-btn-shadow: 0 0 10px #3b7dd8aa;
+  --nav-pill-bg: #3b7dd8;
+}
+
+[data-color-theme="red"] {
+  --glow-color: #d8433a;
+  --btn-bg: #d8433a;
+  --btn-hover-bg: #ad352f;
+  --btn-shadow: 0 0 10px #d8433aaa;
+  --btn-hover-shadow: 0 0 15px #ad352f88;
+  --scroll-btn-bg: #d8433a;
+  --scroll-btn-shadow: 0 0 10px #d8433aaa;
+  --nav-pill-bg: #d8433a;
+}
+
+/* ===== Reset & Base ===== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.5s ease, color 0.5s ease;
-  cursor: none;
-  overflow-x: hidden;
-  min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: none; /* custom cursor enabled */
 }
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 1rem 0;
+
+h1, h2, h3 {
+  margin-top: 0;
+  font-weight: 700;
 }
-button {
+
+/* ===== Header ===== */
+.site-header {
+  position: relative;
+  background: var(--nav-bg);
+  padding: 2rem 1rem 3rem 1rem;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.animated-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--glow-color);
+  text-shadow:
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color);
+  user-select: none;
+  letter-spacing: 0.1em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.animated-title .cursor {
+  color: var(--glow-color);
+  animation: blink 1.1s steps(2, start) infinite;
+  user-select: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===== Particle Canvas (behind header) ===== */
+#particle-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== Theme Controls ===== */
+.theme-controls {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#theme-toggle {
   cursor: pointer;
-  font-size: 1rem;
-  border-radius: 30px;
-  padding: 0.5em 1.2em;
+  background-color: var(--btn-bg);
   border: none;
-  background: var(--btn-bg);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
   color: var(--btn-text);
   box-shadow: var(--btn-shadow);
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-button:hover, button:focus {
+
+#theme-toggle:hover, #theme-toggle:focus {
   background-color: var(--btn-hover-bg);
   color: var(--btn-hover-text);
   box-shadow: var(--btn-hover-shadow);
   outline: none;
 }
-a {
-  color: var(--link-color);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s ease;
-}
-a:hover, a:focus {
-  color: var(--link-hover);
-}
-.glow {
-  text-shadow:
-    0 0 6px var(--glow-color),
-    0 0 12px var(--glow-color),
-    0 0 18px var(--glow-color);
-}
 
-/* --- Variables for Light Theme Default --- */
-:root {
-  --bg-color: #f9f9f9;
-  --text-color: #222222;
-  --link-color: #1a73e8;
-  --link-hover: #0d47a1;
-  --btn-bg: #1a73e8;
-  --btn-text: #fff;
-  --btn-shadow: 0 0 8px #1a73e8aa;
-  --btn-hover-bg: #0d47a1;
-  --btn-hover-text: #e0e0e0;
-  --btn-hover-shadow: 0 0 12px #0d47a1cc;
-  --glow-color: #1a73e8cc;
-
-  --scroll-btn-bg: #1a73e8cc;
-  --scroll-btn-color: #fff;
-  --scroll-btn-shadow: 0 0 8px #1a73e8cc;
-}
-
-/* --- Dark Theme --- */
-[data-theme='dark'] {
-  --bg-color: #121212;
-  --text-color: #eee;
-  --link-color: #bb86fc;
-  --link-hover: #9a67ea;
-  --btn-bg: #bb86fc;
-  --btn-text: #121212;
-  --btn-shadow: 0 0 8px #bb86fcc0;
-  --btn-hover-bg: #9a67ea;
-  --btn-hover-text: #f0e6ff;
-  --btn-hover-shadow: 0 0 12px #9a67eacc;
-
-  --glow-color: #bb86fcc0;
-
-  --scroll-btn-bg: #bb86fcc0;
-  --scroll-btn-color: #121212;
-  --scroll-btn-shadow: 0 0 8px #bb86fcc0;
-}
-
-/* --- Color Themes --- */
-body[data-color-theme='pink'] {
-  --btn-bg: #ff4081;
-  --btn-shadow: 0 0 8px #ff4081aa;
-  --btn-hover-bg: #f50057;
-  --btn-hover-shadow: 0 0 12px #f50057cc;
-  --glow-color: #ff4081cc;
-  --scroll-btn-bg: #ff4081cc;
-  --scroll-btn-shadow: 0 0 8px #ff4081cc;
-}
-body[data-color-theme='green'] {
-  --btn-bg: #4caf50;
-  --btn-shadow: 0 0 8px #4caf5080;
-  --btn-hover-bg: #388e3c;
-  --btn-hover-shadow: 0 0 12px #388e3ccc;
-  --glow-color: #4caf50cc;
-  --scroll-btn-bg: #4caf50cc;
-  --scroll-btn-shadow: 0 0 8px #4caf50cc;
-}
-body[data-color-theme='blue'] {
-  --btn-bg: #2196f3;
-  --btn-shadow: 0 0 8px #2196f3aa;
-  --btn-hover-bg: #0d47a1;
-  --btn-hover-shadow: 0 0 12px #0d47a1cc;
-  --glow-color: #2196f3cc;
-  --scroll-btn-bg: #2196f3cc;
-  --scroll-btn-shadow: 0 0 8px #2196f3cc;
-}
-body[data-color-theme='red'] {
-  --btn-bg: #f44336;
-  --btn-shadow: 0 0 8px #f4433680;
-  --btn-hover-bg: #b71c1c;
-  --btn-hover-shadow: 0 0 12px #b71c1ccc;
-  --glow-color: #f44336cc;
-  --scroll-btn-bg: #f44336cc;
-  --scroll-btn-shadow: 0 0 8px #f44336cc;
-}
-
-/* --- Header & Theme Controls --- */
-.site-header {
-  padding: 2rem 1rem 1rem 1rem;
-  text-align: center;
-  background: var(--bg-color);
-  position: relative;
-  user-select: none;
-}
-.theme-controls {
-  margin-top: 0.8rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-#theme-toggle, #color-theme-selector {
-  font-size: 1.5rem;
-  background: transparent;
+#color-theme-selector {
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
   border: 2px solid var(--btn-bg);
-  padding: 0.2rem 0.8rem;
-  border-radius: 30px;
-  color: var(--btn-bg);
-  transition: all 0.3s ease;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  box-shadow: var(--btn-shadow);
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
 }
-#theme-toggle:hover, #theme-toggle:focus,
+
 #color-theme-selector:hover, #color-theme-selector:focus {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+  border-color: var(--btn-hover-bg);
   outline: none;
 }
 
-/* --- Navigation --- */
+/* ===== Navigation Section ===== */
 .main-nav-section {
-  background: var(--bg-color);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-  user-select: none;
+  background: var(--nav-bg);
+  padding: 0.5rem 1rem 1rem 1rem;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
+
 .nav-list {
+  list-style: none;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: 0;
-  padding: 0.5rem 1rem;
-  list-style: none;
+  padding: 0;
+  gap: 1.4rem;
   position: relative;
 }
-.nav-list li {
-  margin: 0 0.8rem;
-}
-.nav-list a {
+
+.nav-list li a {
+  color: var(--nav-text);
+  text-decoration: none;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  border-radius: 30px;
-  display: inline-block;
+  border-radius: 9999px;
   transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 10;
+  user-select: none;
 }
-.nav-list a:hover, .nav-list a:focus {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+
+.nav-list li a:hover,
+.nav-list li a:focus {
+  background-color: var(--nav-hover-bg);
   outline: none;
 }
 
-/* Nav Pill Highlight */
+/* Nav pill highlight */
 .nav-pill-highlight {
   position: absolute;
-  bottom: 6px;
-  height: 4px;
-  border-radius: 10px;
-  background-color: var(--btn-bg);
-  transition: left 0.3s ease, width 0.3s ease, opacity 0.3s ease;
+  bottom: 5px;
+  left: 0;
+  height: 3.2rem;
+  background: var(--nav-pill-bg);
+  border-radius: 9999px;
   opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 5;
   pointer-events: none;
 }
 
-/* --- Hero Section --- */
+/* ===== Hero Section ===== */
 .hero {
+  max-width: 800px;
+  margin: 3rem auto 4rem auto;
   text-align: center;
-  padding: 3rem 1rem;
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--btn-bg);
+  color: var(--glow-color);
   user-select: none;
+  text-shadow:
+    0 0 6px var(--glow-color),
+    0 0 12px var(--glow-color);
 }
 
-/* --- Quote Rotator --- */
+/* ===== Quote Rotator ===== */
 .quote-section {
-  text-align: center;
-  font-style: italic;
-  margin: 2rem auto 3rem auto;
   max-width: 700px;
+  margin: 2rem auto 3rem auto;
   font-size: 1.3rem;
   color: var(--glow-color);
   user-select: none;
   min-height: 3rem;
   position: relative;
+  text-align: center;
 }
+
 .quote-rotator {
   transition: opacity 1s ease;
+  opacity: 1;
 }
+
 .quote-rotator.fade-in {
   opacity: 1;
 }
+
 .quote-rotator.fade-out {
   opacity: 0;
 }
 
-/* --- Daily Affirmation --- */
+/* ===== Daily Affirmation ===== */
 .daily-affirmation {
   max-width: 500px;
   margin: 0 auto 4rem auto;
@@ -246,110 +304,131 @@ body[data-color-theme='red'] {
   border-radius: 15px;
   box-shadow: 0 0 12px var(--btn-shadow);
   user-select: none;
+  transition: box-shadow 0.3s ease;
 }
+
 .daily-affirmation h2 {
   margin-bottom: 1rem;
   color: var(--btn-bg);
 }
+
 #affirmation-box {
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 1rem;
   color: var(--text-color);
 }
-.affirm-btn {
+
+.affirm-btn, #new-affirmation {
   background-color: var(--btn-bg);
   color: var(--btn-text);
   box-shadow: var(--btn-shadow);
   padding: 0.6em 1.4em;
   font-size: 1.1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
 }
-.affirm-btn:hover, .affirm-btn:focus {
+
+.affirm-btn:hover, #new-affirmation:hover,
+.affirm-btn:focus, #new-affirmation:focus {
+  background-color: var(--btn-hover-bg);
+  box-shadow: var(--btn-hover-shadow);
+  outline: none;
+}
+
+/* ===== Scroll to Top Button ===== */
+.scroll-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--scroll-btn-bg);
+  color: var(--scroll-btn-color);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: var(--scroll-btn-shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 1500;
+}
+
+.scroll-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-btn:hover, .scroll-btn:focus {
   background-color: var(--btn-hover-bg);
   color: var(--btn-hover-text);
   box-shadow: var(--btn-hover-shadow);
   outline: none;
 }
 
-/* --- Scroll to Top Button --- */
-#scrollToTopBtn {
-  position: fixed;
-  bottom: 2.5rem;
-  right: 2.5rem;
-  display: none;
-  font-size: 2rem;
-  background-color: var(--scroll-btn-bg);
-  color: var(--scroll-btn-color);
-  border: none;
-  border-radius: 50%;
-  width: 3.8rem;
-  height: 3.8rem;
-  box-shadow: var(--scroll-btn-shadow);
-  z-index: 1000;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease;
-}
-#scrollToTopBtn.show {
-  display: block;
-}
-#scrollToTopBtn:hover, #scrollToTopBtn:focus {
-  background-color: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-  outline: none;
-}
-
-/* --- Custom Cursor --- */
+/* ===== Custom Cursor ===== */
 #custom-cursor {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--btn-bg);
+  top: 0; left: 0;
+  width: 20px; height: 20px;
+  background-color: var(--glow-color);
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  z-index: 10000;
+  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, background-color 0.3s ease;
+  z-index: 2000;
   mix-blend-mode: difference;
+  will-change: transform;
 }
 
-/* --- Scroll Animate Elements --- */
-[data-scroll-animate] {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  will-change: opacity, transform;
-}
-[data-scroll-animate].visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* --- Confetti Canvas --- */
-#confetti-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
+/* Cursor hover effect for links and buttons */
+a:hover ~ #custom-cursor,
+a:focus ~ #custom-cursor,
+button:hover ~ #custom-cursor,
+button:focus ~ #custom-cursor {
+  width: 36px;
+  height: 36px;
+  background-color: var(--btn-hover-bg);
+  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, background-color 0.3s ease;
 }
 
-/* --- Responsive --- */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .nav-list {
-    flex-wrap: wrap;
-  }
-  .nav-list li {
-    margin: 0.5rem;
+  .animated-title {
+    font-size: 2rem;
   }
   .hero {
     font-size: 1.4rem;
+    margin: 2rem 1rem 3rem 1rem;
   }
-  .daily-affirmation {
-    max-width: 90%;
+  .nav-list {
+    gap: 0.9rem;
+  }
+  .nav-list li a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-list {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .theme-controls {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  #theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+  #color-theme-selector {
+    font-size: 1rem;
   }
 }
