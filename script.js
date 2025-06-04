@@ -128,3 +128,35 @@ document.addEventListener('DOMContentLoaded', () => {
     affirmationBtn.addEventListener('click', showRandomAffirmation);
   }
 });
+
+// Color themes available
+const colorThemes = ['default', 'green', 'blue', 'red', 'pink'];
+
+function setColorTheme(color) {
+  const body = document.body;
+  colorThemes.forEach(c => body.classList.remove(`theme-${c}`));
+  if (color !== 'default') {
+    body.classList.add(`theme-${color}`);
+  }
+  localStorage.setItem('colorTheme', color);
+}
+
+function loadColorTheme() {
+  const savedColor = localStorage.getItem('colorTheme') || 'default';
+  setColorTheme(savedColor);
+  // Update selector UI to current color
+  const selector = document.getElementById('color-theme-selector');
+  if (selector) selector.value = savedColor;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadColorTheme();
+
+  // Handle color theme changes from selector dropdown
+  const selector = document.getElementById('color-theme-selector');
+  if (selector) {
+    selector.addEventListener('change', (e) => {
+      setColorTheme(e.target.value);
+    });
+  }
+});
