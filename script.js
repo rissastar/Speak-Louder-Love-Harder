@@ -5,9 +5,7 @@ const storageKeyColorTheme = 'sllh-color-theme';
 function saveToStorage(key, value) {
   try {
     localStorage.setItem(key, value);
-  } catch {
-    // localStorage unavailable
-  }
+  } catch {}
 }
 
 function loadFromStorage(key) {
@@ -19,21 +17,16 @@ function loadFromStorage(key) {
 }
 
 // ===== Scroll Reveal Animation =====
-const scrollElements = document.querySelectorAll('[data-scroll-animate]');
-
 function handleScrollReveal() {
-  scrollElements.forEach(el => {
+  document.querySelectorAll('[data-scroll-animate]').forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight - 100) {
       el.classList.add('in-view');
     }
   });
 }
-
 window.addEventListener('scroll', handleScrollReveal);
 window.addEventListener('load', handleScrollReveal);
-
-
 
 // ===== Theme & Color Theme =====
 const htmlEl = document.documentElement;
@@ -42,7 +35,9 @@ const colorThemeSelector = document.getElementById('color-theme-selector');
 
 function applyTheme(theme) {
   htmlEl.setAttribute('data-theme', theme);
-  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
   saveToStorage(storageKeyTheme, theme);
 }
 
@@ -52,80 +47,91 @@ function applyColorTheme(color) {
 }
 
 function toggleTheme() {
-  const currentTheme = htmlEl.getAttribute('data-theme') || 'light';
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  applyTheme(newTheme);
+  const current = htmlEl.getAttribute('data-theme') || 'light';
+  applyTheme(current === 'light' ? 'dark' : 'light');
 }
 
-themeToggleBtn.addEventListener('click', toggleTheme);
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener('click', toggleTheme);
+}
 
-colorThemeSelector.addEventListener('change', e => {
-  applyColorTheme(e.target.value);
-});
+if (colorThemeSelector) {
+  colorThemeSelector.addEventListener('change', e => {
+    applyColorTheme(e.target.value);
+  });
+}
 
-// Load saved preferences on startup
-const savedTheme = loadFromStorage(storageKeyTheme) || 'light';
-const savedColorTheme = loadFromStorage(storageKeyColorTheme) || 'default';
-
-applyTheme(savedTheme);
-applyColorTheme(savedColorTheme);
-colorThemeSelector.value = savedColorTheme;
+// Load stored preferences
+applyTheme(loadFromStorage(storageKeyTheme) || 'light');
+const savedColor = loadFromStorage(storageKeyColorTheme) || 'default';
+applyColorTheme(savedColor);
+if (colorThemeSelector) colorThemeSelector.value = savedColor;
 
 // ===== Scroll to Top Button =====
 const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 300) {
-    scrollToTopBtn.classList.add('show');
-  } else {
-    scrollToTopBtn.classList.remove('show');
+  if (scrollToTopBtn) {
+    scrollToTopBtn.classList.toggle('show', window.scrollY > 300);
   }
 });
 
-scrollToTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (scrollToTopBtn) {
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 // ===== Custom Cursor =====
 const customCursor = document.getElementById('custom-cursor');
 
 window.addEventListener('mousemove', e => {
-  customCursor.style.top = e.clientY + 'px';
-  customCursor.style.left = e.clientX + 'px';
+  if (customCursor) {
+    customCursor.style.top = `${e.clientY}px`;
+    customCursor.style.left = `${e.clientX}px`;
+  }
 });
 
-// Scale cursor on hovering links
 document.querySelectorAll('a').forEach(link => {
   link.addEventListener('mouseenter', () => {
-    customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-    customCursor.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+    if (customCursor) {
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      customCursor.style.backgroundColor = getComputedStyle(htmlEl).getPropertyValue('--primary');
+    }
   });
   link.addEventListener('mouseleave', () => {
-    customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    customCursor.style.backgroundColor = 'transparent';
+    if (customCursor) {
+      customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      customCursor.style.backgroundColor = 'transparent';
+    }
   });
 });
 
 // ===== Quote Rotator =====
 const quotes = [
   "Healing begins when we choose to speak up.",
-  "Your voice matters more than you know.",
-  "Every story shared is a step toward justice.",
-  "Hope is a light we carry together.",
-  "Love harder, speak louder, shine brighter.",
-  "Strength grows through sharing your truth.",
-  "Together we heal, together we rise."
+  "You are stronger than your silence.",
+  "Every story matters. Especially yours.",
+  "Compassion is louder than judgment.",
+  "Let your voice be the light for someone else.",
+  "Courage means sharing your truth anyway."
 ];
 
-const quoteRotatorEl = document.getElementById('quote-rotator');
-let currentQuoteIndex = 0;
+const quoteBox = document.getElementById('quote-rotator');
+let quoteIndex = 0;
 
-function rotateQuote() {
-  currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-  quoteRotatorEl.textContent = quotes[currentQuoteIndex];
+function showNextQuote() {
+  if (!quoteBox) return;
+  quoteBox.classList.remove('visible');
+  setTimeout(() => {
+    quoteBox.textContent = quotes[quoteIndex];
+    quoteBox.classList.add('visible');
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+  }, 400);
 }
 
-setInterval(rotateQuote, 8000);
+setInterval(showNextQuote, 5000);
+window.addEventListener('load', showNextQuote);
 
 // ===== Daily Affirmation =====
 const affirmations = [
@@ -142,47 +148,51 @@ const affirmationBox = document.getElementById('affirmation-box');
 const newAffirmBtn = document.getElementById('new-affirmation');
 
 function showNewAffirmation() {
+  if (!affirmationBox) return;
   let newIndex;
   do {
     newIndex = Math.floor(Math.random() * affirmations.length);
   } while (affirmations[newIndex] === affirmationBox.textContent);
-
   affirmationBox.textContent = affirmations[newIndex];
+  // Confetti burst
+  const rect = newAffirmBtn.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2 + window.scrollY;
+  createConfettiBurst(x, y);
 }
 
-newAffirmBtn.addEventListener('click', showNewAffirmation);
+if (newAffirmBtn) {
+  newAffirmBtn.addEventListener('click', showNewAffirmation);
+}
 
 // ===== Scroll-triggered Animation =====
-const scrollAnimateEls = document.querySelectorAll('[data-scroll-animate]');
-
 function onScroll() {
   const triggerBottom = window.innerHeight * 0.85;
-
-  scrollAnimateEls.forEach(el => {
+  document.querySelectorAll('[data-scroll-animate]').forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < triggerBottom) {
       el.classList.add('visible');
     }
   });
 }
-
 window.addEventListener('scroll', onScroll);
 window.addEventListener('load', onScroll);
 
 // ===== Confetti Burst =====
 const confettiCanvas = document.getElementById('confetti-canvas');
-const ctx = confettiCanvas.getContext('2d');
+const ctx = confettiCanvas?.getContext('2d');
 let confettiParticles = [];
 
 function resizeCanvas() {
+  if (!confettiCanvas) return;
   confettiCanvas.width = window.innerWidth;
   confettiCanvas.height = window.innerHeight;
 }
-
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 function createConfettiBurst(x, y) {
+  if (!ctx) return;
   const colors = ['#ff69b4', '#00ffcc', '#ffcc00', '#9966ff', '#66ff66'];
   for (let i = 0; i < 50; i++) {
     confettiParticles.push({
@@ -198,12 +208,13 @@ function createConfettiBurst(x, y) {
 }
 
 function updateConfetti() {
+  if (!ctx || !confettiCanvas) return;
   ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
 
   confettiParticles.forEach((p, index) => {
     p.x += p.dx;
     p.y += p.dy;
-    p.dy += 0.2; // gravity
+    p.dy += 0.2;
     p.life--;
 
     if (p.life <= 0) {
@@ -218,22 +229,15 @@ function updateConfetti() {
 
   requestAnimationFrame(updateConfetti);
 }
-
 updateConfetti();
-
-newAffirmBtn.addEventListener('click', e => {
-  const rect = newAffirmBtn.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2 + window.scrollY;
-  createConfettiBurst(centerX, centerY);
-});
 
 // ===== Typing Effect for Hero Section =====
 const heroText = "Your Voice Matters. Your Story Heals. 💜";
 const typewriterEl = document.getElementById('hero-typewriter');
-
 let i = 0;
+
 function typeWriter() {
+  if (!typewriterEl) return;
   if (i < heroText.length) {
     typewriterEl.textContent = heroText.substring(0, i + 1) + '|';
     i++;
@@ -242,50 +246,23 @@ function typeWriter() {
     typewriterEl.textContent = heroText;
   }
 }
-
 window.addEventListener('load', typeWriter);
 
-// Sound effects
+// ===== Sound Effects =====
 const clickSound = document.getElementById('click-sound');
 const sparkleSound = document.getElementById('sparkle-sound');
 
 function playSound(audio) {
-  if (!audio) return;
-  audio.currentTime = 0;
-  audio.play();
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play();
+  }
 }
 
-// Attach to buttons and links
 document.querySelectorAll('button, .magic-link').forEach(el => {
   el.addEventListener('click', () => playSound(clickSound));
 });
 
-// Use sparkle sound for special buttons
-document.getElementById('new-affirmation')?.addEventListener('click', () => {
-  playSound(sparkleSound);
-});
-
-const quotes = [
-  "Healing begins when we choose to speak up.",
-  "You are stronger than your silence.",
-  "Every story matters. Especially yours.",
-  "Compassion is louder than judgment.",
-  "Let your voice be the light for someone else.",
-  "Courage means sharing your truth anyway."
-];
-
-let quoteIndex = 0;
-const quoteBox = document.getElementById('quote-rotator');
-
-function showNextQuote() {
-  quoteBox.classList.remove('visible');
-  setTimeout(() => {
-    quoteBox.textContent = quotes[quoteIndex];
-    quoteBox.classList.add('visible');
-    quoteIndex = (quoteIndex + 1) % quotes.length;
-  }, 400);
+if (newAffirmBtn) {
+  newAffirmBtn.addEventListener('click', () => playSound(sparkleSound));
 }
-
-// Start carousel
-setInterval(showNextQuote, 5000);
-window.addEventListener('load', showNextQuote);
