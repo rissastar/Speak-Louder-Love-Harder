@@ -1,73 +1,51 @@
-🌟 Speak Louder, Love Harder
+🌈 Inspire & Connect
 
-A fun, bold, animated, and healing-focused website for raising awareness about important topics including mental health, abuse, chronic illness, addiction recovery, foster children, and pitbull advocacy.
+A vibrant, community-driven website for mental health, support, and love. Featuring inspirational quotes, glowing UI effects, and a responsive design built to uplift and connect 💖
 
-💜 Live Site
-
-Visit here 👉 https://rissastar.github.io/Speak-Louder-Love-Harder/
-
-⸻
-
-🎨 Features
-	•	💫 Purple, Green & Pink color theme
-	•	📱 Responsive design (desktop & mobile friendly)
-	•	💡 Dark/Light Mode toggle (remembers user preference)
+✨ Features
+	•	🎨 Color Theme: Purple, Green & Pink vibes
+	•	🌗 Dark/Light Mode Toggle – remembers your preference!
 	•	💬 Auto-Rotating Inspirational Quotes
-	•	🌈 Animated elements with glowing text, transitions, and hover effects
-	•	💌 Guestbook & Connect Page
+	•	🌈 Glowing text, transitions, and hover animations
+	•	📱 Fully responsive – mobile and desktop friendly
+	•	💌 Guestbook & Connect Page to share your thoughts
+	•	🔗 Dedicated pages on important topics:
+	•	Mental Health
+	•	Addiction
+	•	Cystic Fibrosis
+	•	Cirrhosis
+	•	Physical Abuse
+	•	Mental Abuse
+	•	Sexual Abuse
+	•	Pitbull Love
+	•	Foster Children
 
-⸻
+🚀 Live Demo
 
-📂 Folder Structure
+🌐 Visit Live Site
 
-Speak-Louder-Love-Harder/
-│
-├── index.html            # Home page
-├── styles.css            # Animated, interactive site-wide styles
-├── scripts.js            # Theme toggle, quote rotator, animations
-├── README.md             # You’re reading it!
-│
-├── mental-health.htm
-├── addiction.htm
+(Replace with your actual GitHub Pages link)
+
+📁 Folder Structure
+
+/project-root
+├── index.html
+├── style.css
+├── script.js
+├── guestbook-connect.html
+├── mental-health.html
+├── addiction.html
 ├── cystic-fibrosis.html
 ├── cirrhosis.html
 ├── physical-abuse.html
 ├── mental-abuse.html
 ├── sexual-abuse.html
 ├── pitbull-love.html
-├── foster-children.html
-└── guestbook-connect.html
+└── foster-children.html
 
-⸻
+🛠 Tech Stack
+	•	HTML5
+	•	CSS3 (with animations & transitions)
+	•	JavaScript (theme toggle, quotes, guestbook)
 
-🔧 How to Use
-	1.	Clone or Download this repository
-	2.	Open index.html in any browser
-	3.	Click through the navigation bar to explore topics
-	4.	Toggle dark/light mode using the 🌗 button in the header
-	5.	Watch quotes auto-rotate every few seconds
-	6.	Customize content in each .html page as needed
-
-⸻
-
-📘 Topics Covered
-	•	Mental Health 💭
-	•	Addiction & Recovery 💊
-	•	Cystic Fibrosis 🌬️
-	•	Cirrhosis Awareness 🩺
-	•	Physical Abuse 🚫
-	•	Mental/Emotional Abuse 🧠
-	•	Sexual Abuse Awareness ✋
-	•	Foster Children Support 🧸
-	•	Pitbull Love & Advocacy 🐾
-
-⸻
-
-📜 License
-
-This project is open source and free to use for advocacy, healing, and support.
-Feel free to adapt it for your organization or cause.
-
-⸻
-
-“Speak louder. Love harder. Heal deeper.” 💚💜💖
+Built with ❤️ to inspire and empower.
