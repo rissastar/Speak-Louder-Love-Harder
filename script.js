@@ -1,5 +1,6 @@
-// 🌙 Dark/Light mode toggle + preference saving
+// 🌙 Dark/Light Mode Toggle + Preference Saving
 const themeToggleBtn = document.getElementById('theme-toggle');
+const themeSelector = document.getElementById('color-theme-selector');
 const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 function setTheme(theme) {
@@ -18,15 +19,34 @@ function toggleTheme() {
   setTheme(current === 'dark' ? 'light' : 'dark');
 }
 
-// Initialize theme on load
+// Initialize Theme + Color Scheme
 (function () {
-  const saved = localStorage.getItem('theme');
-  setTheme(saved || (userPrefersDark ? 'dark' : 'light'));
+  const savedTheme = localStorage.getItem('theme');
+  const savedColorTheme = localStorage.getItem('color-theme') || 'theme-purple';
+
+  setTheme(savedTheme || (userPrefersDark ? 'dark' : 'light'));
+
+  // Apply color theme
+  document.body.classList.remove('theme-purple', 'theme-green', 'theme-blue', 'theme-red', 'theme-pink');
+  document.body.classList.add(savedColorTheme);
+  if (themeSelector) {
+    themeSelector.value = savedColorTheme;
+  }
 })();
 
 themeToggleBtn.addEventListener('click', toggleTheme);
 
-// ✨ Quote rotator with fade effect
+// 🎨 Color Theme Switcher
+if (themeSelector) {
+  themeSelector.addEventListener('change', () => {
+    const selectedTheme = themeSelector.value;
+    document.body.classList.remove('theme-purple', 'theme-green', 'theme-blue', 'theme-red', 'theme-pink');
+    document.body.classList.add(selectedTheme);
+    localStorage.setItem('color-theme', selectedTheme);
+  });
+}
+
+// ✨ Quote Rotator with Fade Effect
 const quotes = [
   { text: "The only way out is through.", author: "Robert Frost" },
   { text: "You are stronger than you think.", author: "Unknown" },
@@ -61,16 +81,6 @@ function nextQuote() {
 showQuote(currentQuoteIndex);
 setInterval(nextQuote, 8000);
 
-// ⬆️ Scroll to top button
-const scrollTopBtn = document.getElementById('scroll-top-btn');
-window.addEventListener('scroll', () => {
-  scrollTopBtn.classList.toggle('show', window.scrollY > 300);
-});
-
-scrollTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
 // 💬 Daily Affirmation Generator
 const affirmations = [
   "You are worthy of love and respect.",
@@ -78,18 +88,33 @@ const affirmations = [
   "Believe in your infinite potential.",
   "You have the power to change your story.",
   "Your feelings are valid and important.",
-  "Strength grows in the moments you think you can't go on but you keep going anyway.",
+  "Strength grows in the moments you think you can't go on but you keep going anyway."
 ];
 
 const dailyAffirmationEl = document.getElementById('daily-affirmation');
 const newAffirmationBtn = document.getElementById('new-affirmation-btn');
 
-function newAffirmation() {
-  const randomIndex = Math.floor(Math.random() * affirmations.length);
-  dailyAffirmationEl.textContent = `"${affirmations[randomIndex]}"`;
+if (newAffirmationBtn && dailyAffirmationEl) {
+  newAffirmationBtn.addEventListener('click', () => {
+    const randomIndex = Math.floor(Math.random() * affirmations.length);
+    dailyAffirmationEl.textContent = `"${affirmations[randomIndex]}"`;
+  });
 }
 
-newAffirmationBtn.addEventListener('click', newAffirmation);
+// ⬆️ Scroll To Top Button
+const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+window.addEventListener('scroll', () => {
+  if (scrollTopBtn) {
+    scrollTopBtn.classList.toggle('show', window.scrollY > 300);
+  }
+});
+
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 // ✨ Custom Cursor Glow Trail
 const cursor = document.createElement('div');
