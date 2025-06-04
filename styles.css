@@ -20,17 +20,39 @@ html, body {
 
 /* ===== Theme Variables ===== */
 :root {
-  --bg: #fdfdff;
-  --fg: #111;
-  --primary: #9c27b0;
-  --accent: #e91e63;
+  /* Background & foreground */
+  --background-color: #f9f9f9;        /* from first set */
+  --bg: #fdfdff;                      /* from second set, lighter bg */
+  --text-color: #222222;              /* from first set */
+  --fg: #111111;                      /* from second set, darker text */
+
+  /* Primary & secondary colors */
+  --primary-color: #0077cc;           /* from first set */
+  --primary: #9c27b0;                 /* from second set, purple */
+  --secondary-color: #ffcc00;         /* from first set */
+  --accent: #e91e63;                  /* from second set, pinkish accent */
+
+  /* Links */
+  --link-color: var(--primary-color);  /* from first set */
+  --link: var(--primary);               /* from second set */
+  --link-hover-color: #005fa3;          /* from first set */
+  --link-hover: var(--accent);          /* from second set */
+
+  /* Buttons */
+  --button-background: var(--primary-color);
+  --button-text-color: #ffffff;
+  --button-hover-background: #005fa3;
+
+  /* Cards */
   --card-bg: rgba(255, 255, 255, 0.9);
   --card-shadow: rgba(0, 0, 0, 0.1);
-  --link: var(--primary);
-  --link-hover: var(--accent);
+
+  /* Glows */
   --glow-1: #b388ff;
   --glow-2: #ff80ab;
   --glow-3: #69f0ae;
+
+  /* Navigation & header backgrounds */
   --nav-bg: rgba(255, 255, 255, 0.15);
   --header-bg: linear-gradient(90deg, var(--primary), var(--accent));
 }
@@ -49,33 +71,106 @@ html, body {
   --glow-3: #66bb6a;
 }
 
-.theme-green {
-  --primary: #4caf50;
-  --accent: #8bc34a;
-  --glow-1: #a5d6a7;
-  --glow-2: #c8e6c9;
-  --glow-3: #69f0ae;
+[data-theme='dark'] {
+  /* Backgrounds & Foregrounds */
+  --bg: #121212;
+  --background-color: #121212;
+  --fg: #fdfdfd;
+  --text-color: #eeeeee;
+
+  /* Cards */
+  --card-bg: rgba(30, 30, 30, 0.95);
+  --card-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Navigation & Header */
+  --nav-bg: rgba(30, 30, 30, 0.6);
+  --header-bg: linear-gradient(90deg, #311b92, #880e4f);
+
+  /* Primary & Secondary Colors */
+  --primary-color: #66aaff;
+  --primary: #66aaff;
+  --secondary-color: #ffdd55;
+
+  /* Links */
+  --link-color: var(--primary-color);
+  --link: #b39ddb;
+  --link-hover-color: #99bbff;
+  --link-hover: #ffb74d;
+
+  /* Buttons */
+  --button-background: var(--primary-color);
+  --button-text-color: #121212;
+  --button-hover-background: #99bbff;
+
+  /* Glows */
+  --glow-1: #ba68c8;
+  --glow-2: #ec407a;
+  --glow-3: #66bb6a;
 }
-.theme-blue {
-  --primary: #2196f3;
-  --accent: #03a9f4;
-  --glow-1: #90caf9;
-  --glow-2: #81d4fa;
-  --glow-3: #29b6f6;
+
+/* DEFAULT theme (same as root) */
+body.theme-default {
+  --background-color: #f9f9f9;
+  --text-color: #222222;
+  --primary-color: #0077cc;
+  --secondary-color: #ffcc00;
+  --link-color: var(--primary-color);
+  --link-hover-color: #005fa3;
+  --button-background: var(--primary-color);
+  --button-text-color: #ffffff;
+  --button-hover-background: #005fa3;
 }
-.theme-red {
-  --primary: #e53935;
-  --accent: #ef5350;
-  --glow-1: #ef9a9a;
-  --glow-2: #ef9a9a;
-  --glow-3: #e57373;
+
+/* GREEN theme */
+body.theme-green {
+  --background-color: #e6f4ea;
+  --text-color: #1b3a1b;
+  --primary-color: #2a9d8f;
+  --secondary-color: #a8dadc;
+  --link-color: var(--primary-color);
+  --link-hover-color: #217c72;
+  --button-background: var(--primary-color);
+  --button-text-color: #ffffff;
+  --button-hover-background: #217c72;
 }
-.theme-pink {
-  --primary: #ec407a;
-  --accent: #f06292;
-  --glow-1: #f48fb1;
-  --glow-2: #f8bbd0;
-  --glow-3: #f06292;
+
+/* BLUE theme */
+body.theme-blue {
+  --background-color: #e7f0fd;
+  --text-color: #1a2e4a;
+  --primary-color: #1e90ff;
+  --secondary-color: #a1caff;
+  --link-color: var(--primary-color);
+  --link-hover-color: #1065d6;
+  --button-background: var(--primary-color);
+  --button-text-color: #ffffff;
+  --button-hover-background: #1065d6;
+}
+
+/* RED theme */
+body.theme-red {
+  --background-color: #fdecea;
+  --text-color: #5a1e1e;
+  --primary-color: #e63946;
+  --secondary-color: #f4a261;
+  --link-color: var(--primary-color);
+  --link-hover-color: #b02732;
+  --button-background: var(--primary-color);
+  --button-text-color: #ffffff;
+  --button-hover-background: #b02732;
+}
+
+/* PINK theme */
+body.theme-pink {
+  --background-color: #ffe6f0;
+  --text-color: #521b3a;
+  --primary-color: #d6336c;
+  --secondary-color: #ff85a2;
+  --link-color: var(--primary-color);
+  --link-hover-color: #a52754;
+  --button-background: var(--primary-color);
+  --button-text-color: #ffffff;
+  --button-hover-background: #a52754;
 }
 
 /* ===== Links & Accessibility ===== */
