@@ -2,61 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder 🌟</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inspirational Site</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <canvas id="particle-canvas" aria-hidden="true"></canvas>
   <header>
-    <div class="logo" tabindex="0" aria-label="Speak Louder, Love Harder logo">
-      🌟 Speak Louder, Love Harder
-    </div>
-    <nav>
-      <button id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="primary-menu">
-        <li><a href="mental-health.htm" class="magic-link">Mental Health</a></li>
-        <li><a href="addiction.htm" class="magic-link">Addiction</a></li>
-        <li><a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html" class="magic-link">Cirrhosis</a></li>
-        <li><a href="physical-abuse.html" class="magic-link">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html" class="magic-link">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html" class="magic-link">Pitbull Love</a></li>
-        <li><a href="foster-children.html" class="magic-link">Foster Children</a></li>
-        <li><a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a></li>
-      </ul>
+    <nav class="navbar">
+      <div class="logo">🌟 InspireMe</div>
+      <div class="nav-links">
+        <a href="mental-health.html" class="magic-link">Mental Health</a>
+        <a href="addiction.html" class="magic-link">Addiction</a>
+        <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
+        <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
+        <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
+        <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
+        <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
+        <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
+        <a href="foster-children.html" class="magic-link">Foster Children</a>
+        <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
+      </div>
+      <button id="theme-toggle">🌙</button>
     </nav>
-    <button id="theme-toggle" aria-label="Toggle dark and light theme" title="Toggle dark and light theme">
-      🌙
-    </button>
   </header>
 
-  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-
   <main>
-    <section class="hero fade-slide" aria-label="Welcome Section">
-      <h1 class="glow-text flicker" tabindex="0">Speak Louder, Love Harder 🌟</h1>
-      <p class="subtitle">Advocating for healing, love, and awareness</p>
+    <section class="hero">
+      <h1 class="glow-text">Welcome to InspireMe</h1>
+      <p>Your daily dose of inspiration and support.</p>
     </section>
 
-    <section class="quotes-section fade-slide" aria-live="polite" aria-atomic="true" aria-relevant="text">
-      <h2>Inspiring Quotes</h2>
-      <blockquote id="quote"></blockquote>
-    </section>
-
-    <section class="guestbook-section fade-slide" aria-label="Guestbook and Connect">
-      <h2>Guestbook & Connect</h2>
-      <form id="guestbook-form" aria-label="Guestbook submission form">
-        <input type="text" name="name" placeholder="Your Name" required aria-required="true" />
-        <textarea name="message" placeholder="Your Message" rows="4" required aria-required="true"></textarea>
-        <button type="submit" class="btn-glow">Submit</button>
-      </form>
-      <ul id="guestbook-entries" aria-live="polite" aria-relevant="additions"></ul>
+    <section class="quotes">
+      <div id="quote-box">
+        <p id="quote-text">Loading quote...</p>
+        <cite id="quote-author"></cite>
+      </div>
     </section>
   </main>
-  <script src="scripts.js" defer></script>
+
+  <footer>
+    <p>&copy; 2025 InspireMe. All rights reserved.</p>
+  </footer>
+
+  <script src="js/scripts.js"></script>
 </body>
 </html>
