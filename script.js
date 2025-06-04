@@ -1,4 +1,4 @@
-// Theme toggler with rotation animation
+// Theme toggler with rotation
 const toggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
 
@@ -13,7 +13,6 @@ function setTheme(dark) {
   localStorage.setItem('theme', dark ? 'dark' : 'light');
 }
 
-// Load theme from localStorage or system preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
   setTheme(savedTheme === 'dark');
@@ -22,7 +21,6 @@ if (savedTheme) {
   setTheme(prefersDark);
 }
 
-// Animate theme toggle rotation on click then toggle theme
 toggleBtn.addEventListener('click', () => {
   toggleBtn.classList.add('rotate');
   setTimeout(() => {
@@ -32,34 +30,11 @@ toggleBtn.addEventListener('click', () => {
   }, 500);
 });
 
-// Scroll fade-in animation for topics grid articles
-const articles = document.querySelectorAll('.topics-grid article');
-
-function animateOnScroll() {
-  const triggerBottom = window.innerHeight * 0.9;
-
-  articles.forEach((article, index) => {
-    const articleTop = article.getBoundingClientRect().top;
-
-    if (articleTop < triggerBottom) {
-      // Add animation with stagger delay
-      article.style.animationName = 'fadeInUp';
-      article.style.animationDelay = `${index * 0.15}s`;
-      article.style.opacity = 1;
-      article.style.transform = 'translateY(0)';
-    }
-  });
-}
-
-// Animate on load and on scroll
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
-
-// Rotating quotes
+// Quote rotator
 const quotes = [
   {
     text: "Your voice matters. Your story matters. You are not alone. Healing begins when love is louder than fear.",
-    author: "Speak Louder, Love Harder 🌟"
+    author: "— Speak Louder, Love Harder 🌟"
   },
   {
     text: "Even in your darkest hour, your light is not gone — it's just waiting to shine again.",
@@ -103,4 +78,4 @@ function rotateQuote() {
   }, 500);
 }
 
-setInterval(rotateQuote, 7000); // Rotate every 7 seconds
+setInterval(rotateQuote, 7000);
