@@ -1,219 +1,117 @@
-/*===============================
-  CSS Variables & Theme Handling
-=================================*/
-:root {
-  --primary-color: #ff69b4;
-  --secondary-color: #8a2be2;
-  --accent-color: #32cd32;
-  --background-color: #ffffff;
-  --text-color: #000000;
-  --link-color: #222;
-}
-
-body.dark-mode {
-  --background-color: #121212;
-  --text-color: #ffffff;
-  --link-color: #ddd;
-}
-
-/*===============================
-  Base Styles
-=================================*/
-body {
+/* Base Reset */
+* {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
 }
 
-a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--primary-color);
-}
-
-/*===============================
-  Header & Navigation
-=================================*/
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.4s, color 0.4s;
   padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  color: white;
 }
 
-.logo {
+/* Theme Variables */
+:root {
+  --bg: #ffffff;
+  --text: #222;
+  --primary: #ff66c4;
+  --secondary: #7e57c2;
+  --accent: #00c896;
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #f0f0f0;
+}
+
+/* Header */
+.site-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.logo img {
-  height: 50px;
+.glow-text {
+  font-size: 2rem;
+  color: white;
+  animation: glow 2s infinite alternate;
 }
 
-nav {
-  margin-top: 1rem;
+@keyframes glow {
+  0% { text-shadow: 0 0 5px var(--accent), 0 0 10px var(--primary); }
+  100% { text-shadow: 0 0 20px var(--secondary), 0 0 30px var(--primary); }
 }
 
-.nav-links {
-  list-style: none;
+/* Navbar */
+.navbar {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0;
-}
-
-.nav-links li a {
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  color: white;
-  transition: background-color 0.3s ease, transform 0.2s;
-}
-
-.nav-links li a:hover {
-  background-color: var(--accent-color);
-  color: #fff;
-  transform: scale(1.05);
-}
-
-/* Toggle Button for Theme */
-#theme-toggle {
-  margin-top: 1rem;
-  background: none;
-  border: 2px solid white;
-  border-radius: 50%;
-  padding: 0.5rem;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: background 0.3s ease, transform 0.3s ease;
-  color: white;
-}
-
-#theme-toggle:hover {
-  background-color: var(--accent-color);
-  color: #fff;
-  transform: rotate(20deg);
-}
-
-/*===============================
-  Hero Section
-=================================*/
-.hero {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  color: white;
-  animation: fadeIn 1s ease-out;
-}
-
-.cta-button {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--secondary-color);
-  color: white;
-  text-decoration: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.cta-button:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-3px);
-}
-
-/*===============================
-  Footer
-=================================*/
-footer {
-  text-align: center;
+  background-color: var(--accent);
   padding: 1rem;
-  background-color: var(--secondary-color);
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.navbar a {
   color: white;
+  padding: 10px 15px;
+  background: var(--secondary);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background 0.3s;
+  font-weight: bold;
 }
 
-/*===============================
-  Animations
-=================================*/
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+.navbar a:hover {
+  background: var(--primary);
+}
+
+/* Content */
+.content {
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Footer */
+.footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .glow-text {
+    font-size: 1.4rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-/* Scroll-triggered animation setup */
-.animate {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
-}
-
-.animate.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/*===============================
-  Responsive Design
-=================================*/
-@media (max-width: 768px) {
-  .nav-links {
+  .navbar {
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-  }
-
-  .cta-button {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
-  }
-
-  header {
-    text-align: center;
-  }
-
-  .logo h1 {
-    font-size: 1.2rem;
-  }
-}
-
-/* Optional nav-toggle button styling if used later */
-#nav-toggle {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  #nav-toggle {
-    display: block;
-    font-size: 1.5rem;
-    margin-top: 0.5rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-
-  .nav-links.nav-open {
-    display: flex;
   }
 }
