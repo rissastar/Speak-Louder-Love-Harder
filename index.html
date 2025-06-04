@@ -1,120 +1,99 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-color="default">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Speak Louder, Love Harder 🌟 — Advocacy for healing, hope, and justice." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  
-  <!-- 💫 Loader -->
-<div id="page-loader">
-  <div class="loader-inner">
-    <img src="logo.png" alt="Logo" class="loader-logo" />
-    <div class="spinner"></div>
-    <p class="loader-text">Loading... 💖</p>
+
+  <!-- Loader -->
+  <div id="page-loader">
+    <div class="loader-inner">
+      <img src="logo.png" alt="Logo" class="loader-logo" />
+      <div class="spinner"></div>
+    </div>
   </div>
-</div>
 
-  <!-- 🌌 Parallax Background Layers -->
-<div class="parallax-bg">
-  <div class="layer layer1"></div>
-  <div class="layer layer2"></div>
-</div>
-
-<!-- 🌈 Floating Shapes -->
-<div class="floating-shape shape1"></div>
-<div class="floating-shape shape2"></div>
-<div class="floating-shape shape3"></div>
-<div class="floating-shape shape4"></div>
-<div class="floating-shape shape5"></div>
-<div class="floating-shape shape6"></div>
-<div class="floating-shape shape7"></div>
-
-<!-- Decorative SVG Blob -->
-<svg class="svg-blob" viewBox="0 0 600 600">
-  <path fill="var(--accent)" opacity="0.15">
-    <animate attributeName="d" dur="10s" repeatCount="indefinite"
-      values="M300,300Q320,240,300,180Q280,120,350,150Q420,180,400,240Q380,300,300,300Z;
-              M300,300Q260,240,300,180Q340,120,320,150Q300,180,300,240Q300,300,300,300Z;
-              M300,300Q320,240,300,180Q280,120,350,150Q420,180,400,240Q380,300,300,300Z" />
-  </path>
-</svg>
-
-   <!-- Fade-In -->
-  <section class="hero fade-in">
-  <section class="quote-section fade-in">
-  <section class="daily-affirmation fade-in">
-  <footer class="site-footer fade-in">
-
-  <!-- Custom Cursor -->
-  <div id="custom-cursor"></div>
-
-  <!-- Header with typing effect and glow -->
+  <!-- Header -->
   <header class="site-header">
-    <h1 id="animated-title" class="glow">Speak Louder, Love Harder 🌟</h1>
-
-    <!-- Theme & Color Controls -->
+    <h1 id="animated-title">🌟 Speak Louder, Love Harder 🌟</h1>
     <div class="theme-controls">
-      <button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">🌙</button>
-      <select id="color-theme-selector" aria-label="Select color theme">
-        <option value="default">🎨 Default</option>
-        <option value="pink">💗 Pink</option>
-        <option value="green">💚 Green</option>
-        <option value="blue">💙 Blue</option>
-        <option value="red">❤️ Red</option>
+      <button onclick="toggleTheme()">Toggle Theme 🌓</button>
+      <select onchange="changeColorTheme(this.value)">
+        <option value="default">Purple 💜</option>
+        <option value="pink">Pink 💖</option>
+        <option value="green">Green 💚</option>
+        <option value="blue">Blue 💙</option>
+        <option value="red">Red ❤️</option>
       </select>
     </div>
   </header>
 
   <!-- Navigation -->
-  <nav class="main-nav-section" aria-label="Site Navigation">
+  <nav class="main-nav-section">
     <ul class="nav-list">
-      <li><a href="mental-health.html" class="magic-link">Mental Health</a></li>
-      <li><a href="addiction.html" class="magic-link">Addiction</a></li>
-      <li><a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a></li>
-      <li><a href="cirrhosis.html" class="magic-link">Cirrhosis</a></li>
-      <li><a href="physical-abuse.html" class="magic-link">Physical Abuse</a></li>
-      <li><a href="mental-abuse.html" class="magic-link">Mental Abuse</a></li>
-      <li><a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a></li>
-      <li><a href="pitbull-love.html" class="magic-link">Pit Bull Love</a></li>
-      <li><a href="foster-children.html" class="magic-link">Foster Children</a></li>
-      <li><a href="guestbook-connect.html" class="magic-link">Guestbook 💬</a></li>
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="addiction.html">Addiction</a></li>
+      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+      <li><a href="cirrhosis.html">Cirrhosis</a></li>
+      <li><a href="physical-abuse.html">Physical Abuse</a></li>
+      <li><a href="mental-abuse.html">Mental Abuse</a></li>
+      <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+      <li><a href="pitbull-love.html">Pitbull Love</a></li>
+      <li><a href="foster-children.html">Foster Children</a></li>
+      <li><a href="guestbook-connect.html">🌈 Inspire & Connect</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" data-scroll-animate>
-    <h2>Your Voice Matters. Your Story Heals. 💜</h2>
+  <!-- Hero -->
+  <section class="hero fade-in">
+    <div class="typewriter">
+      <h2 id="typewriter-text"></h2>
+    </div>
   </section>
 
   <!-- Quote Rotator -->
-  <section class="quote-section" aria-live="polite" aria-atomic="true" data-scroll-animate>
-    <blockquote id="quote-rotator" class="quote-rotator glow">
-      Healing begins when we choose to speak up.
-    </blockquote>
+  <section class="quote-section" data-scroll-animate>
+    <div class="quote-rotator" id="quote-rotator">"You are braver than you believe."</div>
   </section>
 
-  <!-- Daily Affirmation -->
-  <section class="daily-affirmation" aria-live="polite" aria-atomic="true" data-scroll-animate>
-    <h2>Your Daily Affirmation</h2>
-    <p id="affirmation-box">I am worthy of love and kindness.</p>
-    <button id="new-affirmation" aria-label="Show new affirmation" class="affirm-btn">💫 New Affirmation</button>
+  <!-- Affirmation -->
+  <section class="daily-affirmation" data-scroll-animate>
+    <h3>🌟 Your Daily Affirmation 🌟</h3>
+    <p id="affirmation-text">Click below for your affirmation!</p>
+    <button class="affirm-btn" onclick="generateAffirmation()">Get Affirmation 💫</button>
   </section>
 
-  <!-- Scroll to Top Button -->
-  <button id="scrollToTopBtn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
-
-  <!-- Confetti Canvas -->
-  <canvas id="confetti-canvas"></canvas>
-
-  <script src="script.js" defer></script>
-  
   <!-- Footer -->
-  <footer class="site-footer" data-scroll-animate>
-    <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
+  <footer class="site-footer">
+    <p>Made with 💜 to heal, support, and inspire.</p>
   </footer>
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor"></div>
+
+  <!-- Scroll to Top -->
+  <button id="scrollToTopBtn" onclick="scrollToTop()">⬆️</button>
+
+  <!-- Background Layers -->
+  <div class="parallax-bg">
+    <div class="layer layer1"></div>
+    <div class="layer layer2"></div>
+  </div>
+
+  <!-- Floating Shapes -->
+  <div class="floating-shape shape1"></div>
+  <div class="floating-shape shape2"></div>
+  <div class="floating-shape shape3"></div>
+  <div class="floating-shape shape4"></div>
+  <div class="floating-shape shape5"></div>
+  <div class="floating-shape shape6"></div>
+  <div class="floating-shape shape7"></div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
 </body>
 </html>
