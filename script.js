@@ -210,3 +210,20 @@ newAffirmBtn.addEventListener('click', e => {
   const centerY = rect.top + rect.height / 2 + window.scrollY;
   createConfettiBurst(centerX, centerY);
 });
+
+// ===== Typing Effect for Hero Section =====
+const heroText = "Your Voice Matters. Your Story Heals. 💜";
+const typewriterEl = document.getElementById('hero-typewriter');
+
+let i = 0;
+function typeWriter() {
+  if (i < heroText.length) {
+    typewriterEl.textContent = heroText.substring(0, i + 1) + '|';
+    i++;
+    setTimeout(typeWriter, 60);
+  } else {
+    typewriterEl.textContent = heroText;
+  }
+}
+
+window.addEventListener('load', typeWriter);
