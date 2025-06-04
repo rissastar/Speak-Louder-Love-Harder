@@ -10,57 +10,34 @@ https://rissastar.github.io/Speak-Louder-Love-Harder/
 
 ---
 
-## 🌈 About the Project
+# Speak Louder, Love Harder 🌟
 
-This site is designed to be:
+An animated, interactive, mobile-friendly website dedicated to advocacy, healing, and awareness.
 
-- **Fun & Interactive** with animations and smooth transitions  
-- **Eye-catching & Colorful** using a fresh palette of blues, yellows, and corals  
-- **Healing & Positive** with a soft glassmorphism style and uplifting quotes  
-- **Responsive & Accessible** for mobile and desktop users  
-- **Easy to Navigate** with a clear navbar linking to all topics  
+## 🔗 Pages
+- Mental Health
+- Addiction
+- Cystic Fibrosis
+- Cirrhosis
+- Physical Abuse
+- Mental Abuse
+- Sexual Abuse
+- Pitbull Advocacy
+- Foster Children
+- Guestbook & Connection
 
----
+## ✨ Features
+- 🎨 Colorful design (pinks, greens, purples, gradients)
+- 🌗 Dark/Light theme toggle (saved in localStorage)
+- 💬 Rotating inspirational quotes
+- 📱 Fully responsive design
+- 🎞️ Smooth animations and scroll effects
 
-## 📚 Topics Covered
-
-- Mental Health  
-- Addiction  
-- Cystic Fibrosis  
-- Cirrhosis  
-- Physical Abuse  
-- Mental Abuse  
-- Sexual Abuse  
-- Pitbull Advocacy  
-- Foster Children  
-- Guestbook & Community Connection  
-
----
-
-## 📁 Project Structure
+## 📁 Structure
 
 Speak-Louder-Love-Harder/
-│
-├── index.html                # Homepage
-├── mental-health.htm         # Topic pages
-├── addiction.htm
-├── cystic-fibrosis.html
-├── cirrhosis.html
-├── physical-abuse.html
-├── mental-abuse.html
-├── sexual-abuse.html
-├── pitbull-love.html
-├── foster-children.html
-├── guestbook-connect.html
-│
-├── css/
-│   └── styles.css            # Main stylesheet
-│
-├── js/
-│   └── scripts.js            # JavaScript for theme toggle & quotes
-│
-├── assets/
-│   ├── images/               # Any images you want to add (e.g., logos, illustrations)
-│   └── fonts/                # Custom fonts if any
-│
-└── README.md                 # Project overview and instructions
+├── index.html
+├── styles.css
+├── scripts.js
+└── README.md
+
