@@ -1,92 +1,86 @@
-// ===== Elements =====
-const themeToggleBtn = document.querySelector('#modeToggle'); // Updated to match your button ID
-const body = document.body;
-const backToTopBtn = document.getElementById('backToTop'); // Your HTML uses id="backToTop"
-const progressBar = document.getElementById('progress-bar'); // Make sure you add this in HTML if you want progress bar
-const magicLinks = document.querySelectorAll('.magic-link');
-const faders = document.querySelectorAll('.fade-in-on-scroll');
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
 
-// ===== THEME TOGGLE =====
-function setTheme(theme) {
-  if (theme === 'dark') {
-    body.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-    themeToggleBtn.textContent = '☀️'; // Sun icon for dark mode active
-  } else {
-    body.classList.remove('dark');
-    localStorage.setItem('theme', 'light');
-    themeToggleBtn.textContent = '🌙'; // Moon icon for light mode active
+  // Elements
+  const themeToggleBtn = document.getElementById('modeToggle');
+  const backToTopBtn = document.getElementById('backToTop');
+  const progressBar = document.getElementById('progress-bar');
+  const faders = document.querySelectorAll('.fade-in-on-scroll');
+
+  // Set theme: 'dark' or 'light'
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      body.classList.add('dark');
+      themeToggleBtn.textContent = '☀️'; // sun icon for light mode
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.remove('dark');
+      themeToggleBtn.textContent = '🌙'; // moon icon for dark mode
+      localStorage.setItem('theme', 'light');
+    }
   }
-}
 
-// Initialize theme from localStorage or system preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  setTheme(savedTheme);
-} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  setTheme('dark');
-} else {
-  setTheme('light');
-}
-
-themeToggleBtn.addEventListener('click', () => {
-  if (body.classList.contains('dark')) {
-    setTheme('light');
-  } else {
+  // Initialize theme from localStorage or system preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     setTheme('dark');
-  }
-});
-
-// ===== BACK TO TOP BUTTON & PROGRESS BAR =====
-// Show/hide back to top button and update progress bar width on scroll
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
-
-  // Progress bar update (if progressBar element exists)
-  if (progressBar) {
-    progressBar.style.width = scrollPercent + '%';
-  }
-
-  // Back to top button toggle
-  if (scrollTop > 300) {
-    backToTopBtn.classList.add('show');
   } else {
-    backToTopBtn.classList.remove('show');
+    setTheme('light');
   }
-});
 
-backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
+  // Theme toggle button click
+  themeToggleBtn.addEventListener('click', () => {
+    if (body.classList.contains('dark')) {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
   });
-});
 
-// ===== MAGIC LINKS STAGGERED FADE-IN =====
-window.addEventListener('DOMContentLoaded', () => {
-  magicLinks.forEach((link, index) => {
-    link.style.opacity = '0';
-    link.style.animation = `fadeIn 1.2s forwards`;
-    link.style.animationDelay = `${0.3 + index * 0.15}s`;
+  // Back to top button click
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   });
-});
 
-// ===== FADE-IN ON SCROLL =====
-const appearOptions = {
-  threshold: 0.15,
-  rootMargin: "0px 0px -50px 0px"
-};
+  // Show/hide back to top and update progress bar on scroll
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
 
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add('visible');
-    observer.unobserve(entry.target);
+    // Update progress bar width
+    if (progressBar) {
+      progressBar.style.width = scrollPercent + '%';
+    }
+
+    // Toggle back to top button visibility
+    if (scrollTop > 300) {
+      backToTopBtn.style.display = 'flex';
+    } else {
+      backToTopBtn.style.display = 'none';
+    }
   });
-}, appearOptions);
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
+  // Fade-in on scroll using IntersectionObserver
+  const appearOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+
+  faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+  });
 });
