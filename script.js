@@ -1,69 +1,63 @@
-// Elements
-const header = document.querySelector('header');
-const backToTopBtn = document.getElementById('backToTop');
-const modeToggleBtn = document.getElementById('modeToggle');
+// Theme Toggle (Light/Dark)
+const themeToggleBtn = document.querySelector('.theme-toggle');
 const body = document.body;
 
-// === Dark/Light Theme Toggle ===
 function setTheme(theme) {
   if (theme === 'dark') {
     body.classList.add('dark');
-    modeToggleBtn.textContent = '☀️'; // Sun
     localStorage.setItem('theme', 'dark');
   } else {
     body.classList.remove('dark');
-    modeToggleBtn.textContent = '🌙'; // Moon
     localStorage.setItem('theme', 'light');
   }
 }
 
+// Initialize theme from localStorage or system preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
   setTheme(savedTheme);
-} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
   setTheme('dark');
-} else {
-  setTheme('light');
 }
 
-modeToggleBtn.addEventListener('click', () => {
-  const isDark = body.classList.contains('dark');
-  setTheme(isDark ? 'light' : 'dark');
+themeToggleBtn.addEventListener('click', () => {
+  if (body.classList.contains('dark')) {
+    setTheme('light');
+  } else {
+    setTheme('dark');
+  }
 });
 
-// === Header scroll effect & Back-to-top button ===
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
+// Scroll Progress Bar & Header Resize
+const progressBar = document.getElementById('progress-bar');
+const backToTopBtn = document.getElementById('backToTop');
+const header = document.querySelector('header');
 
-  // Shrink header and add shadow
-  if (scrollY > 50) {
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  progressBar.style.width = `${scrollPercent}%`;
+
+  // Show/hide back to top button
+  backToTopBtn.style.display = scrollTop > 300 ? 'flex' : 'none';
+
+  // Header shrink animation
+  if (scrollTop > 80) {
     header.classList.add('header-scrolled');
   } else {
     header.classList.remove('header-scrolled');
   }
-
-  // Show/hide back to top
-  if (scrollY > 300) {
-    backToTopBtn.style.display = 'flex';
-    backToTopBtn.style.opacity = '1';
-  } else {
-    backToTopBtn.style.opacity = '0';
-    setTimeout(() => {
-      if (window.scrollY <= 300) backToTopBtn.style.display = 'none';
-    }, 300);
-  }
 });
 
-// Smooth scroll to top
+// Back to Top smooth scroll
 backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Fade-in on scroll
+// Fade-in elements on scroll
 const faders = document.querySelectorAll('.fade-in-on-scroll');
+
 const appearOptions = {
   threshold: 0.15,
   rootMargin: "0px 0px -50px 0px"
@@ -77,4 +71,4 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
   });
 }, appearOptions);
 
-faders.forEach(fader => appearOnScroll.observe(fader));
+faders.forEach(el => appearOnScroll.observe(el));
