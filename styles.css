@@ -1,242 +1,110 @@
-/* ========= BASE RESET ========= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  transition: background 0.5s, color 0.5s;
-  background: #fefeff;
-  color: #2b2b2b;
-}
-
-/* ========= DARK MODE ========= */
-body.dark {
-  background: #1c1c1e;
-  color: #e8e8f0;
-}
-
-/* ========= THEME COLORS ========= */
 :root {
-  --pink: #ff77aa;
-  --green: #6ee7b7;
-  --purple: #a78bfa;
-  --deep-purple: #6d28d9;
-  --bg-light: #fefeff;
-  --bg-dark: #1c1c1e;
-  --text-dark: #222;
-  --text-light: #f4f4f4;
+  --primary-color: #9b59b6; /* Purple */
+  --secondary-color: #2ecc71; /* Green */
+  --accent-color: #e91e63; /* Pink */
+  --background-color: #ffffff;
+  --text-color: #333333;
 }
 
-/* ========= HEADER ========= */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
 header {
-  text-align: center;
-  padding: 2rem 1rem;
-  background: linear-gradient(to right, var(--pink), var(--purple));
+  background-color: var(--primary-color);
   color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+nav {
+  margin: 1rem 0;
+}
+
+nav a {
+  margin: 0 0.5rem;
+  color: white;
+  text-decoration: none;
   position: relative;
 }
-.typing-text {
-  font-size: 2rem;
-  font-weight: bold;
-  min-height: 2.5em;
-}
 
-/* ========= QUOTE ROTATOR ========= */
-#quote-rotator {
-  font-style: italic;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  transition: opacity 0.5s ease;
-}
-
-/* ========= BUTTONS ========= */
-button, .btn {
-  background: var(--purple);
-  color: white;
-  border: none;
-  padding: 0.6em 1.2em;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-button:hover, .btn:hover {
-  background: var(--deep-purple);
-}
-.theme-toggle-btn {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.3rem;
-  z-index: 10;
-}
-
-/* ========= SCROLL ANIMATION CLASSES ========= */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.slide-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.6s ease-out;
-}
-.slide-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ========= SUPPORT MODAL ========= */
-.help-modal {
-  display: none;
-  position: fixed;
-  z-index: 99;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-}
-.help-modal.show {
-  display: flex;
-}
-.help-modal .modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 400px;
-  text-align: center;
-  color: black;
-}
-.help-close {
-  background: crimson;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  margin-top: 1rem;
-  border-radius: 6px;
-}
-
-/* ========= TEXT TO SPEECH ========= */
-.speak-text {
-  margin: 1rem auto;
+nav a::after {
+  content: '';
   display: block;
-}
-
-/* ========= FLOATING HEARTS ========= */
-.floating-heart {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: pink;
-  border-radius: 50%;
-  animation: floatUp 1.5s ease-out forwards;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-100px); opacity: 0; }
-}
-
-/* ========= INTERACTIVE QUOTE WALL ========= */
-#quote-wall {
-  margin-top: 1rem;
-  list-style: none;
-  max-height: 200px;
-  overflow-y: auto;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background: var(--purple);
-  color: white;
-}
-#quote-wall li {
-  margin-bottom: 0.5rem;
-  padding: 0.4rem;
-  background: rgba(255,255,255,0.15);
-  border-radius: 6px;
-}
-
-/* ========= SCROLL PROGRESS BAR ========= */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 5px;
-  background: var(--green);
   width: 0;
-  z-index: 100;
+  height: 2px;
+  background: var(--accent-color);
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
 }
 
-/* ========= MOOD-BASED PAGES ========= */
-body.mood-mental-health {
-  background: #e0f7fa;
-}
-body.mood-addiction {
-  background: #fff0f6;
-}
-body.mood-physical-abuse {
-  background: #ffe6e6;
-}
-body.mood-pitbull-love {
-  background: #e6ffe6;
+nav a:hover::after {
+  width: 100%;
 }
 
-/* ========= RESPONSIVE ========= */
-@media (max-width: 600px) {
-  .typing-text {
-    font-size: 1.4rem;
-  }
-  button, .btn {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-  
-  /* NAVIGATION BAR */
-.main-nav {
-  background: linear-gradient(90deg, var(--purple), var(--pink), var(--green));
-  padding: 0.8rem 1rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 8px rgba(165, 105, 189, 0.3);
-}
-
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.main-nav a {
+#theme-toggle {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-color);
+  border: none;
   color: white;
-  font-weight: 700;
-  text-decoration: none;
-  padding: 0.4rem 1rem;
-  border-radius: 8px;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.main-nav a:hover,
-.main-nav a:focus {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-  outline: none;
+.quote-section {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  font-style: italic;
+  animation: fadeIn 2s ease-in-out;
 }
 
-@media (max-width: 700px) {
-  .main-nav ul {
-    flex-direction: column;
-    gap: 0.6rem;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.content {
+  padding: 2rem;
+}
+
+footer {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+}
+
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: #1f1f1f;
+}
+
+body.dark-mode .quote-section {
+  background-color: #333333;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  nav a {
+    display: block;
+    margin: 0.5rem 0;
   }
-}
 }
