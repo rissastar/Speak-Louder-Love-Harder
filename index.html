@@ -2,43 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <!-- Header -->
   <header>
     Speak Louder, Love Harder
-    <button id="modeToggle" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode">🌙</button>
+    <button class="theme-toggle" aria-label="Toggle Theme">🌓</button>
   </header>
 
+  <!-- Navigation -->
   <nav>
     <ul>
-      <li><a href="mental-health.html" class="magic-link">Mental Health</a></li>
-      <li><a href="addiction.html" class="magic-link">Addiction</a></li>
-      <li><a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a></li>
-      <li><a href="cirrhosis.html" class="magic-link">Cirrhosis</a></li>
-      <li><a href="physical-abuse.html" class="magic-link">Physical Abuse</a></li>
-      <li><a href="mental-abuse.html" class="magic-link">Mental Abuse</a></li>
-      <li><a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a></li>
-      <li><a href="pitbull-love.html" class="magic-link">Pitbull Love</a></li>
-      <li><a href="foster-children.html" class="magic-link">Foster Children</a></li>
-      <li><a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#advocacy">Advocacy</a></li>
+      <li><a href="#healing">Healing</a></li>
+      <li><a href="#support">Support</a></li>
     </ul>
   </nav>
 
+  <!-- Main Content -->
   <main>
-    <h1 class="fade-in-on-scroll">Welcome to Speak Louder, Love Harder</h1>
-    <p class="fade-in-on-scroll">
-      Our mission is to raise awareness, offer support, and create a healing community for individuals affected by mental health challenges, addiction, chronic illnesses, abuse, and more.
-    </p>
-    <p class="fade-in-on-scroll">
-      Explore the topics above to learn more, connect, and join our movement to speak louder and love harder every day.
-    </p>
+    <section id="mission" class="fade-in-on-scroll">
+      <h1>Our Mission</h1>
+      <p>We advocate, we heal, we support. Speak Louder, Love Harder is about shining a light on tough conversations — mental health, abuse, foster care, and the misunderstood world of pit bulls.</p>
+    </section>
+
+    <section id="advocacy" class="fade-in-on-scroll">
+      <h1>Advocacy</h1>
+      <p>Through art, storytelling, and community action, we uplift voices often left unheard.</p>
+    </section>
+
+    <section id="healing" class="fade-in-on-scroll">
+      <h1>Healing</h1>
+      <p>From trauma to transformation — we create safe spaces for reflection and recovery.</p>
+    </section>
+
+    <section id="support" class="fade-in-on-scroll">
+      <h1>Support</h1>
+      <p>Resources, encouragement, and solidarity for foster youth, survivors, and everyone who loves fiercely.</p>
+    </section>
   </main>
 
-  <button id="backToTop" aria-label="Back to top">&#8679;</button>
+  <!-- Back to Top -->
+  <button id="backToTop" title="Back to Top">↑</button>
 
+  <!-- Footer -->
   <footer>
     &copy; 2025 Speak Louder, Love Harder. All rights reserved.
   </footer>
