@@ -30,3 +30,23 @@ A compassionate and inclusive website built to raise awareness and support aroun
 ---
 
 ## 📂 Folder Structure
+Speak-Louder-Love-Harder/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   └── script.js
+├── pages/
+│   ├── mental-health.html
+│   ├── addiction.html
+│   ├── cystic-fibrosis.html
+│   ├── cirrhosis.html
+│   ├── physical-abuse.html
+│   ├── mental-abuse.html
+│   ├── sexual-abuse.html
+│   ├── pitbull-love.html
+│   ├── foster-children.html
+│   └── guestbook-connect.html
+└── assets/
+    └── images/
+        └── logo.png
