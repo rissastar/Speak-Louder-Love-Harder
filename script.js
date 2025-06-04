@@ -264,3 +264,28 @@ document.querySelectorAll('button, .magic-link').forEach(el => {
 document.getElementById('new-affirmation')?.addEventListener('click', () => {
   playSound(sparkleSound);
 });
+
+const quotes = [
+  "Healing begins when we choose to speak up.",
+  "You are stronger than your silence.",
+  "Every story matters. Especially yours.",
+  "Compassion is louder than judgment.",
+  "Let your voice be the light for someone else.",
+  "Courage means sharing your truth anyway."
+];
+
+let quoteIndex = 0;
+const quoteBox = document.getElementById('quote-rotator');
+
+function showNextQuote() {
+  quoteBox.classList.remove('visible');
+  setTimeout(() => {
+    quoteBox.textContent = quotes[quoteIndex];
+    quoteBox.classList.add('visible');
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+  }, 400);
+}
+
+// Start carousel
+setInterval(showNextQuote, 5000);
+window.addEventListener('load', showNextQuote);
