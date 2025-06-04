@@ -230,6 +230,33 @@ body {
   50% { opacity: 1; }
 }
 
+.loader-inner {
+  text-align: center;
+}
+.loader-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 1rem;
+  animation: spinLogo 4s infinite linear;
+}
+@keyframes spinLogo {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 10px;
+  border: 4px solid var(--accent);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+
 /* 🌟 Floating Shapes / Parallax */
 .floating-shape {
   position: absolute;
@@ -245,4 +272,34 @@ body {
 @keyframes floatShape {
   0% { transform: translateY(0) rotate(0deg); }
   100% { transform: translateY(-40px) rotate(360deg); }
+}
+
+.shape4 {
+  width: 120px;
+  height: 120px;
+  top: 70%;
+  left: 30%;
+  background: var(--accent);
+  animation-delay: 6s;
+}
+.shape5 {
+  width: 50px;
+  height: 50px;
+  bottom: 5%;
+  left: 80%;
+  background: var(--highlight);
+  animation-delay: 3s;
+}
+
+/* Fade-In */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
