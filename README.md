@@ -24,7 +24,7 @@ A vibrant, community-driven website for mental health, support, and love. Featur
 
 🌐 Visit Live Site
 
-(Replace with your actual GitHub Pages link)
+https://rissastar.github.io/Speak-Louder-Love-Harder/
 
 📁 Folder Structure
 
