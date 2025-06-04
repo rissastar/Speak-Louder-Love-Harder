@@ -82,7 +82,7 @@ body.dark {
 }
 
 /* ======================
-   HEADER
+   HEADER - Animated Glow + Slide In
 ====================== */
 header {
   position: fixed;
@@ -99,32 +99,17 @@ header {
   box-shadow: 0 3px 8px rgba(0,0,0,0.25);
   z-index: 999;
   user-select: none;
-  animation: pulseHeader 3s ease-in-out infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  animation: headerSlideIn 1s ease forwards, headerGlowPulse 3s ease-in-out infinite;
+  transform: translateY(-100%);
 }
 
-header button {
-  margin-left: 15px;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: none;
-  background: var(--btn-bg);
-  color: var(--btn-text);
-  font-weight: bold;
-  transition: background-color 0.4s ease;
+@keyframes headerSlideIn {
+  to {
+    transform: translateY(0);
+  }
 }
 
-header button:hover,
-header button:focus {
-  background-color: var(--btn-hover-bg);
-  outline: none;
-}
-
-/* header pulse animation */
-@keyframes pulseHeader {
+@keyframes headerGlowPulse {
   0%, 100% {
     text-shadow:
       0 0 5px #f72585,
@@ -140,39 +125,69 @@ header button:focus {
 }
 
 /* ======================
-   NAVIGATION
+   NAVIGATION - Semi-transparent, underline hover animation
 ====================== */
 nav {
-  background: var(--nav-bg);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 12px 10px;
-  gap: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
   position: sticky;
   top: 70px;
   z-index: 998;
+  background: rgba(35, 20, 60, 0.85); /* semi-transparent dark purple */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 14px 12px;
+  gap: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
   user-select: none;
+  backdrop-filter: blur(6px);
+  border-radius: 0 0 15px 15px;
 }
 
+/* Nav links style */
 nav a {
-  background: var(--btn-bg);
-  color: var(--btn-text);
-  padding: 8px 14px;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 6px rgba(123,47,247,0.4);
-  transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  color: #f7cdfa;
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 20px;
+  transition: color 0.4s ease;
+}
+
+/* Underline hover effect */
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 0;
+  height: 3px;
+  background: #f72585;
+  border-radius: 3px;
+  transition: width 0.3s ease;
 }
 
 nav a:hover,
 nav a:focus {
-  background-color: var(--btn-hover-bg);
-  box-shadow: 0 6px 12px rgba(247,37,133,0.7);
-  transform: translateY(-3px);
-  outline: none;
+  color: #ff8de7;
 }
+
+nav a:hover::after,
+nav a:focus::after {
+  width: 100%;
+}
+
+/* Responsive nav tweaks */
+@media (max-width: 600px) {
+  nav {
+    gap: 10px;
+    padding: 12px 8px;
+  }
+  
+  nav a {
+    padding: 7px 12px;
+    font-size: 0.9rem;
+  }
 
 /* ======================
    MAIN CONTENT
