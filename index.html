@@ -15,18 +15,27 @@
   <!-- ===== Scroll To Top Button ===== -->
   <button id="scroll-to-top" class="scroll-btn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
 
-  <!-- ===== Animated Header ===== -->
+ <!-- ===== Animated Header with Typing Effect and Particles ===== -->
 <header class="site-header">
-  <h1 class="animated-title glow">✨ Speak Louder, Love Harder 🌟</h1>
-  <div class="theme-controls">
-    <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
-    <select id="color-theme-selector" aria-label="Select Color Theme">
-      <option value="default">🎨 Default</option>
-      <option value="green">💚 Green</option>
-      <option value="blue">💙 Blue</option>
-      <option value="red">❤️ Red</option>
-      <option value="pink">💗 Pink</option>
-    </select>
+  <!-- Particle Background Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="header-content">
+    <h1 class="animated-title glow">
+      <span id="typed-text"></span><span class="cursor">|</span>
+    </h1>
+
+    <!-- Theme & Color Controls -->
+    <div class="theme-controls">
+      <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
+      <select id="color-theme-selector" aria-label="Select color theme">
+        <option value="default">🎨 Default</option>
+        <option value="pink">💗 Pink</option>
+        <option value="green">💚 Green</option>
+        <option value="blue">💙 Blue</option>
+        <option value="red">❤️ Red</option>
+      </select>
+    </div>
   </div>
 </header>
 
