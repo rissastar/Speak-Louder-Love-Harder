@@ -1,70 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" data-page="mental-health">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder 🌟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <button class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">🌓</button>
-
   <header>
-    <nav class="main-nav" aria-label="Primary navigation">
-      <ul>
-        <li><a href="mental-health.htm">Mental Health</a></li>
-        <li><a href="addiction.htm">Addiction</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Advocacy</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-      </ul>
+    <h1>Speak Louder, Love Harder</h1>
+    <nav>
+      <a href="mental-health.html" class="magic-link">Mental Health</a>
+      <a href="addiction.html" class="magic-link">Addiction</a>
+      <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
+      <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
+      <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
+      <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
+      <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
+      <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
+      <a href="foster-children.html" class="magic-link">Foster Children</a>
+      <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
     </nav>
-
-    <h1 class="typing-text" aria-live="polite"></h1>
-    <p id="quote-rotator" aria-live="polite">Speak louder. Love harder. Heal deeper. 💚</p>
+    <button id="theme-toggle">Toggle Theme</button>
   </header>
 
   <main>
-    <section class="intro fade-in">
-      <h2>Welcome</h2>
-      <p>Advocacy, healing, and awareness for mental health, addiction, abuse, and more.</p>
-      <button class="open-help btn" aria-haspopup="dialog">Need Help? Resources Here</button>
-      <button class="speak-text btn" aria-label="Listen to page content">🔊 Listen</button>
+    <section class="quote-section">
+      <blockquote id="quote">Loading inspirational quote...</blockquote>
     </section>
-
-    <section class="quote-wall-section fade-in">
-      <h2>Share Your Affirmation</h2>
-      <form id="quote-form" aria-label="Submit your positive quote or affirmation">
-        <input type="text" id="new-quote" placeholder="Type your affirmation..." aria-required="true" />
-        <button type="submit" class="btn">Submit</button>
-      </form>
-      <ul id="quote-wall" tabindex="0" aria-live="polite" aria-relevant="additions"></ul>
+    <section class="content">
+      <p>Welcome to our community dedicated to raising awareness and offering support on various critical issues. Explore the topics above to learn more and connect with others.</p>
     </section>
   </main>
 
-  <!-- Help Modal -->
-  <div class="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title" tabindex="-1">
-    <div class="modal-content">
-      <h3 id="help-title">Support Resources</h3>
-      <ul>
-        <li><a href="mental-health.htm">Mental Health Support</a></li>
-        <li><a href="addiction.htm">Addiction Help</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse Resources</a></li>
-        <li><a href="pitbull-love.html">Pitbull Advocacy</a></li>
-        <li><a href="foster-children.html">Foster Children Support</a></li>
-      </ul>
-      <button class="help-close btn" aria-label="Close support resources">Close</button>
-    </div>
-  </div>
-
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress" aria-hidden="true"></div>
+  <footer>
+    <p>&copy; 2025 Speak Louder, Love Harder</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
