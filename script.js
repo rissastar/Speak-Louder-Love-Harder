@@ -8,66 +8,61 @@ const body = document.body;
 function setTheme(theme) {
   if (theme === 'dark') {
     body.classList.add('dark');
-    modeToggleBtn.textContent = '☀️'; // sun icon
+    modeToggleBtn.textContent = '☀️'; // Sun
     localStorage.setItem('theme', 'dark');
   } else {
     body.classList.remove('dark');
-    modeToggleBtn.textContent = '🌙'; // moon icon
+    modeToggleBtn.textContent = '🌙'; // Moon
     localStorage.setItem('theme', 'light');
   }
 }
 
-// Initialize theme from localStorage or system preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
   setTheme(savedTheme);
-} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   setTheme('dark');
 } else {
   setTheme('light');
 }
 
 modeToggleBtn.addEventListener('click', () => {
-  if (body.classList.contains('dark')) {
-    setTheme('light');
-  } else {
-    setTheme('dark');
-  }
+  const isDark = body.classList.contains('dark');
+  setTheme(isDark ? 'light' : 'dark');
 });
 
 // === Header scroll effect & Back-to-top button ===
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
 
-  // Shrink header and add shadow after scrolling 50px
+  // Shrink header and add shadow
   if (scrollY > 50) {
     header.classList.add('header-scrolled');
   } else {
     header.classList.remove('header-scrolled');
   }
 
-  // Show back-to-top button after 300px
+  // Show/hide back to top
   if (scrollY > 300) {
     backToTopBtn.style.display = 'flex';
     backToTopBtn.style.opacity = '1';
   } else {
     backToTopBtn.style.opacity = '0';
-    // Use timeout to delay display:none until fade out ends
     setTimeout(() => {
       if (window.scrollY <= 300) backToTopBtn.style.display = 'none';
     }, 300);
   }
 });
 
-// Smooth scroll to top on button click
+// Smooth scroll to top
 backToTopBtn.addEventListener('click', () => {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth',
+    behavior: 'smooth'
   });
 });
 
-// === Fade-in sections on scroll ===
+// Fade-in on scroll
 const faders = document.querySelectorAll('.fade-in-on-scroll');
 const appearOptions = {
   threshold: 0.15,
