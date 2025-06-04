@@ -151,3 +151,62 @@ function onScroll() {
 
 window.addEventListener('scroll', onScroll);
 window.addEventListener('load', onScroll);
+
+// ===== Confetti Burst =====
+const confettiCanvas = document.getElementById('confetti-canvas');
+const ctx = confettiCanvas.getContext('2d');
+let confettiParticles = [];
+
+function resizeCanvas() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function createConfettiBurst(x, y) {
+  const colors = ['#ff69b4', '#00ffcc', '#ffcc00', '#9966ff', '#66ff66'];
+  for (let i = 0; i < 50; i++) {
+    confettiParticles.push({
+      x,
+      y,
+      radius: Math.random() * 4 + 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      dx: Math.random() * 6 - 3,
+      dy: Math.random() * -5 - 1,
+      life: 100
+    });
+  }
+}
+
+function updateConfetti() {
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+  confettiParticles.forEach((p, index) => {
+    p.x += p.dx;
+    p.y += p.dy;
+    p.dy += 0.2; // gravity
+    p.life--;
+
+    if (p.life <= 0) {
+      confettiParticles.splice(index, 1);
+    } else {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    }
+  });
+
+  requestAnimationFrame(updateConfetti);
+}
+
+updateConfetti();
+
+newAffirmBtn.addEventListener('click', e => {
+  const rect = newAffirmBtn.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2 + window.scrollY;
+  createConfettiBurst(centerX, centerY);
+});
