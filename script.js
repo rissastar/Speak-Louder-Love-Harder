@@ -18,6 +18,23 @@ function loadFromStorage(key) {
   }
 }
 
+// ===== Scroll Reveal Animation =====
+const scrollElements = document.querySelectorAll('[data-scroll-animate]');
+
+function handleScrollReveal() {
+  scrollElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      el.classList.add('in-view');
+    }
+  });
+}
+
+window.addEventListener('scroll', handleScrollReveal);
+window.addEventListener('load', handleScrollReveal);
+
+
+
 // ===== Theme & Color Theme =====
 const htmlEl = document.documentElement;
 const themeToggleBtn = document.getElementById('theme-toggle');
