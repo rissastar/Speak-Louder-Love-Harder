@@ -1,46 +1,24 @@
-/* ====== Base Reset & Core Styles ====== */
+/* ===== Base Reset & Layout ===== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
   background-color: var(--bg);
   color: var(--fg);
   transition: background-color 0.5s ease, color 0.5s ease;
   cursor: url('data:image/svg+xml;utf8,<svg fill="purple" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C8.13 2 5 5.13 5 9c0 7 7 13 7 13s7-6 7-13c0-3.87-3.13-7-7-7z"/></svg>') 12 12, auto;
 }
 
-a {
-  color: var(--link);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-a:hover,
-a:focus-visible {
-  color: var(--link-hover);
-  outline: none;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Add focus-visible outlines for accessibility */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-/* ====== CSS Variables - Light Theme Defaults ====== */
+/* ===== Theme Variables ===== */
 :root {
   --bg: #fdfdff;
   --fg: #111;
@@ -57,7 +35,6 @@ ul {
   --header-bg: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
-/* ====== Dark Theme Overrides ====== */
 [data-theme='dark'] {
   --bg: #121212;
   --fg: #fdfdfd;
@@ -72,7 +49,6 @@ ul {
   --glow-3: #66bb6a;
 }
 
-/* ====== Additional Color Themes ====== */
 .theme-green {
   --primary: #4caf50;
   --accent: #8bc34a;
@@ -80,7 +56,6 @@ ul {
   --glow-2: #c8e6c9;
   --glow-3: #69f0ae;
 }
-
 .theme-blue {
   --primary: #2196f3;
   --accent: #03a9f4;
@@ -88,7 +63,6 @@ ul {
   --glow-2: #81d4fa;
   --glow-3: #29b6f6;
 }
-
 .theme-red {
   --primary: #e53935;
   --accent: #ef5350;
@@ -96,7 +70,6 @@ ul {
   --glow-2: #ef9a9a;
   --glow-3: #e57373;
 }
-
 .theme-pink {
   --primary: #ec407a;
   --accent: #f06292;
@@ -105,27 +78,41 @@ ul {
   --glow-3: #f06292;
 }
 
-/* ====== Header ====== */
+/* ===== Links & Accessibility ===== */
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover,
+a:focus-visible {
+  color: var(--link-hover);
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ===== Header ===== */
 header {
   position: sticky;
   top: 0;
   z-index: 9999;
   background: var(--header-bg);
   padding: 1.25rem 2.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: padding 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   backdrop-filter: saturate(180%) blur(10px);
+  transition: padding 0.3s, box-shadow 0.3s;
   user-select: none;
 }
-
 header:hover,
 header:focus-within {
   box-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
-
 header h1 {
   font-size: 2.5rem;
   font-weight: 900;
@@ -135,37 +122,26 @@ header h1 {
     0 0 20px var(--glow-2),
     0 0 30px var(--glow-3);
   animation: pulseGlow 3s ease-in-out infinite alternate;
-  margin: 0;
 }
 
-/* ====== Navigation ====== */
+/* ===== Navigation ===== */
 .nav-bar {
   display: flex;
   gap: 1.25rem;
-  overflow-x: auto;
   padding: 0.75rem 1rem;
   background-color: var(--nav-bg);
   border-radius: 100px;
+  overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
-  transition: background-color 0.3s ease;
-  user-select: none;
 }
-
 .nav-bar::-webkit-scrollbar {
   height: 8px;
 }
-
-.nav-bar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .nav-bar::-webkit-scrollbar-thumb {
   background-color: var(--accent);
   border-radius: 10px;
 }
-
-/* Nav links styled as "magic links" */
 .magic-link {
   display: inline-block;
   padding: 0.55rem 1.6rem;
@@ -174,18 +150,10 @@ header h1 {
   color: var(--fg);
   background-color: var(--card-bg);
   box-shadow: 0 0 10px var(--glow-1);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    box-shadow 0.5s ease,
-    transform 0.3s ease;
-  cursor: pointer;
+  transition: all 0.3s ease;
   white-space: nowrap;
-  text-align: center;
-  user-select: none;
-  will-change: transform;
+  cursor: pointer;
 }
-
 .magic-link:hover,
 .magic-link:focus-visible {
   background-color: var(--primary);
@@ -194,53 +162,17 @@ header h1 {
     0 0 20px var(--glow-2),
     0 0 30px var(--glow-3),
     0 0 40px var(--glow-1);
-  outline-offset: 4px;
   transform: scale(1.08);
 }
 
-/* ====== Theme Toggle Button ====== */
-#theme-toggle {
-  background-color: var(--card-bg);
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: var(--primary);
-  box-shadow:
-    0 0 9px var(--glow-1);
-  transition:
-    color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  will-change: transform;
-}
-
-#theme-toggle:hover,
-#theme-toggle:focus-visible {
-  color: var(--accent);
-  box-shadow:
-    0 0 15px var(--glow-2),
-    0 0 20px var(--glow-3);
-  outline-offset: 3px;
-  transform: scale(1.25);
-}
-
-/* ====== Hero Section ====== */
+/* ===== Hero Section ===== */
 .hero {
   padding: 6rem 2rem 4rem;
   text-align: center;
 }
-
 .hero h2 {
   font-size: 3rem;
   font-weight: 900;
-  margin-bottom: 1rem;
   color: var(--primary);
   text-shadow:
     0 0 15px var(--glow-1),
@@ -249,59 +181,22 @@ header h1 {
   animation: glowPulse 3s ease-in-out infinite alternate;
 }
 
-/* ====== Quote Rotator ====== */
+/* ===== Quote Rotator ===== */
 .quote-rotator {
   max-width: 600px;
   margin: 3rem auto;
+  padding: 2rem 2.5rem;
   background-color: var(--card-bg);
   color: var(--fg);
-  padding: 2rem 2.5rem;
   border-radius: 1rem;
   box-shadow: 0 5px 15px var(--card-shadow);
   font-style: italic;
   font-size: 1.25rem;
-  user-select: none;
-  line-height: 1.6;
-  letter-spacing: 0.03em;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
 }
 
-/* ====== Causes Container & Cards ====== */
-.causes-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
-  justify-content: center;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.cause-card {
-  background-color: var(--card-bg);
-  box-shadow: 0 0 14px var(--glow-1);
-  border-radius: 1rem;
-  padding: 2rem;
-  width: 280px;
-  cursor: pointer;
-  color: var(--fg);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  will-change: transform, box-shadow;
-}
-
-.cause-card:hover,
-.cause-card:focus-visible {
-  box-shadow:
-    0 0 30px var(--glow-2),
-    0 0 45px var(--glow-3);
-  transform: translateY(-8px);
-  outline-offset: 4px;
-}
-
-/* ====== Daily Affirmation Section ====== */
+/* ===== Daily Affirmation Section ===== */
 .daily-affirmation {
   background-color: var(--card-bg);
   max-width: 600px;
@@ -313,16 +208,59 @@ header h1 {
   color: var(--primary);
   font-weight: 700;
   font-size: 1.5rem;
-  letter-spacing: 0.05em;
-  user-select: none;
   animation: subtlePulse 5s ease-in-out infinite alternate;
 }
+.daily-affirmation button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.daily-affirmation button:hover {
+  background-color: #6a1b9a;
+}
+.daily-affirmation p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 
-/* ====== Scroll to Top Button ====== */
+/* ===== Causes Section ===== */
+.causes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cause-card {
+  background-color: var(--card-bg);
+  box-shadow: 0 0 14px var(--glow-1);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 280px;
+  color: var(--fg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.cause-card:hover,
+.cause-card:focus-visible {
+  box-shadow: 0 0 30px var(--glow-2), 0 0 45px var(--glow-3);
+  transform: translateY(-8px);
+}
+
+/* ===== Scroll to Top Button ===== */
 #scroll-to-top {
   position: fixed;
   bottom: 2.25rem;
   right: 2.25rem;
+  display: none;
   background-color: var(--card-bg);
   border: none;
   padding: 0.8rem 1.1rem;
@@ -331,27 +269,41 @@ header h1 {
   font-size: 1.75rem;
   cursor: pointer;
   color: var(--primary);
-  user-select: none;
-  display: none; /* Hidden by default */
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-  will-change: transform;
+  transition: all 0.3s ease;
 }
-
-#scroll-to-top:hover,
-#scroll-to-top:focus-visible {
+#scroll-to-top.show {
+  display: flex;
+  animation: fadeIn 0.5s ease;
+}
+#scroll-to-top:hover {
   color: var(--accent);
-  box-shadow:
-    0 0 20px var(--glow-2),
-    0 0 25px var(--glow-3);
-  outline-offset: 3px;
+  box-shadow: 0 0 20px var(--glow-2), 0 0 25px var(--glow-3);
   transform: scale(1.25);
 }
 
-/* ====== Footer ====== */
+/* ===== Theme Toggle Button ===== */
+#theme-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: var(--card-bg);
+  color: var(--primary);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 9px var(--glow-1);
+  transition: all 0.3s ease;
+}
+#theme-toggle:hover {
+  color: var(--accent);
+  box-shadow: 0 0 15px var(--glow-2), 0 0 20px var(--glow-3);
+  transform: scale(1.25);
+}
+
+/* ===== Footer ===== */
 footer {
   background-color: var(--nav-bg);
   text-align: center;
@@ -362,37 +314,37 @@ footer {
   box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.2);
 }
 
-/* ====== Animations ====== */
+/* ===== Custom Cursor ===== */
+#custom-cursor {
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.05s ease;
+  mix-blend-mode: difference;
+  background-color: transparent;
+}
+
+/* ===== Animations ===== */
 @keyframes pulseGlow {
   0%, 100% {
-    text-shadow:
-      0 0 10px var(--glow-1),
-      0 0 20px var(--glow-2),
-      0 0 30px var(--glow-3);
+    text-shadow: 0 0 10px var(--glow-1), 0 0 20px var(--glow-2), 0 0 30px var(--glow-3);
   }
   50% {
-    text-shadow:
-      0 0 20px var(--glow-1),
-      0 0 40px var(--glow-2),
-      0 0 60px var(--glow-3);
+    text-shadow: 0 0 20px var(--glow-1), 0 0 40px var(--glow-2), 0 0 60px var(--glow-3);
   }
 }
-
 @keyframes glowPulse {
   0%, 100% {
-    text-shadow:
-      0 0 15px var(--glow-1),
-      0 0 30px var(--glow-2),
-      0 0 45px var(--glow-3);
+    text-shadow: 0 0 15px var(--glow-1), 0 0 30px var(--glow-2), 0 0 45px var(--glow-3);
   }
   50% {
-    text-shadow:
-      0 0 30px var(--glow-1),
-      0 0 60px var(--glow-2),
-      0 0 90px var(--glow-3);
+    text-shadow: 0 0 30px var(--glow-1), 0 0 60px var(--glow-2), 0 0 90px var(--glow-3);
   }
 }
-
 @keyframes subtlePulse {
   0%, 100% {
     box-shadow: 0 8px 20px var(--card-shadow);
@@ -401,37 +353,44 @@ footer {
     box-shadow: 0 12px 30px var(--card-shadow);
   }
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-/* ====== Responsive Design ====== */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
-  header h1 {
+  header h1, .hero h2 {
     font-size: 2rem;
   }
-
-  .hero h2 {
-    font-size: 2rem;
-  }
-
   .causes-container {
     flex-direction: column;
     align-items: center;
   }
-
   .cause-card {
     width: 90%;
     max-width: 320px;
   }
-
-  .nav-bar {
-    padding: 0.5rem 1rem;
+  #theme-toggle,
+  #scroll-to-top {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+  .daily-affirmation p,
+  .quote-rotator {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  .daily-affirmation button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
 }
-
 @media (max-width: 400px) {
   header {
     padding: 1rem 1.5rem;
   }
-
   .hero {
     padding: 4rem 1rem 3rem;
   }
