@@ -28,35 +28,12 @@ a:focus {
 
 /* Color theme variables */
 :root {
-  --purple: #7e57c2;
-  --green: #43a047;
-  --pink: #ec407a;
-
-  --bg: #f4f0fa;
-  --fg: #2a2a2a;
-
-  --link: var(--purple);
-  --link-hover: var(--pink);
-
-  --card-bg: #ffffffdd;
-  --card-shadow: rgba(126, 87, 194, 0.3);
-
-  --glow-purple: #a56eea;
-  --glow-pink: #f06292;
-  --glow-green: #66bb6a;
-
-  --header-bg: linear-gradient(90deg, var(--purple), var(--pink));
+  --nav-bg: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme='dark'] {
-  --bg: #121212;
-  --fg: #eee;
-
-  --link: #ba68c8;
-  --link-hover: #f48fb1;
-
-  --card-bg: #222222dd;
-  --card-shadow: rgba(255, 105, 180, 0.3);
+  --nav-bg: rgba(30, 30, 30, 0.6);
+}
 
   --header-bg: linear-gradient(90deg, #9c27b0, #e91e63);
 }
@@ -91,30 +68,40 @@ header#main-header {
 
 /* Navigation */
 .nav-bar {
+  background: var(--nav-bg);
+  ...
+}
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  flex-grow: 1;
+  gap: 0.6rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 0.5rem 1rem;
+  margin: 0 auto;
+  max-width: 100%;
   overflow-x: auto;
 }
 
 .magic-link {
-  position: relative;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.8rem;
+  background-color: rgba(126, 87, 194, 0.08);
+  color: var(--fg);
+  border-radius: 30px;
   font-weight: 600;
-  font-size: 1rem;
-  color: var(--link);
-  padding: 0.3rem 0.5rem;
-  border-radius: 12px;
   transition: all 0.3s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 .magic-link:hover,
 .magic-link:focus {
-  color: var(--pink);
-  background: var(--purple);
-  box-shadow:
-    0 0 10px var(--glow-pink),
-    0 0 15px var(--glow-purple);
+  background: rgba(126, 87, 194, 0.2);
+  border-color: var(--purple);
+  color: var(--purple);
+  box-shadow: 0 0 6px var(--purple);
   outline: none;
 }
 
