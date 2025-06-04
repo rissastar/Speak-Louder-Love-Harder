@@ -5,48 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-  <header id="main-header" class="glow-header" role="banner">
-    <h1>Speak Louder, Love Harder 🌟</h1>
-    <button id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">🌙</button>
+  <!-- Custom Cursor -->
+  <div id="custom-cursor"></div>
+
+  <!-- Scroll To Top Button -->
+  <button id="scrollToTopBtn" aria-label="Scroll to top">⬆️</button>
+
+  <!-- Header with Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">Speak Louder, Love Harder 🌟</h1>
+
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="mental-health.html">Mental Health</a></li>
+          <li><a href="addiction.html">Addiction</a></li>
+          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+          <li><a href="cirrhosis.html">Cirrhosis</a></li>
+          <li><a href="physical-abuse.html">Physical Abuse</a></li>
+          <li><a href="mental-abuse.html">Mental Abuse</a></li>
+          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+          <li><a href="pitbull-love.html">Pitbull Love</a></li>
+          <li><a href="foster-children.html">Foster Children</a></li>
+          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+        </ul>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Dark/Light Theme">🌙</button>
+    </div>
   </header>
 
-  <nav class="nav-bar" role="navigation" aria-label="Main navigation">
-    <a href="mental-health.html" class="magic-link">Mental Health</a>
-    <a href="addiction.html" class="magic-link">Addiction</a>
-    <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
-    <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
-    <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
-    <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
-    <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
-    <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
-    <a href="foster-children.html" class="magic-link">Foster Children</a>
-    <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
-  </nav>
-
+  <!-- Main Content -->
   <main>
-    <section class="hero" aria-label="Welcome message and introduction">
-      <h2 class="glow-text">Welcome to Speak Louder, Love Harder</h2>
-      <p class="intro-text">Advocacy, healing, and hope for all. Together we rise.</p>
+    <!-- Quote Rotator -->
+    <section class="quote-section" aria-live="polite" aria-atomic="true" aria-relevant="text">
+      <blockquote class="quote-rotator">
+        “Healing takes time, and asking for help is a courageous step.”
+      </blockquote>
     </section>
 
-    <section class="quote-rotator" aria-live="polite" aria-atomic="true" aria-label="Inspirational quotes">
-      <div id="quote-text">Loading quotes...</div>
-      <div id="quote-author"></div>
+    <!-- Daily Affirmation -->
+    <section class="daily-affirmation" aria-live="polite" aria-atomic="true" aria-relevant="text">
+      <p>You are stronger than you know.</p>
+      <button aria-label="Get a new daily affirmation">New Affirmation</button>
     </section>
 
-    <section class="affirmation-section" aria-label="Daily affirmation">
-      <h3>Daily Affirmation</h3>
-      <div id="daily-affirmation">Loading affirmation...</div>
-      <button id="new-affirmation-btn" aria-label="Generate new affirmation">New Affirmation</button>
-    </section>
-
-    <!-- Additional site content such as cards, guestbook, resources, etc. can go here -->
-
+    <!-- Additional content sections can go here -->
   </main>
 
-  <button id="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js" defer></script>
 </body>
 </html>
