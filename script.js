@@ -1,4 +1,4 @@
-// Theme toggler: saves user preference in localStorage
+// Theme toggler with rotation animation
 const toggleBtn = document.getElementById('theme-toggle');
 const body = document.body;
 
@@ -22,8 +22,35 @@ if (savedTheme) {
   setTheme(prefersDark);
 }
 
-// Toggle on button click
+// Animate theme toggle rotation on click then toggle theme
 toggleBtn.addEventListener('click', () => {
-  const isDark = body.classList.contains('dark');
-  setTheme(!isDark);
+  toggleBtn.classList.add('rotate');
+  setTimeout(() => {
+    const isDark = body.classList.contains('dark');
+    setTheme(!isDark);
+    toggleBtn.classList.remove('rotate');
+  }, 500);
 });
+
+// Scroll fade-in animation for topics grid articles
+const articles = document.querySelectorAll('.topics-grid article');
+
+function animateOnScroll() {
+  const triggerBottom = window.innerHeight * 0.9;
+
+  articles.forEach((article, index) => {
+    const articleTop = article.getBoundingClientRect().top;
+
+    if (articleTop < triggerBottom) {
+      // Add animation with stagger delay
+      article.style.animationName = 'fadeInUp';
+      article.style.animationDelay = `${index * 0.15}s`;
+      article.style.opacity = 1;
+      article.style.transform = 'translateY(0)';
+    }
+  });
+}
+
+// Animate on load and on scroll
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', animateOnScroll);
