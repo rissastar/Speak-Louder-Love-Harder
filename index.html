@@ -16,7 +16,7 @@
   <button id="scrollToTopBtn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
 
   <!-- Header with typing effect and glow -->
-  <header class="site-header"><h1 class="glow heartbeat"
+  <header class="site-header">
     <h1 id="animated-title" class="glow">Speak Louder, Love Harder 🌟</h1>
 
     <!-- Theme & Color Controls -->
@@ -55,10 +55,8 @@
 
   <!-- Quote Rotator -->
   <section class="quote-section" aria-live="polite" aria-atomic="true" data-scroll-animate>
-    <blockquote id="quote-rotator" class="quote-rotator glow">
-      Healing begins when we choose to speak up.
-    </blockquote>
-  </section>
+  <blockquote id="quote-rotator" class="quote-rotator glow fade-in"></blockquote>
+</section>
 
   <!-- Daily Affirmation -->
   <section class="daily-affirmation" aria-live="polite" aria-atomic="true" data-scroll-animate>
@@ -84,12 +82,9 @@
     <span class="shape"></span>
   </div>
 
-<!-- Glowing Orbs Background -->
-<div class="glow-orbs">
-  <span class="orb"></span>
-  <span class="orb"></span>
-  <span class="orb"></span>
-</div>
+<!-- Click Sounds -->
+<audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
+<audio id="sparkle-sound" src="sounds/sparkle.mp3" preload="auto"></audio>
 
   <!-- Script -->
   <script src="script.js" defer></script>
