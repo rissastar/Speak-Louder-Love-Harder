@@ -321,4 +321,33 @@ body.dark {
     padding: 0.5rem 0.9rem;
     font-size: 0.9rem;
   }
+  
+  .quote-section {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 800px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #ff6f91, #845ec2, #4caf50);
+  background-size: 300% 300%;
+  animation: gradientBG 15s ease infinite;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.quote-section blockquote {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+  text-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.quote-section footer {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.9;
+  animation: fadeInUp 2s ease-out;
 }
