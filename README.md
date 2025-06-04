@@ -1,52 +1,29 @@
 # Speak Louder, Love Harder 🌟
 
-A compassionate and inclusive website built to raise awareness and support around critical social and health issues. The platform is designed to educate, uplift, and connect communities through content on mental health, chronic illnesses, abuse recovery, and more.
+Welcome to **Speak Louder, Love Harder** — a vibrant, uplifting website dedicated to raising awareness and offering support on important topics around healing, love, and advocacy. We believe in bold colors, animation, and interactive experiences that empower visitors to engage, learn, and heal.
 
----
+## About This Website
 
-## 🌐 Live Website
+This website focuses on various crucial topics such as:
 
-> [Visit the Website](https://rissastar.github.io/Speak-Louder-Love-Harder/)
+- Mental Health  
+- Addiction  
+- Cystic Fibrosis  
+- Cirrhosis  
+- Physical Abuse  
+- Mental Abuse  
+- Sexual Assault Awareness  
+- Pitbull Advocacy  
+- Foster Children Support  
 
----
+Each topic has its own dedicated page to provide detailed resources, stories, and connections.
 
-## 🛠️ Features
+## Features
 
-- Responsive design for mobile and desktop
-- Clean and modern user interface
-- Topics include:
-  - Mental Health
-  - Cystic Fibrosis
-  - Cirrhosis
-  - Addiction
-  - Metal Abuse
-  - Physical Abuse
-  - Pitbull Advocacy
-  - Foster Children
-  - Sexual Assault Awareness
-- Contact form with submission alert
-- Easy to customize and expand
+- **Responsive design:** Looks great on both desktop and mobile devices.  
+- **Animated and interactive:** Eye-catching header animations, hover effects, and smooth transitions to keep visitors engaged.  
+- **Colorful and bold:** Using a bright palette of greens, pinks, and purples to create a happy and healing vibe.  
+- **Dark/Light mode support:** Easy toggling between light and dark themes for comfortable reading anytime.  
+- **Navigation:** Simple pill-style navigation bar for quick access to every page.  
 
----
-
-## 📂 Folder Structure
-Speak-Louder-Love-Harder/
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── script.js
-├── pages/
-│   ├── mental-health.html
-│   ├── addiction.html
-│   ├── cystic-fibrosis.html
-│   ├── cirrhosis.html
-│   ├── physical-abuse.html
-│   ├── mental-abuse.html
-│   ├── sexual-abuse.html
-│   ├── pitbull-love.html
-│   ├── foster-children.html
-│   └── guestbook-connect.html
-└── assets/
-    └── images/
-        └── logo.png
+## File Structure
