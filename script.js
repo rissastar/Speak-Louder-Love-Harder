@@ -45,7 +45,6 @@ function handleScroll() {
     scrollTopBtn.classList.remove('show');
   }
 }
-
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -59,17 +58,16 @@ function moveCursor(e) {
 
 // ===== Quote Rotator =====
 const quotes = [
-  "“Healing takes time, and asking for help is a courageous step.”",
-  "“Every small act of love makes the world brighter.”",
-  "“Strength grows in the moments when you think you can’t go on but you keep going anyway.”",
-  "“Your story matters and your voice deserves to be heard.”",
-  "“Together, we can break the chains of stigma and fear.”"
+  "“Healing takes time, and asking for help is a courageous step.” — Mariska Hargitay",
+  "“There is no greater agony than bearing an untold story inside you.” — Maya Angelou",
+  "“Vulnerability is not winning or losing; it’s having the courage to show up.” — Brené Brown",
+  "“Every child you encounter is a divine appointment.” — Wess Stafford",
+  "“Pit bulls are just dogs. Treat them as individuals.” — BadRap.org",
+  "“Stars can’t shine without darkness.” — D.H. Sidebottom"
 ];
-
-const quoteElement = document.querySelector('.quote-rotator');
 let quoteIndex = 0;
-
 function rotateQuotes() {
+  const quoteElement = document.querySelector('.quote-rotator');
   if (!quoteElement) return;
   quoteIndex = (quoteIndex + 1) % quotes.length;
   quoteElement.textContent = quotes[quoteIndex];
@@ -77,24 +75,29 @@ function rotateQuotes() {
 
 // ===== Daily Affirmation =====
 const affirmations = [
+  "You are enough exactly as you are.",
+  "Every day is a fresh start.",
+  "You have the power to change your story.",
+  "You are not alone in your struggles.",
+  "Kindness begins with you.",
+  "You are doing your best, and that’s enough.",
   "You are stronger than you know.",
   "Today is a new beginning.",
   "Your feelings are valid.",
   "You are worthy of love and kindness.",
   "Every step forward is progress."
 ];
-
 function showRandomAffirmation() {
-  const affirmationDisplay = document.querySelector('.daily-affirmation');
-  if (!affirmationDisplay) return;
+  const display = document.querySelector('.daily-affirmation');
+  if (!display) return;
+  const p = display.querySelector('p');
   const random = affirmations[Math.floor(Math.random() * affirmations.length)];
-  const p = affirmationDisplay.querySelector('p');
   if (p) {
     p.textContent = random;
   } else {
     const newP = document.createElement('p');
     newP.textContent = random;
-    affirmationDisplay.insertBefore(newP, affirmationDisplay.firstChild);
+    display.insertBefore(newP, display.firstChild);
   }
 }
 
@@ -118,9 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', moveCursor);
   }
 
-  if (quoteElement) {
-    setInterval(rotateQuotes, 6000);
-  }
+  setInterval(rotateQuotes, 6000);
 
   const affirmationBtn = document.querySelector('.daily-affirmation button');
   if (affirmationBtn) {
