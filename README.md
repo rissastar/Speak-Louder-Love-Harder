@@ -1,39 +1,38 @@
-# Speak Louder, Love Harder 🌟
+Speak Louder, Love Harder 🌟
 
-Welcome to **Speak Louder, Love Harder** — a vibrant, healing, and supportive website dedicated to raising awareness and providing resources on important topics like mental health, addiction, abuse, chronic illness, and advocacy for foster children and pitbulls.
+A vibrant, interactive, and healing-focused website dedicated to advocacy, awareness, and support across important life topics.
 
----
+⸻
 
-## 🛜 Visit Website
+Visit Website
 
 https://rissastar.github.io/Speak-Louder-Love-Harder/
 
 ---
 
-# Speak Louder, Love Harder 🌟
+Features
+	•	Soft glassmorphism design with purple, pink, and green accents
+	•	Smooth animations and hover effects for a modern, uplifting vibe
+	•	Responsive layout optimized for desktop and mobile devices
+	•	Dark/light mode toggle with saved user preference
+	•	Inspirational quote rotator to encourage healing and empowerment
+	•	Clear navigation across all topic pages including Mental Health, Addiction, Abuse Awareness, Pitbull Advocacy, and Foster Children
 
-An animated, interactive, mobile-friendly website dedicated to advocacy, healing, and awareness.
+⸻
 
-## 🔗 Pages
-- Mental Health
-- Addiction
-- Cystic Fibrosis
-- Cirrhosis
-- Physical Abuse
-- Mental Abuse
-- Sexual Abuse
-- Pitbull Advocacy
-- Foster Children
-- Guestbook & Connection
+Pages Included
+	•	Mental Health
+	•	Addiction
+	•	Cystic Fibrosis
+	•	Cirrhosis
+	•	Physical Abuse
+	•	Mental Abuse
+	•	Sexual Abuse
+	•	Pitbull Advocacy
+	•	Foster Children
+	•	Guestbook & Connect
 
-## ✨ Features
-- 🎨 Colorful design (pinks, greens, purples, gradients)
-- 🌗 Dark/Light theme toggle (saved in localStorage)
-- 💬 Rotating inspirational quotes
-- 📱 Fully responsive design
-- 🎞️ Smooth animations and scroll effects
-
-## 📁 Structure
+⸻
 
 Speak-Louder-Love-Harder/
 ├── index.html
@@ -41,3 +40,12 @@ Speak-Louder-Love-Harder/
 ├── scripts.js
 └── README.md
 
+---
+
+License
+
+This project is open source and free to use for healing and awareness advocacy.
+
+---
+
+Speak louder. Love harder. Heal deeper. 💜💚💖
