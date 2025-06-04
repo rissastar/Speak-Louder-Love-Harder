@@ -1,85 +1,48 @@
 // ===== Theme & Color Management =====
-const themeToggleBtn = document.getElementById('theme-toggle');
-const rootElement = document.documentElement;
+const root = document.documentElement;
 const bodyElement = document.body;
+const themeToggleBtn = document.getElementById('theme-toggle');
+const scrollTopBtn = document.getElementById('scroll-to-top');
+const customCursor = document.getElementById('custom-cursor');
 
-// Available color themes
+// Color themes available
 const colorThemes = ['default', 'green', 'blue', 'red', 'pink'];
 
-// Load saved theme from localStorage or system preference
-function loadTheme() {
-  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  const savedColor = localStorage.getItem('colorTheme') || 'default';
-
-  if (savedTheme === 'dark') {
-    rootElement.setAttribute('data-theme', 'dark');
+// Set theme (light/dark) and update toggle icon
+function setTheme(theme) {
+  if (theme === 'dark') {
+    root.setAttribute('data-theme', 'dark');
+    themeToggleBtn.innerHTML = '☀️';
+    themeToggleBtn.setAttribute('aria-label', 'Switch to light mode');
   } else {
-    rootElement.removeAttribute('data-theme');
+    root.removeAttribute('data-theme');
+    themeToggleBtn.innerHTML = '🌙';
+    themeToggleBtn.setAttribute('aria-label', 'Switch to dark mode');
   }
-
-  setColorTheme(savedColor);
-  updateThemeToggleIcon(savedTheme);
-}
-
-// Save theme preference
-function saveTheme(theme) {
   localStorage.setItem('theme', theme);
 }
 
-// Save color theme preference
-function saveColorTheme(color) {
+// Set color theme class
+function setColorTheme(color) {
+  colorThemes.forEach(c => bodyElement.classList.remove(`theme-${c}`));
+  if (color !== 'default') bodyElement.classList.add(`theme-${color}`);
   localStorage.setItem('colorTheme', color);
 }
 
-// Toggle dark/light theme
-function toggleTheme() {
-  const isDark = rootElement.getAttribute('data-theme') === 'dark';
-
-  if (isDark) {
-    rootElement.removeAttribute('data-theme');
-    saveTheme('light');
-    updateThemeToggleIcon('light');
-  } else {
-    rootElement.setAttribute('data-theme', 'dark');
-    saveTheme('dark');
-    updateThemeToggleIcon('dark');
-  }
-}
-
-// Update toggle button icon (sun/moon)
-function updateThemeToggleIcon(theme) {
-  if (!themeToggleBtn) return;
-  if (theme === 'dark') {
-    themeToggleBtn.innerHTML = '☀️';  // Sun icon for light mode toggle
-  } else {
-    themeToggleBtn.innerHTML = '🌙';  // Moon icon for dark mode toggle
-  }
-}
-
-// Set color theme class on body
-function setColorTheme(color) {
-  colorThemes.forEach(c => {
-    if (c === 'default') {
-      bodyElement.classList.remove('theme-green', 'theme-blue', 'theme-red', 'theme-pink');
-    } else {
-      bodyElement.classList.remove(`theme-${c}`);
-    }
-  });
-
-  if (color !== 'default') {
-    bodyElement.classList.add(`theme-${color}`);
-  }
-  saveColorTheme(color);
+// Load saved theme settings
+function loadThemeSettings() {
+  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const savedColor = localStorage.getItem('colorTheme') || 'default';
+  setTheme(savedTheme);
+  setColorTheme(savedColor);
 }
 
 // ===== Scroll to Top Button =====
-const scrollBtn = document.getElementById('scrollToTopBtn');
-
 function handleScroll() {
   if (window.scrollY > 300) {
-    scrollBtn.classList.add('show');
+    scrollTopBtn.classList.add('show');
   } else {
-    scrollBtn.classList.remove('show');
+    scrollTopBtn.classList.remove('show');
   }
 }
 
@@ -88,8 +51,6 @@ function scrollToTop() {
 }
 
 // ===== Custom Cursor =====
-const customCursor = document.getElementById('custom-cursor');
-
 function moveCursor(e) {
   if (!customCursor) return;
   customCursor.style.left = `${e.clientX}px`;
@@ -114,7 +75,7 @@ function rotateQuotes() {
   quoteElement.textContent = quotes[quoteIndex];
 }
 
-// ===== Daily Affirmations =====
+// ===== Daily Affirmation =====
 const affirmations = [
   "You are stronger than you know.",
   "Today is a new beginning.",
@@ -122,26 +83,35 @@ const affirmations = [
   "You are worthy of love and kindness.",
   "Every step forward is progress."
 ];
-const affirmationBtn = document.querySelector('.daily-affirmation button');
-const affirmationDisplay = document.querySelector('.daily-affirmation');
 
 function showRandomAffirmation() {
+  const affirmationDisplay = document.querySelector('.daily-affirmation');
   if (!affirmationDisplay) return;
-  const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
-  affirmationDisplay.querySelector('p').textContent = randomAffirmation;
+  const random = affirmations[Math.floor(Math.random() * affirmations.length)];
+  const p = affirmationDisplay.querySelector('p');
+  if (p) {
+    p.textContent = random;
+  } else {
+    const newP = document.createElement('p');
+    newP.textContent = random;
+    affirmationDisplay.insertBefore(newP, affirmationDisplay.firstChild);
+  }
 }
 
 // ===== Initialization =====
-function init() {
-  loadTheme();
+document.addEventListener('DOMContentLoaded', () => {
+  loadThemeSettings();
 
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', toggleTheme);
+    themeToggleBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      setTheme(current);
+    });
   }
 
-  if (scrollBtn) {
+  if (scrollTopBtn) {
     window.addEventListener('scroll', handleScroll);
-    scrollBtn.addEventListener('click', scrollToTop);
+    scrollTopBtn.addEventListener('click', scrollToTop);
   }
 
   if (customCursor) {
@@ -152,10 +122,8 @@ function init() {
     setInterval(rotateQuotes, 6000);
   }
 
+  const affirmationBtn = document.querySelector('.daily-affirmation button');
   if (affirmationBtn) {
     affirmationBtn.addEventListener('click', showRandomAffirmation);
   }
-}
-
-// Run the initialization on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', init);
+});
