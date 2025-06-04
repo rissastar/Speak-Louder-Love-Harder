@@ -24,8 +24,8 @@ body {
   --accent-light: #e0caff;
   --nav-bg: rgba(255, 255, 255, 0.8);
   --glow: #c45fff;
+  --highlight: #ffea00;
 }
-
 [data-theme="dark"] {
   --bg: #121212;
   --text: #f5f5f5;
@@ -202,6 +202,7 @@ body {
   transform: translateY(0);
 }
 
+/* === Page Loader === */
 #page-loader {
   position: fixed;
   top: 0; left: 0;
@@ -245,7 +246,7 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* 🌌 Parallax Layers */
+/* === Parallax Layers === */
 .parallax-bg {
   position: fixed;
   width: 100%;
@@ -270,7 +271,6 @@ body {
   background-image: radial-gradient(circle, var(--highlight) 2px, transparent 2px);
   animation: moveBg2 140s linear infinite reverse;
 }
-
 @keyframes moveBg1 {
   0% { transform: translate(0, 0); }
   100% { transform: translate(-20%, -20%); }
@@ -280,7 +280,7 @@ body {
   100% { transform: translate(20%, 20%); }
 }
 
-/* 🌈 Floating Shapes */
+/* === Floating Shapes === */
 .floating-shape {
   position: absolute;
   border-radius: 50%;
@@ -295,13 +295,12 @@ body {
 .shape5 { width: 50px; height: 50px; bottom: 5%; left: 80%; animation-delay: 3s; }
 .shape6 { width: 90px; height: 90px; top: 25%; left: 60%; background: var(--highlight); animation-delay: 7s; }
 .shape7 { width: 70px; height: 70px; bottom: 15%; right: 60%; background: var(--highlight); animation-delay: 5s; }
-
 @keyframes floatShape {
   0% { transform: translateY(0) rotate(0); }
   100% { transform: translateY(-40px) rotate(360deg); }
 }
 
-/* Fade-In */
+/* === Fade-In === */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -314,15 +313,7 @@ body {
   }
 }
 
-.svg-blob {
-  position: absolute;
-  top: 20%;
-  left: 30%;
-  width: 300px;
-  z-index: -1;
-}
-
-/* ✨ Shine on buttons */
+/* === Shine on Buttons === */
 .magic-link, .affirm-btn {
   position: relative;
   overflow: hidden;
@@ -343,101 +334,34 @@ body {
 
 /* === Responsive Tweaks === */
 @media (max-width: 768px) {
-  #animated-title {
-    font-size: 2rem;
+  #animated-title { font-size: 2rem; }
+  .site-header { padding: 1.5rem 0.8rem; }
+  .theme-controls { flex-direction: column; gap: 0.5rem; }
+  .theme-controls button, .theme-controls select {
+    padding: 0.5rem 0.8rem; font-size: 0.9rem;
   }
-
-  .theme-controls {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem 0;
-  }
-
-  .hero {
-    font-size: 1.5rem;
-    padding: 2rem 1rem;
-  }
-
-  .quote-rotator {
-    font-size: 1.3rem;
-    padding: 0 1rem;
-  }
-
-  .daily-affirmation {
-    padding: 1.5rem 1rem;
-  }
-
+  .nav-list { flex-direction: column; gap: 0.5rem; padding: 0.5rem 0; }
+  .nav-list a { padding: 0.5rem; font-size: 1rem; }
+  .hero { font-size: 1.5rem; padding: 2rem 1rem; }
+  .quote-rotator { font-size: 1.3rem; padding: 0 1rem; }
+  .daily-affirmation { padding: 1.5rem 1rem; }
   .affirm-btn {
-    width: 100%;
-    padding: 0.9rem;
-    font-size: 1rem;
+    width: 100%; padding: 0.9rem; font-size: 1rem;
   }
-
   #scrollToTopBtn {
-    right: 1rem;
-    bottom: 1rem;
-    padding: 0.6rem;
-    font-size: 1rem;
+    right: 1rem; bottom: 1rem; padding: 0.6rem; font-size: 1rem;
   }
-
-  .site-header {
-    padding: 1.5rem 0.8rem;
-  }
-
-  .theme-controls button,
-  .theme-controls select {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
   .site-footer {
-    padding: 1.5rem 1rem;
-    font-size: 0.9rem;
+    padding: 1.5rem 1rem; font-size: 0.9rem;
   }
-
-  .spinner {
-    width: 30px;
-    height: 30px;
-    border-width: 3px;
-  }
-
-  .loader-logo {
-    width: 60px;
-  }
-
-  .floating-shape {
-    display: none; /* Optionally hide to improve mobile performance */
-  }
-
-  .svg-blob {
-    display: none;
-  }
+  .spinner { width: 30px; height: 30px; border-width: 3px; }
+  .loader-logo { width: 60px; }
+  .floating-shape, .svg-blob { display: none; }
 }
 
 @media (max-width: 480px) {
-  #animated-title {
-    font-size: 1.6rem;
-  }
-
-  .hero {
-    font-size: 1.2rem;
-  }
-
-  .quote-rotator {
-    font-size: 1.1rem;
-  }
-
-  .affirm-btn {
-    font-size: 0.95rem;
-  }
-
-  .nav-list a {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
+  #animated-title { font-size: 1.6rem; }
+  .hero { font-size: 1.2rem; }
+  .quote-rotator { font-size: 1.1rem; }
+  .affirm-btn { font-size: 0.95rem; }
 }
