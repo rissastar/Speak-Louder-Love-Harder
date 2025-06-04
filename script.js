@@ -1,200 +1,249 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // ===== Elements =====
-  const root = document.documentElement;
-  const body = document.body;
-  const themeToggle = document.getElementById('theme-toggle');
-  const colorSelector = document.getElementById('color-theme-selector');
-  const scrollTopBtn = document.getElementById('scroll-to-top');
-  const customCursor = document.getElementById('custom-cursor');
-  const quoteBox = document.getElementById('quote-box');
-  const affirmationBtn = document.getElementById('new-affirmation');
-  const affirmationBox = document.getElementById('affirmation-box');
-  const inlineColorButtons = document.querySelectorAll('.color-theme');
-  const typedText = document.getElementById('typed-text');
+// ========== Custom Cursor ==========
+const cursor = document.getElementById('custom-cursor');
+window.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
 
-  const colorThemes = ['default', 'green', 'blue', 'red', 'pink'];
+// ========== Scroll to Top Button ==========
+const scrollBtn = document.getElementById('scrollToTopBtn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 250) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
-  // ===== Theme Functions =====
-  function setTheme(theme) {
-    if (theme === 'dark') {
-      root.setAttribute('data-theme', 'dark');
-      themeToggle.innerHTML = '☀️';
-      themeToggle.setAttribute('aria-label', 'Switch to light mode');
+// ========== Animated Typing Effect for Header ==========
+const typingText = 'Speak Louder, Love Harder 🌟';
+const titleEl = document.getElementById('animated-title');
+let typingIndex = 0;
+let isDeleting = false;
+let typingSpeed = 120;
+
+function typeWriter() {
+  if (!titleEl) return;
+  if (!isDeleting) {
+    titleEl.textContent = typingText.slice(0, typingIndex + 1);
+    typingIndex++;
+    if (typingIndex === typingText.length) {
+      isDeleting = true;
+      typingSpeed = 1500; // pause at end
     } else {
-      root.removeAttribute('data-theme');
-      themeToggle.innerHTML = '🌙';
-      themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      typingSpeed = 120;
     }
-    localStorage.setItem('theme', theme);
-  }
-
-  function setColorTheme(color) {
-    colorThemes.forEach(c => body.classList.remove(`theme-${c}`));
-    if (color !== 'default') {
-      body.classList.add(`theme-${color}`);
-    }
-    localStorage.setItem('color-theme', color);
-    if (colorSelector) colorSelector.value = color;
-  }
-
-  function loadThemeSettings() {
-    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const savedColor = localStorage.getItem('color-theme') || 'default';
-    setTheme(savedTheme);
-    setColorTheme(savedColor);
-  }
-
-  // ===== Scroll to Top =====
-  function handleScroll() {
-    if (window.scrollY > 300) scrollTopBtn?.classList.add('show');
-    else scrollTopBtn?.classList.remove('show');
-  }
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // ===== Custom Cursor =====
-  function moveCursor(e) {
-    if (!customCursor) return;
-    customCursor.style.left = `${e.clientX}px`;
-    customCursor.style.top = `${e.clientY}px`;
-  }
-
-  // ===== Quote Rotator =====
-  const quotes = [
-    "“Healing takes time, and asking for help is a courageous step.” — Mariska Hargitay",
-    "“There is no greater agony than bearing an untold story inside you.” — Maya Angelou",
-    "“Vulnerability is not winning or losing; it’s having the courage to show up.” — Brené Brown",
-    "“Every child you encounter is a divine appointment.” — Wess Stafford",
-    "“Pit bulls are just dogs. Treat them as individuals.” — BadRap.org",
-    "“Stars can’t shine without darkness.” — D.H. Sidebottom"
-  ];
-  let quoteIndex = 0;
-  function rotateQuotes() {
-    if (!quoteBox) return;
-    quoteBox.textContent = quotes[quoteIndex];
-    quoteIndex = (quoteIndex + 1) % quotes.length;
-  }
-
-  // ===== Affirmation Generator =====
-  const affirmations = [
-    "You are enough exactly as you are.",
-    "Every day is a fresh start.",
-    "You have the power to change your story.",
-    "You are not alone in your struggles.",
-    "Kindness begins with you.",
-    "You are doing your best, and that’s enough.",
-    "You are stronger than you know.",
-    "Today is a new beginning.",
-    "Your feelings are valid.",
-    "You are worthy of love and kindness.",
-    "Every step forward is progress."
-  ];
-  function showRandomAffirmation() {
-    const random = affirmations[Math.floor(Math.random() * affirmations.length)];
-    if (affirmationBox) affirmationBox.textContent = random;
-  }
-
-  // ===== Typing Effect =====
-  const phrases = [
-    "Speak Louder, Love Harder 🌟",
-    "Your Voice Matters 💬",
-    "Advocate. Heal. Empower. 💖",
-    "Together, We Rise 🌈"
-  ];
-  let currentPhrase = 0;
-  let currentChar = 0;
-  let isDeleting = false;
-
-  function typeEffect() {
-    if (!typedText) return;
-    const current = phrases[currentPhrase];
-    if (isDeleting) {
-      currentChar--;
-      if (currentChar === 0) {
-        isDeleting = false;
-        currentPhrase = (currentPhrase + 1) % phrases.length;
-      }
+  } else {
+    titleEl.textContent = typingText.slice(0, typingIndex - 1);
+    typingIndex--;
+    if (typingIndex === 0) {
+      isDeleting = false;
+      typingSpeed = 500; // pause at start
     } else {
-      currentChar++;
-      if (currentChar === current.length) {
-        isDeleting = true;
-        setTimeout(typeEffect, 1500);
-        return;
-      }
-    }
-
-    typedText.textContent = current.slice(0, currentChar);
-    const speed = isDeleting ? 50 : 100;
-    setTimeout(typeEffect, speed);
-  }
-
-  // ===== Particle Background =====
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas?.getContext('2d');
-  let particlesArray = [];
-
-  function initParticles() {
-    if (!canvas || !ctx) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    particlesArray = [];
-    for (let i = 0; i < 100; i++) {
-      particlesArray.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 3 + 1,
-        speedX: Math.random() * 1 - 0.5,
-        speedY: Math.random() * 1 - 0.5,
-      });
+      typingSpeed = 60;
     }
   }
+  setTimeout(typeWriter, typingSpeed);
+}
+typeWriter();
 
-  function handleParticles() {
-    if (!canvas || !ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => {
-      p.x += p.speedX;
-      p.y += p.speedY;
-      if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+// ========== Quote Rotator ==========
+const quotes = [
+  "Healing begins when we choose to speak up.",
+  "Your voice is your power—use it wisely.",
+  "Love harder, live louder.",
+  "From pain comes strength.",
+  "Hope shines brightest in the darkest moments.",
+  "Every story matters; every life counts.",
+  "Compassion is the cure.",
+];
+const quoteEl = document.getElementById('quote-rotator');
+let currentQuoteIndex = 0;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-      ctx.fill();
-    });
-    requestAnimationFrame(handleParticles);
+function rotateQuotes() {
+  if (!quoteEl) return;
+  quoteEl.classList.remove('fade-in');
+  quoteEl.classList.add('fade-out');
+  setTimeout(() => {
+    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    quoteEl.textContent = quotes[currentQuoteIndex];
+    quoteEl.classList.remove('fade-out');
+    quoteEl.classList.add('fade-in');
+  }, 1000);
+}
+setInterval(rotateQuotes, 8000); // Change every 8 seconds
+quoteEl.classList.add('fade-in');
+
+// ========== Affirmation Generator ==========
+const affirmations = [
+  "I am worthy of love and kindness.",
+  "My past does not define me.",
+  "Every day, I grow stronger and more resilient.",
+  "I choose to heal and thrive.",
+  "My voice matters and will be heard.",
+  "I am deserving of happiness and peace.",
+  "I embrace hope and new beginnings.",
+];
+const affirmationBox = document.getElementById('affirmation-box');
+const newAffirmationBtn = document.getElementById('new-affirmation');
+
+function showNewAffirmation() {
+  let newAffirm;
+  do {
+    newAffirm = affirmations[Math.floor(Math.random() * affirmations.length)];
+  } while (newAffirm === affirmationBox.textContent);
+  affirmationBox.textContent = newAffirm;
+  burstConfetti();
+}
+if (newAffirmationBtn) {
+  newAffirmationBtn.addEventListener('click', showNewAffirmation);
+}
+
+// ========== Navigation Pill Highlight ==========
+const navList = document.querySelector('.nav-list');
+const navLinks = document.querySelectorAll('.nav-list a');
+const navPill = document.createElement('div');
+navPill.className = 'nav-pill-highlight';
+navList.appendChild(navPill);
+
+function updatePill(link) {
+  const rect = link.getBoundingClientRect();
+  const navRect = navList.getBoundingClientRect();
+  navPill.style.width = rect.width + 'px';
+  navPill.style.left = (rect.left - navRect.left) + 'px';
+  navPill.style.opacity = '1';
+}
+function hidePill() {
+  navPill.style.opacity = '0';
+}
+
+navLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => updatePill(link));
+  link.addEventListener('focus', () => updatePill(link));
+  link.addEventListener('mouseleave', hidePill);
+  link.addEventListener('blur', hidePill);
+});
+
+// ========== Scroll-triggered Animations ==========
+const scrollAnimElems = document.querySelectorAll('[data-scroll-animate]');
+function onScrollAnimate() {
+  const triggerBottom = window.innerHeight * 0.9;
+  scrollAnimElems.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < triggerBottom) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', onScrollAnimate);
+window.addEventListener('load', onScrollAnimate);
+
+// ========== Confetti Burst on Affirmation Change ==========
+const confettiCanvas = document.getElementById('confetti-canvas');
+const ctx = confettiCanvas.getContext('2d');
+let confettiPieces = [];
+let confettiAnimationFrame;
+
+function randomRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+class ConfettiPiece {
+  constructor() {
+    this.x = randomRange(0, window.innerWidth);
+    this.y = randomRange(-20, -100);
+    this.size = randomRange(6, 12);
+    this.speedY = randomRange(2, 5);
+    this.speedX = randomRange(-2, 2);
+    this.color = `hsl(${randomRange(0, 360)}, 70%, 60%)`;
+    this.tilt = randomRange(-10, 10);
+    this.tiltSpeed = randomRange(0.05, 0.1);
+    this.tiltAngle = 0;
   }
+  update() {
+    this.y += this.speedY;
+    this.x += this.speedX;
+    this.tiltAngle += this.tiltSpeed;
+    this.tilt = Math.sin(this.tiltAngle) * 15;
+    if (this.y > window.innerHeight) {
+      this.y = randomRange(-20, -100);
+      this.x = randomRange(0, window.innerWidth);
+    }
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.lineWidth = this.size / 2;
+    ctx.strokeStyle = this.color;
+    ctx.moveTo(this.x + this.tilt, this.y);
+    ctx.lineTo(this.x, this.y + this.tilt + this.size / 2);
+    ctx.stroke();
+  }
+}
 
-  // ===== Initialize =====
-  loadThemeSettings();
-  rotateQuotes();
-  typeEffect();
-  initParticles();
-  handleParticles();
+function burstConfetti() {
+  confettiPieces = [];
+  const count = 100;
+  for (let i = 0; i < count; i++) {
+    confettiPieces.push(new ConfettiPiece());
+  }
+  if (!confettiAnimationFrame) {
+    animateConfetti();
+  }
+}
 
-  // Event Listeners
-  themeToggle?.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    setTheme(current);
+function animateConfetti() {
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiPieces.forEach(p => {
+    p.update();
+    p.draw();
   });
+  confettiAnimationFrame = requestAnimationFrame(animateConfetti);
+  // Stop animation after 3 seconds
+  setTimeout(() => {
+    cancelAnimationFrame(confettiAnimationFrame);
+    confettiAnimationFrame = null;
+    ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  }, 3000);
+}
 
-  colorSelector?.addEventListener('change', (e) => {
-    setColorTheme(e.target.value);
-  });
+function resizeCanvas() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-  inlineColorButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const color = btn.dataset.color;
-      setColorTheme(color);
-    });
-  });
+// ========== Dark/Light Mode & Color Theme Toggle ==========
+const themeToggleBtn = document.getElementById('theme-toggle');
+const colorThemeSelector = document.getElementById('color-theme-selector');
 
-  window.addEventListener('scroll', handleScroll);
-  scrollTopBtn?.addEventListener('click', scrollToTop);
-  window.addEventListener('mousemove', moveCursor);
-  setInterval(rotateQuotes, 6000);
-  affirmationBtn?.addEventListener('click', showRandomAffirmation);
-  window.addEventListener('resize', initParticles);
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+function setColorTheme(color) {
+  document.body.setAttribute('data-color-theme', color);
+  localStorage.setItem('colorTheme', color);
+}
+
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
+});
+colorThemeSelector.addEventListener('change', e => {
+  setColorTheme(e.target.value);
+});
+
+// Load saved preferences or defaults
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme);
+  const savedColor = localStorage.getItem('colorTheme') || 'default';
+  setColorTheme(savedColor);
 });
