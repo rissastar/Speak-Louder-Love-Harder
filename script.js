@@ -244,3 +244,23 @@ function typeWriter() {
 }
 
 window.addEventListener('load', typeWriter);
+
+// Sound effects
+const clickSound = document.getElementById('click-sound');
+const sparkleSound = document.getElementById('sparkle-sound');
+
+function playSound(audio) {
+  if (!audio) return;
+  audio.currentTime = 0;
+  audio.play();
+}
+
+// Attach to buttons and links
+document.querySelectorAll('button, .magic-link').forEach(el => {
+  el.addEventListener('click', () => playSound(clickSound));
+});
+
+// Use sparkle sound for special buttons
+document.getElementById('new-affirmation')?.addEventListener('click', () => {
+  playSound(sparkleSound);
+});
