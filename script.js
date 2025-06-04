@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const affirmationBtn = document.getElementById('new-affirmation');
   const affirmationBox = document.getElementById('affirmation-box');
   const inlineColorButtons = document.querySelectorAll('.color-theme');
+  const typedText = document.getElementById('typed-text');
 
   const colorThemes = ['default', 'green', 'blue', 'red', 'pink'];
 
@@ -33,11 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body.classList.add(`theme-${color}`);
     }
     localStorage.setItem('color-theme', color);
-
-    // If using dropdown selector, sync it
-    if (colorSelector) {
-      colorSelector.value = color;
-    }
+    if (colorSelector) colorSelector.value = color;
   }
 
   function loadThemeSettings() {
@@ -49,13 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== Scroll to Top =====
   function handleScroll() {
-    if (window.scrollY > 300) {
-      scrollTopBtn?.classList.add('show');
-    } else {
-      scrollTopBtn?.classList.remove('show');
-    }
+    if (window.scrollY > 300) scrollTopBtn?.classList.add('show');
+    else scrollTopBtn?.classList.remove('show');
   }
-
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -99,27 +92,98 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   function showRandomAffirmation() {
     const random = affirmations[Math.floor(Math.random() * affirmations.length)];
-    if (affirmationBox) {
-      affirmationBox.textContent = random;
+    if (affirmationBox) affirmationBox.textContent = random;
+  }
+
+  // ===== Typing Effect =====
+  const phrases = [
+    "Speak Louder, Love Harder 🌟",
+    "Your Voice Matters 💬",
+    "Advocate. Heal. Empower. 💖",
+    "Together, We Rise 🌈"
+  ];
+  let currentPhrase = 0;
+  let currentChar = 0;
+  let isDeleting = false;
+
+  function typeEffect() {
+    if (!typedText) return;
+    const current = phrases[currentPhrase];
+    if (isDeleting) {
+      currentChar--;
+      if (currentChar === 0) {
+        isDeleting = false;
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+      }
+    } else {
+      currentChar++;
+      if (currentChar === current.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1500);
+        return;
+      }
     }
+
+    typedText.textContent = current.slice(0, currentChar);
+    const speed = isDeleting ? 50 : 100;
+    setTimeout(typeEffect, speed);
+  }
+
+  // ===== Particle Background =====
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas?.getContext('2d');
+  let particlesArray = [];
+
+  function initParticles() {
+    if (!canvas || !ctx) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particlesArray = [];
+    for (let i = 0; i < 100; i++) {
+      particlesArray.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedX: Math.random() * 1 - 0.5,
+        speedY: Math.random() * 1 - 0.5,
+      });
+    }
+  }
+
+  function handleParticles() {
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+      ctx.fill();
+    });
+    requestAnimationFrame(handleParticles);
   }
 
   // ===== Initialize =====
   loadThemeSettings();
-  rotateQuotes(); // Show first quote immediately
+  rotateQuotes();
+  typeEffect();
+  initParticles();
+  handleParticles();
 
-  // Toggle dark/light theme
+  // Event Listeners
   themeToggle?.addEventListener('click', () => {
     const current = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     setTheme(current);
   });
 
-  // Dropdown color selector
   colorSelector?.addEventListener('change', (e) => {
     setColorTheme(e.target.value);
   });
 
-  // Inline color buttons (e.g., for palette)
   inlineColorButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const color = btn.dataset.color;
@@ -127,16 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Scroll to top button
   window.addEventListener('scroll', handleScroll);
   scrollTopBtn?.addEventListener('click', scrollToTop);
-
-  // Custom cursor movement
   window.addEventListener('mousemove', moveCursor);
-
-  // Quote rotator
   setInterval(rotateQuotes, 6000);
-
-  // Affirmation button
   affirmationBtn?.addEventListener('click', showRandomAffirmation);
+  window.addEventListener('resize', initParticles);
 });
