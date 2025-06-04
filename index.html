@@ -1,52 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Speak Louder, Love Harder 🌟</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speak Louder, Love Harder 🌟</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<header class="site-header">
-  <nav class="navbar">
-    <div class="logo glow-text">Speak Louder, Love Harder 🌟</div>
-    <div class="nav-links">
-      <a href="mental-health.html" class="magic-link">Mental Health</a>
-      <a href="addiction.html" class="magic-link">Addiction</a>
-      <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
-      <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
-      <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
-      <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
-      <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
-      <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
-      <a href="foster-children.html" class="magic-link">Foster Children</a>
-      <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
-    </div>
-    <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">🌙</button>
-  </nav>
-</header>
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
 
-<main>
-  <section class="hero">
-    <h1 class="glow-text">Speak Louder, Love Harder</h1>
-    <p class="subtitle">Advocacy, Healing & Awareness for Mental Health, Abuse, and More</p>
-  </section>
+  <header class="site-header" role="banner">
+    <nav class="navbar" role="navigation" aria-label="Primary navigation">
+      <div class="logo glow-text" aria-label="Speak Louder, Love Harder logo" tabindex="0">
+        <!-- Animated SVG Neon-style logo -->
+        <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="3" />
+          <path d="M20 32L32 44L44 20" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+        </svg>
+        Speak Louder, Love Harder 🌟
+      </div>
 
-  <section class="quotes-section">
-    <h2>Inspirational Quotes</h2>
-    <blockquote id="quote" class="glow-text">Loading quotes...</blockquote>
-  </section>
+      <button id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
 
-  <section class="guestbook-section">
-    <h2>Guestbook & Connect</h2>
-    <p>Leave your thoughts and connect with us on the <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect Page</a>.</p>
-  </section>
-</main>
+      <div class="nav-links" id="primary-menu">
+        <a href="mental-health.html" class="magic-link">Mental Health</a>
+        <a href="addiction.html" class="magic-link">Addiction</a>
+        <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
+        <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
+        <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
+        <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
+        <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
+        <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
+        <a href="foster-children.html" class="magic-link">Foster Children</a>
+        <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
+      </div>
 
-<footer>
-  <p>© 2025 Speak Louder, Love Harder 🌟</p>
-</footer>
+      <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">🌙</button>
+    </nav>
+  </header>
 
-<script src="scripts.js"></script>
+  <main>
+    <section class="hero" id="hero">
+      <h1 class="glow-text flicker">Speak Louder, Love Harder</h1>
+      <p class="subtitle">Advocacy, Healing & Awareness for Mental Health, Abuse, and More</p>
+    </section>
+
+    <section class="quotes-section fade-slide" id="quotes">
+      <h2>Inspirational Quotes</h2>
+      <blockquote id="quote" class="glass-card glow-text">Loading quotes...</blockquote>
+    </section>
+
+    <section class="guestbook-section fade-slide" id="guestbook">
+      <h2>Guestbook & Connect</h2>
+      <p>Leave your thoughts and connect with us on the <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect Page</a>.</p>
+      <form id="guestbook-form" aria-label="Guestbook submission form">
+        <input type="text" id="name" name="name" placeholder="Your name" aria-label="Your name" required />
+        <textarea id="message" name="message" placeholder="Your message" aria-label="Your message" required></textarea>
+        <button type="submit" class="btn-glow">Submit</button>
+      </form>
+      <ul id="guestbook-entries" aria-live="polite" aria-relevant="additions"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Speak Louder, Love Harder 🌟</p>
+  </footer>
+
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
