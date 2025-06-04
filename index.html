@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Speak Louder, Love Harder 🌟 — Advocacy for healing, hope, and justice." />
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
@@ -10,7 +10,7 @@
 <body>
 
   <!-- Custom Cursor -->
-  <div id="custom-cursor"></div>
+  <div id="custom-cursor" aria-hidden="true"></div>
 
   <!-- Scroll to Top Button -->
   <button id="scrollToTopBtn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
@@ -22,6 +22,7 @@
     <!-- Theme & Color Controls -->
     <div class="theme-controls">
       <button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">🌙</button>
+      <label for="color-theme-selector" class="visually-hidden">Select color theme</label>
       <select id="color-theme-selector" aria-label="Select color theme">
         <option value="default">🎨 Default</option>
         <option value="pink">💗 Pink</option>
@@ -33,7 +34,7 @@
   </header>
 
   <!-- Navigation -->
-  <nav class="main-nav-section" aria-label="Site Navigation">
+  <nav class="main-nav-section" aria-label="Main Navigation">
     <ul class="nav-list">
       <li><a href="mental-health.html" class="magic-link">Mental Health</a></li>
       <li><a href="addiction.html" class="magic-link">Addiction</a></li>
@@ -49,18 +50,19 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero" data-scroll-animate>
-    <h2 id="hero-typewriter" class="typewriter">|</h2>
+  <section class="hero" aria-label="Hero" data-scroll-animate>
+    <h2 id="hero-typewriter" class="typewriter" aria-live="polite">|</h2>
   </section>
 
   <!-- Quote Rotator -->
-  <section class="quote-section" aria-live="polite" aria-atomic="true" data-scroll-animate>
-  <blockquote id="quote-rotator" class="quote-rotator glow fade-in"></blockquote>
-</section>
+  <section class="quote-section" aria-labelledby="quote-rotator-label" data-scroll-animate>
+    <h2 id="quote-rotator-label" class="visually-hidden">Quote of the Moment</h2>
+    <blockquote id="quote-rotator" class="quote-rotator glow fade-in"></blockquote>
+  </section>
 
   <!-- Daily Affirmation -->
-  <section class="daily-affirmation" aria-live="polite" aria-atomic="true" data-scroll-animate>
-    <h2>Your Daily Affirmation</h2>
+  <section class="daily-affirmation" aria-labelledby="daily-affirmation-heading" data-scroll-animate>
+    <h2 id="daily-affirmation-heading">Your Daily Affirmation</h2>
     <p id="affirmation-box">I am worthy of love and kindness.</p>
     <button id="new-affirmation" aria-label="Show new affirmation" class="affirm-btn">💫 New Affirmation</button>
   </section>
@@ -71,10 +73,10 @@
   </footer>
 
   <!-- Confetti Canvas -->
-  <canvas id="confetti-canvas"></canvas>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
 
   <!-- Parallax Floating Background -->
-  <div class="floating-shapes">
+  <div class="floating-shapes" aria-hidden="true">
     <span class="shape"></span>
     <span class="shape"></span>
     <span class="shape"></span>
@@ -82,11 +84,12 @@
     <span class="shape"></span>
   </div>
 
-<!-- Click Sounds -->
-<audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
-<audio id="sparkle-sound" src="sounds/sparkle.mp3" preload="auto"></audio>
+  <!-- Click Sounds -->
+  <audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
+  <audio id="sparkle-sound" src="sounds/sparkle.mp3" preload="auto"></audio>
 
-  <!-- Script -->
+  <!-- JavaScript -->
   <script src="script.js" defer></script>
+
 </body>
 </html>
