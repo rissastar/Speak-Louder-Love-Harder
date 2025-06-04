@@ -13,10 +13,10 @@ body {
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  transition: background-color 0.5s ease, color 0.5s ease;
   scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
   min-height: 100vh;
-  padding-top: 70px; /* for fixed header */
+  padding-top: 70px;
 }
 
 a {
@@ -34,55 +34,41 @@ a:focus {
   outline: none;
 }
 
-/* Fade animation for magic-link */
-.magic-link {
-  opacity: 0;
-  animation: fadeIn 1.2s forwards;
-  animation-delay: 0.5s;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.magic-link:hover {
-  transform: scale(1.1);
-  text-shadow: 0 0 8px var(--accent);
-}
-
 /* ======================
    COLOR VARIABLES
 ====================== */
 :root {
-  /* Light Mode Colors */
   --bg: #fdf6ff;
   --text: #2c2c2c;
-  --header-bg: #7b2ff7; /* bright purple */
-  --link: #b42bf7;
-  --accent: #f72585; /* pink */
+  --header-bg: #8a2be2;
+  --link: #6a0dad;
+  --accent: #f72585;
   --nav-bg: #efdbff;
   --footer-bg: #d9b3ff;
   --btn-bg: #7b2ff7;
   --btn-text: #fff;
-  --btn-hover-bg: #f72585;
+  --btn-hover-bg: #00ffae;
   --progress-bg: #e0d0ff;
-  --progress-bar: #b42bf7;
+  --progress-bar: #f72585;
 }
 
 body.dark {
   --bg: #121212;
   --text: #eee;
-  --header-bg: #bb86fc;
+  --header-bg: #6a0dad;
   --link: #bb86fc;
   --accent: #ff3cac;
   --nav-bg: #1f1f1f;
   --footer-bg: #2c2c2c;
   --btn-bg: #bb86fc;
   --btn-text: #121212;
-  --btn-hover-bg: #ff3cac;
+  --btn-hover-bg: #00ffae;
   --progress-bg: #333333;
-  --progress-bar: #ff3cac;
+  --progress-bar: #00ffae;
 }
 
 /* ======================
-   HEADER - Animated Glow + Slide In
+   HEADER
 ====================== */
 header {
   position: fixed;
@@ -91,16 +77,23 @@ header {
   width: 100%;
   background: var(--header-bg);
   color: white;
-  font-weight: 900;
   font-size: 1.8rem;
+  font-weight: 900;
   text-align: center;
   padding: 18px 0;
-  letter-spacing: 3px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  letter-spacing: 2px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
   z-index: 999;
   user-select: none;
-  animation: headerSlideIn 1s ease forwards, headerGlowPulse 3s ease-in-out infinite;
   transform: translateY(-100%);
+  animation: headerSlideIn 1s ease forwards, headerGlowPulse 3s ease-in-out infinite;
+}
+
+header.header-scrolled {
+  padding: 10px 0;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+  transition: padding 0.3s ease, font-size 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes headerSlideIn {
@@ -111,93 +104,64 @@ header {
 
 @keyframes headerGlowPulse {
   0%, 100% {
-    text-shadow:
-      0 0 5px #f72585,
-      0 0 10px #b42bf7,
-      0 0 20px #7b2ff7;
+    text-shadow: 0 0 5px #f72585, 0 0 10px #00ffae, 0 0 20px #7b2ff7;
   }
   50% {
-    text-shadow:
-      0 0 12px #f72585,
-      0 0 25px #b42bf7,
-      0 0 40px #7b2ff7;
+    text-shadow: 0 0 12px #f72585, 0 0 25px #00ffae, 0 0 40px #7b2ff7;
   }
 }
 
 /* ======================
-   NAVIGATION - Semi-transparent, underline hover animation
+   NAVIGATION
 ====================== */
 nav {
   position: sticky;
   top: 70px;
   z-index: 998;
-  background: rgba(35, 20, 60, 0.85); /* semi-transparent dark purple */
+  background: rgba(35, 20, 60, 0.85);
+  backdrop-filter: blur(6px);
+  padding: 14px 12px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  user-select: none;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 14px 12px;
-  gap: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-  user-select: none;
-  backdrop-filter: blur(6px);
-  border-radius: 0 0 15px 15px;
+  gap: 12px;
 }
 
-/* Nav links style */
-nav a {
-  position: relative;
-  color: #f7cdfa;
-  padding: 8px 16px;
+nav li a {
+  display: inline-block;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-size: 0.95rem;
   font-weight: 700;
-  font-size: 1rem;
-  border-radius: 20px;
-  transition: color 0.4s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(123, 47, 247, 0.4);
 }
 
-/* Underline hover effect */
-nav a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 4px;
-  width: 0;
-  height: 3px;
-  background: #f72585;
-  border-radius: 3px;
-  transition: width 0.3s ease;
+nav li a:hover {
+  background-color: var(--btn-hover-bg);
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(247, 37, 133, 0.6);
 }
-
-nav a:hover,
-nav a:focus {
-  color: #ff8de7;
-}
-
-nav a:hover::after,
-nav a:focus::after {
-  width: 100%;
-}
-
-/* Responsive nav tweaks */
-@media (max-width: 600px) {
-  nav {
-    gap: 10px;
-    padding: 12px 8px;
-  }
-  
-  nav a {
-    padding: 7px 12px;
-    font-size: 0.9rem;
-  }
 
 /* ======================
-   MAIN CONTENT
+   MAIN
 ====================== */
 main {
   max-width: 900px;
   margin: 30px auto 80px;
   padding: 0 20px;
-  animation: fadeIn 1.5s ease forwards;
-  opacity: 0; /* For fade-in on scroll */
+  opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
@@ -212,13 +176,15 @@ main h1 {
   font-weight: 800;
   color: var(--accent);
   margin-bottom: 16px;
-  user-select: none;
+  text-align: center;
+  text-shadow: 0 0 6px var(--accent);
 }
 
 main p {
   font-size: 1.2rem;
-  margin-bottom: 16px;
   line-height: 1.7;
+  margin-bottom: 18px;
+  text-align: justify;
 }
 
 /* ======================
@@ -228,21 +194,21 @@ main p {
   position: fixed;
   top: 0;
   left: 0;
-  height: 6px;
   width: 100%;
+  height: 6px;
   background: var(--progress-bg);
   z-index: 1001;
 }
 
 #progress-bar {
-  height: 100%;
   width: 0;
+  height: 100%;
   background: var(--progress-bar);
   transition: width 0.2s ease;
 }
 
 /* ======================
-   BACK TO TOP BUTTON
+   BACK TO TOP
 ====================== */
 #backToTop {
   position: fixed;
@@ -254,19 +220,20 @@ main p {
   border-radius: 50%;
   padding: 14px 16px;
   font-size: 22px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(123, 47, 247, 0.5);
-  opacity: 0.9;
   display: none;
-  transition: background-color 0.4s ease;
-  user-select: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.4s ease;
+  box-shadow: 0 4px 10px rgba(123, 47, 247, 0.5);
   z-index: 1002;
 }
 
-#backToTop:hover,
-#backToTop:focus {
-  background-color: var(--btn-hover-bg);
-  outline: none;
+#backToTop.show {
+  display: flex;
+  opacity: 1;
+}
+
+#backToTop:hover {
+  background: var(--btn-hover-bg);
 }
 
 /* ======================
@@ -293,16 +260,16 @@ footer {
 }
 
 /* ======================
-   MEDIA QUERIES
+   RESPONSIVE
 ====================== */
 @media (max-width: 600px) {
-  nav {
+  nav ul {
     gap: 8px;
   }
 
-  nav a {
+  nav li a {
     font-size: 0.85rem;
-    padding: 6px 12px;
+    padding: 8px 14px;
   }
 
   header {
