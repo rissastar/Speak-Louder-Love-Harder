@@ -1,42 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder 🌟</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header>
-    <h1 id="animated-header"></h1><span id="cursor">|</span>
-    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌓</button>
-  </header>
+// Typing animation setup
+const header = document.getElementById('animated-header');
+const headerContainer = document.querySelector('header');
+const text = "Speak Louder, Love Harder 🌟";
+let index = 0;
+const typingSpeed = 150;
+const fadeDuration = 1000; // ms
 
-  <nav class="nav-links">
-    <a href="mental-health.htm">Mental Health</a>
-    <a href="addiction.htm">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
-    <a href="guestbook-connect.html">Guestbook</a>
-  </nav>
+function type() {
+  if (index < text.length) {
+    header.textContent += text.charAt(index);
+    index++;
+    setTimeout(type, typingSpeed);
+  } else {
+    setTimeout(() => {
+      headerContainer.style.opacity = '0';
+      setTimeout(() => {
+        header.textContent = '';
+        index = 0;
+        headerContainer.style.opacity = '1';
+        type();
+      }, fadeDuration);
+    }, 1500);
+  }
+}
 
-  <main>
-    <!-- Dynamic quote box -->
-    <div class="quote-box">
-      <p id="quote-text">Loading quote...</p>
-      <p id="quote-author"></p>
-    </div>
-  </main>
+// Theme Toggle with localStorage persistence
+const themeToggle = document.getElementById('theme-toggle');
+const currentTheme = localStorage.getItem('theme');
 
-  <footer>
-    &copy; 2025 Speak Louder, Love Harder 🌟
-  </footer>
+if (currentTheme === 'dark') {
+  document.body.classList.add('dark-mode');
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  let theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+  localStorage.setItem('theme', theme);
+});
+
+// Inspirational Quotes
+const quotes = [
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "You are stronger than you think.", author: "Unknown" },
+  { text: "Every day is a second chance.", author: "Unknown" },
+  { text: "Your limitation—it's only your imagination.", author: "Unknown" },
+  { text: "Push yourself, because no one else is going to do it for you.", author: "Unknown" },
+  { text: "Great things never come from comfort zones.", author: "Unknown" },
+  { text: "Dream it. Wish it. Do it.", author: "Unknown" },
+  { text: "Success doesn't just find you. You have to go out and get it.", author: "Unknown" },
+  { text: "The harder you work for something, the greater you'll feel when you achieve it.", author: "Unknown" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
+];
+
+const quoteText = document.getElementById('quote-text');
+const quoteAuthor = document.getElementById('quote-author');
+
+function displayRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+  quoteText.textContent = `"${quote.text}"`;
+  quoteAuthor.textContent = `— ${quote.author}`;
+}
+
+// Initialize
+type();
+displayRandomQuote();
+setInterval(displayRandomQuote, 10000);
