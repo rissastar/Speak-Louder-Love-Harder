@@ -1,22 +1,17 @@
-// Theme Toggle
 function toggleTheme() {
   const body = document.body;
-  const isDark = body.classList.toggle('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  const dark = body.classList.toggle('dark');
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
 }
 
-// Load Saved Theme
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark');
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
   }
-  startQuoteRotation();
-  handleScrollReveal();
+  rotateQuotes();
 });
 
-// Rotating Quotes
-function startQuoteRotation() {
+function rotateQuotes() {
   const quotes = [
     "You are stronger than your silence.",
     "Healing isn't linear — give yourself grace.",
@@ -28,39 +23,12 @@ function startQuoteRotation() {
     "Your story isn’t over yet. ✨"
   ];
   let index = 0;
-  const rotator = document.getElementById("quote-rotator");
-  if (!rotator) return;
-
-  rotator.textContent = quotes[index];
+  const el = document.getElementById("quote-rotator");
   setInterval(() => {
     index = (index + 1) % quotes.length;
-    rotator.classList.remove("fade-in");
-    void rotator.offsetWidth;
-    rotator.classList.add("fade-in");
-    rotator.textContent = quotes[index];
+    el.textContent = quotes[index];
+    el.classList.remove("fadeInUp");
+    void el.offsetWidth;
+    el.classList.add("fadeInUp");
   }, 5000);
-}
-
-// Header Scroll Animation
-window.addEventListener("scroll", () => {
-  const header = document.querySelector("header");
-  if (window.scrollY > 20) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-
-// Scroll Reveal
-function handleScrollReveal() {
-  const revealElements = document.querySelectorAll(".reveal");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("revealed");
-      }
-    });
-  }, { threshold: 0.1 });
-
-  revealElements.forEach(el => observer.observe(el));
 }
