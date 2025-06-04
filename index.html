@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header id="main-header">
-    <h1 class="glow-header">Speak Louder, Love Harder 🌟</h1>
-    <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+  <header id="main-header" class="glow-header" role="banner">
+    <h1>Speak Louder, Love Harder 🌟</h1>
+    <button id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">🌙</button>
   </header>
 
-  <nav class="nav-bar">
+  <nav class="nav-bar" role="navigation" aria-label="Main navigation">
     <a href="mental-health.html" class="magic-link">Mental Health</a>
     <a href="addiction.html" class="magic-link">Addiction</a>
     <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
@@ -26,43 +27,26 @@
   </nav>
 
   <main>
-    <section class="hero">
-      <h2 class="glow-text">You are not alone. 💜</h2>
-      <p class="intro-text">Welcome to a space of healing, advocacy, and hope. Together, we Speak Louder & Love Harder.</p>
+    <section class="hero" aria-label="Welcome message and introduction">
+      <h2 class="glow-text">Welcome to Speak Louder, Love Harder</h2>
+      <p class="intro-text">Advocacy, healing, and hope for all. Together we rise.</p>
     </section>
 
-    <section class="quote-rotator">
-      <div id="quote-text"></div>
+    <section class="quote-rotator" aria-live="polite" aria-atomic="true" aria-label="Inspirational quotes">
+      <div id="quote-text">Loading quotes...</div>
       <div id="quote-author"></div>
     </section>
 
-    <section class="affirmation-section">
-      <h3>Daily Affirmation 💬</h3>
-      <div id="daily-affirmation"></div>
-      <button id="new-affirmation-btn">New Affirmation</button>
+    <section class="affirmation-section" aria-label="Daily affirmation">
+      <h3>Daily Affirmation</h3>
+      <div id="daily-affirmation">Loading affirmation...</div>
+      <button id="new-affirmation-btn" aria-label="Generate new affirmation">New Affirmation</button>
     </section>
 
-    <section class="cards-container">
-      <div class="cause-card">
-        <h4>Mental Health</h4>
-        <p>Break the stigma. Find resources, stories, and support.</p>
-      </div>
-      <div class="cause-card">
-        <h4>Foster Children</h4>
-        <p>Every child deserves love, safety, and a forever home.</p>
-      </div>
-      <div class="cause-card">
-        <h4>Pitbull Love</h4>
-        <p>Advocating for misunderstood companions.</p>
-      </div>
-    </section>
+    <!-- Additional site content such as cards, guestbook, resources, etc. can go here -->
+
   </main>
 
-  <button id="scroll-top-btn" aria-label="Scroll to top">⬆️</button>
-
-  <!-- Custom Cursor -->
-  <div id="custom-cursor"></div>
-
-  <script src="script.js"></script>
+  <button id="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
 </body>
 </html>
