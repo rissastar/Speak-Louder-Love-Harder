@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" class="theme-pink">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Speak Louder, Love Harder 🌟 — Advocacy for healing, hope, and justice." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Speak Louder, Love Harder 🌟 — Advocacy for healing, hope, and justice."/>
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -33,15 +33,16 @@
           <li><a href="guestbook-connect.html" class="magic-link">Guestbook 💬</a></li>
         </ul>
       </nav>
-      <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
-      <label for="color-theme-selector" class="visually-hidden">Choose color theme</label>
-<select id="color-theme-selector" aria-label="Select color theme">
-  <option value="default">Default</option>
-  <option value="green">Green</option>
-  <option value="blue">Blue</option>
-  <option value="red">Red</option>
-  <option value="pink">Pink</option>
-</select>
+      <div class="theme-controls">
+        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
+        <select id="color-theme-selector" aria-label="Select color theme">
+          <option value="default">🎨 Default</option>
+          <option value="pink">💗 Pink</option>
+          <option value="green">💚 Green</option>
+          <option value="blue">💙 Blue</option>
+          <option value="red">❤️ Red</option>
+        </select>
+      </div>
     </div>
   </header>
 
@@ -53,7 +54,7 @@
   <!-- ===== QUOTE ROTATOR ===== -->
   <section class="quote-section" aria-live="polite" aria-atomic="true">
     <blockquote class="quote-rotator" id="quote-rotator">
-      “Your present circumstances don’t determine where you can go; they merely determine where you start.” — Nido Qubein
+      “When we speak louder with love, we break the silence of suffering.”
     </blockquote>
   </section>
 
@@ -75,14 +76,13 @@
 
   <!-- ===== DAILY AFFIRMATION ===== -->
   <section class="daily-affirmation" aria-live="polite" aria-atomic="true">
+    <button onclick="generateAffirmation()">💫 New Affirmation</button>
     <p id="affirmation-text">You are worthy of love and healing. 💖</p>
-    <button aria-label="Get a new affirmation">New Affirmation</button>
   </section>
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
-    <p>Created with love and purpose 💜</p>
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
