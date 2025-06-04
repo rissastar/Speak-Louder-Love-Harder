@@ -1,13 +1,22 @@
 # Speak Louder, Love Harder 🌟
 
-Welcome to **Speak Louder, Love Harder** — a vibrant, uplifting website dedicated to raising awareness and offering support on important topics around healing, love, and advocacy. We believe in bold colors, animation, and interactive experiences that empower visitors to engage, learn, and heal.
+Welcome to **Speak Louder, Love Harder** — a vibrant, healing, and supportive website dedicated to raising awareness and providing resources on important topics like mental health, addiction, abuse, chronic illness, and advocacy for foster children and pitbulls.
 
-Visit Website 
-https://rissastar.github.io/Speak-Louder-Love-Harder/
+---
 
-## About This Website
+## 🌈 About the Project
 
-This website focuses on various crucial topics such as:
+This site is designed to be:
+
+- **Fun & Interactive** with animations and smooth transitions  
+- **Eye-catching & Colorful** using a fresh palette of blues, yellows, and corals  
+- **Healing & Positive** with a soft glassmorphism style and uplifting quotes  
+- **Responsive & Accessible** for mobile and desktop users  
+- **Easy to Navigate** with a clear navbar linking to all topics  
+
+---
+
+## 📚 Topics Covered
 
 - Mental Health  
 - Addiction  
@@ -15,30 +24,19 @@ This website focuses on various crucial topics such as:
 - Cirrhosis  
 - Physical Abuse  
 - Mental Abuse  
-- Sexual Assault Awareness  
+- Sexual Abuse  
 - Pitbull Advocacy  
-- Foster Children Support  
+- Foster Children  
+- Guestbook & Community Connection  
 
-Each topic has its own dedicated page to provide detailed resources, stories, and connections.
+---
 
-## Features
-
-- **Responsive design:** Looks great on both desktop and mobile devices.  
-- **Animated and interactive:** Eye-catching header animations, hover effects, and smooth transitions to keep visitors engaged.  
-- **Colorful and bold:** Using a bright palette of greens, pinks, and purples to create a happy and healing vibe.  
-- **Dark/Light mode support:** Easy toggling between light and dark themes for comfortable reading anytime.  
-- **Navigation:** Simple pill-style navigation bar for quick access to every page.  
-
-## File Structure
+## 📁 Project Structure
 
 Speak-Louder-Love-Harder/
 │
-├── index.html                 ← 🌟 Main landing page
-│
-├── styles.css                 ← 🎨 Global styles
-├── scripts.js                 ← ⚙️ JavaScript (quotes, theme toggle, etc.)
-│
-├── mental-health.htm          ← 🧠 Topic pages
+├── index.html                # Homepage
+├── mental-health.htm         # Topic pages
 ├── addiction.htm
 ├── cystic-fibrosis.html
 ├── cirrhosis.html
@@ -47,11 +45,16 @@ Speak-Louder-Love-Harder/
 ├── sexual-abuse.html
 ├── pitbull-love.html
 ├── foster-children.html
-├── guestbook-connect.html     ← 💌 Guestbook page
+├── guestbook-connect.html
 │
-├── assets/                    ← 📁 Images, icons, etc.
-│   ├── logo.png
-│   ├── banner.jpg
-│   └── ...
+├── css/
+│   └── styles.css            # Main stylesheet
 │
-└── README.md                  ← 📄 Project description (optional for GitHub)
+├── js/
+│   └── scripts.js            # JavaScript for theme toggle & quotes
+│
+├── assets/
+│   ├── images/               # Any images you want to add (e.g., logos, illustrations)
+│   └── fonts/                # Custom fonts if any
+│
+└── README.md                 # Project overview and instructions
