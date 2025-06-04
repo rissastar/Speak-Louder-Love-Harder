@@ -1,127 +1,161 @@
-// 🌙 Dark/Light Mode Toggle + Preference Saving
+// ===== Theme & Color Management =====
 const themeToggleBtn = document.getElementById('theme-toggle');
-const themeSelector = document.getElementById('color-theme-selector');
-const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const rootElement = document.documentElement;
+const bodyElement = document.body;
 
-function setTheme(theme) {
-  if (theme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeToggleBtn.textContent = '☀️';
+// Available color themes
+const colorThemes = ['default', 'green', 'blue', 'red', 'pink'];
+
+// Load saved theme from localStorage or system preference
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const savedColor = localStorage.getItem('colorTheme') || 'default';
+
+  if (savedTheme === 'dark') {
+    rootElement.setAttribute('data-theme', 'dark');
   } else {
-    document.documentElement.removeAttribute('data-theme');
-    themeToggleBtn.textContent = '🌙';
+    rootElement.removeAttribute('data-theme');
   }
+
+  setColorTheme(savedColor);
+  updateThemeToggleIcon(savedTheme);
+}
+
+// Save theme preference
+function saveTheme(theme) {
   localStorage.setItem('theme', theme);
 }
 
+// Save color theme preference
+function saveColorTheme(color) {
+  localStorage.setItem('colorTheme', color);
+}
+
+// Toggle dark/light theme
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  setTheme(current === 'dark' ? 'light' : 'dark');
-}
+  const isDark = rootElement.getAttribute('data-theme') === 'dark';
 
-// Initialize Theme + Color Scheme
-(function () {
-  const savedTheme = localStorage.getItem('theme');
-  const savedColorTheme = localStorage.getItem('color-theme') || 'theme-purple';
-
-  setTheme(savedTheme || (userPrefersDark ? 'dark' : 'light'));
-
-  // Apply color theme
-  document.body.classList.remove('theme-purple', 'theme-green', 'theme-blue', 'theme-red', 'theme-pink');
-  document.body.classList.add(savedColorTheme);
-  if (themeSelector) {
-    themeSelector.value = savedColorTheme;
+  if (isDark) {
+    rootElement.removeAttribute('data-theme');
+    saveTheme('light');
+    updateThemeToggleIcon('light');
+  } else {
+    rootElement.setAttribute('data-theme', 'dark');
+    saveTheme('dark');
+    updateThemeToggleIcon('dark');
   }
-})();
-
-themeToggleBtn.addEventListener('click', toggleTheme);
-
-// 🎨 Color Theme Switcher
-if (themeSelector) {
-  themeSelector.addEventListener('change', () => {
-    const selectedTheme = themeSelector.value;
-    document.body.classList.remove('theme-purple', 'theme-green', 'theme-blue', 'theme-red', 'theme-pink');
-    document.body.classList.add(selectedTheme);
-    localStorage.setItem('color-theme', selectedTheme);
-  });
 }
 
-// ✨ Quote Rotator with Fade Effect
+// Update toggle button icon (sun/moon)
+function updateThemeToggleIcon(theme) {
+  if (!themeToggleBtn) return;
+  if (theme === 'dark') {
+    themeToggleBtn.innerHTML = '☀️';  // Sun icon for light mode toggle
+  } else {
+    themeToggleBtn.innerHTML = '🌙';  // Moon icon for dark mode toggle
+  }
+}
+
+// Set color theme class on body
+function setColorTheme(color) {
+  colorThemes.forEach(c => {
+    if (c === 'default') {
+      bodyElement.classList.remove('theme-green', 'theme-blue', 'theme-red', 'theme-pink');
+    } else {
+      bodyElement.classList.remove(`theme-${c}`);
+    }
+  });
+
+  if (color !== 'default') {
+    bodyElement.classList.add(`theme-${color}`);
+  }
+  saveColorTheme(color);
+}
+
+// ===== Scroll to Top Button =====
+const scrollBtn = document.getElementById('scrollToTopBtn');
+
+function handleScroll() {
+  if (window.scrollY > 300) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== Custom Cursor =====
+const customCursor = document.getElementById('custom-cursor');
+
+function moveCursor(e) {
+  if (!customCursor) return;
+  customCursor.style.left = `${e.clientX}px`;
+  customCursor.style.top = `${e.clientY}px`;
+}
+
+// ===== Quote Rotator =====
 const quotes = [
-  { text: "The only way out is through.", author: "Robert Frost" },
-  { text: "You are stronger than you think.", author: "Unknown" },
-  { text: "Hope is the thing with feathers that perches in the soul.", author: "Emily Dickinson" },
-  { text: "Healing takes courage, and we all have courage, even if we have to dig a little to find it.", author: "Tori Amos" },
-  { text: "Every day may not be good, but there is something good in every day.", author: "Alice Morse Earle" },
-  { text: "Your story isn't over yet.", author: "Unknown" }
+  "“Healing takes time, and asking for help is a courageous step.”",
+  "“Every small act of love makes the world brighter.”",
+  "“Strength grows in the moments when you think you can’t go on but you keep going anyway.”",
+  "“Your story matters and your voice deserves to be heard.”",
+  "“Together, we can break the chains of stigma and fear.”"
 ];
 
-const quoteTextEl = document.getElementById('quote-text');
-const quoteAuthorEl = document.getElementById('quote-author');
-let currentQuoteIndex = 0;
+const quoteElement = document.querySelector('.quote-rotator');
+let quoteIndex = 0;
 
-function showQuote(index) {
-  const { text, author } = quotes[index];
-  quoteTextEl.style.opacity = 0;
-  quoteAuthorEl.style.opacity = 0;
-  setTimeout(() => {
-    quoteTextEl.textContent = `"${text}"`;
-    quoteAuthorEl.textContent = `— ${author}`;
-    quoteTextEl.style.opacity = 1;
-    quoteAuthorEl.style.opacity = 1;
-  }, 600);
+function rotateQuotes() {
+  if (!quoteElement) return;
+  quoteIndex = (quoteIndex + 1) % quotes.length;
+  quoteElement.textContent = quotes[quoteIndex];
 }
 
-function nextQuote() {
-  currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-  showQuote(currentQuoteIndex);
-}
-
-// Init first quote and auto-rotate
-showQuote(currentQuoteIndex);
-setInterval(nextQuote, 8000);
-
-// 💬 Daily Affirmation Generator
+// ===== Daily Affirmations =====
 const affirmations = [
-  "You are worthy of love and respect.",
-  "Every step forward is progress.",
-  "Believe in your infinite potential.",
-  "You have the power to change your story.",
-  "Your feelings are valid and important.",
-  "Strength grows in the moments you think you can't go on but you keep going anyway."
+  "You are stronger than you know.",
+  "Today is a new beginning.",
+  "Your feelings are valid.",
+  "You are worthy of love and kindness.",
+  "Every step forward is progress."
 ];
+const affirmationBtn = document.querySelector('.daily-affirmation button');
+const affirmationDisplay = document.querySelector('.daily-affirmation');
 
-const dailyAffirmationEl = document.getElementById('daily-affirmation');
-const newAffirmationBtn = document.getElementById('new-affirmation-btn');
-
-if (newAffirmationBtn && dailyAffirmationEl) {
-  newAffirmationBtn.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * affirmations.length);
-    dailyAffirmationEl.textContent = `"${affirmations[randomIndex]}"`;
-  });
+function showRandomAffirmation() {
+  if (!affirmationDisplay) return;
+  const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+  affirmationDisplay.querySelector('p').textContent = randomAffirmation;
 }
 
-// ⬆️ Scroll To Top Button
-const scrollTopBtn = document.getElementById('scroll-top-btn');
+// ===== Initialization =====
+function init() {
+  loadTheme();
 
-window.addEventListener('scroll', () => {
-  if (scrollTopBtn) {
-    scrollTopBtn.classList.toggle('show', window.scrollY > 300);
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
   }
-});
 
-if (scrollTopBtn) {
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  if (scrollBtn) {
+    window.addEventListener('scroll', handleScroll);
+    scrollBtn.addEventListener('click', scrollToTop);
+  }
+
+  if (customCursor) {
+    window.addEventListener('mousemove', moveCursor);
+  }
+
+  if (quoteElement) {
+    setInterval(rotateQuotes, 6000);
+  }
+
+  if (affirmationBtn) {
+    affirmationBtn.addEventListener('click', showRandomAffirmation);
+  }
 }
 
-// ✨ Custom Cursor Glow Trail
-const cursor = document.createElement('div');
-cursor.id = 'custom-cursor';
-document.body.appendChild(cursor);
-
-document.addEventListener('mousemove', e => {
-  cursor.style.left = `${e.clientX}px`;
-  cursor.style.top = `${e.clientY}px`;
-});
+// Run the initialization on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', init);
