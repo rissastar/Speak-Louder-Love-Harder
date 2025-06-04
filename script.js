@@ -77,3 +77,49 @@ document.addEventListener('mousemove', e => {
   cursor.style.top = e.clientY + 'px';
   cursor.style.left = e.clientX + 'px';
 });
+
+// 🎉 Confetti on Affirmation Button
+const confettiCanvas = document.getElementById('confetti-canvas');
+const ctx = confettiCanvas.getContext('2d');
+let confettiParticles = [];
+
+function resizeCanvas() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function launchConfetti() {
+  confettiParticles = [];
+  for (let i = 0; i < 100; i++) {
+    confettiParticles.push({
+      x: Math.random() * confettiCanvas.width,
+      y: Math.random() * confettiCanvas.height - 100,
+      r: Math.random() * 6 + 4,
+      color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+      d: Math.random() * 5 + 2,
+      tilt: Math.random() * 10 - 5,
+    });
+  }
+}
+
+function drawConfetti() {
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiParticles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+    p.y += p.d;
+    p.tilt += 0.3;
+    p.x += Math.sin(p.tilt);
+  });
+  requestAnimationFrame(drawConfetti);
+}
+
+// Trigger Confetti
+document.getElementById('new-affirmation').addEventListener('click', () => {
+  launchConfetti();
+  drawConfetti();
+});
