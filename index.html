@@ -9,26 +9,26 @@
 </head>
 <body>
 
-  <!-- ===== Custom Cursor ===== -->
+  <!-- ===== Custom Cursor with Trailing Glow ===== -->
   <div id="custom-cursor"></div>
 
-  <!-- ===== Scroll To Top Button ===== -->
+  <!-- ===== Scroll To Top Button with Pulsing Glow ===== -->
   <button id="scroll-to-top" class="scroll-btn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
 
- <!-- ===== Animated Header with Typing Effect and Particles ===== -->
-<header class="site-header">
+ <!-- ===== Animated Header with Interactive Particles ===== -->
+<header class="site-header" data-parallax>
   <!-- Particle Background Canvas -->
-  <canvas id="particle-canvas"></canvas>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
   <div class="header-content">
-    <h1 class="animated-title glow">
+    <h1 class="animated-title glow pulse-on-type">
       <span id="typed-text"></span><span class="cursor">|</span>
     </h1>
 
     <!-- Theme & Color Controls -->
     <div class="theme-controls">
-      <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
-      <select id="color-theme-selector" aria-label="Select color theme">
+      <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode" class="magnetic-hover">🌙</button>
+      <select id="color-theme-selector" aria-label="Select color theme" class="magnetic-hover">
         <option value="default">🎨 Default</option>
         <option value="pink">💗 Pink</option>
         <option value="green">💚 Green</option>
@@ -39,47 +39,56 @@
   </div>
 </header>
 
-      <!-- ===== NAVIGATION SECTION ===== -->
+<!-- ===== NAVIGATION SECTION with Smooth Moving Pill Highlight ===== -->
 <section class="main-nav-section" aria-label="Site Navigation">
-  <ul class="nav-list">
-    <li><a href="mental-health.html" class="magic-link">Mental Health</a></li>
-    <li><a href="addiction.html" class="magic-link">Addiction</a></li>
-    <li><a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a></li>
-    <li><a href="cirrhosis.html" class="magic-link">Cirrhosis</a></li>
-    <li><a href="physical-abuse.html" class="magic-link">Physical Abuse</a></li>
-    <li><a href="mental-abuse.html" class="magic-link">Mental Abuse</a></li>
-    <li><a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a></li>
-    <li><a href="pitbull-love.html" class="magic-link">Pit Bull Love</a></li>
-    <li><a href="foster-children.html" class="magic-link">Foster Children</a></li>
-    <li><a href="guestbook-connect.html" class="magic-link">Guestbook 💬</a></li>
+  <ul class="nav-list" role="menubar">
+    <li role="none"><a href="mental-health.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Mental Health</a></li>
+    <li role="none"><a href="addiction.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Addiction</a></li>
+    <li role="none"><a href="cystic-fibrosis.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Cystic Fibrosis</a></li>
+    <li role="none"><a href="cirrhosis.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Cirrhosis</a></li>
+    <li role="none"><a href="physical-abuse.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Physical Abuse</a></li>
+    <li role="none"><a href="mental-abuse.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Mental Abuse</a></li>
+    <li role="none"><a href="sexual-abuse.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Sexual Abuse</a></li>
+    <li role="none"><a href="pitbull-love.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Pit Bull Love</a></li>
+    <li role="none"><a href="foster-children.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Foster Children</a></li>
+    <li role="none"><a href="guestbook-connect.html" class="magic-link magnetic-hover" role="menuitem" tabindex="0">Guestbook 💬</a></li>
+    <!-- Pill Highlight Element -->
+    <span class="nav-pill-highlight" aria-hidden="true"></span>
   </ul>
 </section>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section class="hero">
-    <h2>Your Voice Matters. Your Story Heals. 💜</h2>
-  </section>
+<!-- ===== HERO SECTION with Floating Shapes & Gradient Text ===== -->
+<section class="hero" data-scroll-animate>
+  <h2 class="gradient-text shimmer">Your Voice Matters. Your Story Heals. 💜</h2>
+  <!-- Floating blobs behind hero text -->
+  <div class="floating-blob blob1" aria-hidden="true"></div>
+  <div class="floating-blob blob2" aria-hidden="true"></div>
+</section>
 
-  <!-- ===== QUOTE ROTATOR ===== -->
-  <section class="quote-section" aria-live="polite" aria-atomic="true">
-    <blockquote class="quote-rotator" id="quote-box">
-      “Speak louder, love harder 💜”
-    </blockquote>
-  </section>
+<!-- ===== QUOTE ROTATOR with Animated Transitions ===== -->
+<section class="quote-section" aria-live="polite" aria-atomic="true" data-scroll-animate>
+  <blockquote class="quote-rotator" id="quote-box" aria-label="Inspirational quote">
+    “Speak louder, love harder 💜”
+    <span class="quote-icon" aria-hidden="true">💬</span>
+  </blockquote>
+</section>
 
-  <!-- ===== DAILY AFFIRMATION ===== -->
-  <section class="daily-affirmation" aria-live="polite" aria-atomic="true">
-    <h2>Your Daily Affirmation</h2>
-    <p id="affirmation-box">Click below for today’s message 💌</p>
-    <button id="new-affirmation">💫 New Affirmation</button>
-  </section>
+<!-- ===== DAILY AFFIRMATION with Confetti on Button Click ===== -->
+<section class="daily-affirmation" aria-live="polite" aria-atomic="true" data-scroll-animate>
+  <h2>Your Daily Affirmation</h2>
+  <p id="affirmation-box" tabindex="0">Click below for today’s message 💌</p>
+  <button id="new-affirmation" class="magnetic-hover" aria-describedby="affirmation-box" aria-live="polite">💫 New Affirmation</button>
+  <!-- Confetti Container -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+</section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
-  </footer>
+<!-- ===== FOOTER with Glowing Animation ===== -->
+<footer class="site-footer" data-scroll-animate>
+  <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
+</footer>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script src="script.js" defer></script>
+<!-- ===== SCRIPTS ===== -->
+<script src="script.js" defer></script>
+
 </body>
 </html>
