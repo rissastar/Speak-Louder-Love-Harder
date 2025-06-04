@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-
-  <!-- 🌟 Glowing Header -->
-  <header class="site-header">
-    <h1>Speak Louder, Love Harder 🌟</h1>
-    <button id="theme-toggle" aria-label="Toggle dark/light mode">🌓</button>
+  <header id="main-header">
+    <h1 class="glow-header">Speak Louder, Love Harder 🌟</h1>
+    <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
   </header>
 
-  <!-- 🎨 Updated Navigation Bar -->
   <nav class="nav-bar">
     <a href="mental-health.html" class="magic-link">Mental Health</a>
     <a href="addiction.html" class="magic-link">Addiction</a>
@@ -29,38 +25,44 @@
     <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
   </nav>
 
-  <!-- 💬 Inspirational Quote Rotator -->
-  <section class="quote-section">
-    <blockquote id="quote-box">"You are stronger than you think." 💖</blockquote>
-  </section>
-
-  <!-- 💌 Welcome Section -->
-  <main class="main-content">
-    <section class="intro">
-      <h2>Welcome to Speak Louder, Love Harder</h2>
-      <p>Our mission is to amplify voices, support healing, and create a safe space for growth, love, and advocacy. Explore stories, connect with others, and join our community of support.</p>
+  <main>
+    <section class="hero">
+      <h2 class="glow-text">You are not alone. 💜</h2>
+      <p class="intro-text">Welcome to a space of healing, advocacy, and hope. Together, we Speak Louder & Love Harder.</p>
     </section>
 
-    <!-- ✨ Coming Soon Features Teaser -->
-    <section class="coming-soon">
-      <h3>✨ Features Coming Soon</h3>
-      <ul>
-        <li>🌈 Daily Affirmation Generator</li>
-        <li>🐾 Support Animal Showcase</li>
-        <li>🕯️ Light a Candle Wall</li>
-        <li>📍 Interactive Resource Map</li>
-        <li>💌 Live Guestbook + Virtual Hug</li>
-      </ul>
+    <section class="quote-rotator">
+      <div id="quote-text"></div>
+      <div id="quote-author"></div>
+    </section>
+
+    <section class="affirmation-section">
+      <h3>Daily Affirmation 💬</h3>
+      <div id="daily-affirmation"></div>
+      <button id="new-affirmation-btn">New Affirmation</button>
+    </section>
+
+    <section class="cards-container">
+      <div class="cause-card">
+        <h4>Mental Health</h4>
+        <p>Break the stigma. Find resources, stories, and support.</p>
+      </div>
+      <div class="cause-card">
+        <h4>Foster Children</h4>
+        <p>Every child deserves love, safety, and a forever home.</p>
+      </div>
+      <div class="cause-card">
+        <h4>Pitbull Love</h4>
+        <p>Advocating for misunderstood companions.</p>
+      </div>
     </section>
   </main>
 
-  <!-- ⬆️ Floating Action Button -->
-  <div class="fab-container">
-    <button class="fab" id="scrollTopBtn" aria-label="Scroll to top">⬆️</button>
-  </div>
+  <button id="scroll-top-btn" aria-label="Scroll to top">⬆️</button>
 
-  <!-- 🌈 Animated Background Effects -->
-  <canvas id="particle-canvas"></canvas>
+  <!-- Custom Cursor -->
+  <div id="custom-cursor"></div>
 
+  <script src="script.js"></script>
 </body>
 </html>
