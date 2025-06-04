@@ -1,41 +1,41 @@
-/* Base Styles */
 :root {
-  --primary-color: #9b59b6;
-  --secondary-color: #2ecc71;
-  --accent-color: #e91e63;
-  --bg-color: #ffffff;
-  --text-color: #333333;
+  --primary-color: #a64ac9; /* Purple */
+  --secondary-color: #5de19c; /* Green */
+  --accent-color: #ff6ec7; /* Pink */
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #ffffff;
 }
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-color);
+  background-color: var(--background-color);
   color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header {
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   background-color: var(--primary-color);
   padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.logo {
-  font-size: 1.5rem;
-  color: #fff;
-}
-
-.nav-links a {
-  margin: 0 0.5rem;
-  color: #fff;
+.navbar a {
+  color: var(--text-color);
+  margin: 0 1rem;
   text-decoration: none;
   position: relative;
 }
 
-.nav-links a::after {
+.navbar a::after {
   content: '';
   display: block;
   width: 0;
@@ -47,65 +47,80 @@ header {
   left: 0;
 }
 
-.nav-links a:hover::after {
+.navbar a:hover::after {
   width: 100%;
 }
 
-#theme-toggle {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.2rem;
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
   cursor: pointer;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.hero {
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--secondary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+#quote-section {
   text-align: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: #fff;
+  margin: 2rem;
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  animation: fadeIn 2s ease-in-out;
 }
 
-.glow-text {
-  font-size: 2.5rem;
-  text-shadow: 0 0 10px var(--accent-color);
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px var(--accent-color);
-  }
-  to {
-    text-shadow: 0 0 20px var(--accent-color);
-  }
-}
-
-.quotes {
-  padding: 2rem;
-  text-align: center;
-}
-
-#quote-box {
-  font-style: italic;
-  font-size: 1.2rem;
-  margin: 1rem auto;
-  max-width: 600px;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 footer {
-  background-color: var(--primary-color);
-  color: #fff;
   text-align: center;
   padding: 1rem;
-  margin-top: 2rem;
-}
-
-/* Dark Mode */
-body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --primary-color: #6a1b9a;
-  --secondary-color: #388e3c;
-  --accent-color: #c2185b;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
