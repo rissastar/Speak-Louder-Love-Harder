@@ -257,38 +257,60 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* 🌟 Floating Shapes / Parallax */
+/* 🌌 Parallax Layers */
+.parallax-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -10;
+  top: 0; left: 0;
+}
+.layer {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  background-size: cover;
+  opacity: 0.04;
+}
+.layer1 {
+  background-image: radial-gradient(circle, var(--accent) 1px, transparent 1px);
+  animation: moveBg1 100s linear infinite;
+}
+.layer2 {
+  background-image: radial-gradient(circle, var(--highlight) 2px, transparent 2px);
+  animation: moveBg2 140s linear infinite reverse;
+}
+
+@keyframes moveBg1 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-20%, -20%); }
+}
+@keyframes moveBg2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20%, 20%); }
+}
+
+/* 🌈 Floating Shapes */
 .floating-shape {
   position: absolute;
   border-radius: 50%;
   background: var(--accent);
   opacity: 0.2;
-  animation: floatShape 20s infinite ease-in-out alternate;
+  animation: floatShape 25s infinite ease-in-out alternate;
 }
 .shape1 { width: 80px; height: 80px; top: 10%; left: 15%; }
 .shape2 { width: 100px; height: 100px; bottom: 20%; right: 20%; animation-delay: 4s; }
 .shape3 { width: 60px; height: 60px; top: 40%; right: 10%; animation-delay: 2s; }
+.shape4 { width: 120px; height: 120px; top: 70%; left: 30%; animation-delay: 6s; }
+.shape5 { width: 50px; height: 50px; bottom: 5%; left: 80%; animation-delay: 3s; }
+.shape6 { width: 90px; height: 90px; top: 25%; left: 60%; background: var(--highlight); animation-delay: 7s; }
+.shape7 { width: 70px; height: 70px; bottom: 15%; right: 60%; background: var(--highlight); animation-delay: 5s; }
 
 @keyframes floatShape {
-  0% { transform: translateY(0) rotate(0deg); }
+  0% { transform: translateY(0) rotate(0); }
   100% { transform: translateY(-40px) rotate(360deg); }
-}
-
-.shape4 {
-  width: 120px;
-  height: 120px;
-  top: 70%;
-  left: 30%;
-  background: var(--accent);
-  animation-delay: 6s;
-}
-.shape5 {
-  width: 50px;
-  height: 50px;
-  bottom: 5%;
-  left: 80%;
-  background: var(--highlight);
-  animation-delay: 3s;
 }
 
 /* Fade-In */
