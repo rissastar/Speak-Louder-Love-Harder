@@ -2,40 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;900&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header class="glass-header">
+
+  <header>
     <h1>Speak Louder, Love Harder 🌟</h1>
-    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <button class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode">🌓</button>
   </header>
 
-  <section class="hero">
-    <h2>Your Voice. Your Power. Your Healing.</h2>
-    <p>Advocacy, awareness, and support for those who need it most.</p>
-  </section>
-
-  <nav class="grid-nav">
-    <a href="mental-health.htm" style="--accent:#d65db1">Mental Health</a>
-    <a href="addiction.htm" style="--accent:#00c9a7">Addiction</a>
-    <a href="cystic-fibrosis.html" style="--accent:#845ec2">Cystic Fibrosis</a>
-    <a href="cirrhosis.html" style="--accent:#00c9a7">Cirrhosis</a>
-    <a href="physical-abuse.html" style="--accent:#d65db1">Physical Abuse</a>
-    <a href="mental-abuse.html" style="--accent:#845ec2">Mental Abuse</a>
-    <a href="sexual-abuse.html" style="--accent:#d65db1">Sexual Abuse</a>
-    <a href="pitbull-love.html" style="--accent:#00c9a7">Pitbull Advocacy</a>
-    <a href="foster-children.html" style="--accent:#845ec2">Foster Children</a>
-    <a href="guestbook-connect.html" style="--accent:#d65db1">Guestbook</a>
+  <nav role="navigation" aria-label="Primary Navigation">
+    <a href="mental-health.htm">Mental Health</a>
+    <a href="addiction.htm">Addiction</a>
+    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pitbull Advocacy</a>
+    <a href="foster-children.html">Foster Children</a>
+    <a href="guestbook-connect.html">Guestbook & Connect</a>
   </nav>
 
-  <section class="quote-box reveal" id="quote-rotator">
-    "You are stronger than your silence."
-  </section>
+  <main>
+    <section class="intro-section" aria-label="Introduction">
+      <h2>Welcome to Speak Louder, Love Harder 🌟</h2>
+      <p>Join us in raising awareness and providing support for mental health, abuse prevention, foster children, and pitbull advocacy. Together, we heal and grow stronger.</p>
+      <div id="quote-rotator" aria-live="polite" aria-atomic="true"></div>
+    </section>
+  </main>
 
-  <footer class="glass-footer">
-    💛 Made with love — Speak up, love louder, heal deeper.
+  <footer>
+    &copy; 2025 Speak Louder, Love Harder 🌟 — Healing Through Awareness & Love
   </footer>
 
   <script src="scripts.js"></script>
