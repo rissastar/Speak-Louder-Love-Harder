@@ -313,3 +313,30 @@ body {
     transform: translateY(0);
   }
 }
+
+.svg-blob {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 300px;
+  z-index: -1;
+}
+
+/* ✨ Shine on buttons */
+.magic-link, .affirm-btn {
+  position: relative;
+  overflow: hidden;
+}
+.magic-link::before, .affirm-btn::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-45deg);
+}
+.magic-link:hover::before, .affirm-btn:hover::before {
+  left: 100%;
+  transition: left 0.8s ease;
+}
