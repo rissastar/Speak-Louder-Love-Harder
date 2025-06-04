@@ -1,4 +1,4 @@
-// Dark/Light Mode Toggle
+// Theme Toggle
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme');
 
@@ -15,22 +15,32 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', theme);
 });
 
-// Auto-Rotating Inspirational Quotes
+// Inspirational Quotes
 const quotes = [
-  "The best way out is always through. – Robert Frost",
-  "What lies behind us and what lies before us are tiny matters compared to what lies within us. – Ralph Waldo Emerson",
-  "Turn your wounds into wisdom. – Oprah Winfrey",
-  "Out of difficulties grow miracles. – Jean de La Bruyère",
-  "The only journey is the one within. – Rainer Maria Rilke"
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "You are stronger than you think.", author: "Unknown" },
+  { text: "Every day is a second chance.", author: "Unknown" },
+  { text: "Your limitation—it's only your imagination.", author: "Unknown" },
+  { text: "Push yourself, because no one else is going to do it for you.", author: "Unknown" },
+  { text: "Great things never come from comfort zones.", author: "Unknown" },
+  { text: "Dream it. Wish it. Do it.", author: "Unknown" },
+  { text: "Success doesn't just find you. You have to go out and get it.", author: "Unknown" },
+  { text: "The harder you work for something, the greater you'll feel when you achieve it.", author: "Unknown" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
 ];
 
-let quoteIndex = 0;
-const quoteElement = document.getElementById('quote');
+const quoteText = document.getElementById('quote-text');
+const quoteAuthor = document.getElementById('quote-author');
 
-function displayQuote() {
-  quoteElement.textContent = quotes[quoteIndex];
-  quoteIndex = (quoteIndex + 1) % quotes.length;
+function displayRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+  quoteText.textContent = `"${quote.text}"`;
+  quoteAuthor.textContent = `— ${quote.author}`;
 }
 
-displayQuote();
-setInterval(displayQuote, 5000);
+// Initial quote
+displayRandomQuote();
+
+// Change quote every 10 seconds
+setInterval(displayRandomQuote, 10000);
