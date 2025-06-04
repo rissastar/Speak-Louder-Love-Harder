@@ -198,4 +198,45 @@ body.mood-pitbull-love {
     width: 100%;
     margin-bottom: 1rem;
   }
+  
+  /* NAVIGATION BAR */
+.main-nav {
+  background: linear-gradient(90deg, var(--purple), var(--pink), var(--green));
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(165, 105, 189, 0.3);
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.main-nav a {
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+.main-nav a:hover,
+.main-nav a:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}
 }
