@@ -1,41 +1,50 @@
-// Theme Toggle
-const toggleBtn = document.querySelector('.theme-toggle-btn');
+// Theme Toggle: Switch between light and dark modes
+const themeToggleBtn = document.querySelector('.theme-toggle-btn');
 const body = document.body;
 
-// Load theme preference from localStorage
-if (localStorage.getItem('theme') === 'dark') {
-  body.classList.add('dark');
+function applySavedTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark');
+  } else {
+    body.classList.remove('dark');
+  }
 }
 
-toggleBtn.addEventListener('click', () => {
+themeToggleBtn.addEventListener('click', () => {
   body.classList.toggle('dark');
-  const theme = body.classList.contains('dark') ? 'dark' : 'light';
-  localStorage.setItem('theme', theme);
+  const newTheme = body.classList.contains('dark') ? 'dark' : 'light';
+  localStorage.setItem('theme', newTheme);
 });
 
-// Quote Rotator
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', applySavedTheme);
+
+// Inspirational Quote Rotator
 const quotes = [
-  "Your voice matters. Use it to heal and help. 💜",
-  "You are stronger than your past. 🌱",
-  "Together we rise, together we heal. 🤝",
-  "Every scar has a story worth sharing. ✨",
-  "Kindness is the loudest voice. 💚",
-  "Healing is not linear — but it is worth it. 🦋",
-  "Love harder, speak louder, always. 🌟"
+  "Speak louder. Love harder. Heal deeper. 💚",
+  "You are not alone. 💜",
+  "Every scar tells a story of survival. 🌟",
+  "Healing begins with being heard. 💖",
+  "Hope is stronger than fear. ✨",
+  "Your voice matters. Your story matters. 🦋",
+  "Advocate with passion. Support with love. 🫶"
 ];
 
 let quoteIndex = 0;
-const quoteElement = document.getElementById('quote-rotator');
+const quoteEl = document.getElementById('quote-rotator');
 
-function showQuote() {
-  quoteElement.style.opacity = 0;
-  setTimeout(() => {
-    quoteElement.textContent = quotes[quoteIndex];
-    quoteElement.style.opacity = 1;
-    quoteIndex = (quoteIndex + 1) % quotes.length;
-  }, 400);
+function rotateQuote() {
+  if (quoteEl) {
+    quoteEl.style.opacity = 0;
+
+    setTimeout(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      quoteEl.textContent = quotes[quoteIndex];
+      quoteEl.style.opacity = 1;
+    }, 500);
+  }
 }
 
-// Start rotating quotes every 6 seconds
-showQuote();
-setInterval(showQuote, 6000);
+// Start rotating quotes every 5 seconds
+setInterval(rotateQuote, 5000);
