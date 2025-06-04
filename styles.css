@@ -20,37 +20,87 @@ html, body {
 
 /* ===== Theme Variables ===== */
 :root {
-  /* Background & foreground */
-  --background-color: #f9f9f9;        /* from first set */
-  --bg: #fdfdff;                      /* from second set, lighter bg */
-  --text-color: #222222;              /* from first set */
-  --fg: #111111;                      /* from second set, darker text */
-
-  /* Primary & secondary colors */
-  --primary-color: #0077cc;           /* from first set */
-  --primary: #9c27b0;                 /* from second set, purple */
-  --secondary-color: #ffcc00;         /* from first set */
-  --accent: #e91e63;                  /* from second set, pinkish accent */
-
-  /* Links */
-  --link-color: var(--primary-color);  /* from first set */
-  --link: var(--primary);               /* from second set */
-  --link-hover-color: #005fa3;          /* from first set */
-  --link-hover: var(--accent);          /* from second set */
-
-  /* Buttons */
-  --button-background: var(--primary-color);
-  --button-text-color: #ffffff;
-  --button-hover-background: #005fa3;
-
-  /* Cards */
+  --bg: #f9f9f9;
+  --fg: #222222;
+  --primary: #0077cc;
+  --accent: #ffcc00;
   --card-bg: rgba(255, 255, 255, 0.9);
   --card-shadow: rgba(0, 0, 0, 0.1);
-
-  /* Glows */
+  --link: var(--primary);
+  --link-hover: #005fa3;
+  --button-bg: var(--primary);
+  --button-fg: #ffffff;
+  --button-hover-bg: #005fa3;
   --glow-1: #b388ff;
   --glow-2: #ff80ab;
   --glow-3: #69f0ae;
+  --nav-bg: rgba(255, 255, 255, 0.15);
+  --header-bg: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+/* ===== Dark Theme ===== */
+[data-theme='dark'] {
+  --bg: #121212;
+  --fg: #eeeeee;
+  --card-bg: rgba(30, 30, 30, 0.95);
+  --card-shadow: rgba(0, 0, 0, 0.4);
+  --nav-bg: rgba(30, 30, 30, 0.6);
+  --header-bg: linear-gradient(90deg, #311b92, #880e4f);
+  --link: #66aaff;
+  --link-hover: #99bbff;
+  --button-bg: var(--link);
+  --button-fg: #121212;
+  --button-hover-bg: #99bbff;
+  --glow-1: #ba68c8;
+  --glow-2: #ec407a;
+  --glow-3: #66bb6a;
+}
+
+/* ===== Additional Color Themes ===== */
+body.theme-default {
+  --bg: #f9f9f9;
+  --fg: #222222;
+  --primary: #0077cc;
+  --accent: #ffcc00;
+  --link-hover: #005fa3;
+  --button-hover-bg: #005fa3;
+}
+
+body.theme-green {
+  --bg: #e6f4ea;
+  --fg: #1b3a1b;
+  --primary: #2a9d8f;
+  --accent: #a8dadc;
+  --link-hover: #217c72;
+  --button-hover-bg: #217c72;
+}
+
+body.theme-blue {
+  --bg: #e7f0fd;
+  --fg: #1a2e4a;
+  --primary: #1e90ff;
+  --accent: #a1caff;
+  --link-hover: #1065d6;
+  --button-hover-bg: #1065d6;
+}
+
+body.theme-red {
+  --bg: #fdecea;
+  --fg: #5a1e1e;
+  --primary: #e63946;
+  --accent: #f4a261;
+  --link-hover: #b02732;
+  --button-hover-bg: #b02732;
+}
+
+body.theme-pink {
+  --bg: #ffe6f0;
+  --fg: #521b3a;
+  --primary: #d6336c;
+  --accent: #ff85a2;
+  --link-hover: #a52754;
+  --button-hover-bg: #a52754;
+}
 
   /* Navigation & header backgrounds */
   --nav-bg: rgba(255, 255, 255, 0.15);
