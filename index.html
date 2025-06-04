@@ -1,91 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Speak Louder, Love Harder 🌟 — Advocacy for healing, hope, and justice."/>
   <title>Speak Louder, Love Harder 🌟</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Custom Cursor -->
+  <!-- ===== Custom Cursor ===== -->
   <div id="custom-cursor"></div>
 
-  <!-- Scroll To Top Button -->
-  <button id="scroll-to-top" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
-
-  <!-- ===== HEADER + NAVIGATION ===== -->
+  <!-- ===== Header ===== -->
   <header class="site-header">
-    <div class="container">
-      <h1 class="logo">Speak Louder, Love Harder 🌟</h1>
-      <nav class="main-nav" aria-label="Main Navigation">
-        <ul class="nav-list">
-          <li><a href="mental-health.html" class="magic-link">Mental Health</a></li>
-          <li><a href="addiction.html" class="magic-link">Addiction</a></li>
-          <li><a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a></li>
-          <li><a href="cirrhosis.html" class="magic-link">Cirrhosis</a></li>
-          <li><a href="physical-abuse.html" class="magic-link">Physical Abuse</a></li>
-          <li><a href="mental-abuse.html" class="magic-link">Mental Abuse</a></li>
-          <li><a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a></li>
-          <li><a href="pitbull-love.html" class="magic-link">Pit Bull Love</a></li>
-          <li><a href="foster-children.html" class="magic-link">Foster Children</a></li>
-          <li><a href="guestbook-connect.html" class="magic-link">Guestbook 💬</a></li>
-        </ul>
-      </nav>
-      <div class="theme-controls">
-        <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
-        <select id="color-theme-selector" aria-label="Select color theme">
-          <option value="default">🎨 Default</option>
-          <option value="pink">💗 Pink</option>
-          <option value="green">💚 Green</option>
-          <option value="blue">💙 Blue</option>
-          <option value="red">❤️ Red</option>
-        </select>
-      </div>
+    <h1 class="glow">Speak Louder, Love Harder 🌟</h1>
+    <div class="theme-controls">
+      <button id="theme-toggle" aria-label="Toggle Theme">🌙</button>
+      <select id="color-theme-selector" aria-label="Select Color Theme">
+        <option value="default">Default</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="red">Red</option>
+        <option value="pink">Pink</option>
+      </select>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <h2>Your Voice Matters. Your Story Heals. 💜</h2>
+  <!-- ===== Navigation ===== -->
+  <nav class="main-nav">
+    <a href="mental-health.html">Mental Health</a>
+    <a href="addiction.html">Addiction</a>
+    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pit Bull Love</a>
+    <a href="foster-children.html">Foster Children</a>
+    <a href="guestbook-connect.html">Guestbook & Connect</a>
+  </nav>
+
+  <!-- ===== Quote Rotator ===== -->
+  <section class="quote-section">
+    <h2>Inspiration</h2>
+    <div id="quote-box" class="quote-rotator">"Speak louder, love harder 💜"</div>
   </section>
 
-  <!-- ===== QUOTE ROTATOR ===== -->
-  <section class="quote-section" aria-live="polite" aria-atomic="true">
-    <blockquote class="quote-rotator" id="quote-rotator">
-      “When we speak louder with love, we break the silence of suffering.”
-    </blockquote>
+  <!-- ===== Daily Affirmation ===== -->
+  <section class="daily-affirmation">
+    <h2>Your Daily Affirmation</h2>
+    <div id="affirmation-box">Click below for today's message 💌</div>
+    <button id="new-affirmation">New Affirmation</button>
   </section>
 
-  <!-- ===== CAUSE CARDS ===== -->
-  <section class="causes-container">
-    <div class="cause-card">
-      <h3>Mental Health</h3>
-      <p>Support awareness, compassion, and care for mental wellness.</p>
-    </div>
-    <div class="cause-card">
-      <h3>Foster Children</h3>
-      <p>Advocating for safety, stability, and second chances.</p>
-    </div>
-    <div class="cause-card">
-      <h3>Pit Bull Love</h3>
-      <p>Ending breed discrimination through education and empathy.</p>
-    </div>
-  </section>
+  <!-- ===== Content Placeholder ===== -->
+  <main>
+    <section class="content-section">
+      <h2>Welcome</h2>
+      <p>This space is for healing, advocacy, awareness, and love. Explore our causes and connect with stories that matter. 💗</p>
+    </section>
+  </main>
 
-  <!-- ===== DAILY AFFIRMATION ===== -->
-  <section class="daily-affirmation" aria-live="polite" aria-atomic="true">
-    <button onclick="generateAffirmation()">💫 New Affirmation</button>
-    <p id="affirmation-text">You are worthy of love and healing. 💖</p>
-  </section>
+  <!-- ===== Scroll to Top Button ===== -->
+  <button id="scroll-to-top" class="scroll-btn" aria-label="Scroll to top">⬆️</button>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
-  </footer>
-
-  <!-- ===== SCRIPTS ===== -->
+  <!-- ===== Scripts ===== -->
   <script src="script.js" defer></script>
 </body>
 </html>
