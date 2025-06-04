@@ -3,47 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Inspirational Site</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Hope & Healing</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header>
     <nav class="navbar">
-      <div class="logo">🌟 InspireMe</div>
-      <div class="nav-links">
-        <a href="mental-health.html" class="magic-link">Mental Health</a>
-        <a href="addiction.html" class="magic-link">Addiction</a>
-        <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
-        <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
-        <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
-        <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
-        <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
-        <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
-        <a href="foster-children.html" class="magic-link">Foster Children</a>
-        <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
-      </div>
-      <button id="theme-toggle">🌙</button>
+      <a href="mental-health.html" class="magic-link">Mental Health</a>
+      <a href="addiction.html" class="magic-link">Addiction</a>
+      <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
+      <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
+      <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
+      <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
+      <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
+      <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
+      <a href="foster-children.html" class="magic-link">Foster Children</a>
+      <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
     </nav>
+    <div class="theme-toggle">
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
   </header>
 
   <main>
-    <section class="hero">
-      <h1 class="glow-text">Welcome to InspireMe</h1>
-      <p>Your daily dose of inspiration and support.</p>
+    <section id="quote-section">
+      <p id="quote">Welcome to our site!</p>
     </section>
-
-    <section class="quotes">
-      <div id="quote-box">
-        <p id="quote-text">Loading quote...</p>
-        <cite id="quote-author"></cite>
-      </div>
-    </section>
+    <!-- Additional content sections can be added here -->
   </main>
 
   <footer>
-    <p>&copy; 2025 InspireMe. All rights reserved.</p>
+    <p>&copy; 2025 Hope & Healing. All rights reserved.</p>
   </footer>
 
-  <script src="scripts.js"></script>
+  <script src="js/quotes.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
