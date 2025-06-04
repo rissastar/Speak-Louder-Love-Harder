@@ -30,3 +30,28 @@ Each topic has its own dedicated page to provide detailed resources, stories, an
 - **Navigation:** Simple pill-style navigation bar for quick access to every page.  
 
 ## File Structure
+
+Speak-Louder-Love-Harder/
+│
+├── index.html                 ← 🌟 Main landing page
+│
+├── styles.css                 ← 🎨 Global styles
+├── scripts.js                 ← ⚙️ JavaScript (quotes, theme toggle, etc.)
+│
+├── mental-health.htm          ← 🧠 Topic pages
+├── addiction.htm
+├── cystic-fibrosis.html
+├── cirrhosis.html
+├── physical-abuse.html
+├── mental-abuse.html
+├── sexual-abuse.html
+├── pitbull-love.html
+├── foster-children.html
+├── guestbook-connect.html     ← 💌 Guestbook page
+│
+├── assets/                    ← 📁 Images, icons, etc.
+│   ├── logo.png
+│   ├── banner.jpg
+│   └── ...
+│
+└── README.md                  ← 📄 Project description (optional for GitHub)
