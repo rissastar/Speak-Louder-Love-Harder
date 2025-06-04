@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hope & Healing</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speak Louder, Love Harder 🌟</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
+  <header id="main-header" class="glow-header">
+    <nav class="nav-bar">
       <a href="mental-health.html" class="magic-link">Mental Health</a>
       <a href="addiction.html" class="magic-link">Addiction</a>
       <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
@@ -20,25 +20,44 @@
       <a href="foster-children.html" class="magic-link">Foster Children</a>
       <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
     </nav>
-    <div class="theme-toggle">
-      <label class="switch">
-        <input type="checkbox" id="theme-toggle">
-        <span class="slider round"></span>
-      </label>
-    </div>
+    <button id="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Dark/Light Mode">🌙</button>
   </header>
 
   <main>
-    <section id="quote-section">
-      <p id="quote">Welcome to our site!</p>
+    <section class="hero">
+      <h1 class="glow-text">Speak Louder, Love Harder 🌟</h1>
+      <p class="intro-text">A place for healing, awareness, and community support.</p>
     </section>
-    <!-- Additional content sections can be added here -->
+
+    <section id="quote-rotator" aria-live="polite" class="quote-rotator">
+      <blockquote id="quote-text">Loading inspiring quotes...</blockquote>
+      <footer id="quote-author"></footer>
+    </section>
+
+    <section class="cards-container" aria-label="Cause-Focused Cards">
+      <article class="cause-card" tabindex="0" aria-describedby="desc1">
+        <h2>Mental Health</h2>
+        <p id="desc1">Learn about mental health resources and stories.</p>
+      </article>
+      <article class="cause-card" tabindex="0" aria-describedby="desc2">
+        <h2>Support Animals</h2>
+        <p id="desc2">Showcase of loving pitbulls and therapy animals.</p>
+      </article>
+      <article class="cause-card" tabindex="0" aria-describedby="desc3">
+        <h2>Foster Children</h2>
+        <p id="desc3">Advocacy and care for children in foster care.</p>
+      </article>
+    </section>
+
+    <section class="affirmation-section" aria-live="polite">
+      <h2>Daily Affirmation</h2>
+      <p id="daily-affirmation">"You are stronger than you think."</p>
+      <button id="new-affirmation-btn" aria-label="Get new affirmation">New Affirmation</button>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Hope & Healing. All rights reserved.</p>
-  </footer>
+  <button id="scroll-top-btn" aria-label="Scroll to top" title="Scroll to top">⬆️</button>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
