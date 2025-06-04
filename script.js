@@ -123,3 +123,8 @@ document.getElementById('new-affirmation').addEventListener('click', () => {
   launchConfetti();
   drawConfetti();
 });
+
+// 💫 Page Transition Loader
+window.addEventListener('load', () => {
+  document.getElementById('page-loader').classList.add('hidden');
+});
