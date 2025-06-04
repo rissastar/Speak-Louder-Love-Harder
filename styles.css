@@ -351,3 +351,13 @@ body.dark {
   opacity: 0.9;
   animation: fadeInUp 2s ease-out;
 }
+
+/* Fade animation for quote transitions */
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
