@@ -2,68 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Connect - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guestbook & Connect</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="progress-bar"></div>
+  <header>
+    <h1 class="glow-text">Guestbook & Connect</h1>
+    <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">🌓</button>
+  </header>
 
-    <header class="site-header">
-  <nav class="navbar">
-    
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <a href="mental-health.html" class="magic-link">Mental Health</a>
-        <a href="addiction.html" class="magic-link">Addiction</a>
-        <a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a>
-        <a href="cirrhosis.html" class="magic-link">Cirrhosis</a>
-        <a href="physical-abuse.html" class="magic-link">Physical Abuse</a>
-        <a href="mental-abuse.html" class="magic-link">Mental Abuse</a>
-        <a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a>
-        <a href="pitbull-love.html" class="magic-link">Pitbull Love</a>
-        <a href="foster-children.html" class="magic-link">Foster Children</a>
-        <a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a>
-      </div>
-    </details>
+  <nav class="nav-links">
+    <a href="index.html" class="magic-link">Home</a>
+    <!-- Add other navigation links as needed -->
   </nav>
-</header>
 
-  <section class="hero">
-    <div>
-      <h1>Connect With Us</h1>
-      <p class="fade-in">Leave a message, share your story, or just say hi. This space is yours, too.</p>
-    </div>
-  </section>
+  <main>
+    <section>
+      <h2>Leave a Message</h2>
+      <form id="guestbook-form">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <textarea id="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="messages"></div>
+    </section>
+  </main>
 
-   <section class="section light fade-in">
-    <h2>Sign the Guestbook 💜</h2>
-    <p>Drop a message, share love, or leave a story. You're seen, you're heard, you're not alone.</p>
-
-    <div class="form-container">
-      <iframe 
-        src="https://docs.google.com/forms/d/e/1FAIpQLSd-rMpSeO3RfLuPva22WJpqqX3tLyAXe9RL_-wLotDfvHRTdw/viewform?embedded=true" 
-        width="100%" 
-        height="700" 
-        frameborder="0" 
-        marginheight="0" 
-        marginwidth="0">
-        Loading…
-      </iframe>
-    </div>
-  </section>
-
-   <div style="margin-top: 2rem; text-align: center;">
-  <h3 style="color: #6f4e97;">Thank you for taking the time to leave a message 💌</h3>
-  <p>Your words mean more than you know. You are helping build a space filled with honesty, hope, and heart.</p>
-</div>
-
-<button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
   <footer>
-    <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
+    <p>&copy; 2025 Inspire & Connect</p>
   </footer>
 
-  <script src="script.js" defer></script>
-</body>
-</html>
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      let theme = 'light';
+      if (document.body.classList.contains('dark-mode')) {
+        theme = 'dark';
+      }
+      localStorage.setItem('theme', theme);
+    });
+
+    // Guestbook Functionality
+    const guestbookForm = document.getElementById('guestbook-form');
+    const messagesDiv = document.getElementById('messages');
+
+    guestbookForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (name && message) {
+        const messageElement = document.createElement 
