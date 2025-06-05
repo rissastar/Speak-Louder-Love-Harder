@@ -22,15 +22,21 @@
     <h2>Your Profile</h2>
     <div id="user-info" class="user-info">
       <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
-      <form id="profile-form">
-        <label for="display-name">Display Name</label>
-        <input type="text" id="display-name" placeholder="Enter your name" />
+      <form id="profile-form" enctype="multipart/form-data">
+  <label for="display-name">Display Name</label>
+  <input type="text" id="display-name" placeholder="Enter your name" />
 
-        <label for="bio">Bio</label>
-        <textarea id="bio" placeholder="Tell us something about yourself"></textarea>
+  <label for="bio">Bio</label>
+  <textarea id="bio" placeholder="Tell us something about yourself"></textarea>
 
-        <button type="submit">Save Changes</button>
-      </form>
+  <label for="profile-pic">Profile Picture</label>
+  <input type="file" id="profile-pic" accept="image/*" />
+
+  <img id="profile-pic-preview" src="" alt="Profile Preview" style="max-width: 150px; border-radius: 8px; margin-top: 10px;" />
+
+  <button type="submit">Save Changes</button>
+</form>
+<p id="save-status"></p>
       <p id="save-status"></p>
     </div>
   </main>
