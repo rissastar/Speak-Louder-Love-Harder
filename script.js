@@ -24,12 +24,10 @@ const root = document.documentElement;
 const themeToggleBtn = document.getElementById('theme-toggle');
 const colorThemeButtons = document.querySelectorAll('.color-theme-btn');
 
+// Apply theme and color theme with localStorage support
 function applyTheme(theme) {
   root.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
-  if (themeToggleBtn) {
-    themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-  }
 }
 
 function applyColorTheme(color) {
@@ -37,20 +35,21 @@ function applyColorTheme(color) {
   localStorage.setItem('colorTheme', color);
 }
 
+// On DOMContentLoaded, apply saved or default theme/colors
 window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const savedTheme = localStorage.getItem('theme') || 'light';
   const savedColorTheme = localStorage.getItem('colorTheme') || 'default';
-
   applyTheme(savedTheme);
   applyColorTheme(savedColorTheme);
 
-  // Initialize quote rotator if quoteElement exists
+  // Initialize quote rotator text and opacity
   if (quoteElement) {
-    quoteElement.textContent = quotes[0];
+    quoteElement.textContent = quotes[currentQuote];
     quoteElement.style.opacity = 1;
   }
 });
 
+// Toggle dark/light theme on button click
 if (themeToggleBtn) {
   themeToggleBtn.addEventListener('click', () => {
     const current = root.getAttribute('data-theme') || 'light';
@@ -58,6 +57,7 @@ if (themeToggleBtn) {
   });
 }
 
+// Color theme buttons click handler
 colorThemeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const color = btn.getAttribute('data-color') || 'default';
@@ -75,11 +75,7 @@ const quotes = [
   "Speak louder, love harder.",
   "You are enough.",
   "Keep going, you’ve got this!",
-  "Believe in your strength.",
-  "Healing begins with hope.",
-  "You are stronger than your struggles.",
-  "Every day is a new beginning.",
-  "Kindness is a powerful weapon."
+  "Believe in your strength."
 ];
 
 const quoteElement = document.getElementById('quote') || document.getElementById('quote-box');
@@ -132,7 +128,7 @@ const scrollObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('animated');
-      scrollObserver.unobserve(entry.target); // Animate once only
+      scrollObserver.unobserve(entry.target); // Optional: animate once
     }
   });
 }, { threshold: 0.2 });
@@ -208,28 +204,3 @@ function launchConfetti() {
 
 const confettiBtn = document.getElementById('confetti-btn');
 confettiBtn?.addEventListener('click', launchConfetti);
-
-// ===== PARTICLES.JS INITIALIZATION =====
-// Assumes particles.js library loaded externally with <script src="..."></script>
-particlesJS('particles-js', {
-  particles: {
-    number: { value: 80, density: { enable: true, value_area: 800 } },
-    color: { value: '#FF6F61' }, // coral color
-    shape: { type: 'circle' },
-    opacity: { value: 0.5, random: true },
-    size: { value: 3, random: true },
-    move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, bounce: false }
-  },
-  interactivity: {
-    detect_on: 'canvas',
-    events: {
-      onhover: { enable: true, mode: 'grab' },
-      onclick: { enable: true, mode: 'push' }
-    },
-    modes: {
-      grab: { distance: 100, line_linked: { opacity: 0.5 } },
-      push: { particles_nb: 4 }
-    }
-  },
-  retina_detect: true
-});
