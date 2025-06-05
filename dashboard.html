@@ -28,8 +28,18 @@
       <a id="public-profile-link" href="#" class="dash-button">View Your Public Profile</a>
     
     <section class="dash-section">
+  <h2>Upcoming Events 📅</h2>
+  <ul id="event-list" class="event-list"></ul>
+</section>
+    
+    <section class="dash-section">
   <h2>Your Guestbook Entries 📝</h2>
   <ul id="guestbook-posts" class="guestbook-list"></ul>
+</section>
+
+    <section class="dash-section">
+  <h2>Saved Resources 📘</h2>
+  <ul id="bookmark-list" class="bookmark-list"></ul>
 </section>
   </div>
   </main>
@@ -81,4 +91,94 @@
       });
     }
   });
+  
+  <section class="dash-section">
+  <h2>Mood Tracker 🌈</h2>
+  <form id="mood-form">
+    <select id="mood-select">
+      <option value="Happy">😊 Happy</option>
+      <option value="Sad">😢 Sad</option>
+      <option value="Angry">😠 Angry</option>
+      <option value="Grateful">🙏 Grateful</option>
+      <option value="Anxious">😰 Anxious</option>
+    </select>
+    <textarea id="mood-note" placeholder="Optional note..."></textarea>
+    <button type="submit">Log Mood</button>
+  </form>
+
+  <ul id="mood-list" class="mood-list"></ul>
+</section>
+  
+  db.collection("events")
+  .orderBy("date")
+  .get()
+  .then(snapshot => {
+    const list = document.getElementById("event-list");
+    if (snapshot.empty) {
+      list.innerHTML = "<li>No upcoming events.</li>";
+    } else {
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${data.title}</strong><br>${new Date(data.date.toDate()).toLocaleString()}<br><a href="${data.link}" target="_blank">Join</a>`;
+        list.appendChild(li);
+      });
+    }
+  });
+  
+  db.collection("bookmarks")
+  .where("userId", "==", user.uid)
+  .get()
+  .then(snapshot => {
+    const list = document.getElementById("bookmark-list");
+    if (snapshot.empty) {
+      list.innerHTML = "<li>No saved resources.</li>";
+    } else {
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${data.url}" target="_blank">${data.title}</a>`;
+        list.appendChild(li);
+      });
+    }
+  });
+  
+  const moodForm = document.getElementById("mood-form");
+const moodSelect = document.getElementById("mood-select");
+const moodNote = document.getElementById("mood-note");
+
+moodForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  db.collection("moods").add({
+    userId: user.uid,
+    mood: moodSelect.value,
+    note: moodNote.value,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  }).then(() => {
+    moodNote.value = "";
+    loadMoods();
+  });
+});
+
+function loadMoods() {
+  db.collection("moods")
+    .where("userId", "==", user.uid)
+    .orderBy("timestamp", "desc")
+    .limit(5)
+    .get()
+    .then(snapshot => {
+      const list = document.getElementById("mood-list");
+      list.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${data.mood}</strong> – ${new Date(data.timestamp?.toDate()).toLocaleDateString()}<br><em>${data.note || ''}</em>`;
+        list.appendChild(li);
+      });
+    });
+}
+
+// Load moods on login
+loadMoods();
 </script>
