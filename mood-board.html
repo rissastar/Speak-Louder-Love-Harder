@@ -118,6 +118,43 @@
 
     loadCommunityHeatmap();
     loadMoodPieChart();
+    
+    const affirmationForm = document.getElementById("affirmation-form");
+const affirmationText = document.getElementById("affirmation-text");
+const affirmationList = document.getElementById("affirmation-list");
+
+// Submit affirmation
+affirmationForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const text = affirmationText.value.trim();
+  if (text) {
+    db.collection("affirmations").add({
+      text,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      affirmationText.value = "";
+      loadAffirmations();
+    });
+  }
+});
+
+// Load affirmations
+function loadAffirmations() {
+  db.collection("affirmations")
+    .orderBy("timestamp", "desc")
+    .limit(20)
+    .get()
+    .then(snapshot => {
+      affirmationList.innerHTML = "";
+      snapshot.forEach(doc => {
+        const li = document.createElement("li");
+        li.textContent = `"${doc.data().text}"`;
+        affirmationList.appendChild(li);
+      });
+    });
+}
+
+loadAffirmations();
   </script>
 </body>
 </html>
