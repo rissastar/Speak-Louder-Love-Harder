@@ -151,6 +151,38 @@
 const moodSelect = document.getElementById("mood-select");
 const moodNote = document.getElementById("mood-note");
 
+function getAffirmation(mood) {
+  const affirmations = {
+    "😊 Happy": [
+      "Keep shining your light!",
+      "Happiness looks great on you!",
+      "Celebrate this moment!"
+    ],
+    "🙏 Grateful": [
+      "Gratitude opens your heart.",
+      "Keep appreciating the little things.",
+      "You are attracting joy by being thankful."
+    ],
+    "😰 Anxious": [
+      "Breathe in, breathe out. You are safe.",
+      "This feeling will pass. You are strong.",
+      "You’ve handled tough things before — you will again."
+    ],
+    "😢 Sad": [
+      "It’s okay to not be okay.",
+      "You’re not alone in how you feel.",
+      "Let the tears fall — healing is happening."
+    ],
+    "😠 Angry": [
+      "Your emotions are valid.",
+      "Take space and be gentle with yourself.",
+      "You are in control, not your anger."
+    ]
+  };
+  const options = affirmations[mood] || ["You are doing your best. 💖"];
+  return options[Math.floor(Math.random() * options.length)];
+}
+
 moodForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
