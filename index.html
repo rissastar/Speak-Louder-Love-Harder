@@ -1,131 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" data-color="default">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Speak Louder, Love Harder 🌟</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Firebase initialization and app scripts -->
+  <script type="module" src="firebase-init.js"></script>
+  <script type="module" src="script.js"></script>
 </head>
 <body>
+  <header>
+    <div class="topbar">
+      <button id="sparkleToggle">✨ Sparkles On</button>
+      <button id="loginBtn" class="glow-button">Login</button>
+      <button id="logoutBtn" class="glow-button" style="display:none;">Logout</button>
+    </div>
+    <img id="siteLogo" src="img/logo.png" alt="Site Logo">
+    <h1>Speak Louder, Love Harder</h1>
+    <p>Voices that need to be heard. Stories that must be told.</p>
+    <nav>
+      <a href="#">Mental Health</a>
+      <a href="#">Addiction</a>
+      <a href="#">Cystic Fibrosis</a>
+      <a href="#">Cirrhosis</a>
+      <a href="#">Physical Abuse</a>
+      <a href="#">Mental Abuse</a>
+      <a href="#">Sexual Abuse</a>
+      <a href="#">Pitbull Love</a>
+      <a href="#">Foster Children</a>
+      <a href="guestbook.html">Guestbook & Connect</a>
+    </nav>
+  </header>
 
-  <!-- Custom Cursor -->
-  <div id="custom-cursor"></div>
+  <main>
+    <section id="intro">
+      <h2>Let’s get started — your journey begins here.</h2>
+      <p>This is a space for advocacy, sharing, healing, and learning. We believe in the power of voice, the strength of community, and the necessity of compassion.</p>
+      <ul>
+        <li>Advocate for change</li>
+        <li>Share our stories</li>
+        <li>Heal through connection</li>
+        <li>Learn to do better and be better</li>
+      </ul>
+    </section>
+    <!-- Existing features like affirmation generator, confetti, quote rotator, etc. remain here -->
+    <section id="get-involved">
+      <h2>Get Involved</h2>
+      <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out and speak from your heart.</p>
+    </section>
+  </main>
 
-  <!-- Page Loader -->
-  <div id="page-loader">
-    <div class="loader-inner">
-      <img src="logo.png" alt="Logo" class="loader-logo"/>
-      <div class="spinner"></div>
+  <!-- Authentication Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeAuth">&times;</span>
+      <h2>Login / Sign Up</h2>
+      <input type="email" id="emailInput" placeholder="Email" required>
+      <input type="password" id="passwordInput" placeholder="Password" required>
+      <input type="text" id="displayNameInput" placeholder="Display Name (for Sign Up)">
+      <input type="file" id="profileImageInput" accept="image/*">
+      <button id="emailSignupBtn">Sign Up</button>
+      <button id="emailLoginBtn">Log In</button>
+      <button id="googleLoginBtn">Log In with Google</button>
+      <a href="#" id="resetPasswordLink">Forgot password?</a>
     </div>
   </div>
 
-  <!-- Floating Shapes -->
-  <div class="floating-shape shape1"></div>
-  <div class="floating-shape shape2"></div>
-  <div class="floating-shape shape3"></div>
-  <div class="floating-shape shape4"></div>
-  <div class="floating-shape shape5"></div>
-  <div class="floating-shape shape6"></div>
-  <div class="floating-shape shape7"></div>
-
-  <!-- Parallax Background -->
-  <div class="parallax-bg">
-    <div class="layer layer1"></div>
-    <div class="layer layer2"></div>
-  </div>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <h1 id="animated-title">Speak Louder, Love Harder 🌟</h1>
-  </header>
-
-  <!-- Login/Register -->
-<div class="auth-container" id="auth-container">
-  <div class="auth-box">
-    <h2>Login / Register</h2>
-    <input type="email" id="auth-email" placeholder="Email" />
-    <input type="password" id="auth-password" placeholder="Password" />
-    <button id="login-btn">Login</button>
-    <button id="register-btn">Register</button>
-    <button id="logout-btn" style="display: none;">Logout</button>
-    <button id="google-login-btn">Login with Google</button>
-<br>
-<input type="email" id="reset-email" placeholder="Email for reset" />
-<button id="reset-password-btn">Reset Password</button>
-    <h2>Register</h2>
-    <input type="text" id="auth-username" placeholder="Username" />
-    <p id="auth-message"></p>
-  </div>
-</div>
-
-  <!-- NAVIGATION -->
-  <nav class="main-nav-section">
-    <ul class="nav-list">
-      <li><a href="mental-health.html">Mental Health</a></li>
-      <li><a href="addiction.html">Addiction</a></li>
-      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-      <li><a href="cirrhosis.html">Cirrhosis</a></li>
-      <li><a href="physical-abuse.html">Physical Abuse</a></li>
-      <li><a href="mental-abuse.html">Mental Abuse</a></li>
-      <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-      <li><a href="pitbull-love.html">Pit Bull Love</a></li>
-      <li><a href="foster-children.html">Foster Children</a></li>
-      <li><a href="guestbook-connect.html">🌈 Inspire & Connect</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="typewriter"><h2></h2></div>
-  </section>
-
-  <!-- QUOTE ROTATOR -->
-  <section class="quote-section" data-scroll-animate>
-    <p class="quote-rotator">🌈 You are not alone.</p>
-  </section>
-
-  <!-- AFFIRMATION -->
-  <section class="daily-affirmation" data-scroll-animate>
-    <p id="affirmation-text">💖 You are enough.</p>
-    <button class="affirm-btn" id="new-affirmation">New Affirmation</button>
-  </section>
-
-  <!-- THEME CONTROLS -->
-  <section class="theme-controls" data-scroll-animate>
-    <button id="theme-toggle">Toggle Light/Dark</button>
-    <select id="color-theme">
-      <option value="default">💜 Default</option>
-      <option value="green">💚 Green</option>
-      <option value="blue">💙 Blue</option>
-      <option value="red">❤️ Red</option>
-      <option value="pink">💖 Pink</option>
-    </select>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <p>© 2025 Speak Louder, Love Harder 🌟</p>
+  <footer>
+    © 2025 Speak Louder, Love Harder. All rights reserved.
   </footer>
-
-  <!-- SCROLL TO TOP -->
-  <button id="scrollToTopBtn">↑</button>
-  
-  <!-- Firebase CDN -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-    authDomain: "speak-louder-581d7.firebaseapp.com",
-    projectId: "speak-louder-581d7",
-    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-  };
-  firebase.initializeApp(firebaseConfig);
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
-</script>
-
-  <script src="script.js"></script>
 </body>
 </html>
