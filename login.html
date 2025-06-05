@@ -2,62 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🔐 Login | Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🔐 Login / Register - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="theme-pink light">
-  <header>
-    <h1>🔐 Login</h1>
-    <div class="typewriter-text" data-text="Welcome back! 💫 You are safe here."></div>
+  <header class="glow-header">
+    <h1>🔐 Login / Register</h1>
   </header>
 
-  <section class="glass card animate-on-scroll">
-    <form id="loginForm">
-      <label>Email:</label>
-      <input type="email" id="loginEmail" required />
-      <label>Password:</label>
-      <input type="password" id="loginPassword" required />
-      <button type="submit">➡️ Log In</button>
+  <main class="glass card login-card">
+    <form id="auth-form">
+      <h2 id="form-title">Login</h2>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required autocomplete="email" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required autocomplete="current-password" />
+
+      <div id="username-field" class="hidden">
+        <label for="username">Username</label>
+        <input type="text" id="username" maxlength="20" autocomplete="username" />
+      </div>
+
+      <button type="submit" id="submit-btn">Login</button>
+
+      <p class="toggle-text">
+        <span id="toggle-msg">Don't have an account?</span>
+        <button type="button" id="toggle-form-btn">Register here</button>
+      </p>
+
+      <p><button type="button" id="google-login-btn">Continue with Google</button></p>
+      <p><button type="button" id="forgot-password-btn">Forgot Password?</button></p>
+
+      <p id="auth-error" class="error-msg"></p>
+      <p id="auth-success" class="success-msg"></p>
     </form>
+  </main>
 
-    <div class="divider">or</div>
-
-    <button id="googleLoginBtn">🔵 Sign in with Google</button>
-    <p>Don't have an account? <a href="register.html">Create one here 💖</a></p>
-  </section>
-
-  <script type="module" src="script.js"></script>
-  <script type="module">
-    import { auth, provider } from './script.js';
-    import {
-      signInWithEmailAndPassword,
-      signInWithPopup
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
-    const loginForm = document.getElementById('loginForm');
-    const googleLoginBtn = document.getElementById('googleLoginBtn');
-
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = loginForm.loginEmail.value;
-      const password = loginForm.loginPassword.value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "profile.html";
-      } catch (err) {
-        alert("❌ Login failed: " + err.message);
-      }
-    });
-
-    googleLoginBtn.addEventListener('click', async () => {
-      try {
-        await signInWithPopup(auth, provider);
-        window.location.href = "profile.html";
-      } catch (err) {
-        alert("❌ Google Sign-In failed: " + err.message);
-      }
-    });
-  </script>
+  <script type="module" src="auth.js"></script>
 </body>
 </html>
