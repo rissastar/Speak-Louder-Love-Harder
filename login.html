@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Speak Louder, Love Harder 🌟</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="auth.js" defer></script>
+</head>
+<body class="auth-page">
+  <div class="auth-container">
+    <h1 class="glow">🌟 Welcome Back!</h1>
+
+    <div class="auth-tabs">
+      <button id="show-login" class="active">Login</button>
+      <button id="show-register">Register</button>
+    </div>
+
+    <div id="login-form" class="auth-form">
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button id="login-btn">Login</button>
+      <button id="google-login-btn">Sign in with Google</button>
+      <p><a href="#" id="reset-link">Forgot Password?</a></p>
+    </div>
+
+    <div id="register-form" class="auth-form hidden">
+      <input type="text" id="register-username" placeholder="Username" required />
+      <input type="email" id="register-email" placeholder="Email" required />
+      <input type="password" id="register-password" placeholder="Password" required />
+      <button id="register-btn">Register</button>
+    </div>
+
+    <p id="auth-message" class="auth-message"></p>
+  </div>
+</body>
+</html>
