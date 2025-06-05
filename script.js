@@ -1,6 +1,6 @@
 // ===== Firebase Setup =====
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 import { getStorage } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js';
 
@@ -109,3 +109,26 @@ const observer = new IntersectionObserver((entries) => {
   threshold: 0.2
 });
 observers.forEach(el => observer.observe(el));
+
+// ===== Auth Visibility Controls =====
+const profileLink = document.getElementById('profile-link');
+const loginLink = document.getElementById('login-link');
+const logoutBtn = document.getElementById('logout-btn');
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    profileLink.classList.remove('hidden');
+    logoutBtn.classList.remove('hidden');
+    loginLink.classList.add('hidden');
+  } else {
+    profileLink.classList.add('hidden');
+    logoutBtn.classList.add('hidden');
+    loginLink.classList.remove('hidden');
+  }
+});
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut();
+  });
+}
