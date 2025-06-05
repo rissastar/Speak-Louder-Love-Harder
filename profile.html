@@ -3,72 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>👤 My Profile - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Profile – Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="theme-pink light">
-  <header class="glow-header">
-    <h1><span class="pulse">👤</span> My Profile</h1>
-    <nav class="auth-nav">
-      <a href="index.html">🏠 Home</a>
-      <button id="logout-btn">🚪 Logout</button>
-    </nav>
-  </header>
+<body>
 
-  <main class="glass card animate-on-scroll profile-card">
-    <section id="user-info" class="profile-info-section">
-      <img id="profile-pic" src="default-profile.png" alt="Profile Picture" class="profile-image" />
-      <h2 id="profile-name">Loading...</h2>
-      <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
-      <p><strong>Color Theme:</strong> <span id="profile-theme">Loading...</span></p>
-      <p id="mood-status">Mood: Loading...</p>
-    </section>
+  <nav class="navbar">
+    <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guestbook-connect.html">Connect</a></li>
+      <li><button id="logout-btn">Logout</button></li>
+    </ul>
+    <button id="theme-toggle">Dark Mode</button>
+  </nav>
 
-    <section class="mood-update-section">
-      <h3>📝 Update Mood</h3>
-      <input type="text" id="mood-input" placeholder="How are you feeling today?" />
-      <button id="update-mood-btn">Update Mood</button>
-    </section>
-
-    <section class="badge-upload-section">
-      <h3>🏅 Add New Badge</h3>
-      <input type="text" id="badge-input" placeholder="Badge name" />
-      <button id="add-badge-btn">Add Badge</button>
-    </section>
-
-    <section class="theme-change-section">
-      <h3>🎨 Change Theme</h3>
-      <select id="theme-selector">
-        <option value="theme-pink">Pink</option>
-        <option value="theme-purple">Purple</option>
-        <option value="theme-green">Green</option>
-        <option value="theme-blue">Blue</option>
-        <option value="theme-red">Red</option>
-      </select>
-      <button id="change-theme-btn">Change Theme</button>
-    </section>
-
-    <section class="badge-section">
-      <h3>🏅 Badges</h3>
-      <ul id="badge-list"></ul>
-    </section>
-
-    <section id="user-quote-history" class="quotes-section">
-      <h3>🌟 Your Favorite Quotes</h3>
-      <ul id="quotes-list">
-        <!-- Populated dynamically -->
-      </ul>
-    </section>
-
-    <p id="profile-error" class="error-msg"></p>
+  <main class="profile-container">
+    <h2>Your Profile</h2>
+    <div id="user-info" class="user-info">
+      <p>Loading user data...</p>
+    </div>
   </main>
 
-  <footer class="glow-footer">
-    🌟 Empower your voice — Speak Louder, Love Harder
-  </footer>
+  <script src="script.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="auth.js" defer></script>
 
-  <script type="module" src="firebase.js"></script>
-  <script type="module" src="auth.js"></script>
-  <script type="module" src="profile.js"></script>
+  <script>
+    // Wait for Firebase to load
+    document.addEventListener("DOMContentLoaded", () => {
+      firebase.auth().onAuthStateChanged((user) => {
+        const userInfo = document.getElementById("user-info");
+
+        if (user) {
+          // Show user info
+          userInfo.innerHTML = `
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>User ID:</strong> ${user.uid}</p>
+            <p><strong>Status:</strong> Logged In ✅</p>
+          `;
+        } else {
+          // Redirect if not logged in
+          window.location.href = "login.html";
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
