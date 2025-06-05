@@ -194,17 +194,17 @@ loadMoods();
 function renderMoodChart(entries) {
   const ctx = document.getElementById("mood-chart").getContext("2d");
 
+  const moodMap = {
+    "😊 Happy": { score: 5, color: "#66e26f" },
+    "🙏 Grateful": { score: 4, color: "#90caf9" },
+    "😰 Anxious": { score: 3, color: "#ffb74d" },
+    "😢 Sad": { score: 2, color: "#ba68c8" },
+    "😠 Angry": { score: 1, color: "#ef5350" }
+  };
+
   const labels = entries.map(e => new Date(e.timestamp.toDate()).toLocaleDateString());
-  const data = entries.map(e => {
-    const moodMap = {
-      "😊 Happy": 5,
-      "🙏 Grateful": 4,
-      "😰 Anxious": 3,
-      "😢 Sad": 2,
-      "😠 Angry": 1
-    };
-    return moodMap[e.mood] || 0;
-  });
+  const scores = entries.map(e => moodMap[e.mood]?.score || 0);
+  const colors = entries.map(e => moodMap[e.mood]?.color || "#ccc");
 
   new Chart(ctx, {
     type: 'line',
@@ -212,10 +212,14 @@ function renderMoodChart(entries) {
       labels,
       datasets: [{
         label: 'Mood Level (1–5)',
-        data,
+        data: scores,
+        borderColor: '#fff',
+        backgroundColor: colors,
+        pointBackgroundColor: colors,
+        pointBorderColor: '#000',
+        pointRadius: 6,
         fill: false,
-        borderColor: 'rgb(255, 99, 132)',
-        tension: 0.2
+        tension: 0.3
       }]
     },
     options: {
@@ -225,7 +229,14 @@ function renderMoodChart(entries) {
           max: 5,
           ticks: {
             stepSize: 1,
-            callback: (val) => ["", "😠", "😢", "😰", "🙏", "😊"][val]
+            callback: val => ["", "😠", "😢", "😰", "🙏", "😊"][val]
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#fff'
           }
         }
       }
