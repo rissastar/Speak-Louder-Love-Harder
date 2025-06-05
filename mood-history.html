@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mood History – Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a class="logo" href="index.html">Speak Louder, Love Harder</a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><button id="logout-btn">Logout</button></li>
+    </ul>
+  </nav>
+
+  <main class="dash-container">
+    <h1>🧠 Mood History</h1>
+    <ul id="full-mood-list" class="mood-list"></ul>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script src="auth.js" defer></script>
+  <script>
+    const db = firebase.firestore();
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        location.href = "login.html";
+        return;
+      }
+
+      db.collection("moods")
+        .where("userId", "==", user.uid)
+        .orderBy("timestamp", "desc")
+        .get()
+        .then(snapshot => {
+          const list = document.getElementById("full-mood-list");
+          if (snapshot.empty) {
+            list.innerHTML = "<li>No moods logged yet.</li>";
+          } else {
+            snapshot.forEach(doc => {
+              const d = doc.data();
+              const li = document.createElement("li");
+              li.innerHTML = `<strong>${d.mood}</strong> – ${new Date(d.timestamp?.toDate()).toLocaleDateString()}<br><em>${d.note || 'No note.'}</em>`;
+              list.appendChild(li);
+            });
+          }
+        });
+    });
+  </script>
+</body>
+</html>
