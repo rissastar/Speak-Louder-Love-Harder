@@ -2,49 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Speak Louder, Love Harder 🌟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌟 Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
 </head>
-<body>
-  <div id="loader" class="loader"></div>
-
-  <header class="main-header">
-    <h1><span class="glow">Speak Louder, Love Harder</span></h1>
-    <button id="theme-toggle">🌓</button>
+<body class="theme-pink light">
+  <header>
+    <h1>🌟 Speak Louder, Love Harder</h1>
+    <div class="typewriter-text" data-text="A Place for Healing, Hope & Empowerment 💖"></div>
   </header>
 
-<div class="auth-tabs">
-      <button id="show-login" class="active">Login</button>
-      <button id="show-register">Register</button>
+  <section class="theme-toggle-wrapper">
+    <label>
+      <input type="checkbox" id="theme-toggle" />
+      🌗 Toggle Dark Mode
+    </label>
+  </section>
+
+  <section class="color-picker">
+    🎨 Choose Color Theme:
+    <button class="color-theme-btn" data-color="pink" title="Pink"></button>
+    <button class="color-theme-btn" data-color="green" title="Green"></button>
+    <button class="color-theme-btn" data-color="purple" title="Purple"></button>
+  </section>
+
+  <section id="quote-box" class="animate-on-scroll">Loading inspirational quotes...</section>
+
+  <section class="glass card animate-on-scroll">
+    <h2>💬 What We’re About</h2>
+    <p>
+      “Speak Louder, Love Harder 🌟” is a bold, vibrant, interactive space for healing, support, and empowerment.
+      Together we lift each other through love, awareness, and action.
+    </p>
+    <p>
+      Whether you're healing, advocating, surviving, or thriving — you belong here. 💖
+    </p>
+  </section>
+
+  <section class="glass card animate-on-scroll">
+    <h2>🔗 Explore Topics</h2>
+    <div class="topics-grid">
+      <a href="mental-health.html" class="btn">🧠 Mental Health</a>
+      <a href="addiction.html" class="btn">💊 Addiction</a>
+      <a href="cystic-fibrosis.html" class="btn">💨 Cystic Fibrosis</a>
+      <a href="cirrhosis.html" class="btn">🍷 Cirrhosis</a>
+      <a href="physical-abuse.html" class="btn">✋ Physical Abuse</a>
+      <a href="mental-abuse.html" class="btn">🧠 Mental Abuse</a>
+      <a href="sexual-abuse.html" class="btn">🚫 Sexual Abuse</a>
+      <a href="pitbull-love.html" class="btn">🐶 Pitbull Love</a>
+      <a href="foster-children.html" class="btn">👶 Foster Children</a>
     </div>
+  </section>
 
-  <nav class="navbar">
-    <a href="index.html">Home</a>
-    <a href="mental-health.html">Mental Health</a>
-    <a href="addiction.html">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
-    <a href="guestbook-connect.html">Guestbook 💌</a>
-    <a href="profile.html">My Profile</a>
-  </nav>
-
-  <main>
-    <section class="hero">
-      <h2 class="typing-text">A safe space to speak louder and love harder 💖</h2>
-      <p>We're here to uplift, inspire, and connect 🌈</p>
-      <div id="quote-box" class="quote-box">✨ Loading quote...</div>
-    </section>
-  </main>
+  <section class="glass card animate-on-scroll">
+    <h2>🚪 Get Involved</h2>
+    <a href="guestbook-connect.html" class="btn">💌 Guestbook & Connect</a>
+    <a href="profile.html" class="btn">👤 My Profile</a>
+  </section>
 
   <footer>
-    Built with ❤️ to inspire and empower.
+    Built with 💖 to inspire and empower — Speak Louder, Love Harder 🌟
   </footer>
+
+  <button id="scrollTopBtn" title="Back to Top">⬆️</button>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
