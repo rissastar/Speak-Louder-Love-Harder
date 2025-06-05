@@ -7,6 +7,39 @@
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
+<!-- Firebase App + Auth + Firestore -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+    authDomain: "speak-louder-581d7.firebaseapp.com",
+    projectId: "speak-louder-581d7",
+    storageBucket: "speak-louder-581d7.appspot.com",
+    messagingSenderId: "674769404942",
+    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+    measurementId: "G-54XJLK1CGJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const db = getFirestore();
+</script>
 <body class="theme-purple light-mode">
   <header class="glow-header">
     <h1 class="typewriter">Speak Louder, Love Harder 💖</h1>
