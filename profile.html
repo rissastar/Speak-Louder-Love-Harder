@@ -108,5 +108,37 @@
   });
 </script>
 
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = nameInput.value;
+  const bio = bioInput.value;
+  let photoURL = previewImg.src;
+
+  const file = picInput.files[0];
+
+  // Secure upload
+  if (file) {
+    if (!file.type.startsWith("image/")) {
+      alert("Only image files are allowed.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) { // 2 MB limit
+      alert("Image must be under 2MB.");
+      return;
+    }
+
+    const storageRef = storage.ref(`profile-pics/${currentUser.uid}`);
+    await storageRef.put(file);
+    photoURL = await storageRef.getDownloadURL();
+  }
+
+  // Save to Firestore
+  userRef.set({ name, bio, photoURL }).then(() => {
+    saveStatus.textContent = "Profile updated ✅";
+    setTimeout(() => (saveStatus.textContent = ""), 3000);
+  });
+});
+
 </body>
 </html>
