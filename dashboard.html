@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="logo" href="index.html">Speak Louder, Love Harder</a>
+    <ul class="nav-links">
+      <li><a href="guestbook-connect.html">Connect</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><button id="logout-btn">Logout</button></li>
+    </ul>
+    <button id="theme-toggle">Dark Mode</button>
+  </nav>
+
+  <main class="dashboard-container">
+    <h1>Welcome back, <span id="user-name">Friend</span> 💖</h1>
+    <img id="dashboard-pic" src="default.png" alt="Your profile picture" class="dashboard-pic"/>
+
+    <div class="dashboard-links">
+      <a href="profile.html" class="dash-button">Edit Profile</a>
+      <a href="guestbook-connect.html" class="dash-button">Write to the Guestbook</a>
+      <a id="public-profile-link" href="#" class="dash-button">View Your Public Profile</a>
+    </div>
+  </main>
+
+  <!-- Firebase + Auth + Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script src="auth.js" defer></script>
+  <script>
+    const db = firebase.firestore();
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const nameEl = document.getElementById("user-name");
+      const picEl = document.getElementById("dashboard-pic");
+      const profileLink = document.getElementById("public-profile-link");
+
+      db.collection("users").doc(user.uid).get().then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          nameEl.textContent = data.name || "Friend";
+          if (data.photoURL) {
+            picEl.src = data.photoURL;
+          }
+          profileLink.href = `public-profile.html?uid=${user.uid}`;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
