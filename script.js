@@ -105,16 +105,41 @@ document.addEventListener("mousemove", e => {
   cursor.style.top = e.clientY + "px";
 });
 
-<!-- Firebase CDN -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+const auth = firebase.auth();
+const emailInput = document.getElementById("auth-email");
+const passwordInput = document.getElementById("auth-password");
+const loginBtn = document.getElementById("login-btn");
+const registerBtn = document.getElementById("register-btn");
+const logoutBtn = document.getElementById("logout-btn");
+const authMessage = document.getElementById("auth-message");
 
-<script>
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    appId: "YOUR_APP_ID"
-  };
-  firebase.initializeApp(firebaseConfig);
-</script>
+loginBtn.addEventListener("click", () => {
+  auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value)
+    .then(() => authMessage.textContent = "✅ Logged in!")
+    .catch(err => authMessage.textContent = `❌ ${err.message}`);
+});
+
+registerBtn.addEventListener("click", () => {
+  auth.createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+    .then(() => authMessage.textContent = "✅ Registered!")
+    .catch(err => authMessage.textContent = `❌ ${err.message}`);
+});
+
+logoutBtn.addEventListener("click", () => {
+  auth.signOut().then(() => authMessage.textContent = "👋 Logged out!");
+});
+
+// Auth state listener
+auth.onAuthStateChanged(user => {
+  if (user) {
+    authMessage.textContent = `👤 Logged in as ${user.email}`;
+    logoutBtn.style.display = "inline-block";
+    loginBtn.style.display = "none";
+    registerBtn.style.display = "none";
+  } else {
+    authMessage.textContent = "🔒 Not logged in.";
+    logoutBtn.style.display = "none";
+    loginBtn.style.display = "inline-block";
+    registerBtn.style.display = "inline-block";
+  }
+});
