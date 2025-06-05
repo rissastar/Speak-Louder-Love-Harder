@@ -1,156 +1,78 @@
 // ==== Firebase Configuration ====
-// Replace these with your actual Firebase project values
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.firebasestorage.app",
+  messagingSenderId: "674769404942",
+  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  measurementId: "G-54XJLK1CGJ"
 };
 
-// Initialize Firebase
+// ==== Initialize Firebase ====
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
 
-// ==== DOM Elements (adjust IDs as needed) ====
-const loginForm = document.getElementById('login-form');
-const registerForm = document.getElementById('register-form');
-const logoutBtn = document.getElementById('logout-btn');
-const authStatus = document.getElementById('auth-status');
-
-// ==== Register User ====
+// ==== Register ====
+const registerForm = document.getElementById("register-form");
 if (registerForm) {
-  registerForm.addEventListener('submit', (e) => {
+  registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = registerForm['register-email'].value;
-    const password = registerForm['register-password'].value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((cred) => {
-        alert("Registered successfully!");
-        registerForm.reset();
-      })
-      .catch((err) => alert(err.message));
+    try {
+      const userCred = await auth.createUserWithEmailAndPassword(email, password);
+      const uid = userCred.user.uid;
+
+      // Create a user doc
+      await db.collection("users").doc(uid).set({
+        email: email,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      alert("Registration error: " + err.message);
+    }
   });
 }
 
-// ==== Login User ====
+// ==== Login ====
+const loginForm = document.getElementById("login-form");
 if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = loginForm['login-email'].value;
-    const password = loginForm['login-password'].value;
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((cred) => {
-        alert("Logged in!");
-        loginForm.reset();
-      })
-      .catch((err) => alert(err.message));
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      alert("Login error: " + err.message);
+    }
   });
 }
 
 // ==== Logout ====
+const logoutBtn = document.getElementById("logout-btn");
 if (logoutBtn) {
-  logoutBtn.addEventListener('click', () => {
-    firebase.auth().signOut()
-      .then(() => alert("Logged out."));
+  logoutBtn.addEventListener("click", () => {
+    auth.signOut().then(() => {
+      window.location.href = "login.html";
+    });
   });
 }
 
-// ==== Track Auth Status ====
-firebase.auth().onAuthStateChanged((user) => {
-  if (authStatus) {
-    if (user) {
-      authStatus.textContent = `Logged in as: ${user.email}`;
-    } else {
-      authStatus.textContent = "Not logged in.";
-    }
+// ==== Auth State Change (for profile mini-display or redirect logic) ====
+auth.onAuthStateChanged(user => {
+  if (user) {
+    // If needed, populate mini-profile or update UI
+    console.log("Logged in as:", user.email);
+  } else {
+    console.log("Not logged in.");
   }
-});
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  // ... rest of config
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// 🔐 LOGIN
-document.getElementById("login-form")?.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // ✅ Redirect to dashboard
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-});
-
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-const auth = getAuth();
-
-document.getElementById("login-form")?.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("login-email").value.trim();
-  const password = document.getElementById("login-password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-});
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-const auth = getAuth();
-
-document.getElementById("register-form")?.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const email = document.getElementById("register-email").value.trim();
-  const password = document.getElementById("register-password").value;
-  const confirm = document.getElementById("confirm-password").value;
-
-  const status = document.getElementById("register-status");
-
-  if (password !== confirm) {
-    status.textContent = "❌ Passwords do not match.";
-    return;
-  }
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      status.textContent = "✅ Account created! Redirecting...";
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 1000);
-    })
-    .catch((error) => {
-      status.textContent = "❌ " + error.message;
-    });
 });
