@@ -149,3 +149,73 @@ auth.onAuthStateChanged(user => {
     window.location.href = "login.html"; // or show login prompt
   }
 });
+
+const googleBtn = document.getElementById("google-login-btn");
+const resetBtn = document.getElementById("reset-password-btn");
+const resetEmail = document.getElementById("reset-email");
+
+// GOOGLE LOGIN
+googleBtn.addEventListener("click", () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => {
+      const user = result.user;
+      authMessage.textContent = `🌈 Welcome, ${user.displayName}`;
+      saveExtraUserData(user); // save to Firestore (see below)
+    })
+    .catch(err => authMessage.textContent = `❌ ${err.message}`);
+});
+
+// PASSWORD RESET
+resetBtn.addEventListener("click", () => {
+  const email = resetEmail.value;
+  auth.sendPasswordResetEmail(email)
+    .then(() => authMessage.textContent = "📧 Reset email sent.")
+    .catch(err => authMessage.textContent = `❌ ${err.message}`);
+});
+
+const db = firebase.firestore();
+const usernameInput = document.getElementById("auth-username");
+
+// Save extra data when registering
+registerBtn.addEventListener("click", () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  const username = usernameInput.value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(cred => {
+      return db.collection("users").doc(cred.user.uid).set({
+        email,
+        username,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    })
+    .then(() => {
+      authMessage.textContent = "✅ Registered and user saved!";
+    })
+    .catch(err => {
+      authMessage.textContent = `❌ ${err.message}`;
+    });
+});
+
+// Save Google login users too
+function saveExtraUserData(user) {
+  if (!user) return;
+  db.collection("users").doc(user.uid).set({
+    email: user.email,
+    username: user.displayName || "Anonymous",
+    photoURL: user.photoURL || "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+}
+
+if (user) {
+  db.collection("users").doc(user.uid).get().then(doc => {
+    const data = doc.data();
+    authMessage.innerHTML = `
+      👋 Welcome <strong>${data.username}</strong><br>
+      <img src="${data.photoURL || 'default-avatar.png'}" width="60" />
+    `;
+  });
+}
