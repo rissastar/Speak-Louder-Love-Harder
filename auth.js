@@ -121,3 +121,36 @@ document.getElementById("login-form")?.addEventListener("submit", (e) => {
       alert("Login failed: " + error.message);
     });
 });
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+const auth = getAuth();
+
+document.getElementById("register-form")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("register-email").value.trim();
+  const password = document.getElementById("register-password").value;
+  const confirm = document.getElementById("confirm-password").value;
+
+  const status = document.getElementById("register-status");
+
+  if (password !== confirm) {
+    status.textContent = "❌ Passwords do not match.";
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      status.textContent = "✅ Account created! Redirecting...";
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 1000);
+    })
+    .catch((error) => {
+      status.textContent = "❌ " + error.message;
+    });
+});
