@@ -101,3 +101,29 @@ firebase.auth().onAuthStateChanged((user) => {
     }
   });
 });
+
+function showRandomAffirmation() {
+  db.collection("affirmations")
+    .orderBy("timestamp", "desc")
+    .limit(50)
+    .get()
+    .then(snapshot => {
+      const all = snapshot.docs.map(doc => doc.data().text);
+      if (all.length > 0) {
+        const quoteBox = document.getElementById("rotating-affirmation");
+        let index = 0;
+
+        function updateAffirmation() {
+          quoteBox.textContent = `"${all[index]}"`;
+          index = (index + 1) % all.length;
+        }
+
+        updateAffirmation();
+        setInterval(updateAffirmation, 10000); // every 10 sec
+      }
+    });
+}
+
+firebase.auth().onAuthStateChanged(user => {
+  showRandomAffirmation();
+});
