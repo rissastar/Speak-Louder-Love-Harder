@@ -6,13 +6,22 @@ import {
   getAuth,
   onAuthStateChanged,
   signOut
-} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
-import {
-  getFirestore,
-  doc,
-  getDoc
-} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+<form id="profile-form" enctype="multipart/form-data">
+  <label for="display-name">Display Name</label>
+  <input type="text" id="display-name" placeholder="Enter your name" />
+
+  <label for="bio">Bio</label>
+  <textarea id="bio" placeholder="Tell us something about yourself"></textarea>
+
+  <label for="profile-pic">Profile Picture</label>
+  <input type="file" id="profile-pic" accept="image/*" />
+
+  <img id="profile-pic-preview" src="" alt="Profile Preview" style="max-width: 150px; border-radius: 8px; margin-top: 10px;" />
+
+  <button type="submit">Save Changes</button>
+</form>
+<p id="save-status"></p>
 
 // Firebase Config
 const firebaseConfig = {
