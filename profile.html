@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="firebase-init.js"></script>
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <header>
+    <button id="logoutBtn" class="glow-button">Logout</button>
+    <h1 id="profileName">User Name</h1>
+  </header>
+  <main>
+    <img id="profileImage" src="img/default-avatar.png" alt="Profile Image" style="width:100px; height:100px; border-radius:50%;">
+    <p><strong>Theme:</strong> <span id="profileTheme"></span></p>
+    <h2>Mood History</h2>
+    <ul id="moodList"></ul>
+    <h2>Badges</h2>
+    <ul id="badgeList"></ul>
+  </main>
+</body>
+</html>
