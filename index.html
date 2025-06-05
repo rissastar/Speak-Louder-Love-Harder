@@ -15,11 +15,38 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body class="light">
+  
+  <section id="auth-section" class="auth-tabs">
+  <div class="auth-tabs-buttons">
+    <button onclick="showTab('login')" id="login-tab" class="active">Login</button>
+    <button onclick="showTab('register')" id="register-tab">Register</button>
+  </div>
+
+  <div id="login-form" class="auth-tab-content active">
+    <h3>Welcome Back 💖</h3>
+    <form id="home-login-form">
+      <input type="email" id="home-login-email" placeholder="Email" required />
+      <input type="password" id="home-login-password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="register-form" class="auth-tab-content">
+    <h3>Join the Community 🌈</h3>
+    <form id="home-register-form">
+      <input type="text" id="home-register-name" placeholder="Your Name" required />
+      <input type="email" id="home-register-email" placeholder="Email" required />
+      <input type="password" id="home-register-password" placeholder="Password" required />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <p id="auth-message" class="auth-message"></p>
+</section>
 
   <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
-    <div class="hamburger" id="hamburger">☰</div>
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="guestbook-connect.html">Guestbook &amp; Connect</a></li>
