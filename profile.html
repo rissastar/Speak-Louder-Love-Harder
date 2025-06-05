@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>👤 My Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -16,39 +16,34 @@
   </header>
 
   <main class="glass card profile-card animate-on-scroll">
-    <!-- Profile Overview -->
-    <section id="user-info">
+    <!-- Profile Image & Info -->
+    <section id="user-info" class="profile-info">
       <img id="profile-pic" src="default-profile.png" alt="Profile Picture" />
-      <h2 id="display-username">Loading...</h2>
-      <p id="display-email"></p>
+      <h2 id="profile-name">Loading...</h2>
+      <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
     </section>
 
-    <!-- Full Profile Details -->
-    <section id="user-details">
-      <h3>👤 Profile Info</h3>
-      <p><strong>Username:</strong> <span id="profile-name">Loading...</span></p>
-      <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+    <!-- Theme & Mood -->
+    <section id="user-details" class="theme-mood-section">
       <p><strong>Color Theme:</strong> <span id="profile-theme">Loading...</span></p>
       <p id="mood-status">Mood: Loading...</p>
     </section>
 
-    <!-- Favorite Quotes -->
-    <section id="user-quote-history" class="quotes-section">
-      <h3>💬 Your Favorite Quotes</h3>
-      <ul id="quotes-list">
-        <!-- Populated dynamically -->
-      </ul>
-    </section>
-
     <!-- Badges -->
     <section class="badges-section">
-      <h3>🏅 Badges</h3>
-      <ul id="badge-list">
-        <!-- Populated dynamically -->
+      <h3>🏅 Your Badges</h3>
+      <ul id="badge-list" class="badge-list"></ul>
+    </section>
+
+    <!-- Favorite Quotes -->
+    <section id="user-quote-history" class="quotes-section">
+      <h3>💬 Favorite Quotes</h3>
+      <ul id="quotes-list">
+        <!-- Dynamically populated -->
       </ul>
     </section>
 
-    <!-- Error message -->
+    <!-- Error Message -->
     <p id="profile-error" class="error-msg"></p>
   </main>
 
@@ -56,7 +51,8 @@
     🌟 Empower your voice — Speak Louder, Love Harder
   </footer>
 
-  <!-- Scripts -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="auth.js"></script>
   <script type="module" src="profile.js"></script>
 </body>
 </html>
