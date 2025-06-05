@@ -1,58 +1,61 @@
-import { auth, db, storage } from './script.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 import {
+  getAuth,
   onAuthStateChanged,
   signOut
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import {
-  doc, getDoc
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
-// DOM elements
-const usernameEl = document.getElementById('username');
-const emailEl = document.getElementById('email');
-const themeEl = document.getElementById('theme-preference');
-const profilePicEl = document.getElementById('profile-pic');
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.appspot.com",
+  messagingSenderId: "674769404942",
+  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  measurementId: "G-54XJLK1CGJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const displayUsername = document.getElementById('display-username');
+const displayEmail = document.getElementById('display-email');
+const profilePic = document.getElementById('profile-pic');
+const quotesList = document.getElementById('quotes-list');
 const logoutBtn = document.getElementById('logout-btn');
-const favoriteQuotesEl = document.getElementById('favorite-quotes');
+const profileError = document.getElementById('profile-error');
 
-// Listen for user login
+// Load user data when authenticated
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = 'index.html';
-    return;
-  }
+  if (user) {
+    try {
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        displayUsername.textContent = data.username;
+        displayEmail.textContent = user.email;
+        if (data.photoURL) profilePic.src = data.photoURL;
+      } else {
+        displayUsername.textContent = user.displayName || 'User';
+        displayEmail.textContent = user.email;
+      }
 
-  emailEl.textContent = user.email;
-
-  // Get user data from Firestore
-  const docRef = doc(db, "users", user.uid);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-    usernameEl.textContent = data.username || "No Username Set";
-    themeEl.textContent = data.theme || "Not saved yet";
-    
-    // Profile Picture
-    if (data.profilePictureURL) {
-      profilePicEl.src = data.profilePictureURL;
+      // Load future quotes here (placeholder for now)
+      quotesList.innerHTML = `<li>✨ Keep going, you're doing great.</li>`;
+    } catch (error) {
+      profileError.textContent = error.message;
     }
-
-    // Favorite quotes
-    favoriteQuotesEl.innerHTML = '';
-    (data.favoriteQuotes || []).forEach((quote) => {
-      const li = document.createElement('li');
-      li.textContent = quote;
-      favoriteQuotesEl.appendChild(li);
-    });
-
   } else {
-    usernameEl.textContent = "No profile data found";
+    window.location.href = 'login.html';
   }
 });
 
 // Logout
-logoutBtn.addEventListener('click', async () => {
-  await signOut(auth);
-  window.location.href = 'index.html';
+logoutBtn.addEventListener('click', () => {
+  signOut(auth).then(() => {
+    window.location.href = 'login.html';
+  });
 });
