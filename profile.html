@@ -1,48 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Profile 🌟 | Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
-  <script defer src="script.js"></script>
-  <script defer src="profile.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌟 Your Profile | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="main-header">
-    <h1><span class="glow">My Profile 🌈</span></h1>
-    <button id="theme-toggle">🌓</button>
+<body class="theme-pink light">
+  <header>
+    <h1>💖 Welcome to Your Profile</h1>
+    <div class="typewriter-text" data-text="Uplift. Connect. Heal. 🌈"></div>
   </header>
 
-  <main class="profile-main">
-    <section class="profile-card">
-      <img id="profile-pic" src="default-user.png" alt="Profile Picture" class="profile-img">
-      <h2 id="username">Loading username...</h2>
-      <p>Email: <span id="email">loading...</span></p>
-      <button id="logout-btn">🚪 Logout</button>
-    </section>
+  <section class="glass card animate-on-scroll" id="profile-section">
+    <h2>👤 Hello, <span id="username">Loading...</span></h2>
+    <img id="profile-pic" src="default-avatar.png" alt="Profile Picture" width="100" height="100" style="border-radius: 50%; box-shadow: 0 0 10px var(--accent); margin: 1rem 0;" />
+    <div>
+      <strong>Email:</strong> <span id="user-email">Loading...</span>
+    </div>
+    <div>
+      <strong>Current Theme:</strong> <span id="theme-label">Pink</span>
+    </div>
+    <div class="theme-toggle-wrapper">
+      <label>
+        <input type="checkbox" id="theme-toggle" />
+        🌗 Dark Mode
+      </label>
+    </div>
+    <div class="color-picker">
+      🎨 Choose Color:
+      <button class="color-theme-btn" data-color="pink" title="Pink"></button>
+      <button class="color-theme-btn" data-color="green" title="Green"></button>
+      <button class="color-theme-btn" data-color="purple" title="Purple"></button>
+    </div>
+    <button id="logoutBtn">🚪 Log Out</button>
+  </section>
 
-    <section class="profile-sections">
-      <div class="profile-box">
-        <h3>🎨 Color Theme</h3>
-        <p id="theme-preference">Your favorite theme is loading...</p>
-      </div>
-      <div class="profile-box">
-        <h3>📝 Favorite Quotes</h3>
-        <ul id="favorite-quotes"><li>Loading...</li></ul>
-      </div>
-      <div class="profile-box">
-        <h3>🌤️ Mood Tracker</h3>
-        <p>Coming soon!</p>
-      </div>
-    </section>
-  </main>
+  <section class="glass card animate-on-scroll">
+    <h3>📜 Favorite Quotes</h3>
+    <ul id="quote-history">
+      <li>Your saved quotes will appear here…</li>
+    </ul>
+  </section>
+
+  <section class="glass card animate-on-scroll">
+    <h3>🏅 Badges & Mood Tracker</h3>
+    <p>Future section for your badges, mood stats & progress. Stay tuned!</p>
+  </section>
 
   <footer>
-    Built with 💖 to help you shine.
+    Made with 💖 for growth & healing — Speak Louder, Love Harder 🌟
   </footer>
+
+  <button id="scrollTopBtn" title="Scroll to Top">⬆️</button>
+
+  <script type="module" src="script.js"></script>
+  <script type="module">
+    import { auth, db } from './script.js';
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import {
+      doc, getDoc
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const usernameEl = document.getElementById('username');
+    const userEmailEl = document.getElementById('user-email');
+    const profilePic = document.getElementById('profile-pic');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    onAuthStateChanged(auth, async user => {
+      if (user) {
+        userEmailEl.textContent = user.email;
+
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          usernameEl.textContent = data.username || "Anonymous";
+          profilePic.src = data.profilePic || "default-avatar.png";
+        } else {
+          usernameEl.textContent = user.displayName || "User";
+          profilePic.src = user.photoURL || "default-avatar.png";
+        }
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth).then(() => {
+        window.location.href = "index.html";
+      });
+    });
+  </script>
 </body>
 </html>
