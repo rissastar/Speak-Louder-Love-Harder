@@ -40,6 +40,19 @@
     <h1 id="animated-title">Speak Louder, Love Harder 🌟</h1>
   </header>
 
+  <!-- Login/Register -->
+<div class="auth-container" id="auth-container">
+  <div class="auth-box">
+    <h2>Login / Register</h2>
+    <input type="email" id="auth-email" placeholder="Email" />
+    <input type="password" id="auth-password" placeholder="Password" />
+    <button id="login-btn">Login</button>
+    <button id="register-btn">Register</button>
+    <button id="logout-btn" style="display: none;">Logout</button>
+    <p id="auth-message"></p>
+  </div>
+</div>
+
   <!-- NAVIGATION -->
   <nav class="main-nav-section">
     <ul class="nav-list">
@@ -91,6 +104,20 @@
 
   <!-- SCROLL TO TOP -->
   <button id="scrollToTopBtn">↑</button>
+  
+  <!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+    authDomain: "speak-louder-581d7.firebaseapp.com",
+    projectId: "speak-louder-581d7",
+    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
 
   <script src="script.js"></script>
 </body>
