@@ -169,20 +169,67 @@ function loadMoods() {
   db.collection("moods")
     .where("userId", "==", user.uid)
     .orderBy("timestamp", "desc")
-    .limit(5)
+    .limit(10)
     .get()
     .then(snapshot => {
       const list = document.getElementById("mood-list");
       list.innerHTML = "";
+      const moodEntries = [];
+
       snapshot.forEach(doc => {
         const data = doc.data();
+        moodEntries.unshift(data); // oldest first for graph
         const li = document.createElement("li");
         li.innerHTML = `<strong>${data.mood}</strong> – ${new Date(data.timestamp?.toDate()).toLocaleDateString()}<br><em>${data.note || ''}</em>`;
         list.appendChild(li);
       });
+
+      renderMoodChart(moodEntries);
     });
 }
 
 // Load moods on login
 loadMoods();
+
+function renderMoodChart(entries) {
+  const ctx = document.getElementById("mood-chart").getContext("2d");
+
+  const labels = entries.map(e => new Date(e.timestamp.toDate()).toLocaleDateString());
+  const data = entries.map(e => {
+    const moodMap = {
+      "😊 Happy": 5,
+      "🙏 Grateful": 4,
+      "😰 Anxious": 3,
+      "😢 Sad": 2,
+      "😠 Angry": 1
+    };
+    return moodMap[e.mood] || 0;
+  });
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Mood Level (1–5)',
+        data,
+        fill: false,
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.2
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          min: 0,
+          max: 5,
+          ticks: {
+            stepSize: 1,
+            callback: (val) => ["", "😠", "😢", "😰", "🙏", "😊"][val]
+          }
+        }
+      }
+    }
+  });
+}
 </script>
