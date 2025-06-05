@@ -219,3 +219,180 @@ if (user) {
     `;
   });
 }
+
+// script.js
+import { auth, db, storage } from './firebase-init.js';
+import { 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+  sendPasswordResetEmail,
+  GoogleAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+
+// Get DOM elements
+const emailLoginBtn = document.getElementById('emailLoginBtn');
+const emailSignupBtn = document.getElementById('emailSignupBtn');
+const googleLoginBtn = document.getElementById('googleLoginBtn');
+const resetLink = document.getElementById('resetPasswordLink');
+const displayNameInput = document.getElementById('displayNameInput');
+const emailInput = document.getElementById('emailInput');
+const passwordInput = document.getElementById('passwordInput');
+const profileImageInput = document.getElementById('profileImageInput');
+const authModal = document.getElementById('authModal');
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const closeAuthBtn = document.getElementById('closeAuth');
+
+// Show login modal
+loginBtn.addEventListener('click', () => {
+  authModal.style.display = 'block';
+});
+
+// Close modal when 'x' is clicked
+closeAuthBtn.addEventListener('click', () => {
+  authModal.style.display = 'none';
+});
+
+// Close modal when clicking outside of it
+window.addEventListener('click', (e) => {
+  if (e.target == authModal) {
+    authModal.style.display = 'none';
+  }
+});
+
+// Email/Password login
+emailLoginBtn.addEventListener('click', () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location = 'profile.html';
+    })
+    .catch(error => console.error('Login error:', error));
+});
+
+// Email/Password sign-up
+emailSignupBtn.addEventListener('click', async () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  const displayName = displayNameInput.value;
+  const file = profileImageInput.files[0];
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    // Update display name on auth profile
+    if (displayName) {
+      await updateProfile(user, { displayName: displayName });
+    }
+    // Upload profile image if provided
+    let photoURL = null;
+    if (file) {
+      const storageRef = ref(storage, 'profileImages/' + user.uid);
+      const snapshot = await uploadBytes(storageRef, file);
+      photoURL = await getDownloadURL(snapshot.ref);
+      await updateProfile(user, { photoURL: photoURL });
+    }
+    // Save user data in Firestore
+    await setDoc(doc(db, 'users', user.uid), {
+      displayName: user.displayName || displayName,
+      profileImageUrl: photoURL,
+      theme: 'default',
+      moodHistory: [],
+      badges: []
+    });
+    window.location = 'profile.html';
+  } catch (error) {
+    console.error('Signup error:', error);
+  }
+});
+
+// Google OAuth login
+googleLoginBtn.addEventListener('click', async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    // Create or update Firestore doc for this user
+    await setDoc(doc(db, 'users', user.uid), {
+      displayName: user.displayName,
+      profileImageUrl: user.photoURL || null,
+      theme: 'default',
+      moodHistory: [],
+      badges: []
+    }, { merge: true });
+    window.location = 'profile.html';
+  } catch (error) {
+    console.error('Google sign-in error:', error);
+  }
+});
+
+// Password reset link
+resetLink.addEventListener('click', () => {
+  const email = emailInput.value;
+  if (!email) {
+    alert('Please enter your email first.');
+    return;
+  }
+  sendPasswordResetEmail(auth, email)
+    .then(() => alert('Password reset email sent.'))
+    .catch(error => console.error('Password reset error:', error));
+});
+
+// Listen for auth state changes to toggle UI and redirect
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginBtn.style.display = 'none';
+    logoutBtn.style.display = 'inline-block';
+  } else {
+    loginBtn.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+    // If on profile page without a user, redirect
+    if (window.location.pathname.endsWith('profile.html')) {
+      window.location = 'index.html';
+    }
+  }
+});
+
+// Logout button
+logoutBtn.addEventListener('click', () => {
+  signOut(auth).then(() => {
+    window.location = 'index.html';
+  });
+});
+
+// Load profile data when on profile page
+if (window.location.pathname.endsWith('profile.html')) {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      // Fetch user document from Firestore
+      const docRef = doc(db, 'users', user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById('profileName').innerText = data.displayName;
+        if (data.profileImageUrl) {
+          document.getElementById('profileImage').src = data.profileImageUrl;
+        }
+        document.getElementById('profileTheme').innerText = data.theme;
+        const moodList = document.getElementById('moodList');
+        data.moodHistory.forEach(entry => {
+          const li = document.createElement('li');
+          li.innerText = `${entry.date}: ${entry.mood}`;
+          moodList.appendChild(li);
+        });
+        const badgeList = document.getElementById('badgeList');
+        data.badges.forEach(badge => {
+          const li = document.createElement('li');
+          li.innerText = badge;
+          badgeList.appendChild(li);
+        });
+      }
+    }
+  });
+}
