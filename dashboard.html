@@ -186,12 +186,17 @@ function getAffirmation(mood) {
 moodForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  const mood = moodSelect.value;
+  const note = moodNote.value;
+
   db.collection("moods").add({
     userId: user.uid,
-    mood: moodSelect.value,
-    note: moodNote.value,
+    mood,
+    note,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   }).then(() => {
+    const affirmation = getAffirmation(mood);
+    alert("🌟 " + affirmation);
     moodNote.value = "";
     loadMoods();
   });
