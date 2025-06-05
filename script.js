@@ -227,3 +227,44 @@ auth.onAuthStateChanged(user => {
     console.log("Not logged in.");
   }
 });
+
+// Login
+document.getElementById("home-login-form")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("home-login-email").value;
+  const password = document.getElementById("home-login-password").value;
+
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => window.location.href = "dashboard.html")
+    .catch(err => document.getElementById("auth-message").textContent = err.message);
+});
+
+// Register
+document.getElementById("home-register-form")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = document.getElementById("home-register-name").value;
+  const email = document.getElementById("home-register-email").value;
+  const password = document.getElementById("home-register-password").value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((cred) => {
+      return firebase.firestore().collection("users").doc(cred.user.uid).set({
+        name,
+        email,
+        bio: "",
+        photoURL: ""
+      });
+    })
+    .then(() => window.location.href = "dashboard.html")
+    .catch(err => document.getElementById("auth-message").textContent = err.message);
+});
+
+function showTab(tab) {
+  document.getElementById("login-form").classList.remove("active");
+  document.getElementById("register-form").classList.remove("active");
+  document.getElementById("login-tab").classList.remove("active");
+  document.getElementById("register-tab").classList.remove("active");
+
+  document.getElementById(`${tab}-form`).classList.add("active");
+  document.getElementById(`${tab}-tab`).classList.add("active");
+}
