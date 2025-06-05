@@ -9,38 +9,39 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body class="theme-pink light">
-  <!-- 🌌 Particle Background -->
-  <div id="particles-js"></div>
 
-  <!-- 🌟 Animated Header -->
-  <header class="glow-header">
-    <h1><span class="pulse">🌟</span> Speak Louder, Love Harder</h1>
-    <div class="typewriter-text" data-text="A Place for Healing, Hope & Empowerment 💖"></div>
+  <!-- Particle Background -->
+  <div id="particles-js" aria-hidden="true"></div>
 
-    <!-- 🌗 Theme & Color Controls -->
-    <section class="theme-toggle-wrapper">
-      <label for="theme-toggle">
+  <!-- Header with animated title, typewriter, theme controls, and auth buttons -->
+  <header class="glow-header" role="banner">
+    <h1><span class="pulse" aria-hidden="true">🌟</span> Speak Louder, Love Harder</h1>
+    <div class="typewriter-text" data-text="A Place for Healing, Hope & Empowerment 💖" aria-live="polite"></div>
+
+    <!-- Theme & Color Controls -->
+    <section class="theme-toggle-wrapper" aria-label="Theme and color settings">
+      <label for="theme-toggle" class="cursor-pointer">
         <input type="checkbox" id="theme-toggle" />
         🌗 Toggle Dark Mode
       </label>
-      <div class="color-picker">
+      <div class="color-picker" role="group" aria-label="Choose a color theme">
         🎨 Choose a Color Theme:
-        <button class="color-theme-btn" data-color="pink" title="Pink"></button>
-        <button class="color-theme-btn" data-color="green" title="Green"></button>
-        <button class="color-theme-btn" data-color="purple" title="Purple"></button>
+        <button class="color-theme-btn" data-color="pink" title="Pink" aria-pressed="true"></button>
+        <button class="color-theme-btn" data-color="green" title="Green" aria-pressed="false"></button>
+        <button class="color-theme-btn" data-color="purple" title="Purple" aria-pressed="false"></button>
       </div>
     </section>
 
-    <!-- 🔐 Auth Buttons -->
-    <nav class="auth-nav">
-      <a href="profile.html" id="profile-link" class="hidden">👤 Profile</a>
+    <!-- Auth Buttons -->
+    <nav class="auth-nav" role="navigation" aria-label="User authentication">
+      <a href="profile.html" id="profile-link" class="hidden" aria-hidden="true">👤 Profile</a>
       <a href="login.html" id="login-link">🔐 Login / Register</a>
-      <button id="logout-btn" class="hidden">🚪 Logout</button>
+      <button id="logout-btn" class="hidden" aria-hidden="true">🚪 Logout</button>
     </nav>
   </header>
 
-  <!-- ===== 🌐 Main Site Navigation ===== -->
-  <nav aria-label="Primary site navigation" role="navigation" class="main-nav">
+  <!-- Main Site Navigation -->
+  <nav class="main-nav" role="navigation" aria-label="Primary site navigation">
     <a href="mental-health.html" class="nav-link">🧠 Mental Health</a>
     <a href="addiction.html" class="nav-link">💊 Addiction</a>
     <a href="cystic-fibrosis.html" class="nav-link">💨 Cystic Fibrosis</a>
@@ -53,14 +54,14 @@
     <a href="guestbook-connect.html" class="nav-link">💌 Guestbook</a>
   </nav>
 
-  <!-- 💬 Inspirational Quotes -->
-  <section id="quote-box" class="animate-on-scroll">
+  <!-- Inspirational Quotes -->
+  <section id="quote-box" class="animate-on-scroll" aria-live="polite" role="region" aria-label="Inspirational quotes">
     <p>Loading inspirational quotes...</p>
   </section>
 
-  <!-- 💡 What We’re About -->
-  <section class="glass card animate-on-scroll">
-    <h2>💬 What We’re About</h2>
+  <!-- What We’re About Section -->
+  <section class="glass card animate-on-scroll" role="region" aria-labelledby="about-title">
+    <h2 id="about-title">💬 What We’re About</h2>
     <p>
       <strong>“Speak Louder, Love Harder 🌟”</strong> is a bold, vibrant, interactive space for healing, support, and empowerment.
       Together we lift each other through love, awareness, and action.
@@ -70,25 +71,25 @@
     </p>
   </section>
 
-  <!-- 💌 Get Involved -->
-  <section class="glass card animate-on-scroll">
-    <h2>🚪 Get Involved</h2>
+  <!-- Get Involved Section -->
+  <section class="glass card animate-on-scroll" role="region" aria-labelledby="get-involved-title">
+    <h2 id="get-involved-title">🚪 Get Involved</h2>
     <a href="guestbook-connect.html" class="btn">💌 Guestbook & Connect</a>
     <a href="profile.html" class="btn">👤 My Profile</a>
   </section>
 
-  <!-- 🎉 Confetti Trigger Button -->
-  <button id="confetti-btn" class="btn animate-on-scroll">🎉 Celebrate!</button>
+  <!-- Confetti Trigger Button -->
+  <button id="confetti-btn" class="btn animate-on-scroll" aria-label="Celebrate with confetti">🎉 Celebrate!</button>
 
-  <!-- 🔚 Footer -->
-  <footer class="glow-footer">
+  <!-- Footer -->
+  <footer class="glow-footer" role="contentinfo">
     Built with 💖 to inspire and empower — Speak Louder, Love Harder 🌟
   </footer>
 
-  <!-- ⬆️ Scroll to Top Button -->
-  <button id="scrollTopBtn" title="Back to Top">⬆️</button>
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Back to Top" aria-label="Back to top">⬆️</button>
 
-  <!-- 🌐 Scripts -->
+  <!-- Scripts -->
   <script type="module" src="script.js"></script>
 </body>
 </html>
