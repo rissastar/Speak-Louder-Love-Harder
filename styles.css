@@ -1,4 +1,4 @@
-/* Reset & Base */
+/* ========== RESET & BASE ========== */
 * {
   margin: 0;
   padding: 0;
@@ -6,129 +6,267 @@
 }
 html, body {
   font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
   background-color: var(--bg);
   color: var(--text);
-  transition: background 0.5s, color 0.5s;
+  transition: background 0.4s, color 0.4s;
+  scroll-behavior: smooth;
 }
 
-/* Theme Colors */
+/* ========== THEMES ========== */
 :root {
   --bg: #fff;
   --text: #222;
   --accent: #d63384;
   --glow: #ff69b4;
+  --card: #f0f0f0;
 }
 body.dark {
   --bg: #121212;
-  --text: #f0f0f0;
+  --text: #f8f8f8;
   --accent: #9b59b6;
   --glow: #aaffee;
+  --card: #1e1e1e;
 }
 
-/* Header */
+/* ========== HEADER ========== */
 .main-header {
-  padding: 2rem;
   text-align: center;
+  padding: 2rem;
   background: linear-gradient(90deg, var(--accent), var(--glow));
   color: white;
-  animation: glow-pulse 3s ease-in-out infinite;
+  position: relative;
+}
+.main-header h1 {
+  font-size: 2.5rem;
 }
 .glow {
   text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
 }
+#theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
 
-/* Navigation */
+/* ========== NAVIGATION ========== */
 .navbar {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: var(--accent);
+  background: var(--accent);
   padding: 1rem;
 }
 .navbar a {
-  margin: 0.5rem;
-  padding: 0.7rem 1rem;
-  border-radius: 30px;
   color: white;
-  background-color: transparent;
+  margin: 0.3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
   text-decoration: none;
   border: 2px solid white;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 .navbar a:hover {
-  transform: scale(1.05);
   background: white;
   color: var(--accent);
+  transform: scale(1.05);
 }
 
-/* Hero */
+/* ========== HERO SECTION ========== */
 .hero {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 4rem 1rem;
   background: linear-gradient(to bottom right, var(--accent), var(--glow));
   color: white;
 }
 .typing-text {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  animation: typing 3s steps(40) 1 normal both;
   white-space: nowrap;
   overflow: hidden;
+  animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
   border-right: 3px solid white;
+  width: 0;
+  margin: 0 auto;
 }
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  to { width: 100%; }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
+/* ========== QUOTE BOX ========== */
 .quote-box {
   margin-top: 2rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 1.2rem;
+  background: rgba(255,255,255,0.1);
   border-left: 5px solid white;
   border-radius: 8px;
   font-style: italic;
   box-shadow: 0 0 15px var(--glow);
 }
 
-/* Footer */
+/* ========== PROFILE PAGE ========== */
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.profile-card {
+  background: var(--card);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 0 15px var(--glow);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid var(--accent);
+}
+.profile-card button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.profile-card button:hover {
+  background: var(--glow);
+  color: black;
+}
+.profile-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.profile-box {
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--accent);
+  width: 280px;
+}
+
+/* ========== GUESTBOOK PAGE ========== */
+.guestbook-main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+.guestbook-form {
+  margin-bottom: 2rem;
+  background: var(--card);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--accent);
+}
+.guestbook-form h2,
+.guestbook-entries h2 {
+  margin-bottom: 1rem;
+}
+.guestbook-form input,
+.guestbook-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+.guestbook-form button {
+  padding: 0.6rem 1.4rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.guestbook-form button:hover {
+  background: var(--glow);
+  color: black;
+}
+#messagesList {
+  list-style: none;
+}
+#messagesList li {
+  background: var(--card);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-left: 5px solid var(--accent);
+  border-radius: 5px;
+}
+
+/* ========== TOPIC PAGES ========== */
+main.topic-page {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+main.topic-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+main.topic-page p {
+  margin-bottom: 1rem;
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ========== FOOTER ========== */
 footer {
   text-align: center;
   padding: 2rem;
-  font-size: 0.9rem;
-  color: var(--accent);
+  background: var(--accent);
+  color: white;
+  margin-top: 4rem;
 }
 
-/* Loader */
+/* ========== LOADER ========== */
 .loader {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: var(--bg);
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 .loader::after {
   content: "🌟";
-  font-size: 4rem;
+  font-size: 3rem;
   animation: spin 2s linear infinite;
 }
 @keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
 }
 
-@keyframes glow-pulse {
-  0% { text-shadow: 0 0 5px var(--glow); }
-  50% { text-shadow: 0 0 20px var(--glow); }
-  100% { text-shadow: 0 0 5px var(--glow); }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
+/* ========== RESPONSIVE ========== */
+@media (max-width: 700px) {
   .navbar {
     flex-direction: column;
+    align-items: center;
+  }
+  .profile-sections {
+    flex-direction: column;
+    align-items: center;
   }
 }
