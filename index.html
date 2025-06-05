@@ -49,6 +49,12 @@
     <button id="login-btn">Login</button>
     <button id="register-btn">Register</button>
     <button id="logout-btn" style="display: none;">Logout</button>
+    <button id="google-login-btn">Login with Google</button>
+<br>
+<input type="email" id="reset-email" placeholder="Email for reset" />
+<button id="reset-password-btn">Reset Password</button>
+    <h2>Register</h2>
+    <input type="text" id="auth-username" placeholder="Username" />
     <p id="auth-message"></p>
   </div>
 </div>
@@ -117,6 +123,7 @@
     appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
   };
   firebase.initializeApp(firebaseConfig);
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
 </script>
 
   <script src="script.js"></script>
