@@ -1,136 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speak Louder, Love Harder</title>
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Link to stylesheet -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speak Louder, Love Harder</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body class="light">
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
-        <div class="hamburger" id="hamburger">☰</div>
-        <ul class="nav-links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="guestbook-connect.html">Guestbook &amp; Connect</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="login.html">Login/Register</a></li>
-            <li><a href="mental-health.html">Mental Health</a></li>
-            <li><a href="addiction.html">Addiction</a></li>
-            <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-            <li><a href="cirrhosis.html">Cirrhosis</a></li>
-            <li><a href="physical-abuse.html">Physical Abuse</a></li>
-            <li><a href="mental-abuse.html">Mental Abuse</a></li>
-            <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-            <li><a href="pitbull-love.html">Pitbull Love</a></li>
-            <li><a href="foster-children.html">Foster Children</a></li>
-        </ul>
-        <button id="theme-toggle">Dark Mode</button>
-    </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <h1>Speak Louder, Love Harder</h1>
-        <p>Join our vibrant community for mental health support and inspiration.</p>
-        <button class="btn">Join the Community</button>
-    </header>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
+    <div class="hamburger" id="hamburger">☰</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guestbook-connect.html">Guestbook &amp; Connect</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="login.html">Login/Register</a></li>
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="addiction.html">Addiction</a></li>
+      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+      <li><a href="cirrhosis.html">Cirrhosis</a></li>
+      <li><a href="physical-abuse.html">Physical Abuse</a></li>
+      <li><a href="mental-abuse.html">Mental Abuse</a></li>
+      <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+      <li><a href="pitbull-love.html">Pitbull Love</a></li>
+      <li><a href="foster-children.html">Foster Children</a></li>
+    </ul>
+    <button id="theme-toggle">Dark Mode</button>
+  </nav>
 
-    <!-- Quotes Section -->
-    <section class="quotes">
-        <h2>Inspirational Quotes</h2>
-        <p id="quote">You are not alone.</p>
-    </section>
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>Speak Louder, Love Harder</h1>
+    <p>Join our vibrant community for mental health support and inspiration.</p>
+    <a href="guestbook-connect.html" class="btn">Join the Community</a>
+  </header>
 
-    <!-- Topics / Features Section -->
-    <section class="features">
-        <!-- Feature Card: Mental Health -->
-        <div class="feature">
-            <img src="https://via.placeholder.com/400x250.png?text=Mental+Health" alt="Mental Health">
-            <h3>Mental Health</h3>
-            <p>Support and resources for all mental health journeys.</p>
-            <a href="mental-health.html" class="btn">Learn More</a>
-        </div>
-        <!-- Feature Card: Addiction -->
-        <div class="feature">
-            <img src="https://via.placeholder.com/400x250.png?text=Addiction+Recovery" alt="Addiction Recovery">
-            <h3>Addiction</h3>
-            <p>Guidance and stories to help you heal from addiction.</p>
-            <a href="addiction.html" class="btn">Learn More</a>
-        </div>
-        <!-- Feature Card: Pitbull Love -->
-        <div class="feature">
-            <img src="https://via.placeholder.com/400x250.png?text=Pitbull+Love" alt="Pitbull Love">
-            <h3>Pitbull Love</h3>
-            <p>Stories of compassion and unconditional love with pit bulls.</p>
-            <a href="pitbull-love.html" class="btn">Learn More</a>
-        </div>
-        <!-- More feature cards can be added similarly -->
-    </section>
+  <!-- Quotes Section -->
+  <section class="quotes">
+    <h2>Inspirational Quotes</h2>
+    <p id="quote">You are not alone.</p>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Speak Louder, Love Harder. All rights reserved.</p>
-    </footer>
+  <!-- Feature/Topics Section -->
+  <section class="features">
+    <div class="feature">
+      <img src="https://via.placeholder.com/400x250.png?text=Mental+Health" alt="Mental Health">
+      <h3>Mental Health</h3>
+      <p>Support and resources for all mental health journeys.</p>
+      <a href="mental-health.html" class="btn">Learn More</a>
+    </div>
 
-    <!-- JavaScript: Quotes Rotation, Theme Toggle, Mobile Nav -->
-    <script>
-        // Inspirational quotes array (hardcoded for now)
-        const quotes = [
-            "You are not alone.",
-            "One day at a time, one step at a time.",
-            "Your story matters and your voice is heard.",
-            "Together, we can make a difference.",
-            "Spread love, spread hope."
-        ];
-        let quoteIndex = 0;
-        const quoteElem = document.getElementById('quote');
+    <div class="feature">
+      <img src="https://via.placeholder.com/400x250.png?text=Addiction+Recovery" alt="Addiction Recovery">
+      <h3>Addiction</h3>
+      <p>Guidance and stories to help you heal from addiction.</p>
+      <a href="addiction.html" class="btn">Learn More</a>
+    </div>
 
-        // Function to update the quote text periodically
-        function updateQuote() {
-            quoteElem.textContent = quotes[quoteIndex];
-            quoteIndex = (quoteIndex + 1) % quotes.length;
-        }
-        // Rotate quotes every 5 seconds
-        setInterval(updateQuote, 5000);
+    <div class="feature">
+      <img src="https://via.placeholder.com/400x250.png?text=Pitbull+Love" alt="Pitbull Love">
+      <h3>Pitbull Love</h3>
+      <p>Stories of compassion and unconditional love with pit bulls.</p>
+      <a href="pitbull-love.html" class="btn">Learn More</a>
+    </div>
+  </section>
 
-        // Theme Toggle (Dark/Light) Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark');
-            themeToggle.textContent = 'Light Mode';
-        }
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Speak Louder, Love Harder. Built with 💖 to inspire and empower.</p>
+  </footer>
 
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            if (document.body.classList.contains('dark')) {
-                themeToggle.textContent = 'Light Mode';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeToggle.textContent = 'Dark Mode';
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
-        // Mobile Navigation Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('nav-links');
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-        });
-
-        // Placeholder for Firebase Auth initialization (Login/Register functionality)
-        // TODO: Initialize Firebase here and set up authentication handlers
-        /*
-        // Example Firebase setup:
-        // import { initializeApp } from "firebase/app";
-        // const firebaseConfig = { ... };
-        // const app = initializeApp(firebaseConfig);
-        */
-    </script>
+  <!-- JavaScript -->
+  <script src="script.js" defer></script>
+  <!-- Firebase SDK (optional, uncomment to use Firebase) -->
+  <!--
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  -->
 </body>
 </html>
