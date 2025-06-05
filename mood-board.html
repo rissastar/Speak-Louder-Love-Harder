@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Community Mood Board – Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cal-heatmap@4.4.2/cal-heatmap.css" />
+  <script src="https://cdn.jsdelivr.net/npm/cal-heatmap@4.4.2/cal-heatmap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <a class="logo" href="index.html">Speak Louder, Love Harder</a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="mood-board.html" class="active">Community Mood</a></li>
+    </ul>
+  </nav>
+
+  <main class="dash-container">
+    <h1>🌍 Community Mood Board</h1>
+
+    <section>
+      <h2>📆 Mood Heatmap (All Users)</h2>
+      <div id="public-heatmap"></div>
+    </section>
+
+    <section>
+      <h2>📊 Most Common Moods</h2>
+      <canvas id="mood-pie" width="400" height="400"></canvas>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script src="auth.js" defer></script>
+
+  <script>
+    const db = firebase.firestore();
+
+    // 🔥 Load community mood heatmap
+    function loadCommunityHeatmap() {
+      db.collection("moods")
+        .where("private", "==", false)
+        .get()
+        .then(snapshot => {
+          const moodData = {};
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            const ts = new Date(data.timestamp.toDate());
+            const day = Math.floor(ts.getTime() / 1000);
+            moodData[day] = (moodData[day] || 0) + 1;
+          });
+
+          const cal = new CalHeatmap();
+          cal.paint({
+            itemSelector: "#public-heatmap",
+            domain: "month",
+            subDomain: "day",
+            data: { source: moodData },
+            start: new Date(),
+            range: 3,
+            legend: [1, 3, 5, 7],
+            legendColors: {
+              min: "#90caf9",
+              max: "#ef5350"
+            }
+          });
+        });
+    }
+
+    // 🧠 Load most common moods pie chart
+    function loadMoodPieChart() {
+      db.collection("moods")
+        .where("private", "==", false)
+        .get()
+        .then(snapshot => {
+          const counts = {};
+          snapshot.forEach(doc => {
+            const mood = doc.data().mood;
+            counts[mood] = (counts[mood] || 0) + 1;
+          });
+
+          const labels = Object.keys(counts);
+          const data = Object.values(counts);
+          const colors = labels.map(label => {
+            return {
+              "😊 Happy": "#66e26f",
+              "🙏 Grateful": "#90caf9",
+              "😰 Anxious": "#ffb74d",
+              "😢 Sad": "#ba68c8",
+              "😠 Angry": "#ef5350"
+            }[label] || "#ccc";
+          });
+
+          new Chart(document.getElementById("mood-pie"), {
+            type: "pie",
+            data: {
+              labels,
+              datasets: [{
+                data,
+                backgroundColor: colors,
+                borderWidth: 1
+              }]
+            }
+          });
+        });
+    }
+
+    loadCommunityHeatmap();
+    loadMoodPieChart();
+  </script>
+</body>
+</html>
