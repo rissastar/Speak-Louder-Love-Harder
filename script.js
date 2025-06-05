@@ -101,21 +101,3 @@ firebase.auth().onAuthStateChanged((user) => {
     }
   });
 });
-
-db.collection("guestbook")
-  .where("userId", "==", user.uid)
-  .orderBy("timestamp", "desc")
-  .get()
-  .then(snapshot => {
-    const list = document.getElementById("guestbook-posts");
-    if (snapshot.empty) {
-      list.innerHTML = "<li>No entries yet. Start writing!</li>";
-    } else {
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const li = document.createElement("li");
-        li.textContent = `${new Date(data.timestamp?.toDate()).toLocaleString()}: ${data.text}`;
-        list.appendChild(li);
-      });
-    }
-  });
