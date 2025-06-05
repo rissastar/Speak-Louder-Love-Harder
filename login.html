@@ -1,36 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login | Speak Louder, Love Harder 🌟</title>
-  <link rel="stylesheet" href="styles.css">
-  <script type="module" src="auth.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔐 Login | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="auth-page">
-  <div class="auth-container">
-    <h1 class="glow">🌟 Welcome Back!</h1>
+<body class="theme-pink light">
+  <header>
+    <h1>🔐 Login</h1>
+    <div class="typewriter-text" data-text="Welcome back! 💫 You are safe here."></div>
+  </header>
 
-    <div class="auth-tabs">
-      <button id="show-login" class="active">Login</button>
-      <button id="show-register">Register</button>
-    </div>
+  <section class="glass card animate-on-scroll">
+    <form id="loginForm">
+      <label>Email:</label>
+      <input type="email" id="loginEmail" required />
+      <label>Password:</label>
+      <input type="password" id="loginPassword" required />
+      <button type="submit">➡️ Log In</button>
+    </form>
 
-    <div id="login-form" class="auth-form">
-      <input type="email" id="login-email" placeholder="Email" required />
-      <input type="password" id="login-password" placeholder="Password" required />
-      <button id="login-btn">Login</button>
-      <button id="google-login-btn">Sign in with Google</button>
-      <p><a href="#" id="reset-link">Forgot Password?</a></p>
-    </div>
+    <div class="divider">or</div>
 
-    <div id="register-form" class="auth-form hidden">
-      <input type="text" id="register-username" placeholder="Username" required />
-      <input type="email" id="register-email" placeholder="Email" required />
-      <input type="password" id="register-password" placeholder="Password" required />
-      <button id="register-btn">Register</button>
-    </div>
+    <button id="googleLoginBtn">🔵 Sign in with Google</button>
+    <p>Don't have an account? <a href="register.html">Create one here 💖</a></p>
+  </section>
 
-    <p id="auth-message" class="auth-message"></p>
-  </div>
+  <script type="module" src="script.js"></script>
+  <script type="module">
+    import { auth, provider } from './script.js';
+    import {
+      signInWithEmailAndPassword,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+    const loginForm = document.getElementById('loginForm');
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = loginForm.loginEmail.value;
+      const password = loginForm.loginPassword.value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "profile.html";
+      } catch (err) {
+        alert("❌ Login failed: " + err.message);
+      }
+    });
+
+    googleLoginBtn.addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        window.location.href = "profile.html";
+      } catch (err) {
+        alert("❌ Google Sign-In failed: " + err.message);
+      }
+    });
+  </script>
 </body>
 </html>
