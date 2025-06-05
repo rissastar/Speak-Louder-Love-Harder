@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📝 Register | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-pink light">
+  <header>
+    <h1>📝 Register</h1>
+    <div class="typewriter-text" data-text="You're taking a brave step 🌈"></div>
+  </header>
+
+  <section class="glass card animate-on-scroll">
+    <form id="registerForm">
+      <label>Username:</label>
+      <input type="text" id="regUsername" required />
+      <label>Email:</label>
+      <input type="email" id="regEmail" required />
+      <label>Password:</label>
+      <input type="password" id="regPassword" required />
+      <label>Profile Picture (optional):</label>
+      <input type="url" id="regProfilePic" placeholder="https://..." />
+      <button type="submit">✅ Register</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Log in here 🔐</a></p>
+  </section>
+
+  <script type="module" src="script.js"></script>
+  <script type="module">
+    import { auth, db } from './script.js';
+    import {
+      createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import {
+      doc, setDoc
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const registerForm = document.getElementById('registerForm');
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = regEmail.value;
+      const password = regPassword.value;
+      const username = regUsername.value;
+      const profilePic = regProfilePic.value || "default-avatar.png";
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await setDoc(doc(db, "users", user.uid), {
+          username,
+          profilePic,
+          email: user.email
+        });
+        window.location.href = "profile.html";
+      } catch (err) {
+        alert("❌ Registration failed: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
