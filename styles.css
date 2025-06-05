@@ -283,3 +283,15 @@ footer {
         font-size: 2.5em;
     }
 }
+
+.mini-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mini-profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
