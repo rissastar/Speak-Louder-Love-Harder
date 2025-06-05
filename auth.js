@@ -103,3 +103,21 @@ document.getElementById("login-form")?.addEventListener("submit", (e) => {
       alert("Login failed: " + error.message);
     });
 });
+
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+const auth = getAuth();
+
+document.getElementById("login-form")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "dashboard.html";
+    })
+    .catch((error) => {
+      alert("Login failed: " + error.message);
+    });
+});
