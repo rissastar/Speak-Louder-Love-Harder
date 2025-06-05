@@ -28,6 +28,25 @@
       <a id="public-profile-link" href="#" class="dash-button">View Your Public Profile</a>
     
     <section class="dash-section">
+  <h2>Mood Tracker 🌈</h2>
+  <form id="mood-form">
+    <select id="mood-select">
+      <option value="Happy">😊 Happy</option>
+      <option value="Sad">😢 Sad</option>
+      <option value="Angry">😠 Angry</option>
+      <option value="Grateful">🙏 Grateful</option>
+      <option value="Anxious">😰 Anxious</option>
+    </select>
+    <h2>Mood Trend 📈</h2>
+<canvas id="mood-chart" width="400" height="200"></canvas>
+    <textarea id="mood-note" placeholder="Optional note..."></textarea>
+    <button type="submit">Log Mood</button>
+  </form>
+
+  <ul id="mood-list" class="mood-list"></ul>
+</section>
+    
+    <section class="dash-section">
   <h2>Upcoming Events 📅</h2>
   <ul id="event-list" class="event-list"></ul>
 </section>
@@ -93,23 +112,6 @@
       });
     }
   });
-  
-  <section class="dash-section">
-  <h2>Mood Tracker 🌈</h2>
-  <form id="mood-form">
-    <select id="mood-select">
-      <option value="Happy">😊 Happy</option>
-      <option value="Sad">😢 Sad</option>
-      <option value="Angry">😠 Angry</option>
-      <option value="Grateful">🙏 Grateful</option>
-      <option value="Anxious">😰 Anxious</option>
-    </select>
-    <textarea id="mood-note" placeholder="Optional note..."></textarea>
-    <button type="submit">Log Mood</button>
-  </form>
-
-  <ul id="mood-list" class="mood-list"></ul>
-</section>
   
   db.collection("events")
   .orderBy("date")
