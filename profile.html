@@ -48,49 +48,65 @@
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
   <script src="auth.js" defer></script>
 
-  <script>
-    const emailSpan = document.getElementById("user-email");
-    const form = document.getElementById("profile-form");
-    const nameInput = document.getElementById("display-name");
-    const bioInput = document.getElementById("bio");
-    const saveStatus = document.getElementById("save-status");
+ <script>
+  const emailSpan = document.getElementById("user-email");
+  const form = document.getElementById("profile-form");
+  const nameInput = document.getElementById("display-name");
+  const bioInput = document.getElementById("bio");
+  const picInput = document.getElementById("profile-pic");
+  const previewImg = document.getElementById("profile-pic-preview");
+  const saveStatus = document.getElementById("save-status");
 
-    const db = firebase.firestore();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
+  let currentUser = null;
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    currentUser = user;
+    emailSpan.textContent = user.email;
+
+    const userRef = db.collection("users").doc(user.uid);
+
+    userRef.get().then((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        nameInput.value = data.name || "";
+        bioInput.value = data.bio || "";
+        if (data.photoURL) {
+          previewImg.src = data.photoURL;
+        }
+      }
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = nameInput.value;
+      const bio = bioInput.value;
+      let photoURL = previewImg.src;
+
+      // Upload image if new file selected
+      if (picInput.files[0]) {
+        const file = picInput.files[0];
+        const storageRef = storage.ref(`profile-pics/${user.uid}`);
+        await storageRef.put(file);
+        photoURL = await storageRef.getDownloadURL();
       }
 
-      emailSpan.textContent = user.email;
-
-      const userRef = db.collection("users").doc(user.uid);
-
-      // Load profile data
-      userRef.get().then((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          nameInput.value = data.name || "";
-          bioInput.value = data.bio || "";
-        }
-      });
-
-      // Save profile data
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        userRef.set({
-          name: nameInput.value,
-          bio: bioInput.value
-        }).then(() => {
-          saveStatus.textContent = "Profile updated ✅";
-          setTimeout(() => (saveStatus.textContent = ""), 3000);
-        }).catch((error) => {
-          saveStatus.textContent = "Error: " + error.message;
-        });
+      // Save to Firestore
+      userRef.set({ name, bio, photoURL }).then(() => {
+        saveStatus.textContent = "Profile updated ✅";
+        setTimeout(() => (saveStatus.textContent = ""), 3000);
       });
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
