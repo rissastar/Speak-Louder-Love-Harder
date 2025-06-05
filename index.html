@@ -5,26 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>🌟 Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body class="theme-pink light">
+  <!-- 🌌 Particle Background -->
+  <div id="particles-js"></div>
+
   <!-- 🌟 Animated Header -->
   <header class="glow-header">
     <h1><span class="pulse">🌟</span> Speak Louder, Love Harder</h1>
     <div class="typewriter-text" data-text="A Place for Healing, Hope & Empowerment 💖"></div>
 
     <!-- 🌗 Theme & Color Controls -->
-  <section class="theme-toggle-wrapper">
-    <label for="theme-toggle">
-      <input type="checkbox" id="theme-toggle" />
-      🌗 Toggle Dark Mode
-      <class="color-picker">
-    🎨 Choose a Color Theme:
-    <button class="color-theme-btn" data-color="pink" title="Pink"></button>
-    <button class="color-theme-btn" data-color="green" title="Green"></button>
-    <button class="color-theme-btn" data-color="purple" title="Purple"></button>
-  </section>
-    </label>
-  </section>
+    <section class="theme-toggle-wrapper">
+      <label for="theme-toggle">
+        <input type="checkbox" id="theme-toggle" />
+        🌗 Toggle Dark Mode
+      </label>
+      <div class="color-picker">
+        🎨 Choose a Color Theme:
+        <button class="color-theme-btn" data-color="pink" title="Pink"></button>
+        <button class="color-theme-btn" data-color="green" title="Green"></button>
+        <button class="color-theme-btn" data-color="purple" title="Purple"></button>
+      </div>
+    </section>
 
     <!-- 🔐 Auth Buttons -->
     <nav class="auth-nav">
@@ -34,8 +39,8 @@
     </nav>
   </header>
 
-  <!-- ===== Main Site Navigation ===== -->
-  <nav aria-label="Primary site navigation" role="navigation">
+  <!-- ===== 🌐 Main Site Navigation ===== -->
+  <nav aria-label="Primary site navigation" role="navigation" class="main-nav">
     <a href="mental-health.html" class="nav-link">🧠 Mental Health</a>
     <a href="addiction.html" class="nav-link">💊 Addiction</a>
     <a href="cystic-fibrosis.html" class="nav-link">💨 Cystic Fibrosis</a>
@@ -71,6 +76,9 @@
     <a href="guestbook-connect.html" class="btn">💌 Guestbook & Connect</a>
     <a href="profile.html" class="btn">👤 My Profile</a>
   </section>
+
+  <!-- 🎉 Confetti Trigger Button -->
+  <button id="confetti-btn" class="btn animate-on-scroll">🎉 Celebrate!</button>
 
   <!-- 🔚 Footer -->
   <footer class="glow-footer">
