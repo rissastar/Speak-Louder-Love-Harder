@@ -1,117 +1,91 @@
-// ===== profile.js (Merged) =====
+ <script>
+  const emailSpan = document.getElementById("user-email");
+  const form = document.getElementById("profile-form");
+  const nameInput = document.getElementById("display-name");
+  const bioInput = document.getElementById("bio");
+  const picInput = document.getElementById("profile-pic");
+  const previewImg = document.getElementById("profile-pic-preview");
+  const saveStatus = document.getElementById("save-status");
 
-// Firebase Imports
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut
+  const db = firebase.firestore();
+  const storage = firebase.storage();
 
-<form id="profile-form" enctype="multipart/form-data">
-  <label for="display-name">Display Name</label>
-  <input type="text" id="display-name" placeholder="Enter your name" />
+  let currentUser = null;
 
-  <label for="bio">Bio</label>
-  <textarea id="bio" placeholder="Tell us something about yourself"></textarea>
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
 
-  <label for="profile-pic">Profile Picture</label>
-  <input type="file" id="profile-pic" accept="image/*" />
+    currentUser = user;
+    emailSpan.textContent = user.email;
 
-  <img id="profile-pic-preview" src="" alt="Profile Preview" style="max-width: 150px; border-radius: 8px; margin-top: 10px;" />
+    const userRef = db.collection("users").doc(user.uid);
 
-  <button type="submit">Save Changes</button>
-</form>
-<p id="save-status"></p>
+    userRef.get().then((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        nameInput.value = data.name || "";
+        bioInput.value = data.bio || "";
+        if (data.photoURL) {
+          previewImg.src = data.photoURL;
+        }
+      }
+    });
 
-// Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.appspot.com",
-  messagingSenderId: "674769404942",
-  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-  measurementId: "G-54XJLK1CGJ"
-};
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+      const name = nameInput.value;
+      const bio = bioInput.value;
+      let photoURL = previewImg.src;
 
-// DOM Elements
-const displayUsername = document.getElementById('display-username');
-const displayEmail = document.getElementById('display-email');
-const profilePic = document.getElementById('profile-pic');
-const quotesList = document.getElementById('quotes-list');
-const logoutBtn = document.getElementById('logout-btn');
-const profileError = document.getElementById('profile-error');
+      // Upload image if new file selected
+      if (picInput.files[0]) {
+        const file = picInput.files[0];
+        const storageRef = storage.ref(`profile-pics/${user.uid}`);
+        await storageRef.put(file);
+        photoURL = await storageRef.getDownloadURL();
+      }
 
-const profileName = document.getElementById('profile-name');
-const profileEmail = document.getElementById('profile-email');
-const profileTheme = document.getElementById('profile-theme');
-const badgeList = document.getElementById('badge-list');
-const moodStatus = document.getElementById('mood-status');
-
-// Load User Data
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = 'login.html';
-    return;
-  }
-
-  try {
-    const userRef = doc(db, 'users', user.uid);
-    const userSnap = await getDoc(userRef);
-
-    const data = userSnap.exists() ? userSnap.data() : {};
-
-    const username = data.username || user.displayName || 'User';
-    const email = data.email || user.email;
-    const photo = data.photoURL || 'default-profile.png';
-    const theme = data.theme || 'theme-pink';
-    const mood = data.mood || 'neutral';
-    const badges = data.badges || [];
-
-    // Top Display
-    if (displayUsername) displayUsername.textContent = username;
-    if (displayEmail) displayEmail.textContent = email;
-    if (profilePic) profilePic.src = photo;
-
-    // Full Profile
-    if (profileName) profileName.textContent = username;
-    if (profileEmail) profileEmail.textContent = email;
-    if (profileTheme) profileTheme.textContent = theme;
-    if (moodStatus) moodStatus.textContent = `Mood: ${mood}`;
-    if (badgeList) {
-      badgeList.innerHTML = '';
-      badges.forEach(badge => {
-        const li = document.createElement('li');
-        li.textContent = badge;
-        badgeList.appendChild(li);
+      // Save to Firestore
+      userRef.set({ name, bio, photoURL }).then(() => {
+        saveStatus.textContent = "Profile updated ✅";
+        setTimeout(() => (saveStatus.textContent = ""), 3000);
       });
+    });
+  });
+</script>
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = nameInput.value;
+  const bio = bioInput.value;
+  let photoURL = previewImg.src;
+
+  const file = picInput.files[0];
+
+  // Secure upload
+  if (file) {
+    if (!file.type.startsWith("image/")) {
+      alert("Only image files are allowed.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) { // 2 MB limit
+      alert("Image must be under 2MB.");
+      return;
     }
 
-    // Apply Theme
-    document.body.classList.add(theme);
-
-    // Quote History Placeholder
-    if (quotesList) {
-      quotesList.innerHTML = `<li>✨ "You are stronger than your struggles."</li>`;
-    }
-  } catch (err) {
-    if (profileError) profileError.textContent = 'Error loading profile: ' + err.message;
+    const storageRef = storage.ref(`profile-pics/${currentUser.uid}`);
+    await storageRef.put(file);
+    photoURL = await storageRef.getDownloadURL();
   }
-});
 
-// Logout
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', async () => {
-    try {
-      await signOut(auth);
-      window.location.href = 'login.html';
-    } catch (err) {
-      if (profileError) profileError.textContent = 'Logout failed: ' + err.message;
-    }
+  // Save to Firestore
+  userRef.set({ name, bio, photoURL }).then(() => {
+    saveStatus.textContent = "Profile updated ✅";
+    setTimeout(() => (saveStatus.textContent = ""), 3000);
   });
 });
