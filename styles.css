@@ -378,3 +378,46 @@ footer {
   max-width: 600px;
   transition: opacity 0.5s ease;
 }
+
+.auth-tabs {
+  background: var(--card-bg);
+  padding: 2em;
+  border-radius: 12px;
+  margin: 2em auto;
+  max-width: 500px;
+  box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+}
+
+.auth-tabs-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.auth-tabs-buttons button {
+  padding: 0.5em 1em;
+  margin: 0 0.5em;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.auth-tabs-buttons button.active {
+  background: var(--highlight-color);
+}
+
+.auth-tab-content {
+  display: none;
+}
+
+.auth-tab-content.active {
+  display: block;
+}
+
+.auth-message {
+  text-align: center;
+  color: red;
+  margin-top: 1em;
+}
