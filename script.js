@@ -24,7 +24,6 @@ const root = document.documentElement;
 const themeToggleBtn = document.getElementById('theme-toggle');
 const colorThemeButtons = document.querySelectorAll('.color-theme-btn');
 
-// Apply theme and color theme with localStorage support
 function applyTheme(theme) {
   root.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
@@ -35,7 +34,6 @@ function applyColorTheme(color) {
   localStorage.setItem('colorTheme', color);
 }
 
-// On DOMContentLoaded, apply saved or default theme/colors
 window.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('theme') || 'light';
   const savedColorTheme = localStorage.getItem('colorTheme') || 'default';
@@ -49,15 +47,14 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Toggle dark/light theme on button click
 if (themeToggleBtn) {
+  themeToggleBtn.checked = root.getAttribute('data-theme') === 'dark';
   themeToggleBtn.addEventListener('click', () => {
     const current = root.getAttribute('data-theme') || 'light';
     applyTheme(current === 'light' ? 'dark' : 'light');
   });
 }
 
-// Color theme buttons click handler
 colorThemeButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const color = btn.getAttribute('data-color') || 'default';
@@ -78,7 +75,7 @@ const quotes = [
   "Believe in your strength."
 ];
 
-const quoteElement = document.getElementById('quote') || document.getElementById('quote-box');
+const quoteElement = document.getElementById('quote-box');
 let currentQuote = 0;
 
 function showNextQuote() {
@@ -102,8 +99,7 @@ if (typeText) {
   let i = 0;
   function typeWriter() {
     if (i < text.length) {
-      typeText.textContent += text.charAt(i);
-      i++;
+      typeText.textContent += text.charAt(i++);
       setTimeout(typeWriter, 80);
     }
   }
@@ -111,7 +107,7 @@ if (typeText) {
 }
 
 // ===== SCROLL-TO-TOP BUTTON =====
-const scrollBtn = document.getElementById('scrollTopBtn');
+const scrollBtn = document.getElementById('scrollToTopBtn');
 if (scrollBtn) {
   window.addEventListener('scroll', () => {
     scrollBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
@@ -128,7 +124,7 @@ const scrollObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('animated');
-      scrollObserver.unobserve(entry.target); // Optional: animate once
+      scrollObserver.unobserve(entry.target); // animate once only
     }
   });
 }, { threshold: 0.2 });
@@ -158,15 +154,17 @@ logoutBtn?.addEventListener('click', () => {
 
 // ===== CUSTOM CURSOR =====
 const cursor = document.createElement('div');
-cursor.style.position = 'fixed';
-cursor.style.width = '15px';
-cursor.style.height = '15px';
-cursor.style.borderRadius = '50%';
-cursor.style.backgroundColor = '#ff4081'; // pink-ish
-cursor.style.pointerEvents = 'none';
-cursor.style.zIndex = '10000';
-cursor.style.transform = 'translate(-50%, -50%)';
-cursor.style.transition = 'transform 0.1s ease-out';
+Object.assign(cursor.style, {
+  position: 'fixed',
+  width: '15px',
+  height: '15px',
+  borderRadius: '50%',
+  backgroundColor: '#ff4081',
+  pointerEvents: 'none',
+  zIndex: '10000',
+  transform: 'translate(-50%, -50%)',
+  transition: 'transform 0.1s ease-out'
+});
 document.body.appendChild(cursor);
 
 window.addEventListener('mousemove', e => {
@@ -175,8 +173,7 @@ window.addEventListener('mousemove', e => {
 });
 
 // ===== CONFETTI EFFECT =====
-// Requires canvas-confetti script in HTML:
-// <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+// Requires canvas-confetti script in HTML
 
 function launchConfetti() {
   const duration = 3000;
