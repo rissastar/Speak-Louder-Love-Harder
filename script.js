@@ -143,3 +143,9 @@ auth.onAuthStateChanged(user => {
     registerBtn.style.display = "inline-block";
   }
 });
+
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html"; // or show login prompt
+  }
+});
