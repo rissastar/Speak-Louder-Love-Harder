@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile 🌟 | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+  <script defer src="script.js"></script>
+  <script defer src="profile.js"></script>
+</head>
+<body>
+  <header class="main-header">
+    <h1><span class="glow">My Profile 🌈</span></h1>
+    <button id="theme-toggle">🌓</button>
+  </header>
+
+  <main class="profile-main">
+    <section class="profile-card">
+      <img id="profile-pic" src="default-user.png" alt="Profile Picture" class="profile-img">
+      <h2 id="username">Loading username...</h2>
+      <p>Email: <span id="email">loading...</span></p>
+      <button id="logout-btn">🚪 Logout</button>
+    </section>
+
+    <section class="profile-sections">
+      <div class="profile-box">
+        <h3>🎨 Color Theme</h3>
+        <p id="theme-preference">Your favorite theme is loading...</p>
+      </div>
+      <div class="profile-box">
+        <h3>📝 Favorite Quotes</h3>
+        <ul id="favorite-quotes"><li>Loading...</li></ul>
+      </div>
+      <div class="profile-box">
+        <h3>🌤️ Mood Tracker</h3>
+        <p>Coming soon!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built with 💖 to help you shine.
+  </footer>
+</body>
+</html>
