@@ -381,3 +381,43 @@ html[data-color="default"] {
     width: 100%;
   }
 }
+
+/* Login/Register */
+.auth-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background: var(--glass-bg);
+  box-shadow: var(--glow-box);
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.auth-box input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.auth-box button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1em;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--accent);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-box button:hover {
+  transform: scale(1.05);
+}
