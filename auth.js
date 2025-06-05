@@ -1,3 +1,4 @@
+// auth.js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 import {
   getAuth,
@@ -5,12 +6,17 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  sendPasswordResetEmail,
-  onAuthStateChanged
+  sendPasswordResetEmail
 } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
-import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
+// 🔥 Firebase Config (Your Project)
 const firebaseConfig = {
   apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
   authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -21,10 +27,12 @@ const firebaseConfig = {
   measurementId: "G-54XJLK1CGJ"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// DOM Elements
 const form = document.getElementById('auth-form');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
@@ -40,30 +48,25 @@ const authSuccess = document.getElementById('auth-success');
 
 let isLoginMode = true;
 
-// Toggle between Login and Register modes
+// Toggle Form Mode
 toggleFormBtn.addEventListener('click', () => {
   isLoginMode = !isLoginMode;
-  if (isLoginMode) {
-    submitBtn.textContent = 'Login';
-    toggleMsg.textContent = "Don't have an account?";
-    toggleFormBtn.textContent = "Register here";
-    usernameField.classList.add('hidden');
-  } else {
-    submitBtn.textContent = 'Register';
-    toggleMsg.textContent = "Already have an account?";
-    toggleFormBtn.textContent = "Login here";
-    usernameField.classList.remove('hidden');
-  }
+  submitBtn.textContent = isLoginMode ? 'Login' : 'Register';
+  toggleMsg.textContent = isLoginMode
+    ? "Don't have an account?"
+    : 'Already have an account?';
+  toggleFormBtn.textContent = isLoginMode ? 'Register here' : 'Login here';
+  usernameField.classList.toggle('hidden', isLoginMode);
   clearMessages();
 });
 
-// Clear error and success messages
+// Clear messages
 function clearMessages() {
   authError.textContent = '';
   authSuccess.textContent = '';
 }
 
-// Handle form submit for login or register
+// Form Submission
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   clearMessages();
@@ -72,38 +75,25 @@ form.addEventListener('submit', async (e) => {
   const password = passwordInput.value.trim();
   const username = usernameInput.value.trim();
 
-  if (isLoginMode) {
-    // Login
-    try {
+  try {
+    if (isLoginMode) {
+      // 🔐 Login Flow
       await signInWithEmailAndPassword(auth, email, password);
-      authSuccess.textContent = 'Login successful! Redirecting...';
-      setTimeout(() => {
-        window.location.href = 'profile.html';
-      }, 1500);
-    } catch (error) {
-      authError.textContent = error.message;
-    }
-  } else {
-    // Register
-    if (!username) {
-      authError.textContent = 'Please enter a username.';
-      return;
-    }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Save additional user info in Firestore
-      await setDoc(doc(db, 'users', userCredential.user.uid), {
-        username,
-        email,
+    } else {
+      // ✨ Register Flow
+      if (!username) throw new Error('Username is required');
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        username: username,
+        email: email,
         createdAt: new Date().toISOString()
       });
-      authSuccess.textContent = 'Registration successful! Redirecting...';
-      setTimeout(() => {
-        window.location.href = 'profile.html';
-      }, 1500);
-    } catch (error) {
-      authError.textContent = error.message;
     }
+
+    authSuccess.textContent = 'Success! Redirecting...';
+    setTimeout(() => (window.location.href = 'profile.html'), 1500);
+  } catch (err) {
+    authError.textContent = err.message;
   }
 });
 
@@ -111,42 +101,43 @@ form.addEventListener('submit', async (e) => {
 googleLoginBtn.addEventListener('click', async () => {
   clearMessages();
   const provider = new GoogleAuthProvider();
+
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Check if user data exists in Firestore, create if not
-    const userDoc = await getDoc(doc(db, 'users', user.uid));
-    if (!userDoc.exists()) {
-      await setDoc(doc(db, 'users', user.uid), {
-        username: user.displayName || 'Google User',
+    const userRef = doc(db, 'users', user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        username: user.displayName || 'GoogleUser',
         email: user.email,
-        createdAt: new Date().toISOString(),
-        photoURL: user.photoURL || ''
+        photoURL: user.photoURL || '',
+        createdAt: new Date().toISOString()
       });
     }
-    authSuccess.textContent = 'Google sign-in successful! Redirecting...';
-    setTimeout(() => {
-      window.location.href = 'profile.html';
-    }, 1500);
-  } catch (error) {
-    authError.textContent = error.message;
+
+    authSuccess.textContent = 'Signed in with Google!';
+    setTimeout(() => (window.location.href = 'profile.html'), 1500);
+  } catch (err) {
+    authError.textContent = err.message;
   }
 });
 
 // Forgot Password
-forgotPasswordBtn.addEventListener('click', () => {
+forgotPasswordBtn.addEventListener('click', async () => {
   clearMessages();
   const email = emailInput.value.trim();
   if (!email) {
-    authError.textContent = 'Please enter your email to reset password.';
+    authError.textContent = 'Please enter your email first.';
     return;
   }
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      authSuccess.textContent = 'Password reset email sent! Check your inbox.';
-    })
-    .catch((error) => {
-      authError.textContent = error.message;
-    });
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    authSuccess.textContent = 'Reset email sent!';
+  } catch (err) {
+    authError.textContent = err.message;
+  }
 });
