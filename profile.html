@@ -16,34 +16,37 @@
   </header>
 
   <main class="glass card profile-card animate-on-scroll">
-    <!-- Profile Image & Info -->
-    <section id="user-info" class="profile-info">
+    <section id="user-info">
       <img id="profile-pic" src="default-profile.png" alt="Profile Picture" />
-      <h2 id="profile-name">Loading...</h2>
-      <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+      <h2 id="display-username">Loading...</h2>
+      <p id="display-email"></p>
     </section>
 
-    <!-- Theme & Mood -->
-    <section id="user-details" class="theme-mood-section">
+    <section class="profile-data">
+      <p><strong>Username:</strong> <span id="profile-name">Loading...</span></p>
+      <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
       <p><strong>Color Theme:</strong> <span id="profile-theme">Loading...</span></p>
       <p id="mood-status">Mood: Loading...</p>
     </section>
 
-    <!-- Badges -->
-    <section class="badges-section">
-      <h3>🏅 Your Badges</h3>
-      <ul id="badge-list" class="badge-list"></ul>
-    </section>
-
-    <!-- Favorite Quotes -->
     <section id="user-quote-history" class="quotes-section">
       <h3>💬 Favorite Quotes</h3>
       <ul id="quotes-list">
-        <!-- Dynamically populated -->
+        <!-- Populated dynamically -->
       </ul>
     </section>
 
-    <!-- Error Message -->
+    <section>
+      <h3>🏅 Badges</h3>
+      <ul id="badge-list">
+        <!-- Populated dynamically -->
+      </ul>
+    </section>
+
+    <section class="actions">
+      <button id="logout-btn">🚪 Logout</button>
+    </section>
+
     <p id="profile-error" class="error-msg"></p>
   </main>
 
