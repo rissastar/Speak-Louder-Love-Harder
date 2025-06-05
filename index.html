@@ -1,74 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Firebase initialization and app scripts -->
-  <script type="module" src="firebase-init.js"></script>
-  <script type="module" src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speak Louder, Love Harder 🌟</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
-<body>
-  <header>
-    <div class="topbar">
-      <button id="sparkleToggle">✨ Sparkles On</button>
-      <button id="loginBtn" class="glow-button">Login</button>
-      <button id="logoutBtn" class="glow-button" style="display:none;">Logout</button>
+<body class="theme-purple light-mode">
+  <header class="glow-header">
+    <h1 class="typewriter">Speak Louder, Love Harder 💖</h1>
+    <p class="subtitle">A vibrant community of healing and hope</p>
+    <div class="theme-toggle">
+      <button id="modeToggle">🌗</button>
+      <select id="themeSelect">
+        <option value="purple">💜 Purple</option>
+        <option value="green">💚 Green</option>
+        <option value="pink">💖 Pink</option>
+      </select>
     </div>
-    <img id="siteLogo" src="img/logo.png" alt="Site Logo">
-    <h1>Speak Louder, Love Harder</h1>
-    <p>Voices that need to be heard. Stories that must be told.</p>
-    <nav>
-      <a href="#">Mental Health</a>
-      <a href="#">Addiction</a>
-      <a href="#">Cystic Fibrosis</a>
-      <a href="#">Cirrhosis</a>
-      <a href="#">Physical Abuse</a>
-      <a href="#">Mental Abuse</a>
-      <a href="#">Sexual Abuse</a>
-      <a href="#">Pitbull Love</a>
-      <a href="#">Foster Children</a>
-      <a href="guestbook.html">Guestbook & Connect</a>
-    </nav>
   </header>
 
-  <main>
-    <section id="intro">
-      <h2>Let’s get started — your journey begins here.</h2>
-      <p>This is a space for advocacy, sharing, healing, and learning. We believe in the power of voice, the strength of community, and the necessity of compassion.</p>
-      <ul>
-        <li>Advocate for change</li>
-        <li>Share our stories</li>
-        <li>Heal through connection</li>
-        <li>Learn to do better and be better</li>
-      </ul>
-    </section>
-    <!-- Existing features like affirmation generator, confetti, quote rotator, etc. remain here -->
-    <section id="get-involved">
-      <h2>Get Involved</h2>
-      <p>If you have a story to share, a voice to uplift, or a hand to offer, we want to hear from you. Visit the Guestbook & Connect page to reach out and speak from your heart.</p>
-    </section>
-  </main>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="guestbook-connect.html">Guestbook</a>
+    <a href="mental-health.html">Mental Health</a>
+    <a href="addiction.html">Addiction</a>
+    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pitbull Love</a>
+    <a href="foster-children.html">Foster Children</a>
+  </nav>
 
-  <!-- Authentication Modal -->
-  <div id="authModal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closeAuth">&times;</span>
-      <h2>Login / Sign Up</h2>
-      <input type="email" id="emailInput" placeholder="Email" required>
-      <input type="password" id="passwordInput" placeholder="Password" required>
-      <input type="text" id="displayNameInput" placeholder="Display Name (for Sign Up)">
-      <input type="file" id="profileImageInput" accept="image/*">
-      <button id="emailSignupBtn">Sign Up</button>
-      <button id="emailLoginBtn">Log In</button>
-      <button id="googleLoginBtn">Log In with Google</button>
-      <a href="#" id="resetPasswordLink">Forgot password?</a>
-    </div>
-  </div>
+  <section class="quote-box">
+    <h2>💬 Daily Inspiration</h2>
+    <p id="quoteText" class="glow-text"></p>
+  </section>
+
+  <section class="features">
+    <h2>✨ Features</h2>
+    <ul>
+      <li>👤 Profiles, Login/Logout, Register</li>
+      <li>🎨 Color Themes: Purple, Green, Pink</li>
+      <li>🌗 Dark/Light Mode with memory</li>
+      <li>💬 Auto-Rotating Inspirational Quotes</li>
+      <li>🌈 Glowing UI with transitions</li>
+      <li>📱 Fully Responsive Design</li>
+      <li>💌 Guestbook & Connect Page</li>
+      <li>📚 Dedicated Support Topics</li>
+    </ul>
+  </section>
 
   <footer>
-    © 2025 Speak Louder, Love Harder. All rights reserved.
+    <p>Built with ❤️ to inspire and empower.</p>
   </footer>
 </body>
 </html>
