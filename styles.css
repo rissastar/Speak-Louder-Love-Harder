@@ -331,3 +331,23 @@ footer {
 .dash-button:hover {
   background-color: var(--purple);
 }
+
+.dash-section {
+  margin: 2rem auto;
+  max-width: 600px;
+  padding: 1rem;
+  background: var(--bg-alt);
+  border-radius: 12px;
+  box-shadow: 0 0 10px var(--glow);
+}
+
+.dash-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dash-section li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--text-muted);
+}
