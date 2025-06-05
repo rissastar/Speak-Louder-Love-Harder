@@ -7,7 +7,23 @@
   <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
 </head>
-<!-- Firebase App + Auth + Firestore -->
+
+</script>
+<body class="theme-purple light-mode">
+  <header class="glow-header">
+    <h1 class="typewriter">Speak Louder, Love Harder 💖</h1>
+    <p class="subtitle">A vibrant community of healing and hope</p>
+    <div class="theme-toggle">
+      <button id="modeToggle">🌗</button>
+      <select id="themeSelect">
+        <option value="purple">💜 Purple</option>
+        <option value="green">💚 Green</option>
+        <option value="pink">💖 Pink</option>
+      </select>
+    </div>
+  </header>
+  
+  <!-- Firebase App + Auth + Firestore -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import {
@@ -40,19 +56,6 @@
   const auth = getAuth();
   const db = getFirestore();
 </script>
-<body class="theme-purple light-mode">
-  <header class="glow-header">
-    <h1 class="typewriter">Speak Louder, Love Harder 💖</h1>
-    <p class="subtitle">A vibrant community of healing and hope</p>
-    <div class="theme-toggle">
-      <button id="modeToggle">🌗</button>
-      <select id="themeSelect">
-        <option value="purple">💜 Purple</option>
-        <option value="green">💚 Green</option>
-        <option value="pink">💖 Pink</option>
-      </select>
-    </div>
-  </header>
 
   <nav class="main-nav">
     <a href="index.html">Home</a>
