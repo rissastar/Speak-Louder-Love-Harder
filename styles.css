@@ -1,4 +1,4 @@
-/* ===== Base Reset ===== */
+Ok /* ===== Base Reset ===== */
 * {
   margin: 0;
   padding: 0;
@@ -47,21 +47,9 @@ body.dark {
 }
 
 /* Additional Theme Variants */
-body.theme-pink {
-  --accent-color: #ff69b4;
-  --button-bg: #ff69b4;
-  --button-hover-bg: #ff4da6;
-}
-body.theme-green {
-  --accent-color: #32cd32;
-  --button-bg: #32cd32;
-  --button-hover-bg: #2bb82b;
-}
-body.theme-purple {
-  --accent-color: #9b59b6;
-  --button-bg: #9b59b6;
-  --button-hover-bg: #8247a0;
-}
+body.theme-pink { --accent-color: #ff69b4; --button-bg: #ff69b4; --button-hover-bg: #ff4da6; }
+body.theme-green { --accent-color: #32cd32; --button-bg: #32cd32; --button-hover-bg: #2bb82b; }
+body.theme-purple { --accent-color: #9b59b6; --button-bg: #9b59b6; --button-hover-bg: #8247a0; }
 
 /* ===== Header ===== */
 header {
@@ -79,12 +67,8 @@ header h1 {
 }
 
 @keyframes glow {
-  from {
-    text-shadow: 0 0 5px var(--accent-color);
-  }
-  to {
-    text-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--accent-color);
-  }
+  from { text-shadow: 0 0 5px var(--accent-color); }
+  to { text-shadow: 0 0 20px var(--accent-color), 0 0 30px var(--accent-color); }
 }
 
 /* Glowing header variant */
@@ -93,7 +77,9 @@ header h1 {
   padding: 1rem 1rem 0.5rem;
   background-color: transparent;
   color: var(--accent-color);
-  text-shadow: 0 0 8px var(--accent-color), 0 0 20px var(--accent-color);
+  text-shadow:
+    0 0 8px var(--accent-color),
+    0 0 20px var(--accent-color);
   font-weight: 900;
   user-select: none;
 }
@@ -103,8 +89,7 @@ header h1 {
 }
 
 @keyframes pulseGlow {
-  0%,
-  100% {
+  0%, 100% {
     text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6;
   }
   50% {
@@ -123,8 +108,7 @@ header h1 {
 }
 
 /* ===== Theme & Color Toggles ===== */
-.theme-toggle-wrapper,
-.color-picker {
+.theme-toggle-wrapper, .color-picker {
   margin: 1rem;
   text-align: center;
 }
@@ -143,15 +127,9 @@ header h1 {
   transform: scale(1.2);
 }
 
-.color-theme-btn[data-color='pink'] {
-  background: #ff69b4;
-}
-.color-theme-btn[data-color='green'] {
-  background: #32cd32;
-}
-.color-theme-btn[data-color='purple'] {
-  background: #9b59b6;
-}
+.color-theme-btn[data-color="pink"] { background: #ff69b4; }
+.color-theme-btn[data-color="green"] { background: #32cd32; }
+.color-theme-btn[data-color="purple"] { background: #9b59b6; }
 
 /* ===== Quotes Box ===== */
 #quote-box {
@@ -164,8 +142,7 @@ header h1 {
 }
 
 /* ===== Buttons ===== */
-button,
-.btn {
+button, .btn {
   background: var(--button-bg);
   color: white;
   border: none;
@@ -177,17 +154,14 @@ button,
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-button:hover,
-.btn:hover {
+button:hover, .btn:hover {
   box-shadow: 0 0 10px var(--accent-color);
   transform: scale(1.05);
   background-color: var(--button-hover-bg);
 }
 
 /* ===== Card / Section Styles ===== */
-section,
-.card,
-.glass {
+section, .card, .glass {
   background: var(--card-bg);
   box-shadow: 0 8px 20px var(--shadow-light);
   border-radius: 20px;
@@ -200,16 +174,12 @@ section,
   color: var(--text-color);
 }
 
-section:hover,
-.card:hover,
-.glass:hover {
+section:hover, .card:hover, .glass:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 28px var(--accent-color);
 }
 
-section h2,
-.card h2,
-.glass h2 {
+section h2, .card h2, .glass h2 {
   color: var(--accent-color);
   margin-bottom: 1rem;
   font-weight: 700;
@@ -217,9 +187,7 @@ section h2,
   text-shadow: 0 0 5px var(--accent-color);
 }
 
-section p,
-.card p,
-.glass p {
+section p, .card p, .glass p {
   line-height: 1.6;
   color: var(--text-color);
   text-align: justify;
@@ -233,7 +201,7 @@ section p,
   padding: 2rem;
   max-width: 700px;
   margin: 2rem auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   color: var(--text-color);
 }
 
@@ -258,7 +226,10 @@ nav a {
   padding: 0.6rem 1.2rem;
   border-radius: 30px;
   border: 2px solid transparent;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease,
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
     transform 0.2s ease;
   display: flex;
   align-items: center;
@@ -266,8 +237,7 @@ nav a {
   font-size: 1rem;
 }
 
-nav a:hover,
-nav a:focus {
+nav a:hover, nav a:focus {
   background-color: var(--accent-color);
   color: white;
   box-shadow: 0 0 10px var(--accent-color);
@@ -307,70 +277,84 @@ nav a.active {
   text-decoration: underline;
 }
 
-/* ===== Form Elements ===== */
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  margin: 0.4rem 0 1rem 0;
-  border-radius: 12px;
-  border: 1px solid var(--input-border);
-  background-color: var(--input-bg);
-  color: var(--text-color);
-  font-size: 1rem;
-  font-weight: 400;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 6px var(--accent-color);
+/* ===== Forms ===== */
+form {
+  max-width: 450px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 label {
   font-weight: 600;
-  margin-bottom: 0.2rem;
-  display: block;
   color: var(--accent-color);
 }
 
-/* ===== Error Messages ===== */
-.error-message {
-  color: var(--error-color);
-  font-size: 0.9rem;
-  margin-top: -0.6rem;
-  margin-bottom: 0.8rem;
-}
-
-/* ===== Footer ===== */
-footer {
-  padding: 2rem 1rem;
-  text-align: center;
-  background-color: var(--card-bg);
-  color: var(--accent-color);
-  font-weight: 600;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-color);
   font-size: 1rem;
-  box-shadow: 0 -4px 20px var(--shadow-light);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  margin-top: 4rem;
+  transition: border-color 0.3s;
 }
 
-/* ===== Responsive ===== */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
+  background: var(--input-bg);
+}
+
+/* ===== Scroll To Top Button ===== */
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--button-bg);
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.3s ease;
+  z-index: 999;
+}
+
+#scrollToTopBtn:hover {
+  background: var(--button-hover-bg);
+  transform: scale(1.15);
+}
+
+/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   nav {
     flex-wrap: wrap;
     gap: 0.5rem;
+    padding: 0.5rem 0.5rem;
   }
-
   nav a {
     font-size: 0.9rem;
-    padding: 0.5rem 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  section, .card, .glass {
+    padding: 1rem;
+    margin: 1rem;
   }
 
   header h1 {
@@ -378,19 +362,168 @@ footer {
   }
 }
 
-@media (max-width: 480px) {
-  body {
-    font-size: 0.9rem;
-  }
+/* ===== Animations ===== */
+/* Wiggle on hover */
+.wiggle:hover {
+  animation: wiggleAnim 0.4s ease-in-out infinite;
+}
 
-  nav {
-    max-width: 100%;
-  }
+@keyframes wiggleAnim {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
 
-  section,
-  .card,
-  .glass {
-    margin: 1rem;
-    padding: 1rem;
-  }
+/* Fade-in Animation */
+.fade-in {
+  animation: fadeInEase 1.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInEase {
+  to { opacity: 1; }
+}
+
+/* Heartbeat animation for favorite or important elements */
+.heartbeat {
+  animation: heartbeatAnim 1.5s infinite;
+}
+
+@keyframes heartbeatAnim {
+  0%, 100% { transform: scale(1); }
+  25%, 75% { transform: scale(1.15); }
+  50% { transform: scale(1.25); }
+}
+
+/* Confetti burst container */
+.confetti-container {
+  position: fixed;
+  pointer-events: none;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  z-index: 9999;
+}
+
+/* Floating orbs background */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  filter: blur(12px);
+  animation: floatOrb 10s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+.orb--small {
+  width: 80px;
+  height: 80px;
+}
+
+.orb--medium {
+  width: 150px;
+  height: 150px;
+}
+
+.orb--large {
+  width: 300px;
+  height: 300px;
+}
+
+@keyframes floatOrb {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-40px) translateX(20px); }
+}
+
+/* Scroll-triggered animation wrapper */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Custom Cursor (optional) ===== */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  border: 2px solid var(--accent-color);
+  width: 25px;
+  height: 25px;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease;
+  z-index: 10000;
+}
+
+/* ===== Utility ===== */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* ===== Scrollbar Styling ===== */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 10px;
+  border: 2px solid var(--bg-color);
+}
+
+/* ===== Additional Glowing Button ===== */
+.glow-btn {
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 40px;
+  padding: 0.7rem 2rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px var(--accent-color);
+  transition: box-shadow 0.4s ease;
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 25px var(--accent-color), 0 0 40px var(--accent-color);
+  transform: scale(1.1);
+}
+
+/* ===== Footer ===== */
+footer {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  background: var(--card-bg);
+  box-shadow: 0 -4px 20px var(--shadow-light);
+  margin-top: 3rem;
+  border-radius: 12px 12px 0 0;
 }
