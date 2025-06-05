@@ -66,3 +66,17 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 */
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (!user) return;
+  const db = firebase.firestore();
+  const userRef = db.collection("users").doc(user.uid);
+  userRef.get().then((doc) => {
+    if (doc.exists) {
+      const data = doc.data();
+      document.getElementById("mini-pic").src = data.photoURL || "default.png";
+      document.getElementById("mini-name").textContent = data.name || user.email;
+      document.getElementById("user-mini-profile").classList.remove("hidden");
+    }
+  });
+});
