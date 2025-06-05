@@ -80,3 +80,24 @@ firebase.auth().onAuthStateChanged((user) => {
     }
   });
 });
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (!user) return;
+
+  const db = firebase.firestore();
+  const userRef = db.collection("users").doc(user.uid);
+
+  userRef.get().then((doc) => {
+    if (doc.exists) {
+      const data = doc.data();
+      const miniProfile = document.getElementById("user-mini-profile");
+      const pic = document.getElementById("mini-pic");
+      const name = document.getElementById("mini-name");
+
+      if (pic && data.photoURL) pic.src = data.photoURL;
+      if (name && data.name) name.textContent = data.name;
+
+      miniProfile?.classList.remove("hidden");
+    }
+  });
+});
