@@ -2,65 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Speak Louder, Love Harder 🌟</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
+<body>
+  <div id="loader" class="loader"></div>
 
-</script>
-<body class="theme-purple light-mode">
-  <header class="glow-header">
-    <h1 class="typewriter">Speak Louder, Love Harder 💖</h1>
-    <p class="subtitle">A vibrant community of healing and hope</p>
-    <div class="theme-toggle">
-      <button id="modeToggle">🌗</button>
-      <select id="themeSelect">
-        <option value="purple">💜 Purple</option>
-        <option value="green">💚 Green</option>
-        <option value="pink">💖 Pink</option>
-      </select>
-    </div>
+  <header class="main-header">
+    <h1><span class="glow">Speak Louder, Love Harder</span></h1>
+    <button id="theme-toggle">🌓</button>
   </header>
-  
-  <!-- Firebase App + Auth + Firestore -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getAuth,
-    onAuthStateChanged,
-    GoogleAuthProvider,
-    signInWithPopup,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-    authDomain: "speak-louder-581d7.firebaseapp.com",
-    projectId: "speak-louder-581d7",
-    storageBucket: "speak-louder-581d7.appspot.com",
-    messagingSenderId: "674769404942",
-    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-    measurementId: "G-54XJLK1CGJ"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth();
-  const db = getFirestore();
-</script>
-
-  <nav class="main-nav">
+  <nav class="navbar">
     <a href="index.html">Home</a>
-    <a href="profile.html">Profile</a>
-    <a href="guestbook-connect.html">Guestbook</a>
     <a href="mental-health.html">Mental Health</a>
     <a href="addiction.html">Addiction</a>
     <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
@@ -70,15 +26,20 @@
     <a href="sexual-abuse.html">Sexual Abuse</a>
     <a href="pitbull-love.html">Pitbull Love</a>
     <a href="foster-children.html">Foster Children</a>
+    <a href="guestbook-connect.html">Guestbook 💌</a>
+    <a href="profile.html">My Profile</a>
   </nav>
 
-  <section class="quote-box">
-    <h2>💬 Daily Inspiration</h2>
-    <p id="quoteText" class="glow-text"></p>
-  </section>
+  <main>
+    <section class="hero">
+      <h2 class="typing-text">A safe space to speak louder and love harder 💖</h2>
+      <p>We're here to uplift, inspire, and connect 🌈</p>
+      <div id="quote-box" class="quote-box">✨ Loading quote...</div>
+    </section>
+  </main>
 
   <footer>
-    <p>Built with ❤️ to inspire and empower.</p>
+    Built with ❤️ to inspire and empower.
   </footer>
 </body>
 </html>
