@@ -1,272 +1,195 @@
-/* ========== RESET & BASE ========== */
+/* ===== Base Reset ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-html, body {
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  background-color: var(--bg);
-  color: var(--text);
-  transition: background 0.4s, color 0.4s;
+
+html {
   scroll-behavior: smooth;
 }
 
-/* ========== THEMES ========== */
-:root {
-  --bg: #fff;
-  --text: #222;
-  --accent: #d63384;
-  --glow: #ff69b4;
-  --card: #f0f0f0;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  transition: background 0.5s, color 0.5s;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
+
+/* ===== Theme Variables ===== */
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --accent: #d63384;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
 body.dark {
   --bg: #121212;
-  --text: #f8f8f8;
-  --accent: #9b59b6;
-  --glow: #aaffee;
-  --card: #1e1e1e;
+  --text: #eeeeee;
+  --accent: #ff69b4;
+  --card-bg: rgba(20, 20, 20, 0.5);
+  --shadow: rgba(255, 255, 255, 0.1);
 }
 
-/* ========== HEADER ========== */
-.main-header {
+body.theme-pink { --accent: #ff69b4; }
+body.theme-green { --accent: #32cd32; }
+body.theme-purple { --accent: #9b59b6; }
+
+/* ===== Header ===== */
+header {
+  padding: 1rem 2rem;
   text-align: center;
-  padding: 2rem;
-  background: linear-gradient(90deg, var(--accent), var(--glow));
+  background: var(--accent);
   color: white;
-  position: relative;
-}
-.main-header h1 {
-  font-size: 2.5rem;
-}
-.glow {
-  text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
-}
-#theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 1.2rem;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
+  box-shadow: 0 4px 20px var(--shadow);
 }
 
-/* ========== NAVIGATION ========== */
-.navbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background: var(--accent);
-  padding: 1rem;
+header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  animation: glow 3s ease-in-out infinite alternate;
 }
-.navbar a {
-  color: white;
-  margin: 0.3rem;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
-  text-decoration: none;
-  border: 2px solid white;
-  transition: transform 0.3s ease, background 0.3s ease;
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px var(--accent); }
+  to { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
 }
-.navbar a:hover {
-  background: white;
+
+/* ===== Typewriter ===== */
+.typewriter-text {
+  display: inline-block;
+  border-right: 2px solid var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1.4rem;
+  padding-top: 1rem;
+}
+
+/* ===== Theme & Color Toggles ===== */
+.theme-toggle-wrapper, .color-picker {
+  margin: 1rem;
+  text-align: center;
+}
+
+.color-theme-btn {
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin: 0 0.3rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.color-theme-btn:hover {
+  transform: scale(1.2);
+}
+
+.color-theme-btn[data-color="pink"] { background: #ff69b4; }
+.color-theme-btn[data-color="green"] { background: #32cd32; }
+.color-theme-btn[data-color="purple"] { background: #9b59b6; }
+
+/* ===== Quotes Box ===== */
+#quote-box {
+  text-align: center;
+  font-size: 1.3rem;
+  margin: 2rem auto;
   color: var(--accent);
+  font-weight: bold;
+  transition: opacity 0.5s;
+}
+
+/* ===== Buttons ===== */
+button, .btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+
+button:hover, .btn:hover {
+  box-shadow: 0 0 10px var(--accent);
   transform: scale(1.05);
 }
 
-/* ========== HERO SECTION ========== */
-.hero {
-  text-align: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(to bottom right, var(--accent), var(--glow));
+/* ===== Card / Section Styles ===== */
+.card, .glass {
+  background: var(--card-bg);
+  box-shadow: 0 4px 12px var(--shadow);
+  padding: 1.5rem;
+  margin: 1rem auto;
+  border-radius: 12px;
+  max-width: 800px;
+  backdrop-filter: blur(10px);
+}
+
+/* ===== Scroll to Top ===== */
+#scrollTopBtn {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  background: var(--accent);
   color: white;
-}
-.typing-text {
-  font-size: 1.8rem;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
-  border-right: 3px solid white;
-  width: 0;
-  margin: 0 auto;
-}
-@keyframes typing {
-  to { width: 100%; }
-}
-@keyframes blink {
-  50% { border-color: transparent; }
+  padding: 0.8rem;
+  border-radius: 50%;
+  border: none;
+  display: none;
+  cursor: pointer;
+  z-index: 1000;
 }
 
-/* ========== QUOTE BOX ========== */
-.quote-box {
-  margin-top: 2rem;
-  padding: 1.2rem;
-  background: rgba(255,255,255,0.1);
-  border-left: 5px solid white;
-  border-radius: 8px;
-  font-style: italic;
-  box-shadow: 0 0 15px var(--glow);
+/* ===== Animations on Scroll ===== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
 }
 
-/* ========== PROFILE PAGE ========== */
-.profile-main {
+.animate-on-scroll.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Forms ===== */
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-}
-.profile-card {
-  background: var(--card);
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 0 15px var(--glow);
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 2rem;
-}
-.profile-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  border: 3px solid var(--accent);
-}
-.profile-card button {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.5rem 1.2rem;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.profile-card button:hover {
-  background: var(--glow);
-  color: black;
-}
-.profile-sections {
-  display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center;
-}
-.profile-box {
-  background: var(--card);
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px var(--accent);
-  width: 280px;
+  max-width: 500px;
+  margin: 2rem auto;
 }
 
-/* ========== GUESTBOOK PAGE ========== */
-.guestbook-main {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
-}
-.guestbook-form {
-  margin-bottom: 2rem;
-  background: var(--card);
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px var(--accent);
-}
-.guestbook-form h2,
-.guestbook-entries h2 {
-  margin-bottom: 1rem;
-}
-.guestbook-form input,
-.guestbook-form textarea {
-  width: 100%;
+input, textarea {
   padding: 0.8rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
   border: 1px solid #ccc;
-}
-.guestbook-form button {
-  padding: 0.6rem 1.4rem;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-.guestbook-form button:hover {
-  background: var(--glow);
-  color: black;
-}
-#messagesList {
-  list-style: none;
-}
-#messagesList li {
-  background: var(--card);
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border-left: 5px solid var(--accent);
-  border-radius: 5px;
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text);
 }
 
-/* ========== TOPIC PAGES ========== */
-main.topic-page {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-}
-main.topic-page h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-main.topic-page p {
-  margin-bottom: 1rem;
-  background: var(--card);
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px var(--accent);
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .typewriter-text {
+    font-size: 1.1rem;
+  }
 }
 
-/* ========== FOOTER ========== */
+/* ===== Footer ===== */
 footer {
   text-align: center;
-  padding: 2rem;
-  background: var(--accent);
-  color: white;
-  margin-top: 4rem;
-}
-
-/* ========== LOADER ========== */
-.loader {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.loader::after {
-  content: "🌟";
-  font-size: 3rem;
-  animation: spin 2s linear infinite;
-}
-@keyframes spin {
-  0% { transform: rotate(0); }
-  100% { transform: rotate(360deg); }
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 700px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-  }
-  .profile-sections {
-    flex-direction: column;
-    align-items: center;
-  }
+  padding: 1rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  margin-top: 2rem;
 }
