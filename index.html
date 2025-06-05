@@ -7,31 +7,44 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="theme-pink light">
-  <header>
-    <h1>🌟 Speak Louder, Love Harder</h1>
+  <!-- 🌟 Animated Header -->
+  <header class="glow-header">
+    <h1><span class="pulse">🌟</span> Speak Louder, Love Harder</h1>
     <div class="typewriter-text" data-text="A Place for Healing, Hope & Empowerment 💖"></div>
+
+    <!-- 🔐 Auth Buttons -->
+    <nav class="auth-nav">
+      <a href="profile.html" id="profile-link" class="hidden">👤 Profile</a>
+      <a href="login.html" id="login-link">🔐 Login / Register</a>
+      <button id="logout-btn" class="hidden">🚪 Logout</button>
+    </nav>
   </header>
 
+  <!-- 🌗 Theme & Color Controls -->
   <section class="theme-toggle-wrapper">
-    <label>
+    <label for="theme-toggle">
       <input type="checkbox" id="theme-toggle" />
       🌗 Toggle Dark Mode
     </label>
   </section>
 
   <section class="color-picker">
-    🎨 Choose Color Theme:
+    🎨 Choose a Color Theme:
     <button class="color-theme-btn" data-color="pink" title="Pink"></button>
     <button class="color-theme-btn" data-color="green" title="Green"></button>
     <button class="color-theme-btn" data-color="purple" title="Purple"></button>
   </section>
 
-  <section id="quote-box" class="animate-on-scroll">Loading inspirational quotes...</section>
+  <!-- 💬 Inspirational Quotes -->
+  <section id="quote-box" class="animate-on-scroll">
+    <p>Loading inspirational quotes...</p>
+  </section>
 
+  <!-- 💡 What We’re About -->
   <section class="glass card animate-on-scroll">
     <h2>💬 What We’re About</h2>
     <p>
-      “Speak Louder, Love Harder 🌟” is a bold, vibrant, interactive space for healing, support, and empowerment.
+      <strong>“Speak Louder, Love Harder 🌟”</strong> is a bold, vibrant, interactive space for healing, support, and empowerment.
       Together we lift each other through love, awareness, and action.
     </p>
     <p>
@@ -39,6 +52,7 @@
     </p>
   </section>
 
+  <!-- 🔗 Topic Cards -->
   <section class="glass card animate-on-scroll">
     <h2>🔗 Explore Topics</h2>
     <div class="topics-grid">
@@ -54,18 +68,22 @@
     </div>
   </section>
 
+  <!-- 💌 Get Involved -->
   <section class="glass card animate-on-scroll">
     <h2>🚪 Get Involved</h2>
     <a href="guestbook-connect.html" class="btn">💌 Guestbook & Connect</a>
     <a href="profile.html" class="btn">👤 My Profile</a>
   </section>
 
-  <footer>
+  <!-- 🔚 Footer -->
+  <footer class="glow-footer">
     Built with 💖 to inspire and empower — Speak Louder, Love Harder 🌟
   </footer>
 
+  <!-- ⬆️ Scroll to Top Button -->
   <button id="scrollTopBtn" title="Back to Top">⬆️</button>
 
+  <!-- 🌐 Scripts -->
   <script type="module" src="script.js"></script>
 </body>
 </html>
