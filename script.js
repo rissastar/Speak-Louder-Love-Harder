@@ -1,40 +1,33 @@
-const quotes = [
-  "You are not alone 💖",
-  "Healing is a journey, not a destination.",
-  "Your story matters 🌟",
-  "Progress, not perfection.",
-  "Speak louder. Love harder.",
-  "Even on your worst days, you are enough 💪",
-];
-let currentQuote = 0;
+document.addEventListener("DOMContentLoaded", () => {
+  // Remove loader
+  document.getElementById("loader").style.display = "none";
 
-function rotateQuotes() {
-  const quoteText = document.getElementById("quoteText");
-  quoteText.textContent = quotes[currentQuote];
-  currentQuote = (currentQuote + 1) % quotes.length;
-}
-setInterval(rotateQuotes, 4000);
-window.onload = rotateQuotes;
+  // Theme Toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  const prefersDark = localStorage.getItem("theme") === "dark";
+  if (prefersDark) document.body.classList.add("dark");
 
-// Theme toggle
-document.getElementById("modeToggle").addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem("mode", document.body.classList.contains("dark-mode") ? "dark" : "light");
-});
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+  });
 
-document.getElementById("themeSelect").addEventListener("change", (e) => {
-  document.body.classList.remove("theme-purple", "theme-green", "theme-pink");
-  document.body.classList.add("theme-" + e.target.value);
-  localStorage.setItem("theme", e.target.value);
-});
+  // Auto-Rotating Quotes
+  const quotes = [
+    "You are stronger than you think.",
+    "Healing isn’t linear, but it is possible.",
+    "Your voice matters. Your story matters.",
+    "Even on your worst days, you are worthy of love.",
+    "Every small step counts 💖"
+  ];
+  let current = 0;
+  const quoteBox = document.getElementById("quote-box");
 
-// Remember user preferences
-window.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme") || "purple";
-  const savedMode = localStorage.getItem("mode") || "light";
-  document.body.classList.add("theme-" + savedTheme);
-  document.getElementById("themeSelect").value = savedTheme;
-  if (savedMode === "dark") {
-    document.body.classList.add("dark-mode");
+  function rotateQuotes() {
+    quoteBox.textContent = quotes[current];
+    current = (current + 1) % quotes.length;
+    setTimeout(rotateQuotes, 5000);
   }
+
+  if (quoteBox) rotateQuotes();
 });
