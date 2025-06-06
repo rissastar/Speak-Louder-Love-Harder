@@ -43,3 +43,8 @@ function rotateQuotes() {
 
 rotateQuotes();
 setInterval(rotateQuotes, 10000); // Change quote every 10 seconds
+
+function logout() {
+  localStorage.setItem("isLoggedIn", "false");
+  window.location.href = "index.html";
+}
