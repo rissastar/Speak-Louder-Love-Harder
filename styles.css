@@ -449,3 +449,33 @@ body.dark .feature {
     font-size: 2.5em;
   }
 }
+
+.magic-link {
+  position: relative;
+  text-decoration: none;
+  color: var(--text-color, #1a1a1a);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.magic-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent, #ff007f);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-out;
+}
+
+.magic-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.magic-link:hover {
+  color: var(--accent, #ff007f);
+}
