@@ -193,3 +193,35 @@ document.getElementById("logout-btn").addEventListener("click", () => {
     window.location.href = "index.html";
   });
 });
+
+const themeToggle = document.getElementById("theme-toggle");
+const body = document.body;
+
+// Apply saved theme on load
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  body.classList.add(savedTheme);
+  themeToggle.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
+}
+
+themeToggle.addEventListener("click", () => {
+  if (body.classList.contains("dark")) {
+    body.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+    themeToggle.textContent = "Dark Mode";
+  } else {
+    body.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+    themeToggle.textContent = "Light Mode";
+  }
+});
+
+function showNotification(message, duration = 3000) {
+  const notification = document.getElementById("notification");
+  notification.textContent = message;
+  notification.classList.remove("hidden");
+
+  setTimeout(() => {
+    notification.classList.add("hidden");
+  }, duration);
+}
