@@ -4,27 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1 class="glow">Login 💖</h1>
-    <nav>
-      <a href="index.html">Home</a>
-    </nav>
+  <header class="animated-header">
+    <h1 class="glow">Login 💫</h1>
+    <button id="theme-toggle">Toggle Theme</button>
   </header>
 
-  <main>
+  <main class="auth-form">
     <form id="loginForm">
-      <input type="text" id="loginUsername" placeholder="Username" required />
-      <input type="password" id="loginPassword" placeholder="Password" required />
+      <label>Email:</label>
+      <input type="email" required id="loginEmail" />
+      <label>Password:</label>
+      <input type="password" required id="loginPassword" />
       <button type="submit">Login</button>
-      <p>Don’t have an account? <a href="register.html">Register here</a>.</p>
-      <p id="loginMsg"></p>
+      <p id="loginMsg" class="auth-msg"></p>
     </form>
+    <p>Don't have an account? <a href="register.html">Register here</a></p>
   </main>
 
-  <footer><p>💜</p></footer>
+  <footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      if (storedUser && storedUser.email === email && storedUser.password === password) {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "profile.html";
+      } else {
+        document.getElementById("loginMsg").textContent = "Invalid credentials.";
+      }
+    });
+  </script>
 </body>
 </html>
