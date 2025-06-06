@@ -97,3 +97,62 @@ themeSelect?.addEventListener("change", () => {
   const selectedTheme = themeSelect.value;
   applyTheme(selectedTheme);
 });
+
+const themeSelect = document.getElementById("themeSelect");
+const customForm = document.getElementById("customThemeForm");
+const customPrimary = document.getElementById("customPrimary");
+const customSecondary = document.getElementById("customSecondary");
+const customAccent = document.getElementById("customAccent");
+
+function applyTheme(theme) {
+  document.body.classList.remove("theme-vibrant", "theme-pastel", "theme-ocean", "theme-sunset");
+
+  if (theme === "custom") {
+    const customTheme = JSON.parse(localStorage.getItem("customTheme"));
+    if (customTheme) {
+      document.documentElement.style.setProperty('--primary-color', customTheme.primary);
+      document.documentElement.style.setProperty('--secondary-color', customTheme.secondary);
+      document.documentElement.style.setProperty('--accent-color', customTheme.accent);
+    }
+  } else {
+    document.body.classList.add(`theme-${theme}`);
+    // Reset CSS vars in case custom theme was active
+    document.documentElement.removeAttribute('style');
+  }
+
+  localStorage.setItem("colorTheme", theme);
+  if (themeSelect) themeSelect.value = theme;
+}
+
+// Save custom theme
+function saveCustomTheme() {
+  const customTheme = {
+    primary: customPrimary.value,
+    secondary: customSecondary.value,
+    accent: customAccent.value
+  };
+  localStorage.setItem("customTheme", JSON.stringify(customTheme));
+  applyTheme("custom");
+  alert("✨ Your custom theme has been saved!");
+}
+
+// Load on startup
+const savedTheme = localStorage.getItem("colorTheme") || "vibrant";
+applyTheme(savedTheme);
+
+// Watch selector
+themeSelect?.addEventListener("change", () => {
+  const value = themeSelect.value;
+  if (value === "custom") {
+    customForm.style.display = "flex";
+    const saved = JSON.parse(localStorage.getItem("customTheme"));
+    if (saved) {
+      customPrimary.value = saved.primary;
+      customSecondary.value = saved.secondary;
+      customAccent.value = saved.accent;
+    }
+  } else {
+    customForm.style.display = "none";
+  }
+  applyTheme(value);
+});
