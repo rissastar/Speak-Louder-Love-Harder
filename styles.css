@@ -1,22 +1,206 @@
-/* style.css */
-
-/* Root theme colors and variables */
+/* ======================
+   Root Theme Variables
+========================= */
 :root {
-    --bg: #f4f4f9;
-    --text-color: #1a1a1a;
-    --primary: #7f00ff;   /* purple */
-    --secondary: #39ff14; /* neon green */
-    --accent: #ff007f;    /* pink */
-}
-body {
-    background: var(--bg);
-    color: var(--text-color);
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    transition: background 0.3s ease, color 0.3s ease;
+  --bg: #f4f4f9;
+  --text-color: #1a1a1a;
+  --primary: #7f00ff;   /* Purple */
+  --secondary: #39ff14; /* Neon green */
+  --accent: #ff007f;    /* Pink */
+  --glow: rgba(255, 0, 255, 0.4);
+  --bg-soft: #ffffff;
+  --bg-alt: #f0f0f0;
+  --text-muted: #aaa;
+  --card-bg: #ffffff;
+  --highlight-color: #ff69b4;
+  --primary-color: #7f00ff;
 }
 
+/* ======================
+   Global Styles
+========================= */
+body {
+  background: var(--bg);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* ======================
+   Navigation Bar
+========================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary);
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 100;
+}
+.navbar .logo a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+.nav-links li {
+  margin: 0 10px;
+}
+.nav-links li a {
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+.nav-links li a:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ======================
+   Theme Toggle
+========================= */
+#theme-toggle {
+  background: none;
+  border: 2px solid var(--accent);
+  border-radius: 5px;
+  color: #000;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+#theme-toggle:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ======================
+   Hero Section
+========================= */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  color: #fff;
+}
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  animation: glow 2s ease-in-out infinite alternate;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+.hero .btn {
+  font-size: 1rem;
+}
+
+/* ======================
+   Quotes Section
+========================= */
+.quotes {
+  text-align: center;
+  padding: 50px 20px;
+  background: var(--secondary);
+  color: #000;
+}
+.quotes h2 {
+  margin-bottom: 20px;
+}
+.quotes p {
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+/* ======================
+   Features Section
+========================= */
+.features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 50px 20px;
+  background: #fff;
+}
+body.dark .features {
+  background: #1e1e1e;
+}
+.feature {
+  background: #fff;
+  color: #333;
+  width: 300px;
+  margin: 20px;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+body.dark .feature {
+  background: #2a2a2a;
+  color: #f4f4f9;
+}
+.feature:hover {
+  transform: translateY(-5px);
+}
+.feature img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.feature h3 {
+  margin: 15px 0 10px;
+}
+.feature p {
+  font-size: 0.9rem;
+  margin: 0 15px 15px;
+}
+.feature .btn {
+  margin-bottom: 15px;
+}
+
+/* ======================
+   Buttons
+========================= */
+.btn {
+  display: inline-block;
+  background: var(--secondary);
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 15px var(--secondary), 0 0 20px var(--accent);
+  transform: scale(1.05);
+}
+
+/* ======================
+   Profile + Dashboard
+========================= */
 .profile-container {
   max-width: 600px;
   margin: 3rem auto;
@@ -25,14 +209,12 @@ body {
   border-radius: 1rem;
   box-shadow: 0 0 15px var(--glow);
 }
-
 #profile-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
 }
-
 #profile-form input,
 #profile-form textarea {
   padding: 0.75rem;
@@ -40,9 +222,8 @@ body {
   border-radius: 0.5rem;
   font-size: 1rem;
 }
-
 #profile-form button {
-  background-color: var(--pink);
+  background-color: var(--accent);
   color: white;
   padding: 0.75rem;
   border: none;
@@ -51,256 +232,14 @@ body {
   font-weight: bold;
   transition: 0.3s;
 }
-
 #profile-form button:hover {
-  background-color: var(--purple);
-}
-/* Dark mode overrides */
-body.dark {
-    --bg: #121212;
-    --text-color: #f4f4f9;
-}
-
-/* Global link style */
-a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-/* Navigation Bar */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--primary);
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    position: relative;
-    z-index: 100;
-}
-.navbar .logo a {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff; /* Logo text in white */
-}
-.nav-links {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-}
-.nav-links li {
-    margin: 0 10px;
-}
-.nav-links li a {
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 4px;
-}
-.nav-links li a:hover {
-    background: var(--accent);
-    color: #000;
-    box-shadow: 0 0 8px var(--accent);
-}
-
-/* Theme Toggle Button */
-#theme-toggle {
-    background: none;
-    border: 2px solid var(--accent);
-    border-radius: 5px;
-    color: #000; /* Black text on toggle button */
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: 0.3s;
-}
-#theme-toggle:hover {
-    background: var(--accent);
-    color: #000; /* Black text on accent background */
-    box-shadow: 0 0 8px var(--accent);
-}
-
-/* Hamburger (mobile menu icon) */
-.hamburger {
-    display: none;
-    font-size: 1.5rem;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-    background: linear-gradient(45deg, var(--primary), var(--accent));
-    color: #fff;
-}
-.hero h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    animation: glow 2s ease-in-out infinite alternate;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-}
-.hero .btn {
-    font-size: 1rem;
-}
-
-/* Quotes Section */
-.quotes {
-    text-align: center;
-    padding: 50px 20px;
-    background: var(--secondary);
-    color: #000; /* Black text for contrast on neon green */
-}
-.quotes h2 {
-    margin-bottom: 20px;
-}
-.quotes p {
-    font-style: italic;
-    font-size: 1.2rem;
-}
-
-/* Features/Topics Section */
-.features {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 50px 20px;
-    background: #fff;
-}
-body.dark .features {
-    background: #1e1e1e;
-}
-.feature {
-    background: #fff;
-    color: #333;
-    width: 300px;
-    margin: 20px;
-    text-align: center;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    transition: transform 0.3s;
-}
-body.dark .feature {
-    background: #2a2a2a;
-    color: #f4f4f9;
-}
-.feature:hover {
-    transform: translateY(-5px);
-}
-.feature img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-.feature h3 {
-    margin: 15px 0 10px 0;
-}
-.feature p {
-    font-size: 0.9rem;
-    margin: 0 15px 15px 15px;
-}
-.feature .btn {
-    margin-bottom: 15px;
-}
-
-/* Button Styles */
-.btn {
-    display: inline-block;
-    background: var(--secondary);
-    color: #000; /* Black text on green background */
-    border: none;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.btn:hover {
-    background: var(--accent);
-    color: #000; /* Black text on pink background */
-    box-shadow: 0 0 15px var(--secondary), 0 0 20px var(--accent);
-    transform: scale(1.05);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: var(--primary);
-    color: #fff;
-    font-size: 0.8rem;
-}
-
-/* Glowing text animation keyframes */
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px rgba(255,255,255,0.5);
-    }
-    to {
-        text-shadow: 0 0 20px rgba(255,255,255,0.8);
-    }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .navbar {
-        flex-wrap: wrap;
-    }
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: var(--primary);
-        position: absolute;
-        top: 60px;
-        left: 0;
-    }
-    .nav-links.open {
-        display: flex;
-    }
-    .nav-links li {
-        margin: 10px 0;
-        text-align: center;
-    }
-    .hamburger {
-        display: block;
-    }
-    #theme-toggle {
-        margin-left: 10px;
-    }
-    .features {
-        flex-direction: column;
-        align-items: center;
-    }
-    .hero h1 {
-        font-size: 2.5em;
-    }
-}
-
-.mini-profile {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.mini-profile img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  background-color: var(--primary);
 }
 
 .dashboard-container {
   text-align: center;
   padding: 3rem 1rem;
 }
-
 .dashboard-pic {
   width: 120px;
   height: 120px;
@@ -308,7 +247,6 @@ footer {
   margin: 1rem 0;
   box-shadow: 0 0 15px var(--glow);
 }
-
 .dashboard-links {
   display: flex;
   flex-direction: column;
@@ -316,22 +254,19 @@ footer {
   max-width: 300px;
   margin: 2rem auto;
 }
-
 .dash-button {
   display: inline-block;
   padding: 0.75rem 1rem;
-  background-color: var(--pink);
+  background-color: var(--accent);
   color: white;
   border-radius: 8px;
   font-weight: bold;
   text-decoration: none;
   transition: all 0.3s ease;
 }
-
 .dash-button:hover {
-  background-color: var(--purple);
+  background-color: var(--primary);
 }
-
 .dash-section {
   margin: 2rem auto;
   max-width: 600px;
@@ -340,24 +275,38 @@ footer {
   border-radius: 12px;
   box-shadow: 0 0 10px var(--glow);
 }
-
 .dash-section ul {
   list-style: none;
   padding: 0;
 }
-
 .dash-section li {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border-bottom: 1px solid var(--text-muted);
 }
 
+/* ======================
+   Mini Profile
+========================= */
+.mini-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mini-profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/* ======================
+   Affirmations & Quotes
+========================= */
 .affirmation-list {
   list-style: none;
   padding: 0;
   margin-top: 1em;
 }
-
 .affirmation-list li {
   background: rgba(255, 255, 255, 0.1);
   border-left: 5px solid #f48fb1;
@@ -366,7 +315,6 @@ footer {
   font-style: italic;
   border-radius: 6px;
 }
-
 .quote-section blockquote {
   font-style: italic;
   font-size: 1.4rem;
@@ -379,6 +327,9 @@ footer {
   transition: opacity 0.5s ease;
 }
 
+/* ======================
+   Auth Tabs (Login/Register)
+========================= */
 .auth-tabs {
   background: var(--card-bg);
   padding: 2em;
@@ -387,13 +338,11 @@ footer {
   max-width: 500px;
   box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
 }
-
 .auth-tabs-buttons {
   display: flex;
   justify-content: center;
   margin-bottom: 1em;
 }
-
 .auth-tabs-buttons button {
   padding: 0.5em 1em;
   margin: 0 0.5em;
@@ -403,38 +352,54 @@ footer {
   border-radius: 20px;
   cursor: pointer;
 }
-
 .auth-tabs-buttons button.active {
   background: var(--highlight-color);
 }
-
 .auth-tab-content {
   display: none;
 }
-
 .auth-tab-content.active {
   display: block;
 }
-
 .auth-message {
   text-align: center;
   color: red;
   margin-top: 1em;
 }
 
+/* ======================
+   Footer
+========================= */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+/* ======================
+   Dark Mode
+========================= */
 body.dark {
+  --bg: #121212;
+  --text-color: #f4f4f9;
   background-color: #121212;
   color: #fff;
 }
-
 body.dark .dashboard-pic {
   border-color: #fff;
 }
-
 body.dark a {
   color: #90caf9;
 }
+body.dark .feature {
+  background: #2a2a2a;
+}
 
+/* ======================
+   Notification Toast
+========================= */
 .notification {
   position: fixed;
   bottom: 30px;
@@ -451,4 +416,36 @@ body.dark a {
 .notification.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ======================
+   Glowing Animation
+========================= */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+  }
+}
+
+/* ======================
+   Responsive Design
+========================= */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-links li {
+    margin: 10px 0;
+  }
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: 2.5em;
+  }
 }
