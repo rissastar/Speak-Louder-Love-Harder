@@ -156,3 +156,36 @@ themeSelect?.addEventListener("change", () => {
   }
   applyTheme(value);
 });
+
+// === MENTAL HEALTH PAGE TAB LOGIC ===
+document.querySelectorAll(".tab-buttons").forEach(tabGroup => {
+  const buttons = tabGroup.querySelectorAll(".tab-btn");
+  const tabContainer = tabGroup.parentElement;
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      buttons.forEach(btn => btn.classList.remove("active"));
+      tabContainer.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+      button.classList.add("active");
+      const tabId = button.dataset.tab;
+      tabContainer.querySelector(`#${tabId}`)?.classList.add("active");
+    });
+  });
+});
+
+// Optional: Improve <summary> accessibility
+document.querySelectorAll("summary").forEach(summary => {
+  summary.setAttribute("tabindex", 0);
+  summary.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      summary.click();
+    }
+  });
+});
+
+// Smooth scroll back to top
+document.querySelector(".back-to-top")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
