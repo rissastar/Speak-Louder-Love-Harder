@@ -15,13 +15,23 @@
       <button id="logoutBtn" style="display: none;">Logout</button>
       <button id="theme-toggle">Toggle Theme</button>
       <div class="theme-switcher">
+  
+  <div class="theme-switcher">
   <label for="themeSelect">🎨 Theme:</label>
   <select id="themeSelect">
-    <option value="vibrant">Vibrant</option>
-    <option value="pastel">Pastel</option>
-    <option value="ocean">Ocean</option>
-    <option value="sunset">Sunset</option>
+    <option value="vibrant">Vibrant 💖</option>
+    <option value="pastel">Pastel 🧁</option>
+    <option value="ocean">Ocean 🌊</option>
+    <option value="sunset">Sunset 🌇</option>
+    <option value="custom">✨ My Theme</option>
   </select>
+</div>
+
+<div id="customThemeForm" class="custom-theme-form" style="display: none;">
+  <label>Primary: <input type="color" id="customPrimary" /></label>
+  <label>Secondary: <input type="color" id="customSecondary" /></label>
+  <label>Accent: <input type="color" id="customAccent" /></label>
+  <button onclick="saveCustomTheme()">Save My Theme</button>
 </div>
     </div>
   </header>
