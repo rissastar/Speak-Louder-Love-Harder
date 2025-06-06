@@ -3,73 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Your Dashboard - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="animated-header">
+    <h1 class="glow">Welcome to Your Dashboard 💖</h1>
+    <button id="theme-toggle">Toggle Theme</button>
+  </header>
 
-  <nav class="navbar">
-    <a class="logo" href="index.html">Speak Louder, Love Harder</a>
+  <nav>
     <ul class="nav-links">
-      <li><a href="guestbook-connect.html">Connect</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><button id="logout-btn">Logout</button></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+      <li><a href="profile.html" class="active">Profile</a></li>
     </ul>
-    <button id="theme-toggle">Dark Mode</button>
   </nav>
 
-  <main class="dashboard-container">
-    <h1>Welcome back, <span id="user-name">Friend</span> 💖</h1>
-    <img id="dashboard-pic" src="default.png" alt="Your profile picture" class="dashboard-pic"/>
-
-    <div class="dashboard-links">
-      <a href="profile.html" class="dash-button">Edit Profile</a>
-      <a href="guestbook-connect.html" class="dash-button">Write to the Guestbook</a>
-      <a id="public-profile-link" href="#" class="dash-button">View Your Public Profile</a>
-    </div>
-
-    <section class="dash-section">
-      <h2>Mood Tracker 🌈</h2>
-      <form id="mood-form">
-        <select id="mood-select">
-          <option value="😊 Happy">😊 Happy</option>
-          <option value="😢 Sad">😢 Sad</option>
-          <option value="😠 Angry">😠 Angry</option>
-          <option value="🙏 Grateful">🙏 Grateful</option>
-          <option value="😰 Anxious">😰 Anxious</option>
-        </select>
-        <textarea id="mood-note" placeholder="Optional note..."></textarea>
-        <button type="submit">Log Mood</button>
-      </form>
-
-      <h2>Mood Trend 📈</h2>
-      <canvas id="mood-chart" width="400" height="200"></canvas>
-      <ul id="mood-list" class="mood-list"></ul>
+  <main class="dashboard">
+    <section class="profile-card">
+      <h2 class="glow">Hello, Beautiful Soul 🌈</h2>
+      <p>Edit your bio below:</p>
+      <textarea id="userBio" rows="4" placeholder="Tell the world about your journey..."></textarea>
+      <button onclick="saveBio()">Save Bio</button>
+      <p class="saved-msg" id="savedMsg">✨ Bio saved!</p>
     </section>
 
-    <section class="dash-section">
-      <h2>Upcoming Events 📅</h2>
-      <ul id="event-list" class="event-list"></ul>
+    <section class="quick-stats">
+      <h3>Quick Stats</h3>
+      <ul>
+        <li><strong>Journal Entries:</strong> 12</li>
+        <li><strong>Days Active:</strong> 48</li>
+        <li><strong>Uplifted Others:</strong> 23</li>
+      </ul>
     </section>
 
-    <section class="dash-section">
-      <h2>Your Guestbook Entries 📝</h2>
-      <ul id="guestbook-posts" class="guestbook-list"></ul>
+    <section class="quote-section">
+      <blockquote id="quote">"Every storm runs out of rain."</blockquote>
+      <cite id="author">- Maya Angelou</cite>
     </section>
 
-    <section class="dash-section">
-      <h2>Saved Resources 📘</h2>
-      <ul id="bookmark-list" class="bookmark-list"></ul>
+    <section class="quick-links">
+      <h3>Explore More 💫</h3>
+      <div class="link-grid">
+        <a href="mental-health.html">Mental Health</a>
+        <a href="addiction.html">Addiction</a>
+        <a href="pitbull-love.html">Pitbull Love</a>
+        <a href="foster-children.html">Foster Children</a>
+        <a href="guestbook-connect.html">Guestbook</a>
+      </div>
     </section>
   </main>
 
-  <!-- Firebase + Scripts -->
-  <div id="notification" class="notification hidden"></div>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="auth.js" defer></script>
-  <script src="dashboard.js" defer></script>
+  <footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Load saved bio if exists
+    const bioBox = document.getElementById('userBio');
+    const savedMsg = document.getElementById('savedMsg');
+
+    bioBox.value = localStorage.getItem('userBio') || "";
+
+    function saveBio() {
+      localStorage.setItem('userBio', bioBox.value);
+      savedMsg.style.opacity = 1;
+      setTimeout(() => savedMsg.style.opacity = 0, 2000);
+    }
+  </script>
 </body>
 </html>
