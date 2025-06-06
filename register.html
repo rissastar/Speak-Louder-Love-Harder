@@ -4,27 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1 class="glow">Register 💖</h1>
-    <nav>
-      <a href="index.html">Home</a>
-    </nav>
+  <header class="animated-header">
+    <h1 class="glow">Register 🌟</h1>
+    <button id="theme-toggle">Toggle Theme</button>
   </header>
 
-  <main>
+  <main class="auth-form">
     <form id="registerForm">
-      <input type="text" id="registerUsername" placeholder="Choose Username" required />
-      <input type="password" id="registerPassword" placeholder="Choose Password" required />
+      <label>Email:</label>
+      <input type="email" required id="regEmail" />
+      <label>Password:</label>
+      <input type="password" required id="regPassword" />
       <button type="submit">Register</button>
-      <p>Already have an account? <a href="login.html">Login here</a>.</p>
-      <p id="registerMsg"></p>
+      <p id="registerMsg" class="auth-msg"></p>
     </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
   </main>
 
-  <footer><p>💜</p></footer>
+  <footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+      const user = { email, password };
+
+      localStorage.setItem("user", JSON.stringify(user));
+      document.getElementById("registerMsg").textContent = "Registered successfully! Redirecting...";
+      setTimeout(() => window.location.href = "login.html", 2000);
+    });
+  </script>
 </body>
 </html>
