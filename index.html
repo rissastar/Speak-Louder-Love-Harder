@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  
   <header class="animated-header">
-  <h1 class="glow">Speak Louder, Love Harder</h1>
-  <div class="header-actions">
-    <span id="welcomeMessage"></span>
-    <button id="loginBtn">Login</button>
-    <button id="logoutBtn" style="display:none;">Logout</button>
-    <button id="theme-toggle">Toggle Theme</button>
-  </div>
-</header>
+    <h1 class="glow">Speak Louder, Love Harder</h1>
+    <div class="header-actions">
+      <span id="welcomeMessage"></span>
+      <button id="loginBtn">Login</button>
+      <button id="logoutBtn" style="display: none;">Logout</button>
+      <button id="theme-toggle">Toggle Theme</button>
+    </div>
+  </header>
 
   <nav>
     <ul class="nav-links">
@@ -37,13 +36,74 @@
 
   <main>
     <section class="quote-section">
-      <blockquote id="quote">"Your current quote will appear here."</blockquote>
-      <cite id="author">- Author</cite>
+      <blockquote id="quote">"Every storm runs out of rain."</blockquote>
+      <cite id="author">- Maya Angelou</cite>
     </section>
   </main>
 
   <footer>
     <p>Built with ❤️ to inspire and empower.</p>
   </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Dark Mode Toggle with LocalStorage
+    const themeToggle = document.getElementById("theme-toggle");
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode");
+    }
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const newTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+    });
+
+    // Auto-Rotating Quotes
+    const quotes = [
+      { text: "You are stronger than you think.", author: "Unknown" },
+      { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+      { text: "Every day is a second chance.", author: "Unknown" },
+      { text: "Your story isn't over yet.", author: "Unknown" },
+      { text: "Inhale courage, exhale fear.", author: "Unknown" },
+      { text: "You matter. You are loved.", author: "Unknown" },
+      { text: "Healing takes time, and that's okay.", author: "Unknown" }
+    ];
+
+    let currentQuote = 0;
+    function displayQuote() {
+      const q = quotes[currentQuote];
+      document.getElementById("quote").textContent = `"${q.text}"`;
+      document.getElementById("author").textContent = `- ${q.author}`;
+      currentQuote = (currentQuote + 1) % quotes.length;
+    }
+    displayQuote();
+    setInterval(displayQuote, 10000);
+
+    // Login System UI
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const welcomeMessage = document.getElementById("welcomeMessage");
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (storedUser && isLoggedIn) {
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+      welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]} 💖`;
+    } else {
+      loginBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
+
+    loginBtn.addEventListener("click", () => {
+      window.location.href = "login.html";
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.setItem("isLoggedIn", "false");
+      location.reload();
+    });
+  </script>
 </body>
 </html>
