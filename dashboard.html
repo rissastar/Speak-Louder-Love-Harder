@@ -26,259 +26,49 @@
       <a href="profile.html" class="dash-button">Edit Profile</a>
       <a href="guestbook-connect.html" class="dash-button">Write to the Guestbook</a>
       <a id="public-profile-link" href="#" class="dash-button">View Your Public Profile</a>
-    
-    <section class="dash-section">
-  <h2>Mood Tracker 🌈</h2>
-  <form id="mood-form">
-    <select id="mood-select">
-      <option value="Happy">😊 Happy</option>
-      <option value="Sad">😢 Sad</option>
-      <option value="Angry">😠 Angry</option>
-      <option value="Grateful">🙏 Grateful</option>
-      <option value="Anxious">😰 Anxious</option>
-    </select>
-    <h2>Mood Trend 📈</h2>
-<canvas id="mood-chart" width="400" height="200"></canvas>
-    <textarea id="mood-note" placeholder="Optional note..."></textarea>
-    <button type="submit">Log Mood</button>
-  </form>
-
-  <ul id="mood-list" class="mood-list"></ul>
-</section>
-    
-    <section class="dash-section">
-  <h2>Upcoming Events 📅</h2>
-  <ul id="event-list" class="event-list"></ul>
-</section>
-    
-    <section class="dash-section">
-  <h2>Your Guestbook Entries 📝</h2>
-  <ul id="guestbook-posts" class="guestbook-list"></ul>
-</section>
+    </div>
 
     <section class="dash-section">
-  <h2>Saved Resources 📘</h2>
-  <ul id="bookmark-list" class="bookmark-list"></ul>
-</section>
+      <h2>Mood Tracker 🌈</h2>
+      <form id="mood-form">
+        <select id="mood-select">
+          <option value="😊 Happy">😊 Happy</option>
+          <option value="😢 Sad">😢 Sad</option>
+          <option value="😠 Angry">😠 Angry</option>
+          <option value="🙏 Grateful">🙏 Grateful</option>
+          <option value="😰 Anxious">😰 Anxious</option>
+        </select>
+        <textarea id="mood-note" placeholder="Optional note..."></textarea>
+        <button type="submit">Log Mood</button>
+      </form>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </div>
+      <h2>Mood Trend 📈</h2>
+      <canvas id="mood-chart" width="400" height="200"></canvas>
+      <ul id="mood-list" class="mood-list"></ul>
+    </section>
+
+    <section class="dash-section">
+      <h2>Upcoming Events 📅</h2>
+      <ul id="event-list" class="event-list"></ul>
+    </section>
+
+    <section class="dash-section">
+      <h2>Your Guestbook Entries 📝</h2>
+      <ul id="guestbook-posts" class="guestbook-list"></ul>
+    </section>
+
+    <section class="dash-section">
+      <h2>Saved Resources 📘</h2>
+      <ul id="bookmark-list" class="bookmark-list"></ul>
+    </section>
   </main>
 
-  <!-- Firebase + Auth + Scripts -->
+  <!-- Firebase + Scripts -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="auth.js" defer></script>
-  <script>
-    const db = firebase.firestore();
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      const nameEl = document.getElementById("user-name");
-      const picEl = document.getElementById("dashboard-pic");
-      const profileLink = document.getElementById("public-profile-link");
-
-      db.collection("users").doc(user.uid).get().then((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          nameEl.textContent = data.name || "Friend";
-          if (data.photoURL) {
-            picEl.src = data.photoURL;
-          }
-          profileLink.href = `public-profile.html?uid=${user.uid}`;
-        }
-      });
-    });
-    
-    db.collection("guestbook")
-  .where("userId", "==", user.uid)
-  .orderBy("timestamp", "desc")
-  .get()
-  .then(snapshot => {
-    const list = document.getElementById("guestbook-posts");
-    if (snapshot.empty) {
-      list.innerHTML = "<li>No entries yet. Start writing!</li>";
-    } else {
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const li = document.createElement("li");
-        li.textContent = `${new Date(data.timestamp?.toDate()).toLocaleString()}: ${data.text}`;
-        list.appendChild(li);
-      });
-    }
-  });
-  
-  db.collection("events")
-  .orderBy("date")
-  .get()
-  .then(snapshot => {
-    const list = document.getElementById("event-list");
-    if (snapshot.empty) {
-      list.innerHTML = "<li>No upcoming events.</li>";
-    } else {
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${data.title}</strong><br>${new Date(data.date.toDate()).toLocaleString()}<br><a href="${data.link}" target="_blank">Join</a>`;
-        list.appendChild(li);
-      });
-    }
-  });
-  
-  db.collection("bookmarks")
-  .where("userId", "==", user.uid)
-  .get()
-  .then(snapshot => {
-    const list = document.getElementById("bookmark-list");
-    if (snapshot.empty) {
-      list.innerHTML = "<li>No saved resources.</li>";
-    } else {
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${data.url}" target="_blank">${data.title}</a>`;
-        list.appendChild(li);
-      });
-    }
-  });
-  
-  const moodForm = document.getElementById("mood-form");
-const moodSelect = document.getElementById("mood-select");
-const moodNote = document.getElementById("mood-note");
-
-function getAffirmation(mood) {
-  const affirmations = {
-    "😊 Happy": [
-      "Keep shining your light!",
-      "Happiness looks great on you!",
-      "Celebrate this moment!"
-    ],
-    "🙏 Grateful": [
-      "Gratitude opens your heart.",
-      "Keep appreciating the little things.",
-      "You are attracting joy by being thankful."
-    ],
-    "😰 Anxious": [
-      "Breathe in, breathe out. You are safe.",
-      "This feeling will pass. You are strong.",
-      "You’ve handled tough things before — you will again."
-    ],
-    "😢 Sad": [
-      "It’s okay to not be okay.",
-      "You’re not alone in how you feel.",
-      "Let the tears fall — healing is happening."
-    ],
-    "😠 Angry": [
-      "Your emotions are valid.",
-      "Take space and be gentle with yourself.",
-      "You are in control, not your anger."
-    ]
-  };
-  const options = affirmations[mood] || ["You are doing your best. 💖"];
-  return options[Math.floor(Math.random() * options.length)];
-}
-
-moodForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const mood = moodSelect.value;
-  const note = moodNote.value;
-
-  db.collection("moods").add({
-    userId: user.uid,
-    mood,
-    note,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  }).then(() => {
-    const affirmation = getAffirmation(mood);
-    alert("🌟 " + affirmation);
-    moodNote.value = "";
-    loadMoods();
-  });
-});
-
-function loadMoods() {
-  db.collection("moods")
-    .where("userId", "==", user.uid)
-    .orderBy("timestamp", "desc")
-    .limit(10)
-    .get()
-    .then(snapshot => {
-      const list = document.getElementById("mood-list");
-      list.innerHTML = "";
-      const moodEntries = [];
-
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        moodEntries.unshift(data); // oldest first for graph
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>${data.mood}</strong> – ${new Date(data.timestamp?.toDate()).toLocaleDateString()}<br><em>${data.note || ''}</em>`;
-        list.appendChild(li);
-      });
-
-      renderMoodChart(moodEntries);
-    });
-}
-
-// Load moods on login
-loadMoods();
-
-function renderMoodChart(entries) {
-  const ctx = document.getElementById("mood-chart").getContext("2d");
-
-  const moodMap = {
-    "😊 Happy": { score: 5, color: "#66e26f" },
-    "🙏 Grateful": { score: 4, color: "#90caf9" },
-    "😰 Anxious": { score: 3, color: "#ffb74d" },
-    "😢 Sad": { score: 2, color: "#ba68c8" },
-    "😠 Angry": { score: 1, color: "#ef5350" }
-  };
-
-  const labels = entries.map(e => new Date(e.timestamp.toDate()).toLocaleDateString());
-  const scores = entries.map(e => moodMap[e.mood]?.score || 0);
-  const colors = entries.map(e => moodMap[e.mood]?.color || "#ccc");
-
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Mood Level (1–5)',
-        data: scores,
-        borderColor: '#fff',
-        backgroundColor: colors,
-        pointBackgroundColor: colors,
-        pointBorderColor: '#000',
-        pointRadius: 6,
-        fill: false,
-        tension: 0.3
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          min: 0,
-          max: 5,
-          ticks: {
-            stepSize: 1,
-            callback: val => ["", "😠", "😢", "😰", "🙏", "😊"][val]
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          labels: {
-            color: '#fff'
-          }
-        }
-      }
-    }
-  });
-}
-  <script src="auth.js"></script>
-</script>
+  <script src="dashboard.js" defer></script>
+</body>
+</html>
