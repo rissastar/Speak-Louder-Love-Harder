@@ -195,3 +195,32 @@ button:hover {
   text-align: center;
   margin-top: 1rem;
 }
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.header-actions button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.header-actions button:hover {
+  background-color: var(--secondary-color);
+}
+
+#welcomeMessage {
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
