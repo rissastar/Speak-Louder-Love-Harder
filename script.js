@@ -77,3 +77,23 @@ function saveBio() {
     setTimeout(() => (savedMsg.style.opacity = 0), 2000);
   }
 }
+
+// 🌈 THEME VARIANTS HANDLER
+const themeSelect = document.getElementById("themeSelect");
+
+function applyTheme(theme) {
+  document.body.classList.remove("theme-vibrant", "theme-pastel", "theme-ocean", "theme-sunset");
+  document.body.classList.add(`theme-${theme}`);
+  localStorage.setItem("colorTheme", theme);
+}
+
+// Load saved theme
+const savedTheme = localStorage.getItem("colorTheme") || "vibrant";
+applyTheme(savedTheme);
+if (themeSelect) themeSelect.value = savedTheme;
+
+// Handle theme selection change
+themeSelect?.addEventListener("change", () => {
+  const selectedTheme = themeSelect.value;
+  applyTheme(selectedTheme);
+});
