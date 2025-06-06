@@ -1,39 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Guestbook 💌 | Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-  <script defer src="guestbook.js"></script>
-</head>
-<body>
-  <header class="main-header">
-    <h1><span class="glow">💌 Guestbook & Connect</span></h1>
-    <button id="theme-toggle">🌓</button>
-  </header>
+function postMessage() {
+  const user = localStorage.getItem("currentUser");
+  if (!user) {
+    alert("You must be logged in to post.");
+    return;
+  }
 
-  <main class="guestbook-main">
-    <section class="guestbook-form">
-      <h2>Leave us a message 💬</h2>
-      <form id="messageForm">
-        <input type="text" id="name" placeholder="Your name" required />
-        <textarea id="message" placeholder="Your message of love or support" required></textarea>
-        <button type="submit">Send 💖</button>
-      </form>
-    </section>
+  const message = document.getElementById("guestMessage").value.trim();
+  if (!message) return alert("Please enter a message!");
 
-    <section class="guestbook-entries">
-      <h2>Messages from the Heart 💝</h2>
-      <ul id="messagesList">
-        <li>Loading messages...</li>
-      </ul>
-    </section>
-  </main>
+  const messages = JSON.parse(localStorage.getItem("guestbook") || "[]");
+  const newMessage = {
+    id: Date.now(),
+    user,
+    text: message
+  };
 
-  <footer>
-    You are not alone — thank you for your love 🌈
-  </footer>
-</body>
-</html>
+  messages.unshift(newMessage);
+  localStorage.setItem("guestbook", JSON.stringify(messages));
+  document.getElementById("guestMessage").value = "";
+  loadMessages();
+}
+
+function loadMessages() {
+  const user = localStorage.getItem("currentUser");
+  const messages = JSON.parse(localStorage.getItem("guestbook") || "[]");
+  const container = document.getElementById("guestbookMessages");
+  container.innerHTML = "";
+
+  messages.forEach(msg => {
+    const div = document.createElement("div");
+    div.className = "message-box";
+    div.innerHTML = `
+      <p><strong>${msg.user}</strong> says:</p>
+      <p>${msg.text}</p>
+    `;
+
+    if (msg.user === user) {
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.className = "delete-btn";
+      delBtn.onclick = () => deleteMessage(msg.id);
+      div.appendChild(delBtn);
+    }
+
+    container.appendChild(div);
+  });
+}
+
+function deleteMessage(id) {
+  let messages = JSON.parse(localStorage.getItem("guestbook") || "[]");
+  const user = localStorage.getItem("currentUser");
+
+  messages = messages.filter(m => !(m.id === id && m.user === user));
+  localStorage.setItem("guestbook", JSON.stringify(messages));
+  loadMessages();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("guestbookMessages")) {
+    loadMessages();
+  }
+});
