@@ -187,3 +187,9 @@ function renderMoodChart(entries) {
     }
   });
 }
+
+document.getElementById("logout-btn").addEventListener("click", () => {
+  firebase.auth().signOut().then(() => {
+    window.location.href = "index.html";
+  });
+});
