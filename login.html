@@ -2,85 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="script.js"></script>
 </head>
 <body>
+  <header>
+    <h1 class="glow">Login 💖</h1>
+    <nav>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
 
-  <nav class="navbar">
-    <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="register.html">Register</a></li>
-    </ul>
-    <button id="theme-toggle">Dark Mode</button>
-  </nav>
-
-  <main class="form-container">
-    <h2>Login</h2>
-    <form id="login-form" class="auth-form" autocomplete="off">
-      <input type="email" id="login-email" placeholder="Email" required />
-      <input type="password" id="login-password" placeholder="Password" required />
+  <main>
+    <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Username" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
       <button type="submit">Login</button>
+      <p>Don’t have an account? <a href="register.html">Register here</a>.</p>
+      <p id="loginMsg"></p>
     </form>
-
-    <p id="auth-status">Checking login status...</p>
-
-    <div id="mini-profile" style="margin-top: 1rem;"></div>
-
-    <p>Need an account? <a href="register.html">Register here</a>.</p>
   </main>
 
-  <!-- Firebase v9 Modular SDK and auth.js as module -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.firebasestorage.app",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const status = document.getElementById("auth-status");
-    const miniProfile = document.getElementById("mini-profile");
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        status.textContent = `Logged in as ${user.email}`;
-        miniProfile.innerHTML = `
-          <p>Welcome back, ${user.email}</p>
-          <img src="${user.photoURL || 'default-profile.png'}" alt="Profile Pic" style="width:50px; height:50px; border-radius:50%;" />
-          <button id="logout-btn">Logout</button>
-        `;
-
-        // Attach logout event handler
-        document.getElementById("logout-btn").addEventListener("click", async () => {
-          await auth.signOut();
-          window.location.href = "login.html";
-        });
-
-      } else {
-        status.textContent = "Not logged in.";
-        miniProfile.innerHTML = "";
-      }
-    });
-  </script>
-
-  <!-- Your auth.js handles login form submission and other auth logic -->
-  <script type="module" src="auth.js"></script>
-
-  <!-- Optional site-wide scripts -->
-  <script src="script.js" defer></script>
+  <footer><p>💜</p></footer>
 </body>
 </html>
