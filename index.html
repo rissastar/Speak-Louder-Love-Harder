@@ -6,73 +6,32 @@
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Quick responsive nav override */
-    .navbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background: var(--bg-color, #fff);
-      border-bottom: 1px solid #ccc;
-    }
-
-    .logo a {
-      font-size: 1.4rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: var(--accent-color, #e91e63);
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 0;
-      margin: 0;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      color: var(--text-color, #222);
-      font-weight: 500;
-    }
-
-    #theme-toggle {
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-    }
-
-    @media (max-width: 600px) {
-      .nav-links {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
-      }
-
-      .navbar {
-        align-items: flex-start;
-      }
-
-      #theme-toggle {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-<body>
 
   <!-- Nav (no hamburger) -->
   <nav class="navbar">
-    <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="register.html">Register</a></li>
-    </ul>
-    <button id="theme-toggle">🌗 Toggle Theme</button>
-  </nav>
+  <div class="logo">
+    <a href="index.html">Speak Louder, Love Harder</a>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="index.html" class="magic-link">Home</a></li>
+    <li><a href="mental-health.html" class="magic-link">Mental Health</a></li>
+    <li><a href="addiction.html" class="magic-link">Addiction</a></li>
+    <li><a href="cystic-fibrosis.html" class="magic-link">Cystic Fibrosis</a></li>
+    <li><a href="cirrhosis.html" class="magic-link">Cirrhosis</a></li>
+    <li><a href="physical-abuse.html" class="magic-link">Physical Abuse</a></li>
+    <li><a href="mental-abuse.html" class="magic-link">Mental Abuse</a></li>
+    <li><a href="sexual-abuse.html" class="magic-link">Sexual Abuse</a></li>
+    <li><a href="pitbull-love.html" class="magic-link">Pitbull Love</a></li>
+    <li><a href="foster-children.html" class="magic-link">Foster Children</a></li>
+    <li><a href="guestbook-connect.html" class="magic-link">Guestbook & Connect</a></li>
+    <li><a href="profile.html" class="magic-link">My Profile</a></li>
+    <li><a href="login.html" class="magic-link">Login</a></li>
+    <li><a href="register.html" class="magic-link">Register</a></li>
+  </ul>
+
+  <button id="theme-toggle">🌗 Toggle Theme</button>
+</nav>
 
   <!-- Hero Section -->
   <header class="hero">
