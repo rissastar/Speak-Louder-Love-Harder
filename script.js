@@ -48,3 +48,29 @@ function logout() {
   localStorage.setItem("isLoggedIn", "false");
   window.location.href = "index.html";
 }
+
+// LOGIN STATUS DISPLAY
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const welcomeMessage = document.getElementById("welcomeMessage");
+
+const storedUser = JSON.parse(localStorage.getItem("user"));
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+if (isLoggedIn && storedUser) {
+  loginBtn.style.display = "none";
+  logoutBtn.style.display = "inline-block";
+  welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]}! 💖`;
+} else {
+  loginBtn.style.display = "inline-block";
+  logoutBtn.style.display = "none";
+}
+
+loginBtn.addEventListener("click", () => {
+  window.location.href = "login.html";
+});
+
+logoutBtn.addEventListener("click", () => {
+  localStorage.setItem("isLoggedIn", "false");
+  location.reload();
+});
