@@ -261,3 +261,49 @@ footer {
     flex: 1 1 100%;
   }
 }
+
+/* === THEME SWITCHER UI === */
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.theme-switcher select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--primary-color);
+  font-size: 1rem;
+}
+
+/* === THEME VARIANTS === */
+
+/* Default = Vibrant */
+.theme-vibrant {
+  --primary-color: #a64ac9;
+  --secondary-color: #5edfff;
+  --accent-color: #ff6f91;
+}
+
+/* Pastel Theme */
+.theme-pastel {
+  --primary-color: #b39ddb;
+  --secondary-color: #81d4fa;
+  --accent-color: #f8bbd0;
+}
+
+/* Ocean Theme */
+.theme-ocean {
+  --primary-color: #01579b;
+  --secondary-color: #00acc1;
+  --accent-color: #26c6da;
+}
+
+/* Sunset Theme */
+.theme-sunset {
+  --primary-color: #ff7043;
+  --secondary-color: #ffd54f;
+  --accent-color: #ff8a65;
+}
