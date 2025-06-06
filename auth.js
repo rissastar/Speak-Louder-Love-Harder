@@ -6,7 +6,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  updateProfile
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import {
   getFirestore,
@@ -14,7 +15,7 @@ import {
   setDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
 // ==== Firebase Config ====
 const firebaseConfig = {
@@ -33,22 +34,67 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+// ==== Redirect if not logged in (for protected pages) ====
+const protectedPages = ['dashboard.html', 'profile.html']; // add other protected pages here
+const currentPage = window.location.pathname.split("/").pop();
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User logged in:", user.email);
+    updateMiniProfile(user);
+  } else {
+    if (protectedPages.includes(currentPage)) {
+      window.location.href = "login.html";
+    }
+  }
+});
+
+// ==== Mini-profile UI update ====
+function updateMiniProfile(user) {
+  const miniProfile = document.getElementById("mini-profile");
+  if (!miniProfile) return;
+
+  // Show user email
+  miniProfile.innerHTML = `
+    <p>Logged in as: ${user.email}</p>
+    <img src="${user.photoURL || 'default-profile.png'}" alt="Profile Pic" style="width:50px; height:50px; border-radius:50%;" />
+  `;
+}
+
 // ==== Register ====
 const registerForm = document.getElementById("register-form");
 if (registerForm) {
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const email = document.getElementById("register-email").value.trim();
     const password = document.getElementById("register-password").value;
+    const profilePicFile = document.getElementById("register-profile-pic")?.files[0];
 
     try {
+      // Create user
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const uid = userCredential.user.uid;
+      const user = userCredential.user;
 
-      // Create user document in Firestore
-      await setDoc(doc(db, "users", uid), {
+      let photoURL = null;
+
+      if (profilePicFile) {
+        // Upload profile picture to Firebase Storage
+        const storageRef = ref(storage, `profile_pictures/${user.uid}/${profilePicFile.name}`);
+        await uploadBytes(storageRef, profilePicFile);
+
+        // Get download URL
+        photoURL = await getDownloadURL(storageRef);
+
+        // Update user profile with photoURL
+        await updateProfile(user, { photoURL });
+      }
+
+      // Create Firestore user doc
+      await setDoc(doc(db, "users", user.uid), {
         email,
         createdAt: serverTimestamp(),
+        photoURL: photoURL || null,
       });
 
       window.location.href = "dashboard.html";
@@ -87,14 +133,3 @@ if (logoutBtn) {
     }
   });
 }
-
-// ==== Auth State Changed ====
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("User logged in:", user.email);
-    // You can update UI here, e.g., show mini-profile
-  } else {
-    console.log("User not logged in");
-    // Optional: Redirect if user tries to access protected page
-  }
-});
