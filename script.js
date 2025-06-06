@@ -28,3 +28,48 @@ toggleBtn.onclick = () => {
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
 };
+
+// Registration
+const regForm = document.getElementById('registerForm');
+if (regForm) {
+  regForm.onsubmit = function(e) {
+    e.preventDefault();
+    const user = document.getElementById('registerUsername').value;
+    const pass = document.getElementById('registerPassword').value;
+    if (localStorage.getItem(`user_${user}`)) {
+      document.getElementById('registerMsg').textContent = 'Username already exists.';
+    } else {
+      localStorage.setItem(`user_${user}`, pass);
+      localStorage.setItem('currentUser', user);
+      location.href = 'profile.html';
+    }
+  };
+}
+
+// Login
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+  loginForm.onsubmit = function(e) {
+    e.preventDefault();
+    const user = document.getElementById('loginUsername').value;
+    const pass = document.getElementById('loginPassword').value;
+    const storedPass = localStorage.getItem(`user_${user}`);
+    if (storedPass && storedPass === pass) {
+      localStorage.setItem('currentUser', user);
+      location.href = 'profile.html';
+    } else {
+      document.getElementById('loginMsg').textContent = 'Invalid username or password.';
+    }
+  };
+}
+
+// Profile Greeting
+const profilePage = document.body.contains(document.querySelector('#profileUsername'));
+if (profilePage) {
+  const currentUser = localStorage.getItem('currentUser');
+  if (currentUser) {
+    document.getElementById('profileUsername').textContent = currentUser;
+  } else {
+    location.href = 'login.html';
+  }
+}
