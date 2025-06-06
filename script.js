@@ -1,25 +1,18 @@
-// Dark/Light Mode Toggle
-const themeToggle = document.getElementById('theme-toggle');
-const currentTheme = localStorage.getItem('theme');
-
-if (currentTheme === 'dark') {
-  document.body.classList.add('dark-mode');
+// 🌗 THEME TOGGLE (Dark/Light Mode)
+const themeToggle = document.getElementById("theme-toggle");
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark-mode");
 }
-
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  let theme = 'light';
-  if (document.body.classList.contains('dark-mode')) {
-    theme = 'dark';
-  }
-  localStorage.setItem('theme', theme);
+themeToggle?.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  const newTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+  localStorage.setItem("theme", newTheme);
 });
 
-// Auto-Rotating Inspirational Quotes
+// 💬 INSPIRATIONAL QUOTES ROTATOR
 const quotes = [
-  { text: "Your current quote will appear here.", author: "Author" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
   { text: "You are stronger than you think.", author: "Unknown" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
   { text: "Every day is a second chance.", author: "Unknown" },
   { text: "Your story isn't over yet.", author: "Unknown" },
   { text: "Inhale courage, exhale fear.", author: "Unknown" },
@@ -28,49 +21,59 @@ const quotes = [
 ];
 
 let currentQuote = 0;
-const quoteText = document.getElementById('quote');
-const quoteAuthor = document.getElementById('author');
-
-function displayQuote(index) {
-  quoteText.textContent = `"${quotes[index].text}"`;
-  quoteAuthor.textContent = `- ${quotes[index].author}`;
+function displayQuote() {
+  const quoteEl = document.getElementById("quote");
+  const authorEl = document.getElementById("author");
+  if (quoteEl && authorEl) {
+    const q = quotes[currentQuote];
+    quoteEl.textContent = `"${q.text}"`;
+    authorEl.textContent = `- ${q.author}`;
+    currentQuote = (currentQuote + 1) % quotes.length;
+  }
 }
+displayQuote();
+setInterval(displayQuote, 10000); // ⏱ rotate every 10 seconds
 
-function rotateQuotes() {
-  displayQuote(currentQuote);
-  currentQuote = (currentQuote + 1) % quotes.length;
-}
-
-rotateQuotes();
-setInterval(rotateQuotes, 10000); // Change quote every 10 seconds
-
-function logout() {
-  localStorage.setItem("isLoggedIn", "false");
-  window.location.href = "index.html";
-}
-
-// LOGIN STATUS DISPLAY
-const loginBtn = document.getElementById("loginBtn");
-
-const storedUser = JSON.parse(localStorage.getItem("user"));
-const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
+// 👤 LOGIN/LOGOUT UI LOGIC
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const welcomeMessage = document.getElementById("welcomeMessage");
 
-if (loginBtn && logoutBtn && welcomeMessage) {
-  if (isLoggedIn && storedUser) {
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-    welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]}! 💖`;
-  } else {
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
-  }
+const storedUser = JSON.parse(localStorage.getItem("user"));
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-  logoutBtn.addEventListener("click", () => {
-    localStorage.setItem("isLoggedIn", "false");
-    location.reload();
-  });
+if (storedUser && isLoggedIn) {
+  loginBtn?.style?.setProperty("display", "none");
+  logoutBtn?.style?.setProperty("display", "inline-block");
+  if (welcomeMessage) {
+    welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]} 💖`;
+  }
+} else {
+  loginBtn?.style?.setProperty("display", "inline-block");
+  logoutBtn?.style?.setProperty("display", "none");
+}
+
+loginBtn?.addEventListener("click", () => {
+  window.location.href = "login.html";
+});
+
+logoutBtn?.addEventListener("click", () => {
+  localStorage.setItem("isLoggedIn", "false");
+  location.reload();
+});
+
+// 📝 PROFILE PAGE – BIO SAVE FUNCTIONALITY
+const bioBox = document.getElementById("userBio");
+const savedMsg = document.getElementById("savedMsg");
+
+if (bioBox && savedMsg) {
+  bioBox.value = localStorage.getItem("userBio") || "";
+}
+
+function saveBio() {
+  if (bioBox && savedMsg) {
+    localStorage.setItem("userBio", bioBox.value);
+    savedMsg.style.opacity = 1;
+    setTimeout(() => (savedMsg.style.opacity = 0), 2000);
+  }
 }
