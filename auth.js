@@ -1,4 +1,22 @@
-// ==== Firebase Configuration ====
+// auth.js
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+
+// ==== Firebase Config ====
 const firebaseConfig = {
   apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
   authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -10,32 +28,32 @@ const firebaseConfig = {
 };
 
 // ==== Initialize Firebase ====
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 // ==== Register ====
 const registerForm = document.getElementById("register-form");
 if (registerForm) {
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = document.getElementById("register-email").value;
+    const email = document.getElementById("register-email").value.trim();
     const password = document.getElementById("register-password").value;
 
     try {
-      const userCred = await auth.createUserWithEmailAndPassword(email, password);
-      const uid = userCred.user.uid;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
 
-      // Create a user doc
-      await db.collection("users").doc(uid).set({
-        email: email,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      // Create user document in Firestore
+      await setDoc(doc(db, "users", uid), {
+        email,
+        createdAt: serverTimestamp(),
       });
 
       window.location.href = "dashboard.html";
-    } catch (err) {
-      alert("Registration error: " + err.message);
+    } catch (error) {
+      alert("Registration error: " + error.message);
     }
   });
 }
@@ -45,14 +63,14 @@ const loginForm = document.getElementById("login-form");
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const email = document.getElementById("login-email").value;
+    const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value;
 
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       window.location.href = "dashboard.html";
-    } catch (err) {
-      alert("Login error: " + err.message);
+    } catch (error) {
+      alert("Login error: " + error.message);
     }
   });
 }
@@ -60,19 +78,23 @@ if (loginForm) {
 // ==== Logout ====
 const logoutBtn = document.getElementById("logout-btn");
 if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    auth.signOut().then(() => {
+  logoutBtn.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
       window.location.href = "login.html";
-    });
+    } catch (error) {
+      alert("Logout error: " + error.message);
+    }
   });
 }
 
-// ==== Auth State Change (for profile mini-display or redirect logic) ====
-auth.onAuthStateChanged(user => {
+// ==== Auth State Changed ====
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    // If needed, populate mini-profile or update UI
-    console.log("Logged in as:", user.email);
+    console.log("User logged in:", user.email);
+    // You can update UI here, e.g., show mini-profile
   } else {
-    console.log("Not logged in.");
+    console.log("User not logged in");
+    // Optional: Redirect if user tries to access protected page
   }
 });
