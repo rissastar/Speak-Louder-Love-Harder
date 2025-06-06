@@ -4,25 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  
-   <header class="animated-header">
-    <h1 class="glow">Speak Louder, Love Harder</h1>
-    <button id="theme-toggle">Toggle Theme</button>
+  <header class="animated-header">
+    <h1 class="glow">Welcome Back 💫</h1>
+    <div class="header-actions">
+      <button id="theme-toggle">Toggle Theme</button>
+    </div>
   </header>
-  
+
   <main class="auth-form">
     <form id="loginForm">
-      <label>Email:</label>
-      <input type="email" required id="loginEmail" />
-      <label>Password:</label>
-      <input type="password" required id="loginPassword" />
+      <label for="loginEmail">Email:</label>
+      <input type="email" id="loginEmail" required />
+
+      <label for="loginPassword">Password:</label>
+      <input type="password" id="loginPassword" required />
+
       <button type="submit">Login</button>
       <p id="loginMsg" class="auth-msg"></p>
     </form>
-    <p>Don't have an account? <a href="register.html">Register here</a></p>
+
+    <p>Don’t have an account? <a href="register.html">Register here</a></p>
   </main>
 
   <footer>
@@ -30,5 +34,29 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      const message = document.getElementById("loginMsg");
+
+      if (!storedUser) {
+        message.textContent = "No user found. Please register first.";
+        return;
+      }
+
+      if (storedUser.email === email && storedUser.password === password) {
+        localStorage.setItem("isLoggedIn", "true");
+        message.textContent = "Login successful! Redirecting...";
+        setTimeout(() => window.location.href = "profile.html", 1500);
+      } else {
+        message.textContent = "Invalid email or password. Try again.";
+      }
+    });
+  </script>
 </body>
 </html>
