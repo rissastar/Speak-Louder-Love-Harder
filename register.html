@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Register – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -18,40 +18,47 @@
   </nav>
 
   <main class="form-container">
-    <h2>Create Your Account</h2>
-    <form id="register-form" class="auth-form">
+    <h2>Register</h2>
+    <form id="register-form" class="auth-form" autocomplete="off">
       <input type="email" id="register-email" placeholder="Email" required />
-      <input type="password" id="register-password" placeholder="Password" required />
-      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+      <input type="password" id="register-password" placeholder="Password" required minlength="6" />
       <button type="submit">Register</button>
     </form>
-    <p id="register-status">Fill in your details to begin 💖</p>
+    <p id="register-status"></p>
     <p>Already have an account? <a href="login.html">Login here</a>.</p>
   </main>
 
-  <!-- ✅ Firebase + auth.js -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import "./auth.js";
 
+    // Your Firebase config
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      // ... other config
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.firebasestorage.app",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     const status = document.getElementById("register-status");
+
     onAuthStateChanged(auth, (user) => {
-      if (user) status.textContent = `You’re already logged in as ${user.email}`;
+      if(user) {
+        status.textContent = `You are already logged in as ${user.email}. Redirecting...`;
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1500);
+      }
     });
   </script>
 
+  <script type="module" src="auth.js"></script>
   <script src="script.js" defer></script>
-  <script src="auth.js"></script>
 </body>
 </html>
