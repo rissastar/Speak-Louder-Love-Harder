@@ -2,67 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
+  <style>
+    /* Quick responsive nav override */
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: var(--bg-color, #fff);
+      border-bottom: 1px solid #ccc;
+    }
+
+    .logo a {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--accent-color, #e91e63);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--text-color, #222);
+      font-weight: 500;
+    }
+
+    #theme-toggle {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .navbar {
+        align-items: flex-start;
+      }
+
+      #theme-toggle {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-<body class="theme-pink light">
-  <header>
-    <nav>
-      <div class="logo">💖 Speak Louder, Love Harder</div>
-      <button id="theme-toggle">Dark Mode</button>
-      <div id="hamburger">☰</div>
-      <ul id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="#" id="logout-btn">Logout</a></li>
-      </ul>
-    </nav>
+<body>
+
+  <!-- Nav (no hamburger) -->
+  <nav class="navbar">
+    <div class="logo"><a href="index.html">Speak Louder, Love Harder</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+    <button id="theme-toggle">🌗 Toggle Theme</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>Welcome to Speak Louder, Love Harder 💖</h1>
+    <p id="quote">You are not alone.</p>
   </header>
 
-  <main>
-    <section class="quote-section">
-      <p id="quote" class="inspirational-quote"></p>
-    </section>
+  <!-- Inspiration -->
+  <section class="inspiration">
+    <p id="quote-rotator">Together, we can make a difference.</p>
+  </section>
 
-    <section class="auth-tabs">
-      <div class="tabs">
-        <button id="login-tab" class="active" onclick="showTab('login')">Login</button>
-        <button id="register-tab" onclick="showTab('register')">Register</button>
-      </div>
+  <!-- About -->
+  <section class="about">
+    <h2>You're not alone. We're stronger together.</h2>
+    <p>This is a safe space for healing, connection, and support. ✨</p>
+  </section>
 
-      <form id="login-form" class="auth-form active">
-        <input type="email" id="home-login-email" placeholder="Email" required />
-        <input type="password" id="home-login-password" placeholder="Password" required />
-        <button type="submit">Login</button>
-      </form>
-
-      <form id="register-form" class="auth-form">
-        <input type="text" id="home-register-name" placeholder="Name" required />
-        <input type="email" id="home-register-email" placeholder="Email" required />
-        <input type="password" id="home-register-password" placeholder="Password" required />
-        <button type="submit">Register</button>
-      </form>
-
-      <p id="auth-message" class="error-message"></p>
-    </section>
-
-    <section class="affirmation-section">
-      <p id="rotating-affirmation"></p>
-    </section>
-  </main>
-
+  <!-- Footer -->
   <footer>
-    <div id="user-mini-profile" class="hidden">
-      <img id="mini-pic" src="" alt="Profile Picture" />
-      <span id="mini-name"></span>
-    </div>
+    <p>© 2025 Speak Louder, Love Harder. All rights reserved.</p>
   </footer>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js" type="module"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js" type="module"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js" type="module"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js" type="module"></script>
+
+  <!-- Scripts -->
+  <script src="auth.js" type="module"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
