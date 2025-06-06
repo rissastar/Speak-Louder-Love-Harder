@@ -421,3 +421,34 @@ footer {
   color: red;
   margin-top: 1em;
 }
+
+body.dark {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark .dashboard-pic {
+  border-color: #fff;
+}
+
+body.dark a {
+  color: #90caf9;
+}
+
+.notification {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e91e63;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #0002;
+  z-index: 1000;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+.notification.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
