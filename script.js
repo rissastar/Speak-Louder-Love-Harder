@@ -74,3 +74,31 @@ logoutBtn.addEventListener("click", () => {
   localStorage.setItem("isLoggedIn", "false");
   location.reload();
 });
+
+// Redirect to login page on login button click
+document.getElementById("loginBtn")?.addEventListener("click", () => {
+  window.location.href = "login.html";
+});
+
+const storedUser = JSON.parse(localStorage.getItem("user"));
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const welcomeMessage = document.getElementById("welcomeMessage");
+
+if (loginBtn && logoutBtn && welcomeMessage) {
+  if (isLoggedIn && storedUser) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]}! 💖`;
+  } else {
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+  }
+
+  logoutBtn.addEventListener("click", () => {
+    localStorage.setItem("isLoggedIn", "false");
+    location.reload();
+  });
+}
