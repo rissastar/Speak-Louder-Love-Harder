@@ -156,3 +156,44 @@ themeSelect?.addEventListener("change", () => {
   }
   applyTheme(value);
 });
+
+// === MENTAL HEALTH PAGE INTERACTIONS ===
+
+// Handle tab button toggling for mental health sections
+document.querySelectorAll(".tab-buttons").forEach(tabGroup => {
+  const buttons = tabGroup.querySelectorAll(".tab-btn");
+  const tabContainer = tabGroup.parentElement;
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      // Remove active classes
+      buttons.forEach(btn => btn.classList.remove("active"));
+      tabContainer.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+
+      // Add active to selected
+      button.classList.add("active");
+      const targetId = button.dataset.tab;
+      tabContainer.querySelector(`#${targetId}`)?.classList.add("active");
+    });
+  });
+});
+
+// Auto-expand the first details block on load (optional)
+document.querySelector("details.collapsible-section")?.setAttribute("open", true);
+
+// Allow summary tags to be keyboard-accessible (Enter/Space)
+document.querySelectorAll("summary").forEach(summary => {
+  summary.setAttribute("tabindex", 0);
+  summary.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      summary.click();
+    }
+  });
+});
+
+// Smooth scroll "Back to Top" button
+document.querySelector(".back-to-top")?.addEventListener("click", (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
