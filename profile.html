@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Profile – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <script defer src="script.js"></script>
-  <style>
-    .profile-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 1em;
-      text-align: center;
-    }
-    .avatar-preview {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ff9ae3;
-    }
-    .form-section {
-      margin-top: 1em;
-    }
-    input, textarea, button {
-      display: block;
-      margin: 0.5em auto;
-      padding: 0.6em;
-      width: 80%;
-      border-radius: 8px;
-    }
-  </style>
+  <title>Your Dashboard - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1 class="glow">Your Profile 💖</h1>
-    <nav>
-      <button onclick="index.html">Home</button>
-      <button oneclick="dashboard.html">Dashboard</button>
-      <button onclick="logout.html">Logout</button>
-    </nav>
+  <header class="animated-header">
+    <h1 class="glow">Welcome to Your Dashboard 💖</h1>
+    <button id="theme-toggle">Toggle Theme</button>
   </header>
 
-  <main class="profile-container">
-    <h2>Hello, <span id="profileUsername"></span>!</h2>
-    <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/100" alt="Your Avatar"/>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+      <li><a href="profile.html" class="active">Profile</a></li>
+    </ul>
+  </nav>
 
-    <div class="form-section">
-      <h3>Customize Your Profile</h3>
-      <input type="file" id="avatarUpload" accept="image/*" />
-      <input type="text" id="avatarURL" placeholder="...or paste image URL" />
-      <input type="text" id="bio" placeholder="Short bio" />
-      <input type="text" id="favQuote" placeholder="Favorite quote 💬" />
-      <button onclick="saveProfile()">Save Profile</button>
-    </div>
+  <main class="dashboard">
+    <section class="profile-card">
+      <h2 class="glow">Hello, Beautiful Soul 🌈</h2>
+      <p>Edit your bio below:</p>
+      <textarea id="userBio" rows="4" placeholder="Tell the world about your journey..."></textarea>
+      <button onclick="saveBio()">Save Bio</button>
+      <p class="saved-msg" id="savedMsg">✨ Bio saved!</p>
+    </section>
 
-    <div class="form-section">
-      <h3>Your Info</h3>
-      <p><strong>Bio:</strong> <span id="savedBio"></span></p>
-      <p><strong>Quote:</strong> <em id="savedQuote"></em></p>
-    </div>
+    <section class="quick-stats">
+      <h3>Quick Stats</h3>
+      <ul>
+        <li><strong>Journal Entries:</strong> 12</li>
+        <li><strong>Days Active:</strong> 48</li>
+        <li><strong>Uplifted Others:</strong> 23</li>
+      </ul>
+    </section>
 
-    <div id="adminTools" style="display: none;">
-      <h3>👑 Admin Panel</h3>
-      <p>Welcome, Rissastar. Admin features coming next!</p>
-    </div>
+    <section class="quote-section">
+      <blockquote id="quote">"Every storm runs out of rain."</blockquote>
+      <cite id="author">- Maya Angelou</cite>
+    </section>
+
+    <section class="quick-links">
+      <h3>Explore More 💫</h3>
+      <div class="link-grid">
+        <a href="mental-health.html">Mental Health</a>
+        <a href="addiction.html">Addiction</a>
+        <a href="pitbull-love.html">Pitbull Love</a>
+        <a href="foster-children.html">Foster Children</a>
+        <a href="guestbook-connect.html">Guestbook</a>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Load saved bio if exists
+    const bioBox = document.getElementById('userBio');
+    const savedMsg = document.getElementById('savedMsg');
+
+    bioBox.value = localStorage.getItem('userBio') || "";
+
+    function saveBio() {
+      localStorage.setItem('userBio', bioBox.value);
+      savedMsg.style.opacity = 1;
+      setTimeout(() => savedMsg.style.opacity = 0, 2000);
+    }
+  </script>
 </body>
 </html>
