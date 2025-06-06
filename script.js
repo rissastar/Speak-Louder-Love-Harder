@@ -156,23 +156,3 @@ themeSelect?.addEventListener("change", () => {
   }
   applyTheme(value);
 });
-
-<script>
-  document.querySelectorAll('.tab-buttons').forEach(buttonGroup => {
-    const buttons = buttonGroup.querySelectorAll('.tab-btn');
-    const tabContents = buttonGroup.parentElement.querySelectorAll('.tab-content');
-
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove active from all
-        buttons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(tab => tab.classList.remove('active'));
-
-        // Add active to clicked
-        button.classList.add('active');
-        const tabId = button.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
-      });
-    });
-  });
-</script>
