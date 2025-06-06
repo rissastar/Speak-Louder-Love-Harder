@@ -3,24 +3,67 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profile</title>
+  <title>Your Profile – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="style.css"/>
   <script defer src="script.js"></script>
+  <style>
+    .profile-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 1em;
+      text-align: center;
+    }
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff9ae3;
+    }
+    .form-section {
+      margin-top: 1em;
+    }
+    input, textarea, button {
+      display: block;
+      margin: 0.5em auto;
+      padding: 0.6em;
+      width: 80%;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1 class="glow">Welcome 💖</h1>
+    <h1 class="glow">Your Profile 💖</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="logout.html">Logout</a>
     </nav>
   </header>
 
-  <main>
+  <main class="profile-container">
     <h2>Hello, <span id="profileUsername"></span>!</h2>
-    <p>This is your profile dashboard. Customize this space just for you 💫</p>
-  </main>
+    <img id="avatarPreview" class="avatar-preview" src="https://via.placeholder.com/100" alt="Your Avatar"/>
 
-  <footer><p>💜</p></footer>
+    <div class="form-section">
+      <h3>Customize Your Profile</h3>
+      <input type="file" id="avatarUpload" accept="image/*" />
+      <input type="text" id="avatarURL" placeholder="...or paste image URL" />
+      <input type="text" id="bio" placeholder="Short bio" />
+      <input type="text" id="favQuote" placeholder="Favorite quote 💬" />
+      <button onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <div class="form-section">
+      <h3>Your Info</h3>
+      <p><strong>Bio:</strong> <span id="savedBio"></span></p>
+      <p><strong>Quote:</strong> <em id="savedQuote"></em></p>
+    </div>
+
+    <div id="adminTools" style="display: none;">
+      <h3>👑 Admin Panel</h3>
+      <p>Welcome, Rissastar. Admin features coming next!</p>
+    </div>
+  </main>
 </body>
 </html>
