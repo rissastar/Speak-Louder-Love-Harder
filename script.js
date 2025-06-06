@@ -73,3 +73,56 @@ if (profilePage) {
     location.href = 'login.html';
   }
 }
+
+// Profile Load
+document.addEventListener("DOMContentLoaded", function () {
+  const user = localStorage.getItem("currentUser");
+  if (!user) {
+    location.href = "login.html";
+    return;
+  }
+
+  const usernameEl = document.getElementById("profileUsername");
+  if (usernameEl) usernameEl.textContent = user;
+
+  // Load avatar
+  const avatar = localStorage.getItem(`avatar_${user}`);
+  if (avatar) document.getElementById("avatarPreview").src = avatar;
+
+  // Load saved bio & quote
+  document.getElementById("savedBio").textContent = localStorage.getItem(`bio_${user}`) || "";
+  document.getElementById("savedQuote").textContent = localStorage.getItem(`quote_${user}`) || "";
+
+  // Show admin panel
+  if (user === "rissastar") {
+    document.getElementById("adminTools").style.display = "block";
+  }
+});
+
+// Save profile
+function saveProfile() {
+  const user = localStorage.getItem("currentUser");
+  if (!user) return;
+
+  const file = document.getElementById("avatarUpload").files[0];
+  const urlInput = document.getElementById("avatarURL").value;
+  const bio = document.getElementById("bio").value;
+  const quote = document.getElementById("favQuote").value;
+
+  if (bio) localStorage.setItem(`bio_${user}`, bio);
+  if (quote) localStorage.setItem(`quote_${user}`, quote);
+
+  if (urlInput) {
+    localStorage.setItem(`avatar_${user}`, urlInput);
+    document.getElementById("avatarPreview").src = urlInput;
+  } else if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      localStorage.setItem(`avatar_${user}`, e.target.result);
+      document.getElementById("avatarPreview").src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  alert("Profile saved!");
+}
