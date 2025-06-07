@@ -261,3 +261,33 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
       errorMsg.style.display = "block";
     });
 });
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.appspot.com",
+  messagingSenderId: "YOUR_MSG_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Protect dashboard
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    // ✅ Logged in
+    const name = user.displayName || "User";
+    const email = user.email;
+    const profilePic = user.photoURL || "default-avatar.png"; // Optional
+
+    document.getElementById("userName").textContent = name;
+    document.getElementById("userEmail").textContent = email;
+    document.getElementById("userAvatar").src = profilePic;
+  } else {
+    // 🚫 Not logged in, redirect
+    window.location.href = "index.html";
+  }
+});
