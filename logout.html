@@ -5,15 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Logging Out...</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase JS SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
   <script>
-    // Clear login session and redirect after a short delay
-    window.onload = function () {
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('user');
-      localStorage.removeItem('currentUser');
-      setTimeout(() => {
-        window.location.href = "login.html";
-      }, 2000);
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.firebasestorage.app",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    // Logout on page load
+    window.onload = () => {
+      firebase.auth().signOut().then(() => {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user');
+        localStorage.removeItem('currentUser');
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 2000);
+      }).catch((error) => {
+        console.error("Logout error:", error);
+        alert("Oops! Something went wrong while logging out.");
+      });
     };
   </script>
 </head>
@@ -25,7 +48,7 @@
 
   <main style="text-align: center; padding: 2rem;">
     <h2>See you soon 💖</h2>
-    <p>Redirecting to login page...</p>
+    <p>You're being safely logged out and will be redirected shortly...</p>
   </main>
 
   <footer>
