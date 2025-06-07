@@ -46,24 +46,24 @@
       
       <button type="submit">Add Mood Entry</button>
     </form>
-    <ul id="mood-list">Loading mood entries...</ul>
+    <ul id="mood-list"><li>Loading mood entries...</li></ul>
   </section>
 
   <section id="saved-posts">
     <h2>Saved Posts</h2>
-    <ul id="saved-posts-list">Loading saved posts...</ul>
+    <ul id="saved-posts-list"><li>Loading saved posts...</li></ul>
   </section>
 
   <section id="posted-stories">
     <h2>Your Posted Stories</h2>
-    <ul id="posted-stories-list">Loading your stories...</ul>
+    <ul id="posted-stories-list"><li>Loading your stories...</li></ul>
   </section>
 
   <section id="journal">
     <h2>Personal Journal</h2>
     <textarea id="journal-content" rows="6" placeholder="Write your journal here..."></textarea>
     <button id="save-journal-btn">Save Journal</button>
-    <p id="journal-status"></p>
+    <p id="journal-status" aria-live="polite"></p>
   </section>
 
   <section id="suggestions">
@@ -79,7 +79,7 @@
 
   <section id="saved-worksheets">
     <h2>Saved Worksheets</h2>
-    <ul id="saved-worksheets-list">Loading worksheets...</ul>
+    <ul id="saved-worksheets-list"><li>Loading worksheets...</li></ul>
   </section>
 
   <!-- Firebase App (the core Firebase SDK) -->
@@ -88,7 +88,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
   <script>
-    // Your Firebase config - replace with your own config or load from external file
+    // Firebase config (replace if needed)
     const firebaseConfig = {
       apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
       authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -104,7 +104,7 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // UI elements
+    // UI references
     const profileNameEl = document.getElementById('profile-name');
     const profileBioEl = document.getElementById('profile-bio');
     const moodListEl = document.getElementById('mood-list');
@@ -114,129 +114,187 @@
     const journalStatusEl = document.getElementById('journal-status');
     const savedWorksheetsListEl = document.getElementById('saved-worksheets-list');
 
-    // Load user data after login
+    // Helper: format date nicely
+    function formatDate(dateStr) {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return dateStr;
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
     auth.onAuthStateChanged(user => {
       if (!user) {
-        // Redirect to login if not logged in
         window.location.href = "login.html";
         return;
       }
       const uid = user.uid;
 
       // Load profile
-      db.collection('profiles').doc(uid).get().then(doc => {
-        if (doc.exists) {
-          const data = doc.data();
-          profileNameEl.textContent = data.name || "(No name set)";
-          profileBioEl.textContent = data.bio || "(No bio set)";
-        } else {
-          profileNameEl.textContent = "(No profile found)";
+      db.collection('profiles').doc(uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            profileNameEl.textContent = data.name || "(No name set)";
+            profileBioEl.textContent = data.bio || "(No bio set)";
+          } else {
+            profileNameEl.textContent = "(No profile found)";
+            profileBioEl.textContent = "";
+          }
+        }).catch(e => {
+          profileNameEl.textContent = "Error loading profile";
           profileBioEl.textContent = "";
-        }
-      });
+          console.error("Profile load error", e);
+        });
 
       // Load mood entries
-      db.collection('moodEntries').doc(uid).get().then(doc => {
-        if (doc.exists) {
-          const entries = doc.data().entries || [];
-          if (entries.length === 0) {
-            moodListEl.innerHTML = "<li>No mood entries yet.</li>";
+      db.collection('moodEntries').doc(uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const entries = doc.data().entries || [];
+            if (entries.length === 0) {
+              moodListEl.innerHTML = "<li>No mood entries yet.</li>";
+            } else {
+              // Sort descending by date
+              entries.sort((a,b) => new Date(b.date) - new Date(a.date));
+              moodListEl.innerHTML = entries
+                .map(e => `<li><strong>${formatDate(e.date)}:</strong> Mood rating ${e.mood}</li>`)
+                .join('');
+            }
           } else {
-            moodListEl.innerHTML = entries
-              .sort((a,b) => new Date(b.date) - new Date(a.date))
-              .map(e => `<li><strong>${e.date}:</strong> Mood rating ${e.mood}</li>`)
-              .join('');
+            moodListEl.innerHTML = "<li>No mood entries yet.</li>";
           }
-        } else {
-          moodListEl.innerHTML = "<li>No mood entries yet.</li>";
-        }
-      });
+        }).catch(e => {
+          moodListEl.innerHTML = "<li>Error loading mood entries.</li>";
+          console.error("Mood entries load error", e);
+        });
 
       // Load saved posts
-      db.collection('savedPosts').doc(uid).get().then(doc => {
-        if (doc.exists) {
-          const posts = doc.data().posts || [];
-          savedPostsListEl.innerHTML = posts.length > 0 
-            ? posts.map(p => `<li>${p.title}</li>`).join('')
-            : "<li>No saved posts.</li>";
-        } else {
-          savedPostsListEl.innerHTML = "<li>No saved posts.</li>";
-        }
-      });
+      db.collection('savedPosts').doc(uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const posts = doc.data().posts || [];
+            savedPostsListEl.innerHTML = posts.length > 0
+              ? posts.map(p => `<li>${p.title}</li>`).join('')
+              : "<li>No saved posts.</li>";
+          } else {
+            savedPostsListEl.innerHTML = "<li>No saved posts.</li>";
+          }
+        }).catch(e => {
+          savedPostsListEl.innerHTML = "<li>Error loading saved posts.</li>";
+          console.error("Saved posts load error", e);
+        });
 
       // Load posted stories
-      db.collection('postedStories').doc(uid).get().then(doc => {
-        if (doc.exists) {
-          const stories = doc.data().stories || [];
-          postedStoriesListEl.innerHTML = stories.length > 0 
-            ? stories.map(s => `<li>${s.title}</li>`).join('')
-            : "<li>No stories posted yet.</li>";
-        } else {
-          postedStoriesListEl.innerHTML = "<li>No stories posted yet.</li>";
-        }
-      });
+      db.collection('postedStories').doc(uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const stories = doc.data().stories || [];
+            postedStoriesListEl.innerHTML = stories.length > 0
+              ? stories.map(s => `<li>${s.title}</li>`).join('')
+              : "<li>No stories posted yet.</li>";
+          } else {
+            postedStoriesListEl.innerHTML = "<li>No stories posted yet.</li>";
+          }
+        }).catch(e => {
+          postedStoriesListEl.innerHTML = "<li>Error loading stories.</li>";
+          console.error("Stories load error", e);
+        });
 
       // Load journal
-      db.collection('journals').doc(uid).get().then(doc => {
-        if (doc.exists) {
-          journalContentEl.value = doc.data().content || "";
-        }
-      });
+      db.collection('journals').doc(uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            journalContentEl.value = doc.data().content || "";
+          } else {
+            journalContentEl.value = "";
+          }
+        }).catch(e => {
+          journalContentEl.value = "";
+          console.error("Journal load error", e);
+        });
 
       // Load saved worksheets
-      db.collection('savedWorksheets').doc(uid).get().then(doc => {
-        if (doc.exists) {
-          const worksheets = doc.data().worksheets || [];
-          savedWorksheetsListEl.innerHTML = worksheets.length > 0
-            ? worksheets.map(w => `<li>${w.title}</li>`).join('')
-            : "<li>No worksheets saved.</li>";
-        } else {
-          savedWorksheetsListEl.innerHTML = "<li>No worksheets saved.</li>";
-        }
-      });
+      db.collection('savedWorksheets').doc(uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const worksheets = doc.data().worksheets || [];
+            savedWorksheetsListEl.innerHTML = worksheets.length > 0
+              ? worksheets.map(w => `<li>${w.title}</li>`).join('')
+              : "<li>No worksheets saved.</li>";
+          } else {
+            savedWorksheetsListEl.innerHTML = "<li>No worksheets saved.</li>";
+          }
+        }).catch(e => {
+          savedWorksheetsListEl.innerHTML = "<li>Error loading worksheets.</li>";
+          console.error("Worksheets load error", e);
+        });
     });
 
     // Add mood entry form submit
     document.getElementById('mood-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const user = auth.currentUser;
-      if (!user) return;
+      if (!user) {
+        alert("You must be logged in.");
+        return;
+      }
 
       const uid = user.uid;
       const date = document.getElementById('mood-date').value;
       const mood = parseInt(document.getElementById('mood-rating').value, 10);
 
-      if (!date || isNaN(mood) || mood < 1 || mood > 10) {
-        alert("Please enter a valid date and mood rating between 1 and 10.");
+      // Validate inputs more strictly
+      if (!date) {
+        alert("Please select a date.");
+        return;
+      }
+      if (isNaN(mood) || mood < 1 || mood > 10) {
+        alert("Please enter a valid mood rating between 1 and 10.");
         return;
       }
 
-      const moodRef = db.collection('moodEntries').doc(uid);
       try {
+        const moodRef = db.collection('moodEntries').doc(uid);
         const doc = await moodRef.get();
         let entries = doc.exists ? doc.data().entries || [] : [];
-        entries.push({ date, mood });
+
+        // Check if there's already an entry for that date to update
+        const index = entries.findIndex(e => e.date === date);
+        if (index !== -1) {
+          entries[index].mood = mood; // update existing
+        } else {
+          entries.push({ date, mood }); // add new
+        }
+
         await moodRef.set({ entries }, { merge: true });
 
         // Update UI
+        entries.sort((a,b) => new Date(b.date) - new Date(a.date));
         moodListEl.innerHTML = entries
-          .sort((a,b) => new Date(b.date) - new Date(a.date))
-          .map(e => `<li><strong>${e.date}:</strong> Mood rating ${e.mood}</li>`)
+          .map(e => `<li><strong>${formatDate(e.date)}:</strong> Mood rating ${e.mood}</li>`)
           .join('');
 
         // Reset form
         e.target.reset();
       } catch (error) {
         alert("Error saving mood entry: " + error.message);
+        console.error(error);
       }
     });
 
     // Save journal button
     document.getElementById('save-journal-btn').addEventListener('click', async () => {
       const user = auth.currentUser;
-      if (!user) return;
+      if (!user) {
+        alert("You must be logged in.");
+        return;
+      }
       const uid = user.uid;
       const content = journalContentEl.value.trim();
+
+      // Disable button while saving
+      const btn = document.getElementById('save-journal-btn');
+      btn.disabled = true;
+      journalStatusEl.textContent = "Saving...";
 
       try {
         await db.collection('journals').doc(uid).set({ content });
@@ -244,6 +302,9 @@
         setTimeout(() => journalStatusEl.textContent = "", 3000);
       } catch (error) {
         journalStatusEl.textContent = "Error saving journal: " + error.message;
+        console.error(error);
+      } finally {
+        btn.disabled = false;
       }
     });
   </script>
