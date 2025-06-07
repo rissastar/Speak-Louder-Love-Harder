@@ -2,160 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="theme-vibrant">
 
-  <!-- HEADER -->
-  <header class="animated-header">
-    <h1 class="glow">Speak Louder, Love Harder</h1>
-    <p>Your safe space for mental health, support & love 💖</p>
-    <div class="header-actions">
-      <span id="welcomeMessage"></span>
-      <div class="auth-buttons">
-        <button onclick="showLogin()">Login</button>
-        <button onclick="showRegister()">Register</button>
-        <button onclick="logout()">Logout</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- NAVIGATION -->
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-    <li><a href="mental-health.html">Mental Health</a></li>
-    <li><a href="addiction.html">Addiction</a></li>
-    <li><a href="settings.html">Settings</a></li>
-  </ul>
-
-  <!-- QUOTE SECTION -->
-  <section class="quote-section">
-    <blockquote id="quote">"You are loved, you are seen, you matter."</blockquote>
-    <cite id="author">— Anonymous</cite>
-  </section>
-
-  <!-- AUTH SECTION -->
-  <section class="login-container" id="authSection">
-    <div class="auth-form" id="loginForm">
-      <h2>Login</h2>
-      <form onsubmit="handleLogin(event)">
-        <input type="email" placeholder="Email" required id="loginEmail" />
-        <input type="password" placeholder="Password" required id="loginPassword" />
-        <button type="submit">Login</button>
-      </form>
-      <p class="auth-msg">Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
-    </div>
-
-    <div class="auth-form" id="registerForm" style="display:none;">
-      <h2>Register</h2>
-      <form onsubmit="handleRegister(event)">
-        <input type="text" placeholder="Name" required id="registerName" />
-        <input type="email" placeholder="Email" required id="registerEmail" />
-        <input type="password" placeholder="Password" required id="registerPassword" />
-        <button type="submit">Register</button>
-      </form>
-      <p class="auth-msg">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
-    </div>
-  </section>
-
-  <!-- THEME SWITCHER -->
-  <div class="theme-switcher">
-    <label for="themeSelect">🎨 Theme:</label>
-    <select id="themeSelect" onchange="changeTheme(this.value)">
-      <option value="vibrant">Vibrant</option>
-      <option value="pastel">Pastel</option>
-      <option value="ocean">Ocean</option>
-      <option value="sunset">Sunset</option>
-    </select>
+<header>
+  <h1 class="glow">Speak Louder, Love Harder</h1>
+  <p>Your community for mental health, support, and love 💖</p>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="guestbook-connect.html">Connect</a></li>
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </nav>
+  <div class="header-actions auth-buttons" id="auth-buttons">
+    <button id="btn-login">Login</button>
+    <button id="btn-register">Register</button>
   </div>
+</header>
 
-  <!-- LINKTREE STYLE BUTTON -->
-  <div style="text-align: center;">
-    <a class="linktree-btn" href="guestbook-connect.html">Join the Community</a>
-  </div>
+<section class="quote-section" aria-label="Inspirational Quote">
+  <blockquote id="quote-text">"Your mental health matters. Speak louder, love harder."</blockquote>
+  <cite id="quote-author">– Speak Louder, Love Harder Team</cite>
+</section>
 
-  <!-- BACK TO TOP -->
-  <a class="back-to-top" href="#">↑ Top</a>
+<section class="login-container" id="auth-forms" style="display:none;">
+  <form id="login-form" class="auth-form">
+    <h2>Login</h2>
+    <input type="email" id="login-email" placeholder="Email" required />
+    <input type="password" id="login-password" placeholder="Password" required />
+    <button type="submit">Login</button>
+    <div class="auth-msg" id="login-msg"></div>
+  </form>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Speak Louder, Love Harder. Built with 💜 by Larissa.</p>
-    <p><a href="mailto:support@speaklouder.com">Contact Us</a></p>
-  </footer>
+  <form id="register-form" class="auth-form" style="display:none;">
+    <h2>Register</h2>
+    <input type="text" id="register-name" placeholder="Full Name" required />
+    <input type="email" id="register-email" placeholder="Email" required />
+    <input type="password" id="register-password" placeholder="Password" required />
+    <button type="submit">Register</button>
+    <div class="auth-msg" id="register-msg"></div>
+  </form>
+</section>
 
-  <!-- SCRIPT -->
-  <script>
-    const quotes = [
-      { text: "You are enough exactly as you are.", author: "Meghan Markle" },
-      { text: "Out of suffering have emerged the strongest souls.", author: "Kahlil Gibran" },
-      { text: "Healing takes time, and asking for help is a courageous step.", author: "Mariska Hargitay" },
-      { text: "Your story isn’t over yet.", author: "Project Semicolon" },
-      { text: "It’s okay to not be okay. Just don’t give up.", author: "Unknown" }
-    ];
+<div class="theme-switcher">
+  <label for="theme-select">Choose Theme: </label>
+  <select id="theme-select" aria-label="Select Theme">
+    <option value="theme-vibrant" selected>Vibrant</option>
+    <option value="theme-pastel">Pastel</option>
+    <option value="theme-ocean">Ocean</option>
+    <option value="theme-sunset">Sunset</option>
+  </select>
+</div>
 
-    function rotateQuote() {
-      const quote = quotes[Math.floor(Math.random() * quotes.length)];
-      document.getElementById("quote").textContent = `"${quote.text}"`;
-      document.getElementById("author").textContent = `— ${quote.author}`;
-    }
+<a href="https://linktr.ee/speaklouderloveharder" class="linktree-btn" target="_blank" rel="noopener noreferrer">
+  Visit Our Linktree
+</a>
 
-    function showLogin() {
-      document.getElementById("loginForm").style.display = "block";
-      document.getElementById("registerForm").style.display = "none";
-    }
+<footer>
+  &copy; 2025 Speak Louder, Love Harder — Mental Health & Support Community
+</footer>
 
-    function showRegister() {
-      document.getElementById("registerForm").style.display = "block";
-      document.getElementById("loginForm").style.display = "none";
-    }
+<script>
+  // Simple theme switcher logic
+  const themeSelect = document.getElementById('theme-select');
+  themeSelect.addEventListener('change', e => {
+    document.body.className = e.target.value;
+    localStorage.setItem('selectedTheme', e.target.value);
+  });
+  // Load saved theme on page load
+  const savedTheme = localStorage.getItem('selectedTheme');
+  if (savedTheme) {
+    document.body.className = savedTheme;
+    themeSelect.value = savedTheme;
+  }
 
-    function handleLogin(e) {
-      e.preventDefault();
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
-      localStorage.setItem("user", JSON.stringify({ email }));
-      updateWelcomeMessage();
-      alert("Logged in successfully!");
-      showLogin();
-    }
+  // Auth forms toggle
+  const authButtons = document.getElementById('auth-buttons');
+  const authForms = document.getElementById('auth-forms');
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const btnLogin = document.getElementById('btn-login');
+  const btnRegister = document.getElementById('btn-register');
 
-    function handleRegister(e) {
-      e.preventDefault();
-      const name = document.getElementById("registerName").value;
-      const email = document.getElementById("registerEmail").value;
-      const password = document.getElementById("registerPassword").value;
-      localStorage.setItem("user", JSON.stringify({ name, email }));
-      updateWelcomeMessage();
-      alert("Registered and logged in!");
-      showLogin();
-    }
+  btnLogin.addEventListener('click', () => {
+    authForms.style.display = 'flex';
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+  });
+  btnRegister.addEventListener('click', () => {
+    authForms.style.display = 'flex';
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+  });
 
-    function logout() {
-      localStorage.removeItem("user");
-      document.getElementById("welcomeMessage").textContent = "";
-      alert("Logged out.");
-    }
-
-    function updateWelcomeMessage() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const message = user ? `Welcome, ${user.name || user.email}!` : "";
-      document.getElementById("welcomeMessage").textContent = message;
-    }
-
-    function changeTheme(theme) {
-      document.body.className = "";
-      document.body.classList.add(`theme-${theme}`);
-    }
-
-    // Initial setup
-    updateWelcomeMessage();
-    rotateQuote();
-    setInterval(rotateQuote, 10000); // rotate every 10s
-  </script>
+  // Placeholder login/register handlers (replace with your logic)
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = e.target['login-email'].value;
+    const pass = e.target['login-password'].value;
+    document.getElementById('login-msg').textContent = `Logged in as ${email}`;
+    authForms.style.display = 'none';
+    authButtons.style.display = 'none';
+  });
+  registerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = e.target['register-name'].value;
+    const email = e.target['register-email'].value;
+    const pass = e.target['register-password'].value;
+    document.getElementById('register-msg').textContent = `Registered ${name} (${email})`;
+    authForms.style.display = 'none';
+    authButtons.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>
