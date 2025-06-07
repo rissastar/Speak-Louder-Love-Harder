@@ -171,3 +171,42 @@ if (loginForm) {
     }
   });
 }
+
+// Your Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.firebasestorage.app",
+  messagingSenderId: "674769404942",
+  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  measurementId: "G-54XJLK1CGJ"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('loginForm');
+  const errorMsg = document.getElementById('errorMsg');
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        // Redirect on success
+        window.location.href = 'dashboard.html';
+      })
+      .catch((error) => {
+        // Show error message
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+      });
+  });
+});
