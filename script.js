@@ -210,3 +210,54 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
 });
+
+// Firebase config - make sure yours matches exactly
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.appspot.com",
+  messagingSenderId: "YOUR_MSG_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Handle registration
+document.getElementById("registerForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const displayName = document.getElementById("displayName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const errorMsg = document.getElementById("errorMsg");
+
+  // Clear old error
+  errorMsg.style.display = "none";
+  errorMsg.textContent = "";
+
+  if (password !== confirmPassword) {
+    errorMsg.textContent = "Passwords do not match.";
+    errorMsg.style.display = "block";
+    return;
+  }
+
+  // Register the user
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      return userCredential.user.updateProfile({
+        displayName: displayName
+      });
+    })
+    .then(() => {
+      // Redirect or show success
+      window.location.href = "dashboard.html";
+    })
+    .catch((error) => {
+      errorMsg.textContent = error.message;
+      errorMsg.style.display = "block";
+    });
+});
