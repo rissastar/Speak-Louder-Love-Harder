@@ -104,5 +104,135 @@
 
   <!-- Your logic -->
   <script src="script.js"></script>
+  // === Firebase Config ===
+const firebaseConfig = {
+  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.appspot.com",
+  messagingSenderId: "674769404942",
+  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  measurementId: "G-54XJLK1CGJ"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// === Redirect if Not Logged In ===
+auth.onAuthStateChanged(user => {
+  if (user) {
+    document.getElementById("userName").textContent = user.displayName || "Anonymous";
+    document.getElementById("userEmail").textContent = user.email;
+
+    // Load saved bio
+    const bio = localStorage.getItem(`bio_${user.uid}`);
+    if (bio) {
+      document.getElementById("userBio").value = bio;
+    }
+
+    // Load avatar if available
+    if (user.photoURL) {
+      document.getElementById("userAvatar").src = user.photoURL;
+    }
+  } else {
+    window.location.href = "login.html";
+  }
+});
+
+// === Save Bio ===
+function saveBio() {
+  const bio = document.getElementById("userBio").value;
+  const user = auth.currentUser;
+  if (user) {
+    localStorage.setItem(`bio_${user.uid}`, bio);
+    document.getElementById("savedMsg").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("savedMsg").style.display = "none";
+    }, 2000);
+  }
+}
+
+// === Logout ===
+function logout() {
+  auth.signOut().then(() => {
+    window.location.href = "login.html";
+  });
+}
+
+// === Theme Toggle ===
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
+});
+
+// === Chart.js Mood Tracker ===
+const ctx = document.getElementById("moodChart").getContext("2d");
+const moodChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [{
+      label: "Mood Level",
+      data: [3, 4, 5, 4, 2, 5, 4],
+      backgroundColor: "rgba(255, 111, 145, 0.2)",
+      borderColor: "#a64ac9",
+      borderWidth: 2,
+      tension: 0.4
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 5
+      }
+    }
+  }
+});
+
+// === Affirmation Rotator ===
+const affirmations = [
+  "You are loved and enough.",
+  "Every day is a new beginning.",
+  "Healing is not linear.",
+  "Your story matters.",
+  "You are stronger than your struggles."
+];
+
+function rotateAffirmation() {
+  const random = Math.floor(Math.random() * affirmations.length);
+  document.getElementById("affirmationText").textContent = affirmations[random];
+}
+rotateAffirmation();
+setInterval(rotateAffirmation, 10000); // Change every 10s
+
+// === Inspirational Quote Rotator ===
+const quotes = [
+  { text: "Every storm runs out of rain.", author: "Maya Angelou" },
+  { text: "Your story isn’t over yet.", author: "Unknown" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "You are stronger than you think.", author: "Unknown" },
+  { text: "Even the darkest night will end and the sun will rise.", author: "Victor Hugo" }
+];
+
+function rotateQuote() {
+  const random = Math.floor(Math.random() * quotes.length);
+  document.getElementById("quote").textContent = `"${quotes[random].text}"`;
+  document.getElementById("author").textContent = `- ${quotes[random].author}`;
+}
+rotateQuote();
+setInterval(rotateQuote, 12000); // Change every 12s
+
+// === Placeholder Bookmarks + Guestbook Posts ===
+// (Replace these with Firebase Realtime DB or Firestore if needed)
+document.getElementById("bookmarkedList").innerHTML = `
+  <li><a href="#">Managing Triggers</a></li>
+  <li><a href="#">Grief Recovery Guide</a></li>
+`;
+
+document.getElementById("guestbookPosts").innerHTML = `
+  <li>“Keep going. You’re doing great!” – Anonymous</li>
+  <li>“You helped me by sharing your story.” – A fellow warrior</li>
+`;
 </body>
 </html>
