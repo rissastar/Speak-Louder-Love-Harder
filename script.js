@@ -57,11 +57,14 @@ themeSelect?.addEventListener('change', function () {
     document.getElementById('customThemeForm').style.display = 'block';
   } else {
     document.getElementById('customThemeForm').style.display = 'none';
-    applyTheme(themes[selected]);
-    localStorage.setItem('selectedTheme', selected);
+    if (themes[selected]) {
+      applyTheme(themes[selected]);
+      localStorage.setItem('selectedTheme', selected);
+    }
   }
 });
 
+// Restore theme on page load
 window.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('selectedTheme');
   const custom = localStorage.getItem('customTheme');
@@ -78,6 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('customThemeForm').style.display = 'block';
     } else if (themes[saved]) {
       applyTheme(themes[saved]);
+      document.getElementById('customThemeForm').style.display = 'none';
     }
   }
 });
@@ -113,31 +117,29 @@ const storedUser = JSON.parse(localStorage.getItem("user"));
 const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
 if (storedUser && isLoggedIn) {
-  loginBtn && (loginBtn.style.display = "none");
-  registerBtn && (registerBtn.style.display = "none");
-  logoutBtn && (logoutBtn.style.display = "inline-block");
+  loginBtn?.style.setProperty("display", "none");
+  registerBtn?.style.setProperty("display", "none");
+  logoutBtn?.style.setProperty("display", "inline-block");
   welcomeMessage && (welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]} 💖`);
 } else {
-  loginBtn && (loginBtn.style.display = "inline-block");
-  registerBtn && (registerBtn.style.display = "inline-block");
-  logoutBtn && (logoutBtn.style.display = "none");
+  loginBtn?.style.setProperty("display", "inline-block");
+  registerBtn?.style.setProperty("display", "inline-block");
+  logoutBtn?.style.setProperty("display", "none");
   welcomeMessage && (welcomeMessage.textContent = "");
 }
 
 loginBtn?.addEventListener("click", () => {
   window.location.href = "login.html";
 });
-
 registerBtn?.addEventListener("click", () => {
   window.location.href = "register.html";
 });
-
 logoutBtn?.addEventListener("click", () => {
   localStorage.setItem("isLoggedIn", "false");
   location.reload();
 });
 
-// === TABS (for mental health page) ===
+// === TABS (Mental Health page) ===
 document.querySelectorAll(".tab-buttons").forEach(tabGroup => {
   const buttons = tabGroup.querySelectorAll(".tab-btn");
   const tabContainer = tabGroup.parentElement;
@@ -151,136 +153,6 @@ document.querySelectorAll(".tab-buttons").forEach(tabGroup => {
   });
 });
 
-// === LOGIN FORM FUNCTIONALITY ===
-const loginForm = document.getElementById("loginForm");
-
-if (loginForm) {
-  loginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = document.getElementById("loginEmail").value.trim();
-    const password = document.getElementById("loginPassword").value.trim();
-    const loginError = document.getElementById("loginError");
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (user && user.email === email && user.password === password) {
-      localStorage.setItem("isLoggedIn", "true");
-      loginError.textContent = "";
-      window.location.href = "profile.html";
-    } else {
-      loginError.textContent = "⚠️ Invalid email or password.";
-    }
-  });
-}
-
-// Your Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.firebasestorage.app",
-  messagingSenderId: "674769404942",
-  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-  measurementId: "G-54XJLK1CGJ"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('loginForm');
-  const errorMsg = document.getElementById('errorMsg');
-
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    errorMsg.style.display = 'none';
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        // Redirect on success
-        window.location.href = 'dashboard.html';
-      })
-      .catch((error) => {
-        // Show error message
-        errorMsg.textContent = error.message;
-        errorMsg.style.display = 'block';
-      });
-  });
-});
-
-// Firebase config - make sure yours matches exactly
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.appspot.com",
-  messagingSenderId: "YOUR_MSG_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// Handle registration
-document.getElementById("registerForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const displayName = document.getElementById("displayName").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-  const errorMsg = document.getElementById("errorMsg");
-
-  // Clear old error
-  errorMsg.style.display = "none";
-  errorMsg.textContent = "";
-
-  if (password !== confirmPassword) {
-    errorMsg.textContent = "Passwords do not match.";
-    errorMsg.style.display = "block";
-    return;
-  }
-
-  // Register the user
-  auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      return userCredential.user.updateProfile({
-        displayName: displayName
-      });
-    })
-    .then(() => {
-      // Redirect or show success
-      window.location.href = "dashboard.html";
-    })
-    .catch((error) => {
-      errorMsg.textContent = error.message;
-      errorMsg.style.display = "block";
-    });
-});
-
-// Protect dashboard
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    // ✅ Logged in
-    const name = user.displayName || "User";
-    const email = user.email;
-    const profilePic = user.photoURL || "default-avatar.png"; // Optional
-
-    document.getElementById("userName").textContent = name;
-    document.getElementById("userEmail").textContent = email;
-    document.getElementById("userAvatar").src = profilePic;
-  } else {
-    // 🚫 Not logged in, redirect
-    window.location.href = "index.html";
-  }
-});
-
-function logout() {
-  auth.signOut().then(() => {
-    window.location.href = "index.html";
-  });
-}
+// === CUSTOM THEME SAVE BUTTON ===
+// Assuming you have a save button for custom theme
+document.getElementById("saveCustomThemeBtn")?.addEventListener("click", saveCustomTheme);
