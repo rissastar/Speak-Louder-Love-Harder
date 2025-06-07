@@ -124,107 +124,109 @@
 
   <script>
     // Initialize Firebase (make sure config matches your dashboard)
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.appspot.com",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.appspot.com",
+  messagingSenderId: "674769404942",
+  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  measurementId: "G-54XJLK1CGJ"
+};
 
-    firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const storage = firebase.storage();
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
 
-    const profileForm = document.getElementById('profileForm');
-    const profilePicInput = document.getElementById('profilePicInput');
-    const profilePicPreview = document.getElementById('profilePicPreview');
-    const nameInput = document.getElementById('nameInput');
-    const bioInput = document.getElementById('bioInput');
-    const successMsg = document.getElementById('successMsg');
+const profileForm = document.getElementById('profileForm');
+const profilePicInput = document.getElementById('profilePicInput');
+const profilePicPreview = document.getElementById('profilePicPreview');
+const nameInput = document.getElementById('nameInput');
+const bioInput = document.getElementById('bioInput');
+const successMsg = document.getElementById('successMsg');
 
-    let currentUser;
-    let selectedFile = null;
+let currentUser;
+let selectedFile = null;
 
-    // Redirect to login if no user
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
+// Redirect to login if no user
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+  currentUser = user;
+  loadProfile();
+});
+
+// Load existing profile data and picture preview
+function loadProfile() {
+  db.collection('profiles').doc(currentUser.uid).get()
+    .then(doc => {
+      if (doc.exists) {
+        const data = doc.data();
+        nameInput.value = data.name || '';
+        bioInput.value = data.bio || '';
+        profilePicPreview.src = data.photoURL || 'default-avatar.png';
       }
-      currentUser = user;
-      loadProfile();
+    })
+    .catch(err => {
+      console.error("Error loading profile:", err);
     });
+}
 
-    // Load existing profile data and picture preview
-    function loadProfile() {
-      db.collection('profiles').doc(currentUser.uid).get()
-        .then(doc => {
-          if (doc.exists) {
-            const data = doc.data();
-            nameInput.value = data.name || '';
-            bioInput.value = data.bio || '';
-            profilePicPreview.src = data.photoURL || 'default-avatar.png';
-          }
-        }).catch(console.error);
+// Preview selected image immediately
+profilePicInput.addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) {
+    selectedFile = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      profilePicPreview.src = ev.target.result;
+    }
+    reader.readAsDataURL(selectedFile);
+  }
+});
+
+profileForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  if (!currentUser) return alert("User not authenticated.");
+
+  successMsg.style.display = 'none';
+
+  let photoURL = profilePicPreview.src; // current preview src, might be default or existing
+
+  try {
+    // Upload new profile pic if selected
+    if (selectedFile) {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(`profilePictures/${currentUser.uid}/${selectedFile.name}`);
+      await fileRef.put(selectedFile);
+      photoURL = await fileRef.getDownloadURL();
     }
 
-    // Preview selected image immediately
-    profilePicInput.addEventListener('change', e => {
-      if (e.target.files && e.target.files[0]) {
-        selectedFile = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          profilePicPreview.src = ev.target.result;
-        }
-        reader.readAsDataURL(selectedFile);
-      }
-    });
+    // Save profile data to Firestore
+    await db.collection('profiles').doc(currentUser.uid).set({
+      name: nameInput.value.trim(),
+      bio: bioInput.value.trim(),
+      photoURL: photoURL
+    }, { merge: true });
 
-    profileForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Update the preview with saved photoURL (important if uploaded)
+    profilePicPreview.src = photoURL;
 
-      if (!currentUser) return alert("User not authenticated.");
+    // Clear selected file so user can upload new next time
+    selectedFile = null;
 
-      successMsg.style.display = 'none';
+    // Show success message
+    successMsg.style.display = 'block';
+    setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
 
-      let photoURL = profilePicPreview.src; // default or uploaded
-
-      // If user selected new file, upload to Firebase Storage
-      if (selectedFile) {
-        const storageRef = storage.ref();
-        // Use timestamp + filename to avoid caching issues or overwrite
-        const fileName = `${Date.now()}_${selectedFile.name}`;
-        const fileRef = storageRef.child(`profilePictures/${currentUser.uid}/${fileName}`);
-        try {
-          await fileRef.put(selectedFile);
-          photoURL = await fileRef.getDownloadURL();
-        } catch (err) {
-          alert("Error uploading image: " + err.message);
-          return;
-        }
-      }
-
-      // Update Firestore profile
-      db.collection('profiles').doc(currentUser.uid).set({
-        name: nameInput.value.trim(),
-        bio: bioInput.value.trim(),
-        photoURL: photoURL
-      }, { merge: true })
-      .then(() => {
-        successMsg.style.display = 'block';
-        // Hide success after 3 seconds
-        setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
-        selectedFile = null;
-      })
-      .catch(err => {
-        alert("Error saving profile: " + err.message);
-      });
-    });
+  } catch (err) {
+    alert("Error saving profile: " + err.message);
+  }
+});
   </script>
 </body>
 </html>
