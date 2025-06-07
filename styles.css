@@ -396,3 +396,23 @@ footer a:hover {
     transform: translateY(0);
   }
 }
+
+/* === LINKTREE BUTTON ONLY === */
+.linktree-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.linktree-btn:hover {
+  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+  box-shadow: 0 0 15px var(--secondary-color);
+  transform: scale(1.05);
+}
