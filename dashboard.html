@@ -81,13 +81,6 @@
     const db = firebase.firestore();
     const storage = firebase.storage();
 
-    // Authentication state & redirect
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
       // Load stored profile data
       db.collection('profiles').doc(user.uid).get().then(doc => {
         if (doc.exists) {
