@@ -6,194 +6,8 @@
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <style>
-    /* === Animations and Theme Styles === */
-
-    /* Pulsing glowing border around profile pic on hover */
-    .mini-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-      box-shadow: 0 0 10px var(--primary-color);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-    }
-
-    .mini-avatar:hover {
-      transform: scale(1.05);
-      animation: pulseGlow 2s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow: 0 0 10px var(--accent-color);
-      }
-      50% {
-        box-shadow: 0 0 20px var(--accent-color);
-      }
-    }
-
-    /* Typewriter effect for affirmations */
-    .typewriter {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid var(--accent-color);
-      font-weight: 600;
-      font-size: 1.1rem;
-      animation: blink-caret 0.75s step-end infinite;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    @keyframes blink-caret {
-      50% { border-color: transparent }
-    }
-
-    /* Dark and light theme */
-    :root {
-      --primary-color: #a64ac9;
-      --accent-color: #ff6f91;
-      --background-color: #ffffff;
-      --text-color: #000000;
-    }
-
-    [data-theme="dark"] {
-      --background-color: #1a1a1a;
-      --text-color: #f0f0f0;
-      --primary-color: #d58aff;
-      --accent-color: #ff89a9;
-    }
-
-    body {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    /* Theme toggle button */
-    #themeToggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: var(--primary-color);
-      color: var(--background-color);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 0 8px var(--primary-color);
-      transition: background 0.3s ease;
-      z-index: 1000;
-    }
-
-    #themeToggle:hover {
-      background: var(--accent-color);
-    }
-
-    /* Affirmation container styling */
-    .dashboard-affirmation {
-      margin: 20px auto;
-      max-width: 600px;
-      text-align: center;
-      min-height: 40px;
-      font-style: italic;
-      color: var(--accent-color);
-    }
-
-    /* Mini profile container */
-    .mini-profile {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-top: 15px;
-    }
-
-    .mini-profile .name-bio {
-      max-width: 250px;
-    }
-
-    .mini-profile .name-bio .name {
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin: 0;
-    }
-
-    .mini-profile .name-bio .bio {
-      font-size: 0.9rem;
-      color: var(--text-color);
-      opacity: 0.8;
-      margin: 2px 0 0 0;
-    }
-
-  </style>
-</head>
-<body>
-
-  <header class="animated-header">
-    <h1 class="glow">Welcome to Your Dashboard 💖</h1>
-    <button id="logoutBtn">Logout</button>
-  </header>
-
-  <button id="themeToggle" aria-label="Toggle dark/light theme">🌙</button>
-
-  <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
-
-  <nav>
-    <ul class="nav-links">
-      <li><a href="index.html">🏠 Home</a></li>
-      <li><a href="guestbook.html">📝 Guestbook</a></li>
-      <li><a href="resources.html">📚 Resources</a></li>
-      <li><a href="settings.html">⚙️ Settings</a></li>
-    </ul>
-  </nav>
-
-  <main class="dashboard">
-
-    <!-- User mini profile with picture, name, and bio -->
-    <div class="mini-profile" id="miniProfile">
-      <img src="default-avatar.png" alt="Profile Picture" class="mini-avatar" id="miniProfilePic" />
-      <div class="name-bio">
-        <p class="name" id="miniName">Loading...</p>
-        <p class="bio" id="miniBio">Loading bio...</p>
-      </div>
-    </div>
-
-    <!-- Affirmations -->
-    <div class="dashboard-affirmation">
-      <p id="affirmationText" class="typewriter"></p>
-    </div>
-
-    <!-- Rest of your dashboard content -->
-
-  </main>
-
-  <footer>
-    <p>Built with ❤️ to inspire and empower.</p>
-    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn">✨ Visit My Linktree</a>
-  </footer>
+  <!-- Chart.js for mood tracker -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -201,110 +15,335 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-  <script>
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.appspot.com",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
+</head>
+<body>
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+<header class="dashboard-header">
+  <h1>Welcome to Your Dashboard 💖</h1>
+  <button id="logoutBtn">Logout</button>
+  <button id="themeToggleBtn">Toggle Theme</button>
+</header>
 
-    // Theme toggle logic
-    const themeToggle = document.getElementById('themeToggle');
-    function applyTheme(theme) {
-      if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.textContent = '☀️';
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-        themeToggle.textContent = '🌙';
-      }
-    }
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(savedTheme);
-    themeToggle.onclick = () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'dark') {
-        applyTheme('light');
-        localStorage.setItem('theme', 'light');
-      } else {
-        applyTheme('dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    };
+<main class="dashboard-main">
 
-    // Affirmations with typewriter effect
-    const affirmations = [
-      "You are stronger than you think.",
-      "Believe you can and you're halfway there.",
-      "Every day is a second chance.",
-      "Your story isn't over yet.",
-      "You matter, and your voice matters.",
-      "Progress, not perfection.",
-      "Be kind to yourself today."
-    ];
+  <!-- Profile Section -->
+  <section id="profileSection" class="dashboard-section">
+    <h2>Your Profile</h2>
+    <img id="profilePic" src="default-profile.png" alt="Profile Picture" class="profile-pic" />
+    <p id="displayName">Name: Loading...</p>
+    <p id="bio">Bio: Loading...</p>
+    <a href="settings.html">Edit Profile</a>
+  </section>
 
-    const textElem = document.getElementById('affirmationText');
-    let affIndex = 0;
+  <!-- Mood Tracker -->
+  <section id="moodTrackerSection" class="dashboard-section">
+    <h2>Mood Tracker</h2>
+    <canvas id="moodChart" width="400" height="200"></canvas>
+  </section>
 
-    function typeWriter(text, i = 0, callback) {
-      if (i < text.length) {
-        textElem.textContent = text.substring(0, i + 1);
-        setTimeout(() => typeWriter(text, i + 1, callback), 50);
-      } else if (callback) {
-        setTimeout(callback, 2000); // pause 2 seconds before next
-      }
-    }
+  <!-- Saved Posts -->
+  <section id="savedPostsSection" class="dashboard-section">
+    <h2>Saved Posts</h2>
+    <ul id="savedPostsList">
+      <!-- Dynamically populated -->
+    </ul>
+  </section>
 
-    function startAffirmations() {
-      typeWriter(affirmations[affIndex], 0, () => {
-        affIndex = (affIndex + 1) % affirmations.length;
-        startAffirmations();
+  <!-- Your Stories Posted -->
+  <section id="yourStoriesSection" class="dashboard-section">
+    <h2>Your Posted Stories</h2>
+    <ul id="yourStoriesList">
+      <!-- Dynamically populated -->
+    </ul>
+  </section>
+
+  <!-- Personal Journal -->
+  <section id="journalSection" class="dashboard-section">
+    <h2>Your Journal</h2>
+    <textarea id="journalInput" placeholder="Write your thoughts here..." rows="6"></textarea>
+    <button id="saveJournalBtn">Save Journal Entry</button>
+    <div id="journalEntries">
+      <!-- Display saved journal entries -->
+    </div>
+  </section>
+
+  <!-- Suggestions List -->
+  <section id="suggestionsSection" class="dashboard-section">
+    <h2>How to Feel Happy</h2>
+    <ul>
+      <li>Practice gratitude daily</li>
+      <li>Spend time outdoors in nature</li>
+      <li>Connect with friends and family</li>
+      <li>Exercise regularly</li>
+      <li>Try meditation or deep breathing</li>
+      <li>Engage in hobbies you love</li>
+      <li>Help others or volunteer</li>
+      <li>Listen to uplifting music</li>
+      <li>Get enough sleep</li>
+      <li>Limit screen time and social media</li>
+    </ul>
+  </section>
+
+  <!-- Saved Worksheets -->
+  <section id="savedWorksheetsSection" class="dashboard-section">
+    <h2>Saved Worksheets</h2>
+    <ul id="savedWorksheetsList">
+      <!-- Dynamically populated -->
+    </ul>
+  </section>
+
+  <!-- Affirmation Rotator -->
+  <section id="affirmationSection" class="dashboard-section">
+    <h2>Daily Affirmation 💬</h2>
+    <blockquote id="affirmationText">Loading affirmation...</blockquote>
+  </section>
+
+</main>
+
+<script>
+  // Firebase config - replace with your own
+  const firebaseConfig = {
+    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+    authDomain: "speak-louder-581d7.firebaseapp.com",
+    projectId: "speak-louder-581d7",
+    storageBucket: "speak-louder-581d7.firebasestorage.app",
+    messagingSenderId: "674769404942",
+    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+    measurementId: "G-54XJLK1CGJ"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  // Elements
+  const profilePic = document.getElementById('profilePic');
+  const displayNameEl = document.getElementById('displayName');
+  const bioEl = document.getElementById('bio');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+  const savedPostsList = document.getElementById('savedPostsList');
+  const yourStoriesList = document.getElementById('yourStoriesList');
+  const savedWorksheetsList = document.getElementById('savedWorksheetsList');
+
+  const affirmationText = document.getElementById('affirmationText');
+
+  const journalInput = document.getElementById('journalInput');
+  const saveJournalBtn = document.getElementById('saveJournalBtn');
+  const journalEntriesDiv = document.getElementById('journalEntries');
+
+  // Mood Tracker Chart Setup
+  const ctx = document.getElementById('moodChart').getContext('2d');
+  let moodChart;
+
+  // Affirmations Array
+  const affirmations = [
+    "You are stronger than you think.",
+    "Believe you can and you're halfway there.",
+    "Every day is a second chance.",
+    "Your story isn't over yet.",
+    "You matter more than you know.",
+    "Keep going, you're doing great!",
+    "You deserve happiness and love.",
+    "Your feelings are valid.",
+    "Progress, not perfection.",
+    "You are enough."
+  ];
+
+  // Show random affirmation
+  function showRandomAffirmation() {
+    const randomIndex = Math.floor(Math.random() * affirmations.length);
+    affirmationText.textContent = affirmations[randomIndex];
+  }
+
+  // Load user profile info
+  function loadUserProfile(user) {
+    if (!user) return;
+    const uid = user.uid;
+
+    // Load profile picture
+    storage.ref(`profilePictures/${uid}`).getDownloadURL()
+      .then(url => {
+        profilePic.src = url;
+      })
+      .catch(() => {
+        profilePic.src = 'default-profile.png';
       });
-    }
 
-    // Load user profile on auth state
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      // Load user profile data from Firestore
-      db.collection('profiles').doc(user.uid).get().then(doc => {
+    // Load profile name & bio from Firestore
+    db.collection('profiles').doc(uid).get()
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data();
-          document.getElementById('miniProfilePic').src = data.photoURL || 'default-avatar.png';
-          document.getElementById('miniName').textContent = data.name || 'No name set';
-          document.getElementById('miniBio').textContent = data.bio || 'No bio available';
+          displayNameEl.textContent = `Name: ${data.name || 'No name set'}`;
+          bioEl.textContent = `Bio: ${data.bio || 'No bio set'}`;
         } else {
-          // No profile found, set defaults
-          document.getElementById('miniName').textContent = 'No name set';
-          document.getElementById('miniBio').textContent = 'No bio available';
-          document.getElementById('miniProfilePic').src = 'default-avatar.png';
+          displayNameEl.textContent = 'Name: Unknown';
+          bioEl.textContent = 'Bio: None';
         }
-      }).catch(err => {
-        console.error('Error loading profile:', err);
       });
-    });
+  }
 
-    // Logout button
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      auth.signOut().then(() => {
-        window.location.href = 'login.html';
+  // Load saved posts
+  function loadSavedPosts(uid) {
+    savedPostsList.innerHTML = 'Loading...';
+    db.collection('users').doc(uid).collection('savedPosts').get()
+      .then(snapshot => {
+        savedPostsList.innerHTML = '';
+        if (snapshot.empty) {
+          savedPostsList.innerHTML = '<li>No saved posts yet.</li>';
+          return;
+        }
+        snapshot.forEach(doc => {
+          const post = doc.data();
+          const li = document.createElement('li');
+          li.textContent = post.title || 'Untitled post';
+          savedPostsList.appendChild(li);
+        });
       });
-    });
+  }
 
-    // Start affirmations animation on page load
-    startAffirmations();
-  </script>
+  // Load user's posted stories
+  function loadYourStories(uid) {
+    yourStoriesList.innerHTML = 'Loading...';
+    db.collection('users').doc(uid).collection('stories').get()
+      .then(snapshot => {
+        yourStoriesList.innerHTML = '';
+        if (snapshot.empty) {
+          yourStoriesList.innerHTML = '<li>You have not posted any stories yet.</li>';
+          return;
+        }
+        snapshot.forEach(doc => {
+          const story = doc.data();
+          const li = document.createElement('li');
+          li.textContent = story.title || 'Untitled story';
+          yourStoriesList.appendChild(li);
+        });
+      });
+  }
+
+  // Load saved worksheets
+  function loadSavedWorksheets(uid) {
+    savedWorksheetsList.innerHTML = 'Loading...';
+    db.collection('users').doc(uid).collection('savedWorksheets').get()
+      .then(snapshot => {
+        savedWorksheetsList.innerHTML = '';
+        if (snapshot.empty) {
+          savedWorksheetsList.innerHTML = '<li>No saved worksheets yet.</li>';
+          return;
+        }
+        snapshot.forEach(doc => {
+          const worksheet = doc.data();
+          const li = document.createElement('li');
+          li.textContent = worksheet.title || 'Untitled worksheet';
+          savedWorksheetsList.appendChild(li);
+        });
+      });
+  }
+
+  // Load journal entries
+  function loadJournalEntries(uid) {
+    journalEntriesDiv.innerHTML = 'Loading...';
+    db.collection('users').doc(uid).collection('journalEntries').orderBy('timestamp', 'desc').get()
+      .then(snapshot => {
+        journalEntriesDiv.innerHTML = '';
+        if (snapshot.empty) {
+          journalEntriesDiv.innerHTML = '<p>No journal entries yet.</p>';
+          return;
+        }
+        snapshot.forEach(doc => {
+          const entry = doc.data();
+          const p = document.createElement('p');
+          const date = entry.timestamp ? new Date(entry.timestamp.seconds * 1000).toLocaleString() : '';
+          p.innerHTML = `<strong>${date}</strong>: ${entry.text}`;
+          journalEntriesDiv.appendChild(p);
+        });
+      });
+  }
+
+  // Save journal entry
+  saveJournalBtn.addEventListener('click', () => {
+    const user = auth.currentUser;
+    if (!user) return alert('You must be logged in to save a journal entry.');
+    const text = journalInput.value.trim();
+    if (!text) return alert('Please enter some text before saving.');
+    db.collection('users').doc(user.uid).collection('journalEntries').add({
+      text,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      alert('Journal entry saved!');
+      journalInput.value = '';
+      loadJournalEntries(user.uid);
+    }).catch(err => {
+      alert('Error saving journal: ' + err.message);
+    });
+  });
+
+  // Initialize Mood Chart with dummy data for past 7 days
+  function initMoodChart() {
+    const labels = [];
+    const data = [];
+    for(let i=6; i>=0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      labels.push(d.toLocaleDateString());
+      // Example: random mood between 1-5
+      data.push(Math.floor(Math.random() * 5) + 1);
+    }
+    if (moodChart) moodChart.destroy();
+    moodChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Mood Level (1-5)',
+          data,
+          borderColor: '#a64ac9',
+          backgroundColor: 'rgba(166, 74, 201, 0.2)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 5,
+          pointBackgroundColor: '#ff6f91'
+        }]
+      },
+      options: {
+        scales: {
+          y: { min: 0, max: 5, ticks: { stepSize: 1 } }
+        }
+      }
+    });
+  }
+
+  // Logout
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut().then(() => {
+      window.location.href = 'login.html';
+    });
+  });
+
+  // Theme toggle (simple example)
+  themeToggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+  });
+
+  // On Auth state changed
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      loadUserProfile(user);
+      loadSavedPosts(user.uid);
+      loadYourStories(user.uid);
+      loadSavedWorksheets(user.uid);
+      loadJournalEntries(user.uid);
+      initMoodChart();
+      showRandomAffirmation();
+    } else {
+      window.location.href = 'login.html';
+    }
+  });
+</script>
+
 </body>
 </html>
