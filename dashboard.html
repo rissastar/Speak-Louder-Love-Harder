@@ -3,232 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Dashboard - Speak Louder, Love Harder</title>
+  <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Firebase -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header class="animated-header">
-    <h1 class="glow">Welcome to Your Dashboard 💖</h1>
-    <button id="theme-toggle">Toggle Theme</button>
+    <h1 class="glow">Your Dashboard 💖</h1>
+    <button id="logoutBtn">Logout</button>
   </header>
 
-  <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
-  
   <main class="dashboard">
-    <!-- Profile -->
-    <section class="profile-card">
-      <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar" />
-      <h2 id="userName">Loading...</h2>
-      <p id="userEmail"></p>
-      <textarea id="userBio" rows="4" placeholder="Tell the world about your journey..."></textarea>
-      <button onclick="saveBio()">Save Bio</button>
-      <p class="saved-msg" id="savedMsg">✨ Bio saved!</p>
-    </section>
-    
-    <!-- Affirmation Rotator -->
-    <section class="affirmations">
-      <h3>💖 Today's Affirmation</h3>
-      <blockquote id="affirmationText">"You are loved and enough."</blockquote>
-    </section>
+    <!-- Profile Picture Upload -->
+    <div class="profile-pic-section">
+      <img src="default-avatar.png" id="profilePic" alt="Profile picture" />
+      <input type="file" id="picUpload" accept="image/*" />
+      <button id="uploadBtn">Upload Photo</button>
+    </div>
 
-    <!-- Mood Tracker -->
-    <section class="mood-tracker">
-      <h3>Your Mood Over Time 💫</h3>
-      <canvas id="moodChart" width="400" height="200"></canvas>
-    </section>
+    <!-- Name & Bio -->
+    <div class="profile-details">
+      <input type="text" id="displayName" placeholder="Display Name" />
+      <textarea id="bio" rows="4" placeholder="Your bio..."></textarea>
+      <button id="saveProfile">Save Profile</button>
+      <p id="profileSavedMsg" class="saved-msg">Profile saved!</p>
+    </div>
 
-    <!-- Bookmarked Resources -->
-    <section class="bookmarks">
-      <h3>📚 Bookmarked Resources</h3>
-      <ul id="bookmarkedList">
-        <li>Loading...</li>
-      </ul>
+    <!-- Affirmation -->
+    <section class="dashboard-affirmation">
+      <p class="affirmation glow" id="affirmationText">You’re healing, shining, and becoming you.</p>
     </section>
-
-    <!-- Guestbook Posts -->
-    <section class="guestbook">
-      <h3>💌 Messages from the Community</h3>
-      <ul id="guestbookPosts">
-        <li>Loading...</li>
-      </ul>
-    </section>
-
-    <!-- Daily Quote -->
-    <section class="quote-section">
-      <blockquote id="quote">"Every storm runs out of rain."</blockquote>
-      <cite id="author">- Maya Angelou</cite>
-    </section>
-
-    <button onclick="logout()">Logout</button>
   </main>
-  
-   <script src="script.js"></script>
-   <script src=auth.js"></script>
 
   <footer>
-  <p>Built with ❤️ to inspire and empower.</p>
-  <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
-</footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn">✨ Visit My Linktree</a>
+  </footer>
 
-<script>
-  <!-- Your logic -->
-  // === Firebase Config ===
-const firebaseConfig = {
-  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.appspot.com",
-  messagingSenderId: "674769404942",
-  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-  measurementId: "G-54XJLK1CGJ"
-};
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "...",
+      authDomain: "...",
+      projectId: "...",
+      storageBucket: "...",
+      messagingSenderId: "...",
+      appId: "...",
+      measurementId: "..."
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// === Redirect if Not Logged In ===
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById("userName").textContent = user.displayName || "Anonymous";
-    document.getElementById("userEmail").textContent = user.email;
-
-    // Load saved bio
-    const bio = localStorage.getItem(`bio_${user.uid}`);
-    if (bio) {
-      document.getElementById("userBio").value = bio;
-    }
-
-    // Load avatar if available
-    if (user.photoURL) {
-      document.getElementById("userAvatar").src = user.photoURL;
-    }
-  } else {
-    window.location.href = "login.html";
-  }
-});
-
-// === Save Bio ===
-function saveBio() {
-  const bio = document.getElementById("userBio").value;
-  const user = auth.currentUser;
-  if (user) {
-    localStorage.setItem(`bio_${user.uid}`, bio);
-    document.getElementById("savedMsg").style.display = "block";
-    setTimeout(() => {
-      document.getElementById("savedMsg").style.display = "none";
-    }, 2000);
-  }
-}
-
-// === Logout ===
-function logout() {
-  auth.signOut().then(() => {
-    window.location.href = "login.html";
-  });
-}
-
-// === Theme Toggle ===
-document.getElementById("theme-toggle").addEventListener("click", () => {
-  document.body.classList.toggle("dark-theme");
-});
-
-// === Chart.js Mood Tracker ===
-const ctx = document.getElementById("moodChart").getContext("2d");
-const moodChart = new Chart(ctx, {
-  type: "line",
-  data: {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    datasets: [{
-      label: "Mood Level",
-      data: [3, 4, 5, 4, 2, 5, 4],
-      backgroundColor: "rgba(255, 111, 145, 0.2)",
-      borderColor: "#a64ac9",
-      borderWidth: 2,
-      tension: 0.4
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 5
+    // Authentication state & redirect
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
       }
-    }
-  }
-});
 
-// === Affirmation Rotator ===
-const affirmations = [
-  "You are loved and enough.",
-  "Every day is a new beginning.",
-  "Healing is not linear.",
-  "Your story matters.",
-  "You are stronger than your struggles."
-];
+      // Load stored profile data
+      db.collection('profiles').doc(user.uid).get().then(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          if (data.photoURL) {
+            document.getElementById('profilePic').src = data.photoURL;
+          }
+          document.getElementById('displayName').value = data.name || '';
+          document.getElementById('bio').value = data.bio || '';
+        }
+      });
 
-function rotateAffirmation() {
-  const random = Math.floor(Math.random() * affirmations.length);
-  document.getElementById("affirmationText").textContent = affirmations[random];
-}
-rotateAffirmation();
-setInterval(rotateAffirmation, 10000); // Change every 10s
+      // Logout button
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        auth.signOut().then(() => location.href = 'logout.html');
+      });
+    });
 
-// === Inspirational Quote Rotator ===
-const quotes = [
-  { text: "Every storm runs out of rain.", author: "Maya Angelou" },
-  { text: "Your story isn’t over yet.", author: "Unknown" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-  { text: "You are stronger than you think.", author: "Unknown" },
-  { text: "Even the darkest night will end and the sun will rise.", author: "Victor Hugo" }
-];
+    // Profile picture upload
+    document.getElementById('uploadBtn').onclick = () => {
+      const file = document.getElementById('picUpload').files[0];
+      if (!file) return alert("Please pick a photo.");
 
-function rotateQuote() {
-  const random = Math.floor(Math.random() * quotes.length);
-  document.getElementById("quote").textContent = `"${quotes[random].text}"`;
-  document.getElementById("author").textContent = `- ${quotes[random].author}`;
-}
-rotateQuote();
-setInterval(rotateQuote, 12000); // Change every 12s
+      const user = auth.currentUser;
+      const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
+      ref.put(file)
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+          document.getElementById('profilePic').src = url;
+          return db.collection('profiles').doc(user.uid).set({ photoURL: url }, { merge: true });
+        })
+        .then(() => alert("Profile picture saved!"))
+        .catch(console.error);
+    };
 
-// === Placeholder Bookmarks + Guestbook Posts ===
-// (Replace these with Firebase Realtime DB or Firestore if needed)
-document.getElementById("bookmarkedList").innerHTML = `
-  <li><a href="#">Managing Triggers</a></li>
-  <li><a href="#">Grief Recovery Guide</a></li>
-`;
+    // Save name & bio
+    document.getElementById('saveProfile').onclick = () => {
+      const user = auth.currentUser;
+      const name = document.getElementById('displayName').value;
+      const bio = document.getElementById('bio').value;
+      db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
+        .then(() => {
+          const msg = document.getElementById('profileSavedMsg');
+          msg.style.opacity = 1;
+          setTimeout(() => msg.style.opacity = 0, 2000);
+        });
+    };
 
-document.getElementById("guestbookPosts").innerHTML = `
-  <li>“Keep going. You’re doing great!” – Anonymous</li>
-  <li>“You helped me by sharing your story.” – A fellow warrior</li>
-`;
-</script>
+    // Rotating affirmations
+    const affirmations = [
+      "You are strong just for being you.",
+      "Your story is worth telling.",
+      "Healing doesn't happen in a straight line.",
+      "Your presence makes a difference."
+    ];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % affirmations.length;
+      document.getElementById('affirmationText').textContent = affirmations[idx];
+    }, 8000);
+  </script>
 </body>
 </html>
