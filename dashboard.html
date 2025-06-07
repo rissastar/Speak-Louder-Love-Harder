@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Dashboard - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header class="animated-header">
@@ -15,19 +21,12 @@
     <button id="theme-toggle">Toggle Theme</button>
   </header>
 
-  <div class="user-profile">
-    <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar" />
-    <h2 id="userName">Loading...</h2>
-    <p id="userEmail"></p>
-  </div>
-
   <nav>
     <ul class="nav-links">
       <details class="dropdown">
         <summary><strong>Explore Topics</strong></summary>
         <div class="dropdown-content">
           <li><a href="index.html">Home</a></li>
-          <li><a href="mental.health.html">Mental Health</a></li>
           <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
           <li><a href="addiction.html">Addiction</a></li>
           <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
@@ -43,23 +42,54 @@
   </nav>
 
   <main class="dashboard">
+    <!-- Profile -->
     <section class="profile-card">
-      <h2 class="glow">Hello, Beautiful Soul 🌈</h2>
-      <p>Edit your bio below:</p>
+      <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar" />
+      <h2 id="userName">Loading...</h2>
+      <p id="userEmail"></p>
       <textarea id="userBio" rows="4" placeholder="Tell the world about your journey..."></textarea>
       <button onclick="saveBio()">Save Bio</button>
-      <p class="saved-msg" id="savedMsg" style="display:none;">✨ Bio saved!</p>
+      <p class="saved-msg" id="savedMsg">✨ Bio saved!</p>
     </section>
 
-    <section class="quick-stats">
-      <h3>Quick Stats</h3>
-      <ul>
-        <li><strong>Journal Entries:</strong> 12</li>
-        <li><strong>Days Active:</strong> 48</li>
-        <li><strong>Uplifted Others:</strong> 23</li>
+    <!-- Mood Tracker -->
+    <section class="mood-tracker">
+      <h3>Your Mood Over Time 💫</h3>
+      <canvas id="moodChart" width="400" height="200"></canvas>
+    </section>
+
+    <!-- Bookmarked Resources -->
+    <section class="bookmarks">
+      <h3>📚 Bookmarked Resources</h3>
+      <ul id="bookmarkedList">
+        <li>Loading...</li>
       </ul>
     </section>
 
+    <!-- Guestbook Posts -->
+    <section class="guestbook">
+      <h3>💌 Messages from the Community</h3>
+      <ul id="guestbookPosts">
+        <li>Loading...</li>
+      </ul>
+    </section>
+
+    <!-- Community Events -->
+    <section class="events">
+      <h3>📅 Upcoming Community Events</h3>
+      <ul>
+        <li>Virtual Support Circle - Thursday 7 PM EST</li>
+        <li>Healing Arts Workshop - Sunday 2 PM EST</li>
+      </ul>
+    </section>
+
+    <!-- Affirmation Rotator -->
+    <section class="affirmations">
+      <h3>💖 Today's Affirmation</h3>
+      <blockquote id="affirmationText">"You are loved and enough."</blockquote>
+    </section>
+
+    <!-- Daily Quote -->
     <section class="quote-section">
       <blockquote id="quote">"Every storm runs out of rain."</blockquote>
       <cite id="author">- Maya Angelou</cite>
@@ -72,78 +102,7 @@
     <p>Built with ❤️ to inspire and empower.</p>
   </footer>
 
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.firebasestorage.app",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // Elements
-    const userNameElem = document.getElementById('userName');
-    const userEmailElem = document.getElementById('userEmail');
-    const userAvatarElem = document.getElementById('userAvatar');
-    const userBioElem = document.getElementById('userBio');
-    const savedMsg = document.getElementById('savedMsg');
-    const themeToggleBtn = document.getElementById('theme-toggle');
-
-    // Load user info and bio from Firestore
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        userNameElem.textContent = user.displayName || "Beautiful Soul";
-        userEmailElem.textContent = user.email || "";
-        userAvatarElem.src = user.photoURL || "default-avatar.png";
-
-        // Load bio from Firestore
-        db.collection('users').doc(user.uid).get().then(doc => {
-          if (doc.exists) {
-            userBioElem.value = doc.data().bio || '';
-          }
-        });
-      } else {
-        // No user, redirect to login
-        window.location.href = "login.html";
-      }
-    });
-
-    // Save bio to Firestore
-    function saveBio() {
-      const user = auth.currentUser;
-      if (!user) return;
-
-      const bioText = userBioElem.value.trim();
-
-      db.collection('users').doc(user.uid).set({ bio: bioText }, { merge: true })
-        .then(() => {
-          savedMsg.style.display = "block";
-          setTimeout(() => { savedMsg.style.display = "none"; }, 3000);
-        })
-        .catch(err => alert("Error saving bio: " + err.message));
-    }
-
-    // Logout function
-    function logout() {
-      auth.signOut()
-        .then(() => {
-          window.location.href = "login.html";
-        });
-    }
-
-    // Theme toggle (simple example toggling a class on body)
-    themeToggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-theme');
-    });
-  </script>
-
+  <!-- Your logic -->
   <script src="script.js"></script>
 </body>
 </html>
