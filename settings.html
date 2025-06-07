@@ -11,10 +11,12 @@
     h1, h2 { color: var(--primary-color, #a64ac9); }
     label { font-weight: bold; margin-top: 10px; display: block; }
     input[type="text"], textarea { width: 100%; padding: 8px; margin-top: 6px; font-size: 1rem; border-radius: 4px; border: 1px solid #ccc; }
-    button { background-color: var(--accent-color, #ff6f91); color: white; border: none; padding: 10px 15px; margin-top: 15px; cursor: pointer; font-size: 1rem; border-radius: 4px; }
-    button:hover { background-color: #e85c7a; }
+    button { background-color: var(--accent-color, #ff6f91); color: white; border: none; padding: 10px 15px; margin-top: 15px; cursor: pointer; font-size: 1rem; border-radius: 4px; transition: background-color 0.3s ease; }
+    button:disabled { background-color: #ccc; cursor: not-allowed; }
+    button:hover:not(:disabled) { background-color: #e85c7a; }
     #profile-pic-preview { display: block; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-top: 15px; border: 2px solid var(--primary-color, #a64ac9); }
     #success-message { margin-top: 15px; color: green; font-weight: bold; }
+    #error-message { margin-top: 15px; color: red; font-weight: bold; }
     nav { max-width: 450px; margin: 0 auto 20px auto; }
     nav a { margin-right: 20px; color: var(--accent-color, #ff6f91); text-decoration: none; font-weight: 600; }
   </style>
@@ -40,16 +42,16 @@
 
     <button id="save-btn">Save Settings</button>
     <p id="success-message"></p>
+    <p id="error-message"></p>
   </section>
 
-  <!-- Firebase -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
   <script>
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
       authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -71,11 +73,11 @@
     const bioInput = document.getElementById('bio');
     const saveBtn = document.getElementById('save-btn');
     const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
 
     let currentUser;
     let profilePicFile = null;
 
-    // Load user profile data
     auth.onAuthStateChanged(async user => {
       if (!user) {
         window.location.href = 'login.html';
@@ -95,18 +97,18 @@
         }
       } catch (error) {
         console.error('Error loading profile:', error);
+        errorMessage.textContent = 'Failed to load profile data.';
       }
     });
 
-    // Preview profile pic when selected
     profilePicInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (file) {
         profilePicFile = file;
         const reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = event => {
           profilePicPreview.src = event.target.result;
-        }
+        };
         reader.readAsDataURL(file);
       }
     });
@@ -116,26 +118,33 @@
 
       saveBtn.disabled = true;
       successMessage.textContent = '';
+      errorMessage.textContent = '';
 
       try {
-        // Get current photoURL from Firestore to avoid saving preview data URL
         let photoURL = null;
+
+        // Get existing photoURL to keep if no new pic uploaded
         const doc = await db.collection('profiles').doc(currentUser.uid).get();
         if (doc.exists) {
           photoURL = doc.data().photoURL || null;
         }
 
-        // If a new profile pic was selected, upload it to Firebase Storage
+        // Upload new profile picture if selected
         if (profilePicFile) {
-          console.log('Uploading file:', profilePicFile.name);
           const storageRef = storage.ref();
-          const profilePicRef = storageRef.child(`profilePics/${currentUser.uid}/${profilePicFile.name}`);
+          // Fixed file path overwrites old pic, avoid duplicates
+          const profilePicRef = storageRef.child(`profilePics/${currentUser.uid}/profile.jpg`);
           const snapshot = await profilePicRef.put(profilePicFile);
           photoURL = await snapshot.ref.getDownloadURL();
-          console.log('Uploaded! Got photoURL:', photoURL);
         }
 
-        // Update profile in Firestore
+        // Update Firebase Auth profile for consistent displayName and photoURL
+        await currentUser.updateProfile({
+          displayName: nameInput.value.trim(),
+          photoURL: photoURL
+        });
+
+        // Save profile info to Firestore with merge
         await db.collection('profiles').doc(currentUser.uid).set({
           name: nameInput.value.trim(),
           bio: bioInput.value.trim(),
@@ -143,13 +152,11 @@
         }, { merge: true });
 
         successMessage.textContent = 'Settings saved successfully!';
-
-        // Reset file input & profilePicFile variable
         profilePicInput.value = '';
         profilePicFile = null;
       } catch (error) {
         console.error('Error saving settings:', error);
-        successMessage.textContent = 'Error saving settings: ' + error.message;
+        errorMessage.textContent = 'Error saving settings: ' + error.message;
       } finally {
         saveBtn.disabled = false;
       }
