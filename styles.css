@@ -410,3 +410,23 @@ summary {
   box-shadow: 0 0 10px var(--accent-color);
   text-decoration: none;
 }
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.auth-buttons button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.auth-buttons button:hover {
+  background-color: var(--primary-color);
+}
