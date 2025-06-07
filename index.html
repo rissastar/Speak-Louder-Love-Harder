@@ -1,162 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder</title>
-  <style>
-    :root {
-      --primary-color: #a259ff;
-      --secondary-color: #63ffc1;
-      --accent-color: #ff66a3;
-      --bg-color: #f9f9ff;
-      --text-color: #222;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Speak Louder, Love Harder</title>
+<style>
+  /* Base Styles & Theme */
+  :root {
+    --primary-color: #a259ff;
+    --secondary-color: #63ffc1;
+    --accent-color: #ff66a3;
+    --bg-color: #1a002b;
+    --text-color: #eee;
+    --glow-color: rgba(255, 255, 255, 0.7);
+    --border-radius: 12px;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    font-weight: 900;
+    font-size: 2.25rem;
+    padding: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 10px var(--glow-color);
+    user-select: none;
+  }
+  nav {
+    background: #2b0047;
+    display: flex;
+    justify-content: center;
+    padding: 0.75rem 0;
+    box-shadow: 0 0 10px rgba(255 255 255 / 0.15);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding-left: 0;
+    margin: 0;
+  }
+  nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    position: relative;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 10px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  nav a:hover,
+  nav a:focus {
+    color: var(--accent-color);
+    transform: rotateX(10deg) rotateY(10deg);
+  }
+  nav a:hover::after,
+  nav a:focus::after {
+    transform: scaleX(1);
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+  section {
+    margin-bottom: 3rem;
+  }
+  h1, h2 {
+    font-weight: 900;
+    text-align: center;
+    text-shadow: 0 0 10px var(--glow-color);
+  }
+  #about h1 {
+    font-size: 2.75rem;
+  }
+  #about p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    color: #d0c3ff;
+  }
+  ul.features-list {
+    list-style: none;
+    padding-left: 0;
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 1.15rem;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  ul.features-list li {
+    margin-bottom: 0.9rem;
+  }
+  .auth-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  button {
+    background: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+    padding: 0.75rem 1.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--primary-color);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+  button:hover,
+  button:focus {
+    background: var(--accent-color);
+    box-shadow: 0 0 25px var(--accent-color);
+    outline: none;
+  }
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-effect 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+  }
+  @keyframes ripple-effect {
+    to {
+      transform: scale(4);
+      opacity: 0;
     }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      margin: 0; padding: 0;
-    }
-    header {
-      background: var(--primary-color);
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.5rem;
-      text-shadow: 0 0 8px rgba(255 255 255 / 0.7);
-    }
-    nav {
-      background: var(--secondary-color);
-      padding: 0.5rem 1rem;
-    }
+  }
+  /* FAQ Styles */
+  .faq {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .faq-item {
+    background: rgba(255 255 255 / 0.15);
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255 255 255 / 0.1);
+  }
+  .faq-question {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: white;
+    position: relative;
+    user-select: none;
+  }
+  .faq-question::after {
+    content: '➕';
+    position: absolute;
+    right: 1.5rem;
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+  .faq-question.active::after {
+    content: '➖';
+    transform: rotate(180deg);
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    color: white;
+    transition: max-height 0.35s ease;
+    line-height: 1.4;
+  }
+  .faq-answer.open {
+    max-height: 300px; /* enough for content */
+    padding: 1rem 1.5rem;
+  }
+  /* Quote Display */
+  .quote {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    padding: 0.9rem 2rem;
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: white;
+    box-shadow: 0 0 20px var(--primary-color);
+    user-select: none;
+    max-width: 90vw;
+    text-align: center;
+  }
+  /* Back to Top Button */
+  #backToTop {
+    position: fixed;
+    bottom: 80px;
+    right: 25px;
+    background: var(--accent-color);
+    border: none;
+    padding: 0.6rem 1rem;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--accent-color);
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    user-select: none;
+  }
+  #backToTop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  /* Fade-in animation */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
     nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
       gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
     }
-    nav ul li {
-      margin: 0;
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
     }
-    nav a {
-      color: #222;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.3rem 0.5rem;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
+    #about h1 {
+      font-size: 2rem;
     }
-    nav a:hover {
-      background-color: var(--accent-color);
-      color: white;
+    .quote {
+      font-size: 1rem;
+      padding: 0.7rem 1.2rem;
     }
-    main {
-      max-width: 720px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      text-align: center;
-    }
-    h1 {
-      color: var(--primary-color);
-      text-shadow: 0 0 6px rgba(162 89 255 / 0.8);
-    }
-    p {
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-    .auth-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .auth-buttons button {
-      background-color: var(--primary-color);
-      border: none;
-      color: white;
-      padding: 0.8rem 1.6rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: background-color 0.3s ease;
-      min-width: 120px;
-    }
-    .auth-buttons button:hover {
-      background-color: var(--accent-color);
-    }
-    @media (max-width: 480px) {
-      nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .auth-buttons {
-        flex-direction: column;
-      }
-      .auth-buttons button {
-        width: 100%;
-        min-width: unset;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-<header>
-  Speak Louder, Love Harder
-</header>
+<header>Speak Louder, Love Harder</header>
 
-<nav>
-  <ul class="nav-links">
-    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-    <li><a href="mental-health.html">Mental Health</a></li>
-    <li><a href="foster-care.html">Foster Care</a></li>
-    <li><a href="mental-abuse.html">Mental Abuse</a></li>
-    <li><a href="physical-abuse.html">Physical Abuse</a></li>
-    <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-    <li><a href="cirrhosis.html">Cirrhosis</a></li>
-    <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+<nav aria-label="Primary navigation">
+  <ul>
+    <li><a href="#about" class="nav-link" tabindex="0">About</a></li>
+    <li><a href="#features" class="nav-link" tabindex="0">Features</a></li>
+    <li><a href="#faq" class="nav-link" tabindex="0">FAQ</a></li>
   </ul>
 </nav>
 
 <main>
-  <h1>Welcome to Speak Louder, Love Harder</h1>
-  <p>
-    A bold, vibrant, interactive community-driven website for mental health, support, and love.  
-    Here you can find resources, connect with others, share your story, and uplift each other with inspirational quotes and affirmations.
-  </p>
+  <section id="about" class="fade-in" tabindex="0" aria-label="About Speak Louder, Love Harder">
+    <h1>Welcome to Speak Louder, Love Harder</h1>
+    <p>Your community to uplift, support, and inspire mental wellness and love.</p>
+  </section>
 
-  <div class="auth-buttons">
-    <button onclick="location.href='register.html'">Register</button>
-    <button onclick="location.href='login.html'">Login</button>
-  </div>
+  <section id="features" class="fade-in" tabindex="0" aria-label="Features of the website">
+    <h2>Our Features</h2>
+    <ul class="features-list" aria-live="polite">
+      <li>💖 Profile & Dashboard</li>
+      <li>🌈 Login / Logout / Register</li>
+      <li>✨ Glowing UI & Animations</li>
+      <li>📜 Daily Affirmations & Quotes</li>
+      <li>📝 Community Guestbook & Connect</li>
+    </ul>
+    <div class="auth-buttons">
+      <button id="btnLogin" aria-label="Login to your account">Login</button>
+      <button id="btnRegister" aria-label="Register a new account">Register</button>
+    </div>
+  </section>
+
+  <section id="faq" class="faq fade-in" aria-label="Frequently Asked Questions" tabindex="0">
+    <div class="faq-item">
+      <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq1">Is it necessary to create an account?</div>
+      <div class="faq-answer" id="faq1" role="region" aria-hidden="true">No, you can explore many parts of the site without logging in.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq2">How do I reset my password?</div>
+      <div class="faq-answer" id="faq2" role="region" aria-hidden="true">Currently, password reset is not supported, but stay tuned for updates!</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq3">Can I customize my profile?</div>
+      <div class="faq-answer" id="faq3" role="region" aria-hidden="true">Yes, once logged in, you can edit your name, bio, and more in Settings.</div>
+    </div>
+  </section>
 </main>
 
-  <footer style="text-align:center; padding:1rem 0; background:#f0f0ff; border-top:1px solid #ccc; margin-top:2rem;">
-    <p>Built with ❤️ to inspire and empower.</p>
-    <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer" class="linktree-btn" title="Linktree"
-       style="
-         display: inline-block;
-         background: #a259ff;
-         color: white;
-         padding: 0.5rem 1rem;
-         border-radius: 12px;
-         font-weight: 600;
-         text-decoration: none;
-         box-shadow: 0 0 8px #a259ffaa;
-         transition: background-color 0.3s ease;
-       "
-       onmouseover="this.style.background='#ff66a3'; this.style.boxShadow='0 0 10px #ff66a3aa';"
-       onmouseout="this.style.background='#a259ff'; this.style.boxShadow='0 0 8px #a259ffaa';"
-    >✨ Visit My Linktree</a>
-  </footer>
+<div class="quote" id="quoteDisplay" aria-live="polite" aria-atomic="true" role="region">“Your mental health matters. Speak louder, love harder.”</div>
+
+<button id="backToTop" aria-label="Back to top">⬆️</button>
+
+<script>
+  // Fade-in sections on scroll using IntersectionObserver
+  const fadeElems = document.querySelectorAll('.fade-in');
+  const observerOptions = { threshold: 0.1 };
+
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  fadeElems.forEach(elem => fadeObserver.observe(elem));
+
+  // Ripple effect on auth buttons
+  function createRipple(event) {
+    const button = event.currentTarget;
+    const circle = document.createElement('span');
+    circle.classList.add('ripple');
+    const rect = button.getBoundingClientRect();
+    circle.style.left = `${event.clientX - rect.left}px`;
+    circle.style.top = `${event.clientY - rect.top}px`;
+    button.appendChild(circle);
+    setTimeout(() => circle.remove(), 600);
+  }
+  document.querySelectorAll('.auth-buttons button').forEach(btn => {
+    btn.addEventListener('click', createRipple);
+  });
+
+  // Collapsible FAQ logic
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      // Close all
+      faqQuestions.forEach(q => {
+        q.nextElementSibling.classList.remove('open');
+        q.classList.remove('active');
+        q.setAttribute('aria-expanded', 'false');
+        q.nextElementSibling.setAttribute('aria-hidden', 'true');
+      });
+      if (!isOpen) {
+        answer.classList.add('open');
+        question.classList.add('active');
+        question.setAttribute('aria-expanded', 'true');
+        answer.setAttribute('aria-hidden', 'false');
+      }
+    });
+    question.addEventListener('keypress', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        question.click();
+      }
+    });
+  });
+
+  // Rotating inspirational quotes
+  const quotes = [
+    "“Your mental health matters. Speak louder, love harder.”",
+    "“You are not alone. Reach out and connect.”",
+    "“Small steps every day lead to big changes.”",
+    "“Kindness begins with you.”",
+    "“Embrace your journey with courage and love.”"
+  ];
+  const quoteDisplay = document.getElementById('quoteDisplay');
+  let quoteIndex = 0;
+
+  function rotateQuote() {
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+    quoteDisplay.textContent = quotes[quoteIndex];
+  }
+  setInterval(rotateQuote, 8000);
+
+  // Back to top button
+  const backToTopBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 300) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Simple login/register button handlers
+  document.getElementById('btnLogin').addEventListener('click', () => {
+    alert('Login functionality coming soon!');
+  });
+  document.getElementById('btnRegister').addEventListener('click', () => {
+    alert('Register functionality coming soon!');
+  });
+</script>
+
 </body>
 </html>
