@@ -46,8 +46,8 @@ body.dark-mode {
   text-shadow: 0 0 8px var(--accent-color), 0 0 16px var(--secondary-color);
 }
 
-/* === HEADER ACTIONS (login, logout, theme toggle) === */
-.header-actions {
+/* === HEADER ACTIONS === */
+.header-actions, .auth-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -56,7 +56,8 @@ body.dark-mode {
   align-items: center;
 }
 
-.header-actions button {
+.header-actions button,
+.auth-buttons button {
   background-color: var(--accent-color);
   color: white;
   border: none;
@@ -67,7 +68,8 @@ body.dark-mode {
   transition: background-color 0.3s ease;
 }
 
-.header-actions button:hover {
+.header-actions button:hover,
+.auth-buttons button:hover {
   background-color: var(--secondary-color);
 }
 
@@ -125,8 +127,8 @@ body.dark-mode {
   font-weight: bold;
 }
 
-/* === AUTH FORMS === */
-.auth-form {
+/* === AUTH FORM STYLING === */
+.login-container, .auth-form {
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
@@ -136,20 +138,23 @@ body.dark-mode {
   backdrop-filter: blur(8px);
 }
 
-.auth-form form {
+.auth-form form,
+.login-container form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.auth-form input {
+.auth-form input,
+.login-container input {
   padding: 0.75rem;
   border-radius: 6px;
   border: 1px solid var(--primary-color);
   font-size: 1rem;
 }
 
-.auth-form button {
+.auth-form button,
+.login-container button {
   background-color: var(--accent-color);
   color: white;
   border: none;
@@ -159,11 +164,13 @@ body.dark-mode {
   transition: background 0.3s ease;
 }
 
-.auth-form button:hover {
+.auth-form button:hover,
+.login-container button:hover {
   background-color: var(--secondary-color);
 }
 
-.auth-msg {
+.auth-msg,
+.error-message {
   font-weight: bold;
   color: var(--accent-color);
   text-align: center;
@@ -198,68 +205,11 @@ textarea {
   margin-bottom: 1rem;
 }
 
-button {
-  background-color: var(--accent-color);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--secondary-color);
-}
-
 .saved-msg {
   color: var(--accent-color);
   font-weight: bold;
   transition: opacity 0.5s ease;
   opacity: 0;
-}
-
-/* === QUICK LINKS GRID === */
-.link-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.link-grid a {
-  flex: 1 1 45%;
-  background: var(--primary-color);
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.link-grid a:hover {
-  background: var(--accent-color);
-  transform: scale(1.05);
-}
-
-/* === FOOTER === */
-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: var(--primary-color);
-  color: #ffffff;
-  margin-top: 2rem;
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
-  .nav-links {
-    flex-direction: column;
-  }
-  .link-grid a {
-    flex: 1 1 100%;
-  }
 }
 
 /* === THEME SWITCHER UI === */
@@ -276,36 +226,6 @@ footer {
   border-radius: 6px;
   border: 1px solid var(--primary-color);
   font-size: 1rem;
-}
-
-/* === THEME VARIANTS === */
-
-/* Default = Vibrant */
-.theme-vibrant {
-  --primary-color: #a64ac9;
-  --secondary-color: #5edfff;
-  --accent-color: #ff6f91;
-}
-
-/* Pastel Theme */
-.theme-pastel {
-  --primary-color: #b39ddb;
-  --secondary-color: #81d4fa;
-  --accent-color: #f8bbd0;
-}
-
-/* Ocean Theme */
-.theme-ocean {
-  --primary-color: #01579b;
-  --secondary-color: #00acc1;
-  --accent-color: #26c6da;
-}
-
-/* Sunset Theme */
-.theme-sunset {
-  --primary-color: #ff7043;
-  --secondary-color: #ffd54f;
-  --accent-color: #ff8a65;
 }
 
 .custom-theme-form {
@@ -327,21 +247,26 @@ footer {
   color: var(--primary-color);
 }
 
-/* === Section Layouts === */
-.section {
-  padding: 2rem;
-  margin: 1.5rem auto;
-  max-width: 900px;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+/* === THEME VARIANTS === */
+.theme-vibrant {
+  --primary-color: #a64ac9;
+  --secondary-color: #5edfff;
+  --accent-color: #ff6f91;
 }
-.section.light {
-  background-color: rgba(255,255,255,0.9);
-  color: #222;
+.theme-pastel {
+  --primary-color: #b39ddb;
+  --secondary-color: #81d4fa;
+  --accent-color: #f8bbd0;
 }
-.section.dark {
-  background-color: rgba(25,25,25,0.85);
-  color: #fff;
+.theme-ocean {
+  --primary-color: #01579b;
+  --secondary-color: #00acc1;
+  --accent-color: #26c6da;
+}
+.theme-sunset {
+  --primary-color: #ff7043;
+  --secondary-color: #ffd54f;
+  --accent-color: #ff8a65;
 }
 
 /* === Tabs === */
@@ -371,7 +296,7 @@ footer {
   display: block;
 }
 
-/* === Collapsible details === */
+/* === Collapsibles === */
 details {
   border: 1px solid var(--primary-color);
   border-radius: 8px;
@@ -389,7 +314,24 @@ summary {
   background: rgba(255,255,255,0.05);
 }
 
-/* === Grounding tools === */
+/* === Sections === */
+.section {
+  padding: 2rem;
+  margin: 1.5rem auto;
+  max-width: 900px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.section.light {
+  background-color: rgba(255,255,255,0.9);
+  color: #222;
+}
+.section.dark {
+  background-color: rgba(25,25,25,0.85);
+  color: #fff;
+}
+
+/* === Grounding Tool Blocks === */
 .tool {
   background: rgba(255,255,255,0.05);
   border-left: 5px solid var(--secondary-color);
@@ -398,7 +340,7 @@ summary {
   border-radius: 8px;
 }
 
-/* === Back to top === */
+/* === Back to Top === */
 .back-to-top {
   position: fixed;
   bottom: 20px;
@@ -411,36 +353,12 @@ summary {
   text-decoration: none;
 }
 
-.auth-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-.auth-buttons button {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.auth-buttons button:hover {
-  background-color: var(--primary-color);
-}
-
-.button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: var(--primary);
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  margin: 0 5px;
-  transition: background-color 0.3s ease;
-}
-.button:hover {
-  background-color: var(--accent);
+/* === Responsive === */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+  }
+  .link-grid a {
+    flex: 1 1 100%;
+  }
 }
