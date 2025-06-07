@@ -5,345 +5,247 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Minimal inline styling for demo */
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fafafa; margin: 20px; }
+    section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 8px #ccc; }
+    h2 { color: var(--primary-color, #a64ac9); }
+    button, input, textarea { font-size: 1rem; padding: 8px; margin-top: 6px; width: 100%; max-width: 400px; }
+    ul { padding-left: 20px; }
+    ul li { margin-bottom: 8px; }
+    .inline-flex { display: flex; gap: 10px; flex-wrap: wrap; }
+    .inline-flex > * { flex: 1; min-width: 120px; }
+    label { font-weight: bold; margin-top: 10px; display: block; }
+    nav a { margin-right: 15px; text-decoration: none; color: var(--accent-color, #ff6f91); }
+    nav { margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Your Dashboard 💖</h1>
+    <nav>
+      <a href="settings.html">Edit Profile & Settings</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
 
-  <!-- Chart.js for mood tracker -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <section id="profile-section">
+    <h2>Your Profile</h2>
+    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+    <p><strong>Bio:</strong> <span id="profile-bio">Loading...</span></p>
+  </section>
 
-  <!-- Firebase SDKs -->
+  <section id="mood-tracker">
+    <h2>Mood Tracker</h2>
+    <form id="mood-form">
+      <label for="mood-date">Date:</label>
+      <input type="date" id="mood-date" required />
+      
+      <label for="mood-rating">Mood (1-10):</label>
+      <input type="number" id="mood-rating" min="1" max="10" required />
+      
+      <button type="submit">Add Mood Entry</button>
+    </form>
+    <ul id="mood-list">Loading mood entries...</ul>
+  </section>
+
+  <section id="saved-posts">
+    <h2>Saved Posts</h2>
+    <ul id="saved-posts-list">Loading saved posts...</ul>
+  </section>
+
+  <section id="posted-stories">
+    <h2>Your Posted Stories</h2>
+    <ul id="posted-stories-list">Loading your stories...</ul>
+  </section>
+
+  <section id="journal">
+    <h2>Personal Journal</h2>
+    <textarea id="journal-content" rows="6" placeholder="Write your journal here..."></textarea>
+    <button id="save-journal-btn">Save Journal</button>
+    <p id="journal-status"></p>
+  </section>
+
+  <section id="suggestions">
+    <h2>Feel-Good Suggestions</h2>
+    <ul>
+      <li>Take a 10-minute walk outside and breathe deeply.</li>
+      <li>Write down three things you’re grateful for today.</li>
+      <li>Listen to your favorite uplifting music.</li>
+      <li>Try a short meditation or mindfulness exercise.</li>
+      <li>Reach out to a friend or loved one for a quick chat.</li>
+    </ul>
+  </section>
+
+  <section id="saved-worksheets">
+    <h2>Saved Worksheets</h2>
+    <ul id="saved-worksheets-list">Loading worksheets...</ul>
+  </section>
+
+  <!-- Firebase App (the core Firebase SDK) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-</head>
-<body>
+  <script>
+    // Your Firebase config - replace with your own config or load from external file
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.firebasestorage.app",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
+    };
 
-<header class="dashboard-header">
-  <h1>Welcome to Your Dashboard 💖</h1>
-  <button id="logoutBtn">Logout</button>
-  <button id="themeToggleBtn">Toggle Theme</button>
-</header>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-<main class="dashboard-main">
+    // UI elements
+    const profileNameEl = document.getElementById('profile-name');
+    const profileBioEl = document.getElementById('profile-bio');
+    const moodListEl = document.getElementById('mood-list');
+    const savedPostsListEl = document.getElementById('saved-posts-list');
+    const postedStoriesListEl = document.getElementById('posted-stories-list');
+    const journalContentEl = document.getElementById('journal-content');
+    const journalStatusEl = document.getElementById('journal-status');
+    const savedWorksheetsListEl = document.getElementById('saved-worksheets-list');
 
-  <!-- Profile Section -->
-  <section id="profileSection" class="dashboard-section">
-    <h2>Your Profile</h2>
-    <img id="profilePic" src="default-profile.png" alt="Profile Picture" class="profile-pic" />
-    <p id="displayName">Name: Loading...</p>
-    <p id="bio">Bio: Loading...</p>
-    <a href="settings.html">Edit Profile</a>
-  </section>
+    // Load user data after login
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        // Redirect to login if not logged in
+        window.location.href = "login.html";
+        return;
+      }
+      const uid = user.uid;
 
-  <!-- Mood Tracker -->
-  <section id="moodTrackerSection" class="dashboard-section">
-    <h2>Mood Tracker</h2>
-    <canvas id="moodChart" width="400" height="200"></canvas>
-  </section>
-
-  <!-- Saved Posts -->
-  <section id="savedPostsSection" class="dashboard-section">
-    <h2>Saved Posts</h2>
-    <ul id="savedPostsList">
-      <!-- Dynamically populated -->
-    </ul>
-  </section>
-
-  <!-- Your Stories Posted -->
-  <section id="yourStoriesSection" class="dashboard-section">
-    <h2>Your Posted Stories</h2>
-    <ul id="yourStoriesList">
-      <!-- Dynamically populated -->
-    </ul>
-  </section>
-
-  <!-- Personal Journal -->
-  <section id="journalSection" class="dashboard-section">
-    <h2>Your Journal</h2>
-    <textarea id="journalInput" placeholder="Write your thoughts here..." rows="6"></textarea>
-    <button id="saveJournalBtn">Save Journal Entry</button>
-    <div id="journalEntries">
-      <!-- Display saved journal entries -->
-    </div>
-  </section>
-
-  <!-- Suggestions List -->
-  <section id="suggestionsSection" class="dashboard-section">
-    <h2>How to Feel Happy</h2>
-    <ul>
-      <li>Practice gratitude daily</li>
-      <li>Spend time outdoors in nature</li>
-      <li>Connect with friends and family</li>
-      <li>Exercise regularly</li>
-      <li>Try meditation or deep breathing</li>
-      <li>Engage in hobbies you love</li>
-      <li>Help others or volunteer</li>
-      <li>Listen to uplifting music</li>
-      <li>Get enough sleep</li>
-      <li>Limit screen time and social media</li>
-    </ul>
-  </section>
-
-  <!-- Saved Worksheets -->
-  <section id="savedWorksheetsSection" class="dashboard-section">
-    <h2>Saved Worksheets</h2>
-    <ul id="savedWorksheetsList">
-      <!-- Dynamically populated -->
-    </ul>
-  </section>
-
-  <!-- Affirmation Rotator -->
-  <section id="affirmationSection" class="dashboard-section">
-    <h2>Daily Affirmation 💬</h2>
-    <blockquote id="affirmationText">Loading affirmation...</blockquote>
-  </section>
-
-</main>
-
-<script>
-  // Firebase config - replace with your own
-  const firebaseConfig = {
-    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-    authDomain: "speak-louder-581d7.firebaseapp.com",
-    projectId: "speak-louder-581d7",
-    storageBucket: "speak-louder-581d7.firebasestorage.app",
-    messagingSenderId: "674769404942",
-    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-    measurementId: "G-54XJLK1CGJ"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-
-  // Elements
-  const profilePic = document.getElementById('profilePic');
-  const displayNameEl = document.getElementById('displayName');
-  const bioEl = document.getElementById('bio');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-
-  const savedPostsList = document.getElementById('savedPostsList');
-  const yourStoriesList = document.getElementById('yourStoriesList');
-  const savedWorksheetsList = document.getElementById('savedWorksheetsList');
-
-  const affirmationText = document.getElementById('affirmationText');
-
-  const journalInput = document.getElementById('journalInput');
-  const saveJournalBtn = document.getElementById('saveJournalBtn');
-  const journalEntriesDiv = document.getElementById('journalEntries');
-
-  // Mood Tracker Chart Setup
-  const ctx = document.getElementById('moodChart').getContext('2d');
-  let moodChart;
-
-  // Affirmations Array
-  const affirmations = [
-    "You are stronger than you think.",
-    "Believe you can and you're halfway there.",
-    "Every day is a second chance.",
-    "Your story isn't over yet.",
-    "You matter more than you know.",
-    "Keep going, you're doing great!",
-    "You deserve happiness and love.",
-    "Your feelings are valid.",
-    "Progress, not perfection.",
-    "You are enough."
-  ];
-
-  // Show random affirmation
-  function showRandomAffirmation() {
-    const randomIndex = Math.floor(Math.random() * affirmations.length);
-    affirmationText.textContent = affirmations[randomIndex];
-  }
-
-  // Load user profile info
-  function loadUserProfile(user) {
-    if (!user) return;
-    const uid = user.uid;
-
-    // Load profile picture
-    storage.ref(`profilePictures/${uid}`).getDownloadURL()
-      .then(url => {
-        profilePic.src = url;
-      })
-      .catch(() => {
-        profilePic.src = 'default-profile.png';
-      });
-
-    // Load profile name & bio from Firestore
-    db.collection('profiles').doc(uid).get()
-      .then(doc => {
+      // Load profile
+      db.collection('profiles').doc(uid).get().then(doc => {
         if (doc.exists) {
           const data = doc.data();
-          displayNameEl.textContent = `Name: ${data.name || 'No name set'}`;
-          bioEl.textContent = `Bio: ${data.bio || 'No bio set'}`;
+          profileNameEl.textContent = data.name || "(No name set)";
+          profileBioEl.textContent = data.bio || "(No bio set)";
         } else {
-          displayNameEl.textContent = 'Name: Unknown';
-          bioEl.textContent = 'Bio: None';
+          profileNameEl.textContent = "(No profile found)";
+          profileBioEl.textContent = "";
         }
       });
-  }
 
-  // Load saved posts
-  function loadSavedPosts(uid) {
-    savedPostsList.innerHTML = 'Loading...';
-    db.collection('users').doc(uid).collection('savedPosts').get()
-      .then(snapshot => {
-        savedPostsList.innerHTML = '';
-        if (snapshot.empty) {
-          savedPostsList.innerHTML = '<li>No saved posts yet.</li>';
-          return;
+      // Load mood entries
+      db.collection('moodEntries').doc(uid).get().then(doc => {
+        if (doc.exists) {
+          const entries = doc.data().entries || [];
+          if (entries.length === 0) {
+            moodListEl.innerHTML = "<li>No mood entries yet.</li>";
+          } else {
+            moodListEl.innerHTML = entries
+              .sort((a,b) => new Date(b.date) - new Date(a.date))
+              .map(e => `<li><strong>${e.date}:</strong> Mood rating ${e.mood}</li>`)
+              .join('');
+          }
+        } else {
+          moodListEl.innerHTML = "<li>No mood entries yet.</li>";
         }
-        snapshot.forEach(doc => {
-          const post = doc.data();
-          const li = document.createElement('li');
-          li.textContent = post.title || 'Untitled post';
-          savedPostsList.appendChild(li);
-        });
       });
-  }
 
-  // Load user's posted stories
-  function loadYourStories(uid) {
-    yourStoriesList.innerHTML = 'Loading...';
-    db.collection('users').doc(uid).collection('stories').get()
-      .then(snapshot => {
-        yourStoriesList.innerHTML = '';
-        if (snapshot.empty) {
-          yourStoriesList.innerHTML = '<li>You have not posted any stories yet.</li>';
-          return;
+      // Load saved posts
+      db.collection('savedPosts').doc(uid).get().then(doc => {
+        if (doc.exists) {
+          const posts = doc.data().posts || [];
+          savedPostsListEl.innerHTML = posts.length > 0 
+            ? posts.map(p => `<li>${p.title}</li>`).join('')
+            : "<li>No saved posts.</li>";
+        } else {
+          savedPostsListEl.innerHTML = "<li>No saved posts.</li>";
         }
-        snapshot.forEach(doc => {
-          const story = doc.data();
-          const li = document.createElement('li');
-          li.textContent = story.title || 'Untitled story';
-          yourStoriesList.appendChild(li);
-        });
       });
-  }
 
-  // Load saved worksheets
-  function loadSavedWorksheets(uid) {
-    savedWorksheetsList.innerHTML = 'Loading...';
-    db.collection('users').doc(uid).collection('savedWorksheets').get()
-      .then(snapshot => {
-        savedWorksheetsList.innerHTML = '';
-        if (snapshot.empty) {
-          savedWorksheetsList.innerHTML = '<li>No saved worksheets yet.</li>';
-          return;
+      // Load posted stories
+      db.collection('postedStories').doc(uid).get().then(doc => {
+        if (doc.exists) {
+          const stories = doc.data().stories || [];
+          postedStoriesListEl.innerHTML = stories.length > 0 
+            ? stories.map(s => `<li>${s.title}</li>`).join('')
+            : "<li>No stories posted yet.</li>";
+        } else {
+          postedStoriesListEl.innerHTML = "<li>No stories posted yet.</li>";
         }
-        snapshot.forEach(doc => {
-          const worksheet = doc.data();
-          const li = document.createElement('li');
-          li.textContent = worksheet.title || 'Untitled worksheet';
-          savedWorksheetsList.appendChild(li);
-        });
       });
-  }
 
-  // Load journal entries
-  function loadJournalEntries(uid) {
-    journalEntriesDiv.innerHTML = 'Loading...';
-    db.collection('users').doc(uid).collection('journalEntries').orderBy('timestamp', 'desc').get()
-      .then(snapshot => {
-        journalEntriesDiv.innerHTML = '';
-        if (snapshot.empty) {
-          journalEntriesDiv.innerHTML = '<p>No journal entries yet.</p>';
-          return;
+      // Load journal
+      db.collection('journals').doc(uid).get().then(doc => {
+        if (doc.exists) {
+          journalContentEl.value = doc.data().content || "";
         }
-        snapshot.forEach(doc => {
-          const entry = doc.data();
-          const p = document.createElement('p');
-          const date = entry.timestamp ? new Date(entry.timestamp.seconds * 1000).toLocaleString() : '';
-          p.innerHTML = `<strong>${date}</strong>: ${entry.text}`;
-          journalEntriesDiv.appendChild(p);
-        });
       });
-  }
 
-  // Save journal entry
-  saveJournalBtn.addEventListener('click', () => {
-    const user = auth.currentUser;
-    if (!user) return alert('You must be logged in to save a journal entry.');
-    const text = journalInput.value.trim();
-    if (!text) return alert('Please enter some text before saving.');
-    db.collection('users').doc(user.uid).collection('journalEntries').add({
-      text,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      alert('Journal entry saved!');
-      journalInput.value = '';
-      loadJournalEntries(user.uid);
-    }).catch(err => {
-      alert('Error saving journal: ' + err.message);
+      // Load saved worksheets
+      db.collection('savedWorksheets').doc(uid).get().then(doc => {
+        if (doc.exists) {
+          const worksheets = doc.data().worksheets || [];
+          savedWorksheetsListEl.innerHTML = worksheets.length > 0
+            ? worksheets.map(w => `<li>${w.title}</li>`).join('')
+            : "<li>No worksheets saved.</li>";
+        } else {
+          savedWorksheetsListEl.innerHTML = "<li>No worksheets saved.</li>";
+        }
+      });
     });
-  });
 
-  // Initialize Mood Chart with dummy data for past 7 days
-  function initMoodChart() {
-    const labels = [];
-    const data = [];
-    for(let i=6; i>=0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      labels.push(d.toLocaleDateString());
-      // Example: random mood between 1-5
-      data.push(Math.floor(Math.random() * 5) + 1);
-    }
-    if (moodChart) moodChart.destroy();
-    moodChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Mood Level (1-5)',
-          data,
-          borderColor: '#a64ac9',
-          backgroundColor: 'rgba(166, 74, 201, 0.2)',
-          fill: true,
-          tension: 0.4,
-          pointRadius: 5,
-          pointBackgroundColor: '#ff6f91'
-        }]
-      },
-      options: {
-        scales: {
-          y: { min: 0, max: 5, ticks: { stepSize: 1 } }
-        }
+    // Add mood entry form submit
+    document.getElementById('mood-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const uid = user.uid;
+      const date = document.getElementById('mood-date').value;
+      const mood = parseInt(document.getElementById('mood-rating').value, 10);
+
+      if (!date || isNaN(mood) || mood < 1 || mood > 10) {
+        alert("Please enter a valid date and mood rating between 1 and 10.");
+        return;
+      }
+
+      const moodRef = db.collection('moodEntries').doc(uid);
+      try {
+        const doc = await moodRef.get();
+        let entries = doc.exists ? doc.data().entries || [] : [];
+        entries.push({ date, mood });
+        await moodRef.set({ entries }, { merge: true });
+
+        // Update UI
+        moodListEl.innerHTML = entries
+          .sort((a,b) => new Date(b.date) - new Date(a.date))
+          .map(e => `<li><strong>${e.date}:</strong> Mood rating ${e.mood}</li>`)
+          .join('');
+
+        // Reset form
+        e.target.reset();
+      } catch (error) {
+        alert("Error saving mood entry: " + error.message);
       }
     });
-  }
 
-  // Logout
-  logoutBtn.addEventListener('click', () => {
-    auth.signOut().then(() => {
-      window.location.href = 'login.html';
+    // Save journal button
+    document.getElementById('save-journal-btn').addEventListener('click', async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+      const uid = user.uid;
+      const content = journalContentEl.value.trim();
+
+      try {
+        await db.collection('journals').doc(uid).set({ content });
+        journalStatusEl.textContent = "Journal saved!";
+        setTimeout(() => journalStatusEl.textContent = "", 3000);
+      } catch (error) {
+        journalStatusEl.textContent = "Error saving journal: " + error.message;
+      }
     });
-  });
-
-  // Theme toggle (simple example)
-  themeToggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-theme');
-  });
-
-  // On Auth state changed
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      loadUserProfile(user);
-      loadSavedPosts(user.uid);
-      loadYourStories(user.uid);
-      loadSavedWorksheets(user.uid);
-      loadJournalEntries(user.uid);
-      initMoodChart();
-      showRandomAffirmation();
-    } else {
-      window.location.href = 'login.html';
-    }
-  });
-</script>
-
+  </script>
 </body>
 </html>
