@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Logging Out...</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
   <style>
     .logout-container {
       text-align: center;
@@ -62,64 +57,35 @@
       50% { opacity: 0.6; }
     }
   </style>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.firebasestorage.app",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-
-    window.onload = () => {
-      firebase.auth().signOut().then(() => {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('user');
-        localStorage.removeItem('currentUser');
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 4000);
-      }).catch((error) => {
-        alert("Logout error: " + error.message);
-      });
-    };
-  </script>
 </head>
-
 <body>
   <header class="animated-header">
     <h1 class="glow">Logging You Out 💖</h1>
   </header>
 
   <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
+    <ul class="nav-links">
+      <details class="dropdown">
+        <summary><strong>Explore Topics</strong></summary>
+        <div class="dropdown-content">
+          <li><a href="cirrhosis.html">Cirrhosis</a></li>
+          <li><a href="mental-health.html">Mental Health</a></li>
+          <li><a href="addiction.html">Addiction</a></li>
+          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+          <li><a href="physical-abuse.html">Physical Abuse</a></li>
+          <li><a href="mental-abuse.html">Mental Abuse</a></li>
+          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+          <li><a href="pitbull-love.html">Pitbull Love</a></li>
+          <li><a href="foster-children.html">Foster Children</a></li>
+        </div>
+      </details>
+    </ul>
+  </nav>
 
   <main class="logout-container">
     <div class="spinner"></div>
     <p class="logout-message">See you soon, beautiful soul...</p>
-
     <div class="quote-box">
       <p>💬 “You are allowed to be both a masterpiece and a work in progress.”</p>
       <p class="affirmation">✨ Keep healing. Keep shining. ✨</p>
@@ -128,7 +94,15 @@
 
   <footer>
     <p>Built with ❤️ to inspire and empower.</p>
-    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
+    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn">✨ Visit My Linktree</a>
   </footer>
+
+  <script>
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("currentUser");
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 4000);
+  </script>
 </body>
 </html>
