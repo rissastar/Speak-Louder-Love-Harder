@@ -6,6 +6,50 @@
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Minimal inline styles for nav toggle (adjust in styles.css) */
+    .nav-toggle {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      margin: 1rem;
+      font-size: 1.2rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      user-select: none;
+    }
+    nav {
+      display: none;
+      margin: 1rem 0;
+    }
+    nav.show {
+      display: block;
+    }
+    .saved-content {
+      margin-top: 0.5rem;
+      font-style: italic;
+      color: var(--secondary-color);
+    }
+    .expandable-section summary {
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .auth-buttons button {
+      margin-left: 0.5rem;
+      cursor: pointer;
+      background: var(--accent-color);
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+      transition: background 0.3s ease;
+    }
+    .auth-buttons button:hover {
+      background: var(--primary-color);
+    }
+  </style>
 </head>
 <body>
 
@@ -18,7 +62,7 @@
 </header>
 
 <button class="nav-toggle" onclick="toggleNav()">📖 Menu</button>
-<nav>
+<nav id="mainNav">
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
@@ -29,7 +73,7 @@
     <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
     <li><a href="cirrhosis.html">Cirrhosis</a></li>
     <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
   </ul>
 </nav>
 
@@ -82,20 +126,31 @@
 </footer>
 
 <script>
-  // Load real name/bio
+  // Redirect to login if not logged in
   document.addEventListener("DOMContentLoaded", () => {
-    const name = localStorage.getItem("name") || "Friend";
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    if (!loggedInUser) {
+      alert("Please login first!");
+      window.location.href = "index.html#auth-section";
+      return;
+    }
+
+    // Load profile info (fall back to loggedInUser if name not set)
+    const name = localStorage.getItem("name") || loggedInUser || "Friend";
     const bio = localStorage.getItem("bio") || "Your story matters. You are loved.";
     document.getElementById("display-name").textContent = name;
     document.getElementById("display-bio").textContent = bio;
-    
+
+    // Load journal if any
     const journal = localStorage.getItem("journal");
     if (journal) {
       document.getElementById("saved-journal").textContent = "Last entry: " + journal;
     }
 
+    // Load saved posts list
     const posts = JSON.parse(localStorage.getItem("savedPosts") || "[]");
     const postList = document.getElementById("saved-posts");
+    postList.innerHTML = ""; // clear in case
     posts.forEach(p => {
       const li = document.createElement("li");
       li.textContent = p;
@@ -106,15 +161,17 @@
     initChart();
   });
 
-  // Save journal
+  // Save journal entry
   function saveJournal() {
-    const entry = document.getElementById("journal-entry").value;
-    if (entry.trim()) {
-      localStorage.setItem("journal", entry);
-      document.getElementById("saved-journal").textContent = "Last entry: " + entry;
-      document.getElementById("journal-entry").value = "";
-      alert("Journal saved!");
+    const entry = document.getElementById("journal-entry").value.trim();
+    if (!entry) {
+      alert("Please enter something in your journal.");
+      return;
     }
+    localStorage.setItem("journal", entry);
+    document.getElementById("saved-journal").textContent = "Last entry: " + entry;
+    document.getElementById("journal-entry").value = "";
+    alert("Journal saved!");
   }
 
   // Quote rotation
@@ -133,7 +190,7 @@
     }, 5000);
   }
 
-  // Chart.js mood chart
+  // Mood chart init with Chart.js
   function initChart() {
     const ctx = document.getElementById("moodChart").getContext("2d");
     new Chart(ctx, {
@@ -142,7 +199,7 @@
         labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [{
           label: "Mood Level (1–10)",
-          data: [6, 7, 5, 8, 7, 6, 9],
+          data: [6, 7, 5, 8, 7, 6, 9], // Replace with dynamic data if available
           fill: true,
           borderColor: "#a259ff",
           backgroundColor: "rgba(162, 89, 255, 0.2)",
@@ -161,9 +218,16 @@
     });
   }
 
+  // Logout function
   function logout() {
     localStorage.removeItem("loggedInUser");
-    location.href = "index.html";
+    window.location.href = "index.html";
+  }
+
+  // Toggle nav for mobile
+  function toggleNav() {
+    const nav = document.getElementById("mainNav");
+    nav.classList.toggle("show");
   }
 </script>
 
