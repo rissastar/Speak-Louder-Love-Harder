@@ -5,12 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Dashboard - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
 <body>
   <header class="animated-header">
     <h1 class="glow">Welcome to Your Dashboard 💖</h1>
     <button id="theme-toggle">Toggle Theme</button>
   </header>
+
+<div class="user-profile">
+  <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar" />
+  <h2 id="userName">Loading...</h2>
+  <p id="userEmail"></p>
+</div>
 
   <nav>
     <ul class="nav-links">
@@ -53,6 +61,8 @@
         <a href="guestbook-connect.html">Guestbook</a>
       </div>
     </section>
+  
+  <button onclick="logout()">Logout</button>
   </main>
 
   <footer>
@@ -60,18 +70,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    // Load saved bio if exists
-    const bioBox = document.getElementById('userBio');
-    const savedMsg = document.getElementById('savedMsg');
-
-    bioBox.value = localStorage.getItem('userBio') || "";
-
-    function saveBio() {
-      localStorage.setItem('userBio', bioBox.value);
-      savedMsg.style.opacity = 1;
-      setTimeout(() => savedMsg.style.opacity = 0, 2000);
-    }
-  </script>
 </body>
 </html>
