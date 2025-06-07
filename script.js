@@ -207,3 +207,20 @@ newAffirmationBtn.addEventListener("click", () => {
   const randIndex = Math.floor(Math.random() * affirmations.length);
   affirmationElem.textContent = affirmations[randIndex];
 });
+
+const registerBtn = document.getElementById("registerBtn");
+
+if (storedUser && isLoggedIn) {
+  loginBtn.style.display = "none";
+  registerBtn.style.display = "none";
+  logoutBtn.style.display = "inline-block";
+  welcomeMessage.textContent = `Welcome, ${storedUser.email.split('@')[0]} 💖`;
+} else {
+  loginBtn.style.display = "inline-block";
+  registerBtn.style.display = "inline-block";
+  logoutBtn.style.display = "none";
+}
+
+registerBtn.addEventListener("click", () => {
+  window.location.href = "register.html";
+});
