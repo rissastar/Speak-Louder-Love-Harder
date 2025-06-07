@@ -286,6 +286,22 @@
     <h1>Welcome to Speak Louder, Love Harder</h1>
     <p>Your community to uplift, support, and inspire mental wellness and love.</p>
   </section>
+  
+  <button class="nav-toggle" onclick="toggleNav()">📖 Menu</button>
+<nav class="top-nav" id="navBar">
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+    <li><a href="mental-health.html">Mental Health</a></li>
+    <li><a href="foster-care.html">Foster Care</a></li>
+    <li><a href="mental-abuse.html">Mental Abuse</a></li>
+    <li><a href="physical-abuse.html">Physical Abuse</a></li>
+    <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+    <li><a href="cirrhosis.html">Cirrhosis</a></li>
+    <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
 
   <section id="features" class="fade-in" tabindex="0" aria-label="Features of the website">
     <h2>Our Features</h2>
@@ -417,7 +433,23 @@
   document.getElementById('btnRegister').addEventListener('click', () => {
     alert('Register functionality coming soon!');
   });
-</script>
+  
+  // Collapsible nav toggle
+  document.querySelectorAll('.collapsible-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', !expanded);
+      const content = document.getElementById(button.getAttribute('aria-controls'));
+      if (content) {
+        content.hidden = expanded;
+      }
+    });
+  });
 
+  // Top nav toggle
+  function toggleNav() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("show");
+</script>
 </body>
 </html>
