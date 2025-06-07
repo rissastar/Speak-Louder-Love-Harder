@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
@@ -12,8 +14,8 @@
 </head>
 <body>
   <header class="animated-header">
-    <h1 class="glow">Your Dashboard 💖</h1>
-    <button id="logoutBtn">Logout</button>
+    <h1 class="glow">Welcome to Your Dashboard 💖</h1>
+    <button id="logoutBtn" class="btn logout-btn">Logout</button>
   </header>
 
   <nav>
@@ -37,18 +39,20 @@
   </nav>
 
   <main class="dashboard">
-    <div class="profile-pic-section">
-      <img src="default-avatar.png" id="profilePic" alt="Profile picture" />
-      <input type="file" id="picUpload" accept="image/*" />
-      <button id="uploadBtn">Upload Photo</button>
-    </div>
+    <section class="profile-section">
+      <div class="profile-pic-section">
+        <img src="default-avatar.png" id="profilePic" alt="Profile picture" />
+        <input type="file" id="picUpload" accept="image/*" />
+        <button id="uploadBtn" class="btn">Upload Photo</button>
+      </div>
 
-    <div class="profile-details">
-      <input type="text" id="displayName" placeholder="Display Name" />
-      <textarea id="bio" rows="4" placeholder="Your bio..."></textarea>
-      <button id="saveProfile">Save Profile</button>
-      <p id="profileSavedMsg" class="saved-msg">Profile saved!</p>
-    </div>
+      <div class="profile-details">
+        <input type="text" id="displayName" placeholder="Display Name" />
+        <textarea id="bio" rows="3" placeholder="Tell us a bit about you..."></textarea>
+        <button id="saveProfile" class="btn">Save Profile</button>
+        <p id="profileSavedMsg" class="saved-msg hidden">✅ Profile updated!</p>
+      </div>
+    </section>
 
     <section class="dashboard-affirmation">
       <p class="affirmation glow" id="affirmationText">You’re healing, shining, and becoming you.</p>
@@ -61,7 +65,6 @@
   </footer>
 
   <script>
-    // Firebase config for speak-louder-581d7
     const firebaseConfig = {
       apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
       authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -83,62 +86,62 @@
         return;
       }
 
-      // Load profile data
-      db.collection('profiles').doc(user.uid).get().then(doc => {
+      // Load user profile
+      const profileRef = db.collection("profiles").doc(user.uid);
+      profileRef.get().then(doc => {
         if (doc.exists) {
           const data = doc.data();
-          if (data.photoURL) {
-            document.getElementById('profilePic').src = data.photoURL;
-          }
-          document.getElementById('displayName').value = data.name || '';
-          document.getElementById('bio').value = data.bio || '';
+          if (data.photoURL) document.getElementById("profilePic").src = data.photoURL;
+          document.getElementById("displayName").value = data.name || "";
+          document.getElementById("bio").value = data.bio || "";
         }
       });
 
-      // Upload profile picture
-      document.getElementById('uploadBtn').onclick = () => {
-        const file = document.getElementById('picUpload').files[0];
-        if (!file) return alert("Please pick a photo.");
+      // Upload Profile Pic
+      document.getElementById("uploadBtn").onclick = () => {
+        const file = document.getElementById("picUpload").files[0];
+        if (!file) return alert("Pick a photo first!");
         const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
         ref.put(file)
-          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(snap => snap.ref.getDownloadURL())
           .then(url => {
-            document.getElementById('profilePic').src = url;
-            return db.collection('profiles').doc(user.uid).set({ photoURL: url }, { merge: true });
+            document.getElementById("profilePic").src = url;
+            return profileRef.set({ photoURL: url }, { merge: true });
           })
-          .then(() => alert("Profile picture saved!"))
+          .then(() => alert("✅ Photo uploaded!"))
           .catch(console.error);
       };
 
-      // Save profile info
-      document.getElementById('saveProfile').onclick = () => {
-        const name = document.getElementById('displayName').value;
-        const bio = document.getElementById('bio').value;
-        db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
+      // Save Name + Bio
+      document.getElementById("saveProfile").onclick = () => {
+        const name = document.getElementById("displayName").value;
+        const bio = document.getElementById("bio").value;
+        profileRef.set({ name, bio }, { merge: true })
           .then(() => {
-            const msg = document.getElementById('profileSavedMsg');
-            msg.style.opacity = 1;
-            setTimeout(() => msg.style.opacity = 0, 2000);
+            const msg = document.getElementById("profileSavedMsg");
+            msg.classList.remove("hidden");
+            setTimeout(() => msg.classList.add("hidden"), 2000);
           });
       };
 
       // Logout
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        auth.signOut().then(() => location.href = 'logout.html');
-      });
+      document.getElementById("logoutBtn").onclick = () => {
+        auth.signOut().then(() => window.location.href = "logout.html");
+      };
     });
 
-    // Rotating affirmations
+    // Affirmation Rotator
     const affirmations = [
       "You are strong just for being you.",
       "Your story is worth telling.",
       "Healing doesn't happen in a straight line.",
-      "Your presence makes a difference."
+      "Your presence makes a difference.",
+      "You matter every single day."
     ];
     let idx = 0;
     setInterval(() => {
       idx = (idx + 1) % affirmations.length;
-      document.getElementById('affirmationText').textContent = affirmations[idx];
+      document.getElementById("affirmationText").textContent = affirmations[idx];
     }, 8000);
   </script>
 </body>
