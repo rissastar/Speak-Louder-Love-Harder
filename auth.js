@@ -1,79 +1,109 @@
-// Firebase config (replace with your actual config)
-const firebaseConfig = {
-  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.firebasestorage.app",
-  messagingSenderId: "674769404942",
-  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-  measurementId: "G-54XJLK1CGJ"
-};
+// ===== QUOTES ROTATOR =====
+const quotes = [
+  { text: "You are stronger than you think.", author: "Unknown" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "Every day is a second chance.", author: "Unknown" },
+  { text: "Your story isn't over yet.", author: "Unknown" },
+  { text: "Speak louder, love harder.", author: "Unknown" },
+];
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+function showQuote() {
+  const quoteEl = document.getElementById("quoteText");
+  const authorEl = document.getElementById("quoteAuthor");
+  if (!quoteEl || !authorEl) return;
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+  const index = Math.floor(Math.random() * quotes.length);
+  quoteEl.textContent = `💬 "${quotes[index].text}"`;
+  authorEl.textContent = `— ${quotes[index].author}`;
+}
+setInterval(showQuote, 8000);
+showQuote();
 
-document.addEventListener("DOMContentLoaded", () => {
-  const registerForm = document.getElementById("registerForm");
-  const errorMsg = document.getElementById("errorMsg");
-
-  registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const displayName = document.getElementById("displayName").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const profilePicInput = document.getElementById("profilePic");
-
-    errorMsg.style.display = "none";
-    errorMsg.textContent = "";
-
-    if (password !== confirmPassword) {
-      errorMsg.textContent = "Passwords do not match.";
-      errorMsg.style.display = "block";
-      return;
+// ===== THEME SWITCHER =====
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
     }
+  });
 
-    try {
-      // Create user with email and password
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
+  // Load saved theme preference
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    themeToggle.checked = true;
+  } else {
+    document.documentElement.setAttribute("data-theme", "light");
+    themeToggle.checked = false;
+  }
+}
 
-      let profilePicUrl = "";
+// ===== TABS =====
+const tabButtons = document.querySelectorAll(".tab-button");
+const tabContents = document.querySelectorAll(".tab-content");
 
-      // Upload profile picture if selected
-      if (profilePicInput && profilePicInput.files.length > 0) {
-        const file = profilePicInput.files[0];
-        const storageRef = storage.ref().child(`profile_pics/${user.uid}`);
-        await storageRef.put(file);
-        profilePicUrl = await storageRef.getDownloadURL();
-      }
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = button.dataset.target;
+    tabContents.forEach((content) => {
+      content.style.display = content.id === target ? "block" : "none";
+    });
+    tabButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+  });
+});
 
-      // Update Firebase Auth user profile
-      await user.updateProfile({
-        displayName,
-        photoURL: profilePicUrl || null
-      });
+// Initialize first tab active if any
+if (tabButtons.length > 0) {
+  tabButtons[0].click();
+}
 
-      // Save user info to Firestore
-      await db.collection("users").doc(user.uid).set({
-        uid: user.uid,
-        displayName,
-        email,
-        photoURL: profilePicUrl || "",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+// ===== COLLAPSIBLES =====
+const collapsibles = document.querySelectorAll(".collapsible");
+collapsibles.forEach((collapsible) => {
+  collapsible.addEventListener("click", () => {
+    collapsible.classList.toggle("active");
+    const content = collapsible.nextElementSibling;
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+});
 
-      // Redirect to dashboard or homepage after successful registration
-      window.location.href = "dashboard.html";
+// ===== NAVIGATION HIGHLIGHT ON SCROLL =====
+// Optional: highlight nav links based on section in viewport
+const navLinks = document.querySelectorAll("nav a[href^='#']");
+window.addEventListener("scroll", () => {
+  let fromTop = window.scrollY + 60;
 
-    } catch (error) {
-      errorMsg.textContent = error.message;
-      errorMsg.style.display = "block";
+  navLinks.forEach((link) => {
+    let section = document.querySelector(link.hash);
+    if (!section) return;
+    if (
+      section.offsetTop <= fromTop &&
+      section.offsetTop + section.offsetHeight > fromTop
+    ) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+});
+
+// ===== UTILITY: SMOOTH SCROLL FOR ANCHORS =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function(e) {
+    e.preventDefault();
+    const targetEl = document.querySelector(this.getAttribute("href"));
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: "smooth" });
     }
   });
 });
