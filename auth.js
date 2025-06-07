@@ -1,109 +1,70 @@
-// ===== QUOTES ROTATOR =====
-const quotes = [
-  { text: "You are stronger than you think.", author: "Unknown" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-  { text: "Every day is a second chance.", author: "Unknown" },
-  { text: "Your story isn't over yet.", author: "Unknown" },
-  { text: "Speak louder, love harder.", author: "Unknown" },
-];
+// auth.js
 
-function showQuote() {
-  const quoteEl = document.getElementById("quoteText");
-  const authorEl = document.getElementById("quoteAuthor");
-  if (!quoteEl || !authorEl) return;
+// Import Firebase modules (if using modules) or include Firebase SDK in HTML before this script
 
-  const index = Math.floor(Math.random() * quotes.length);
-  quoteEl.textContent = `💬 "${quotes[index].text}"`;
-  authorEl.textContent = `— ${quotes[index].author}`;
-}
-setInterval(showQuote, 8000);
-showQuote();
+// Your Firebase config (use your actual config here)
+const firebaseConfig = {
+  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+  authDomain: "speak-louder-581d7.firebaseapp.com",
+  projectId: "speak-louder-581d7",
+  storageBucket: "speak-louder-581d7.firebasestorage.app",
+  messagingSenderId: "674769404942",
+  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+  measurementId: "G-54XJLK1CGJ",
+};
 
-// ===== THEME SWITCHER =====
-const themeToggle = document.getElementById("themeToggle");
-if (themeToggle) {
-  themeToggle.addEventListener("change", (e) => {
-    if (e.target.checked) {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.setAttribute("data-theme", "light");
-      localStorage.setItem("theme", "light");
-    }
-  });
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-  // Load saved theme preference
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    document.documentElement.setAttribute("data-theme", "dark");
-    themeToggle.checked = true;
-  } else {
-    document.documentElement.setAttribute("data-theme", "light");
-    themeToggle.checked = false;
-  }
-}
+const auth = firebase.auth();
 
-// ===== TABS =====
-const tabButtons = document.querySelectorAll(".tab-button");
-const tabContents = document.querySelectorAll(".tab-content");
-
-tabButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const target = button.dataset.target;
-    tabContents.forEach((content) => {
-      content.style.display = content.id === target ? "block" : "none";
+// LOGIN FUNCTION
+function login(email, password) {
+  return auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Successful login
+      const user = userCredential.user;
+      console.log("Logged in as:", user.email);
+      // Redirect or update UI here
+      window.location.href = "dashboard.html"; // example redirect
+    })
+    .catch((error) => {
+      console.error("Login error:", error.message);
+      alert("Login failed: " + error.message);
     });
-    tabButtons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-  });
-});
-
-// Initialize first tab active if any
-if (tabButtons.length > 0) {
-  tabButtons[0].click();
 }
 
-// ===== COLLAPSIBLES =====
-const collapsibles = document.querySelectorAll(".collapsible");
-collapsibles.forEach((collapsible) => {
-  collapsible.addEventListener("click", () => {
-    collapsible.classList.toggle("active");
-    const content = collapsible.nextElementSibling;
-    if (content.style.maxHeight) {
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
-  });
+// LOGOUT FUNCTION
+function logout() {
+  auth.signOut()
+    .then(() => {
+      console.log("Logged out");
+      window.location.href = "index.html"; // example redirect after logout
+    })
+    .catch((error) => {
+      console.error("Logout error:", error);
+    });
+}
+
+// AUTH STATE LISTENER (optional, to detect login state changes)
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    console.log("User is logged in:", user.email);
+    // You can show user info or redirect if needed
+  } else {
+    console.log("User is logged out");
+  }
 });
 
-// ===== NAVIGATION HIGHLIGHT ON SCROLL =====
-// Optional: highlight nav links based on section in viewport
-const navLinks = document.querySelectorAll("nav a[href^='#']");
-window.addEventListener("scroll", () => {
-  let fromTop = window.scrollY + 60;
-
-  navLinks.forEach((link) => {
-    let section = document.querySelector(link.hash);
-    if (!section) return;
-    if (
-      section.offsetTop <= fromTop &&
-      section.offsetTop + section.offsetHeight > fromTop
-    ) {
-      link.classList.add("active");
-    } else {
-      link.classList.remove("active");
-    }
-  });
-});
-
-// ===== UTILITY: SMOOTH SCROLL FOR ANCHORS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function(e) {
-    e.preventDefault();
-    const targetEl = document.querySelector(this.getAttribute("href"));
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: "smooth" });
-    }
-  });
+// ===== BIND LOGIN FORM =====
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = loginForm.email.value.trim();
+      const password = loginForm.password.value;
+      login(email, password);
+    });
+  }
 });
