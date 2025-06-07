@@ -3,65 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Login - Speak Louder, Love Harder</title>
+  <style>
+    :root {
+      --primary-color: #a259ff;
+      --secondary-color: #63ffc1;
+      --accent-color: #ff66a3;
+      --bg-color: #f9f9ff;
+      --text-color: #222;
+      --border-radius: 10px;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      font-family: var(--font-family);
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: center;
+    }
+    header {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: 0 0 6px rgba(162 89 255 / 0.8);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 2rem 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 1.2rem;
+      border: 2px solid var(--secondary-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 8px var(--accent-color);
+    }
+    button {
+      width: 100%;
+      padding: 0.8rem 0;
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: var(--accent-color);
+    }
+    p.message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      text-align: center;
+    }
+    .back-link {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .back-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .back-link a:hover {
+      color: var(--accent-color);
+    }
+  </style>
 </head>
 <body>
-  <header class="animated-header glow">Speak Louder, Love Harder - Login</header>
+  <header>Login to Speak Louder, Love Harder</header>
 
-  <main style="max-width: 400px; margin: 3rem auto; padding: 0 1rem;">
-    <form id="loginForm" class="auth-form">
-      <h2>Login</h2>
+  <form id="login-form" novalidate>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="username" />
 
-      <label for="loginUsername">Username</label>
-      <input type="text" id="loginUsername" required autocomplete="username" />
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Your password" required autocomplete="current-password" />
 
-      <label for="loginPassword">Password</label>
-      <input type="password" id="loginPassword" required autocomplete="current-password" />
+    <button type="submit">Login</button>
+    <p class="message" id="message"></p>
+  </form>
 
-      <button type="submit" class="button glow-button">Login</button>
-
-      <p style="margin-top: 1rem;">
-        Don't have an account? <a href="register.html">Register here</a>
-      </p>
-
-      <p id="loginMessage" style="color: var(--secondary); margin-top: 0.5rem;"></p>
-    </form>
-  </main>
+  <div class="back-link">
+    <a href="index.html">← Back to Home</a>
+  </div>
 
   <script>
-    // Simple fake user database for demo (stored in localStorage)
-    // In production, replace with real auth system
+    const form = document.getElementById('login-form');
+    const message = document.getElementById('message');
 
-    // Check if users object exists, if not create one
-    if (!localStorage.getItem('users')) {
-      const defaultUsers = {
-        "testuser": "password123"
-      };
-      localStorage.setItem('users', JSON.stringify(defaultUsers));
+    function getUsers() {
+      const usersJSON = localStorage.getItem('users');
+      return usersJSON ? JSON.parse(usersJSON) : {};
     }
 
-    const loginForm = document.getElementById('loginForm');
-    const loginMessage = document.getElementById('loginMessage');
-
-    loginForm.addEventListener('submit', e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      const username = document.getElementById('loginUsername').value.trim();
-      const password = document.getElementById('loginPassword').value;
+      message.textContent = '';
 
-      const users = JSON.parse(localStorage.getItem('users'));
+      const email = form.email.value.trim().toLowerCase();
+      const password = form.password.value;
 
-      if (users[username] && users[username] === password) {
-        localStorage.setItem('currentUser', username);
-        loginMessage.style.color = 'var(--primary)';
-        loginMessage.textContent = 'Login successful! Redirecting...';
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1200);
-      } else {
-        loginMessage.style.color = 'var(--error)';
-        loginMessage.textContent = 'Invalid username or password.';
+      if (!email || !password) {
+        message.textContent = 'Please enter both email and password.';
+        return;
       }
+
+      const users = getUsers();
+
+      if (!users[email]) {
+        message.textContent = 'No account found with this email.';
+        return;
+      }
+
+      if (users[email].password !== password) {
+        message.textContent = 'Incorrect password.';
+        return;
+      }
+
+      // Successful login
+      localStorage.setItem('loggedInUser', email);
+      message.style.color = 'green';
+      message.textContent = 'Login successful! Redirecting...';
+
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
     });
   </script>
 </body>
