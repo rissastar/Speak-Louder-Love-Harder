@@ -102,107 +102,109 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-  <script src="settings.js"></script>
-  
-  // Initialize Firebase (make sure config matches your dashboard)
-const firebaseConfig = {
-  apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.appspot.com",
-  messagingSenderId: "674769404942",
-  appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-  measurementId: "G-54XJLK1CGJ"
-};
+  <script>
+    // Initialize Firebase (make sure config matches your dashboard)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.appspot.com",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
+    };
 
-firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
 
-const profileForm = document.getElementById('profileForm');
-const profilePicInput = document.getElementById('profilePicInput');
-const profilePicPreview = document.getElementById('profilePicPreview');
-const nameInput = document.getElementById('nameInput');
-const bioInput = document.getElementById('bioInput');
-const successMsg = document.getElementById('successMsg');
+    const profileForm = document.getElementById('profileForm');
+    const profilePicInput = document.getElementById('profilePicInput');
+    const profilePicPreview = document.getElementById('profilePicPreview');
+    const nameInput = document.getElementById('nameInput');
+    const bioInput = document.getElementById('bioInput');
+    const successMsg = document.getElementById('successMsg');
 
-let currentUser;
-let selectedFile = null;
+    let currentUser;
+    let selectedFile = null;
 
-// Redirect to login if no user
-auth.onAuthStateChanged(user => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
-  currentUser = user;
-  loadProfile();
-});
-
-// Load existing profile data and picture preview
-function loadProfile() {
-  db.collection('profiles').doc(currentUser.uid).get()
-    .then(doc => {
-      if (doc.exists) {
-        const data = doc.data();
-        nameInput.value = data.name || '';
-        bioInput.value = data.bio || '';
-        profilePicPreview.src = data.photoURL || 'default-avatar.png';
+    // Redirect to login if no user
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
       }
-    }).catch(console.error);
-}
+      currentUser = user;
+      loadProfile();
+    });
 
-// Preview selected image immediately
-profilePicInput.addEventListener('change', e => {
-  if (e.target.files && e.target.files[0]) {
-    selectedFile = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      profilePicPreview.src = ev.target.result;
+    // Load existing profile data and picture preview
+    function loadProfile() {
+      db.collection('profiles').doc(currentUser.uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            nameInput.value = data.name || '';
+            bioInput.value = data.bio || '';
+            profilePicPreview.src = data.photoURL || 'default-avatar.png';
+          }
+        }).catch(console.error);
     }
-    reader.readAsDataURL(selectedFile);
-  }
-});
 
-profileForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+    // Preview selected image immediately
+    profilePicInput.addEventListener('change', e => {
+      if (e.target.files && e.target.files[0]) {
+        selectedFile = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          profilePicPreview.src = ev.target.result;
+        }
+        reader.readAsDataURL(selectedFile);
+      }
+    });
 
-  if (!currentUser) return alert("User not authenticated.");
+    profileForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-  successMsg.style.display = 'none';
+      if (!currentUser) return alert("User not authenticated.");
 
-  let photoURL = profilePicPreview.src; // default or uploaded
+      successMsg.style.display = 'none';
 
-  // If user selected new file, upload to Firebase Storage
-  if (selectedFile) {
-    const storageRef = storage.ref();
-    const fileRef = storageRef.child(`profilePictures/${currentUser.uid}/${selectedFile.name}`);
-    try {
-      await fileRef.put(selectedFile);
-      photoURL = await fileRef.getDownloadURL();
-    } catch (err) {
-      alert("Error uploading image: " + err.message);
-      return;
-    }
-  }
+      let photoURL = profilePicPreview.src; // default or uploaded
 
-  // Update Firestore profile
-  db.collection('profiles').doc(currentUser.uid).set({
-    name: nameInput.value.trim(),
-    bio: bioInput.value.trim(),
-    photoURL: photoURL
-  }, { merge: true })
-  .then(() => {
-    successMsg.style.display = 'block';
-    // Hide success after 3 seconds
-    setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
-    selectedFile = null;
-  })
-  .catch(err => {
-    alert("Error saving profile: " + err.message);
-  });
-});
+      // If user selected new file, upload to Firebase Storage
+      if (selectedFile) {
+        const storageRef = storage.ref();
+        // Use timestamp + filename to avoid caching issues or overwrite
+        const fileName = `${Date.now()}_${selectedFile.name}`;
+        const fileRef = storageRef.child(`profilePictures/${currentUser.uid}/${fileName}`);
+        try {
+          await fileRef.put(selectedFile);
+          photoURL = await fileRef.getDownloadURL();
+        } catch (err) {
+          alert("Error uploading image: " + err.message);
+          return;
+        }
+      }
+
+      // Update Firestore profile
+      db.collection('profiles').doc(currentUser.uid).set({
+        name: nameInput.value.trim(),
+        bio: bioInput.value.trim(),
+        photoURL: photoURL
+      }, { merge: true })
+      .then(() => {
+        successMsg.style.display = 'block';
+        // Hide success after 3 seconds
+        setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+        selectedFile = null;
+      })
+      .catch(err => {
+        alert("Error saving profile: " + err.message);
+      });
+    });
+  </script>
 </body>
 </html>
