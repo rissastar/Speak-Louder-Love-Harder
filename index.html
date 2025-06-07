@@ -56,88 +56,41 @@
       background-color: var(--accent-color);
       color: white;
     }
-    details.dropdown {
-      position: relative;
-    }
-    details > summary {
-      list-style: none;
-      cursor: pointer;
-      font-weight: 700;
-      user-select: none;
-      padding: 0.3rem 0.5rem;
-      border-radius: 6px;
-    }
-    details[open] > summary {
-      background-color: var(--accent-color);
-      color: white;
-    }
-    .dropdown-content {
-      position: absolute;
-      background-color: var(--secondary-color);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      margin-top: 0.25rem;
-      z-index: 10;
-      min-width: 200px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .dropdown-content li {
-      margin: 0;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 0.3rem 0.5rem;
-      font-weight: 500;
-    }
     main {
       max-width: 720px;
       margin: 2rem auto;
       padding: 0 1rem;
+      text-align: center;
     }
     h1 {
       color: var(--primary-color);
-      text-align: center;
       text-shadow: 0 0 6px rgba(162 89 255 / 0.8);
     }
-    section#auth-section,
-    section#welcome-section {
-      background: #eee;
-      padding: 1rem 1.5rem;
-      margin-top: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.05);
+    p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
     }
-    form {
+    .auth-buttons {
       display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-      max-width: 320px;
-      margin: 0 auto 1rem;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
     }
-    input[type="email"],
-    input[type="password"] {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      outline-offset: 2px;
-      outline-color: var(--primary-color);
-    }
-    button {
+    .auth-buttons button {
       background-color: var(--primary-color);
       border: none;
       color: white;
-      padding: 0.6rem 1rem;
+      padding: 0.8rem 1.6rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.1rem;
       transition: background-color 0.3s ease;
+      min-width: 120px;
     }
-    button:hover {
+    .auth-buttons button:hover {
       background-color: var(--accent-color);
     }
     @media (max-width: 480px) {
@@ -145,10 +98,12 @@
         flex-direction: column;
         gap: 0.5rem;
       }
-      .dropdown-content {
-        position: static;
-        box-shadow: none;
-        margin-top: 0;
+      .auth-buttons {
+        flex-direction: column;
+      }
+      .auth-buttons button {
+        width: 100%;
+        min-width: unset;
       }
     }
   </style>
@@ -159,7 +114,6 @@
   Speak Louder, Love Harder
 </header>
 
-<!-- First nav bar -->
 <nav>
   <ul class="nav-links">
     <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
@@ -180,102 +134,11 @@
     Here you can find resources, connect with others, share your story, and uplift each other with inspirational quotes and affirmations.
   </p>
 
-  <!-- Login / Register Section -->
-  <section id="auth-section">
-    <h2>Register</h2>
-    <form id="register-form" autocomplete="off">
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Register</button>
-    </form>
-
-    <h2>Login</h2>
-    <form id="login-form" autocomplete="off">
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-  </section>
-
-  <!-- Welcome Section after login -->
-  <section id="welcome-section" style="display:none;">
-    <p>Welcome, <strong id="welcome-user"></strong>!</p>
-    <button id="logout-btn">Logout</button>
-  </section>
+  <div class="auth-buttons">
+    <button onclick="location.href='register.html'">Register</button>
+    <button onclick="location.href='login.html'">Login</button>
+  </div>
 </main>
-
-<script>
-  // Simple login/register using localStorage
-
-  const registerForm = document.getElementById('register-form');
-  const loginForm = document.getElementById('login-form');
-  const authSection = document.getElementById('auth-section');
-  const welcomeSection = document.getElementById('welcome-section');
-  const welcomeUser = document.getElementById('welcome-user');
-  const logoutBtn = document.getElementById('logout-btn');
-
-  function setLoggedIn(email) {
-    localStorage.setItem('loggedInUser', email);
-    welcomeUser.textContent = email;
-    authSection.style.display = 'none';
-    welcomeSection.style.display = 'block';
-  }
-
-  function logout() {
-    localStorage.removeItem('loggedInUser');
-    welcomeUser.textContent = '';
-    authSection.style.display = 'block';
-    welcomeSection.style.display = 'none';
-  }
-
-  // Check on page load if user is logged in
-  window.addEventListener('DOMContentLoaded', () => {
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    if (loggedInUser) {
-      setLoggedIn(loggedInUser);
-    }
-  });
-
-  // Register handler
-  registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = registerForm.email.value.trim();
-    const password = registerForm.password.value.trim();
-
-    if (localStorage.getItem('user_' + email)) {
-      alert('User already exists. Please login.');
-      return;
-    }
-    // Save user as JSON string in localStorage (DO NOT use in real apps!)
-    localStorage.setItem('user_' + email, JSON.stringify({email, password}));
-    alert('Registration successful! You can now log in.');
-    registerForm.reset();
-  });
-
-  // Login handler
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = loginForm.email.value.trim();
-    const password = loginForm.password.value.trim();
-
-    const userDataStr = localStorage.getItem('user_' + email);
-    if (!userDataStr) {
-      alert('User not found. Please register first.');
-      return;
-    }
-    const userData = JSON.parse(userDataStr);
-    if (userData.password === password) {
-      setLoggedIn(email);
-      loginForm.reset();
-    } else {
-      alert('Incorrect password.');
-    }
-  });
-
-  logoutBtn.addEventListener('click', () => {
-    logout();
-  });
-</script>
 
 </body>
 </html>
