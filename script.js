@@ -262,19 +262,6 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     });
 });
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "speak-louder-581d7.firebaseapp.com",
-  projectId: "speak-louder-581d7",
-  storageBucket: "speak-louder-581d7.appspot.com",
-  messagingSenderId: "YOUR_MSG_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
 // Protect dashboard
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -291,3 +278,9 @@ auth.onAuthStateChanged((user) => {
     window.location.href = "index.html";
   }
 });
+
+function logout() {
+  auth.signOut().then(() => {
+    window.location.href = "index.html";
+  });
+}
