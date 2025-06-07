@@ -2,107 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Logging Out...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    .logout-container {
-      text-align: center;
-      padding: 4rem 2rem;
-    }
-
-    .spinner {
-      margin: 2rem auto;
-      border: 5px solid rgba(255,255,255,0.1);
-      border-top: 5px solid var(--accent-color);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .logout-message {
-      font-size: 1.4rem;
-      color: var(--primary-color);
-      margin-top: 1.2rem;
-    }
-
-    .quote-box {
-      margin-top: 2rem;
-      font-style: italic;
-      font-size: 1.1rem;
-      color: var(--secondary-color);
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 1s;
-    }
-
-    .affirmation {
-      margin-top: 1rem;
-      font-weight: bold;
-      color: var(--accent-color);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-  </style>
 </head>
 <body>
-  <header class="animated-header">
-    <h1 class="glow">Logging You Out 💖</h1>
-  </header>
+  <header class="animated-header glow">Speak Louder, Love Harder - Register</header>
 
-  <nav>
-    <ul class="nav-links">
-      <details class="dropdown">
-        <summary><strong>Explore Topics</strong></summary>
-        <div class="dropdown-content">
-          <li><a href="cirrhosis.html">Cirrhosis</a></li>
-          <li><a href="mental-health.html">Mental Health</a></li>
-          <li><a href="addiction.html">Addiction</a></li>
-          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-          <li><a href="physical-abuse.html">Physical Abuse</a></li>
-          <li><a href="mental-abuse.html">Mental Abuse</a></li>
-          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-          <li><a href="pitbull-love.html">Pitbull Love</a></li>
-          <li><a href="foster-children.html">Foster Children</a></li>
-        </div>
-      </details>
-    </ul>
-  </nav>
+  <main style="max-width: 400px; margin: 3rem auto; padding: 0 1rem;">
+    <form id="registerForm" class="auth-form">
+      <h2>Create Account</h2>
 
-  <main class="logout-container">
-    <div class="spinner"></div>
-    <p class="logout-message">See you soon, beautiful soul...</p>
-    <div class="quote-box">
-      <p>💬 “You are allowed to be both a masterpiece and a work in progress.”</p>
-      <p class="affirmation">✨ Keep healing. Keep shining. ✨</p>
-    </div>
+      <label for="registerUsername">Username</label>
+      <input type="text" id="registerUsername" required autocomplete="username" />
+
+      <label for="registerPassword">Password</label>
+      <input type="password" id="registerPassword" required autocomplete="new-password" />
+
+      <label for="registerPasswordConfirm">Confirm Password</label>
+      <input type="password" id="registerPasswordConfirm" required autocomplete="new-password" />
+
+      <button type="submit" class="button glow-button">Register</button>
+
+      <p style="margin-top: 1rem;">
+        Already have an account? <a href="login.html">Login here</a>
+      </p>
+
+      <p id="registerMessage" style="color: var(--secondary); margin-top: 0.5rem;"></p>
+    </form>
   </main>
 
-  <footer>
-    <p>Built with ❤️ to inspire and empower.</p>
-    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn">✨ Visit My Linktree</a>
-  </footer>
-
   <script>
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("currentUser");
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 4000);
+    const registerForm = document.getElementById('registerForm');
+    const registerMessage = document.getElementById('registerMessage');
+
+    registerForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const username = document.getElementById('registerUsername').value.trim();
+      const password = document.getElementById('registerPassword').value;
+      const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+
+      if (password !== passwordConfirm) {
+        registerMessage.style.color = 'var(--error)';
+        registerMessage.textContent = 'Passwords do not match.';
+        return;
+      }
+
+      if (password.length < 6) {
+        registerMessage.style.color = 'var(--error)';
+        registerMessage.textContent = 'Password must be at least 6 characters.';
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('users')) || {};
+
+      if (users[username]) {
+        registerMessage.style.color = 'var(--error)';
+        registerMessage.textContent = 'Username already taken.';
+        return;
+      }
+
+      // Save new user
+      users[username] = password;
+      localStorage.setItem('users', JSON.stringify(users));
+
+      // Auto-login
+      localStorage.setItem('currentUser', username);
+
+      registerMessage.style.color = 'var(--primary)';
+      registerMessage.textContent = 'Registration successful! Redirecting...';
+
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 1200);
+    });
   </script>
 </body>
 </html>
