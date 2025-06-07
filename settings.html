@@ -3,112 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings – Speak Louder, Love Harder</title>
+  <title>Your Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    .success-msg {
-      display: none;
-      color: var(--primary-color);
-      font-weight: 700;
-      margin-top: 1rem;
-      animation: fadeInScale 0.5s ease forwards;
-    }
-
-    @keyframes fadeInScale {
-      0% { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    form {
-      max-width: 400px;
-      margin: 2rem auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    label {
-      font-weight: 600;
-    }
-
-    input[type="text"], textarea {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid var(--primary-color);
-      border-radius: 6px;
-    }
-
-    input[type="file"] {
-      padding: 0.2rem;
-    }
-
-    button {
-      background: var(--primary-color);
-      color: var(--background-color);
-      border: none;
-      padding: 0.75rem;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background: var(--accent-color);
-    }
-
-    .preview-avatar {
-      display: block;
-      margin: 1rem auto;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 10px var(--primary-color);
-    }
-  </style>
-</head>
-<body>
-
-  <header class="animated-header">
-    <h1 class="glow">Settings ⚙️</h1>
-    <a href="dashboard.html" style="text-decoration:none; font-weight:bold;">← Back to Dashboard</a>
-  </header>
-
-  <nav>
-    <ul class="nav-links">
-      <details class="dropdown">
-        <summary><strong>Explore Topics</strong></summary>
-        <div class="dropdown-content">
-          <li><a href="cirrhosis.html">Cirrhosis</a></li>
-          <li><a href="mental-health.html">Mental Health</a></li>
-          <li><a href="addiction.html">Addiction</a></li>
-          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-          <li><a href="physical-abuse.html">Physical Abuse</a></li>
-          <li><a href="mental-abuse.html">Mental Abuse</a></li>
-          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-          <li><a href="pitbull-love.html">Pitbull Love</a></li>
-          <li><a href="foster-children.html">Foster Children</a></li>
-        </div>
-      </details>
-    </ul>
-  </nav>
-
-  <form id="profileForm">
-    <label for="profilePicInput">Upload Profile Picture</label>
-    <input type="file" id="profilePicInput" accept="image/*" />
-    <img src="default-avatar.png" alt="Profile Preview" class="preview-avatar" id="profilePicPreview" />
-
-    <label for="nameInput">Your Name</label>
-    <input type="text" id="nameInput" placeholder="Enter your name" maxlength="50" />
-
-    <label for="bioInput">Your Bio</label>
-    <textarea id="bioInput" rows="4" placeholder="Tell us about yourself..." maxlength="200"></textarea>
-
-    <button type="submit">Save Profile</button>
-    <p class="success-msg" id="successMsg">✔️ Profile saved successfully!</p>
-  </form>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -116,92 +12,285 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.appspot.com",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
+  <!-- Chart.js for mood graph -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const storage = firebase.storage();
+<header>
+  <div id="profileHeader">
+    <img id="dashboardProfilePic" src="default-profile.png" alt="Profile Picture" style="width:60px; height:60px; border-radius:50%;" />
+    <div>
+      <h2 id="dashboardName">Your Name</h2>
+      <p id="dashboardBio">Your bio will appear here.</p>
+    </div>
+  </div>
 
-    const profileForm = document.getElementById('profileForm');
-    const profilePicInput = document.getElementById('profilePicInput');
-    const profilePicPreview = document.getElementById('profilePicPreview');
-    const nameInput = document.getElementById('nameInput');
-    const bioInput = document.getElementById('bioInput');
-    const successMsg = document.getElementById('successMsg');
+  <nav>
+    <a href="settings.html">Settings</a> |
+    <a href="#" id="logoutBtn">Logout</a>
+  </nav>
+</header>
 
-    let currentUser;
-    let selectedFile = null;
+<main>
+  <section id="moodTrackerSection">
+    <h3>Mood Tracker</h3>
+    <canvas id="moodChart" width="400" height="150"></canvas>
+  </section>
 
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-      currentUser = user;
-      loadProfile();
+  <section id="savedPostsSection">
+    <h3>Saved Posts</h3>
+    <ul id="savedPostsList">
+      <!-- saved posts will be loaded here -->
+    </ul>
+  </section>
+
+  <section id="postedStoriesSection">
+    <h3>Your Stories</h3>
+    <ul id="postedStoriesList">
+      <!-- posted stories will be loaded here -->
+    </ul>
+  </section>
+
+  <section id="journalSection">
+    <h3>Your Journal</h3>
+    <textarea id="journalText" rows="8" placeholder="Write your journal here..."></textarea><br/>
+    <button id="saveJournalBtn">Save Journal</button>
+    <p id="journalStatus"></p>
+  </section>
+
+  <section id="suggestionsSection">
+    <h3>Suggestions to Feel Happy 😊</h3>
+    <ul>
+      <li>Go for a walk in nature.</li>
+      <li>Practice deep breathing exercises.</li>
+      <li>Listen to your favorite music.</li>
+      <li>Spend time with loved ones or pets.</li>
+      <li>Write down things you are grateful for.</li>
+      <li>Try a new hobby or creative activity.</li>
+    </ul>
+  </section>
+
+  <section id="savedWorksheetsSection">
+    <h3>Saved Worksheets</h3>
+    <ul id="savedWorksheetsList">
+      <!-- saved worksheets will be loaded here -->
+    </ul>
+  </section>
+</main>
+
+<script>
+  // Firebase config - replace with your own
+  const firebaseConfig = {
+    apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+    authDomain: "speak-louder-581d7.firebaseapp.com",
+    projectId: "speak-louder-581d7",
+    storageBucket: "speak-louder-581d7.firebasestorage.app",
+    messagingSenderId: "674769404942",
+    appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+    measurementId: "G-54XJLK1CGJ"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  const dashboardProfilePic = document.getElementById('dashboardProfilePic');
+  const dashboardName = document.getElementById('dashboardName');
+  const dashboardBio = document.getElementById('dashboardBio');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Mood tracker elements
+  const moodCtx = document.getElementById('moodChart').getContext('2d');
+
+  // Saved posts, stories, worksheets
+  const savedPostsList = document.getElementById('savedPostsList');
+  const postedStoriesList = document.getElementById('postedStoriesList');
+  const savedWorksheetsList = document.getElementById('savedWorksheetsList');
+
+  // Journal elements
+  const journalText = document.getElementById('journalText');
+  const saveJournalBtn = document.getElementById('saveJournalBtn');
+  const journalStatus = document.getElementById('journalStatus');
+
+  let currentUser;
+
+  auth.onAuthStateChanged(user => {
+    if (!user) {
+      window.location.href = 'login.html';
+      return;
+    }
+    currentUser = user;
+    loadProfile();
+    loadMoodData();
+    loadSavedPosts();
+    loadPostedStories();
+    loadJournal();
+    loadSavedWorksheets();
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut().then(() => {
+      window.location.href = 'login.html';
     });
+  });
 
-    function loadProfile() {
-      db.collection('profiles').doc(currentUser.uid).get().then(doc => {
+  // Load user profile data
+  function loadProfile() {
+    const uid = currentUser.uid;
+
+    // Load profile pic
+    storage.ref(`profilePictures/${uid}`).getDownloadURL()
+      .then(url => {
+        dashboardProfilePic.src = url;
+      })
+      .catch(() => {
+        dashboardProfilePic.src = 'default-profile.png';
+      });
+
+    // Load name and bio
+    db.collection('profiles').doc(uid).get()
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data();
-          nameInput.value = data.name || '';
-          bioInput.value = data.bio || '';
-          profilePicPreview.src = data.photoURL || 'default-avatar.png';
+          dashboardName.textContent = data.name || "Your Name";
+          dashboardBio.textContent = data.bio || "Your bio will appear here.";
         }
-      }).catch(err => console.error("Error loading profile:", err));
+      });
+  }
+
+  // Mood Tracker
+  function loadMoodData() {
+    const uid = currentUser.uid;
+    db.collection('moodEntries').doc(uid).get()
+      .then(doc => {
+        const labels = [];
+        const data = [];
+        if (doc.exists) {
+          const moodData = doc.data().entries || [];
+          // Sort by date ascending
+          moodData.sort((a,b) => new Date(a.date) - new Date(b.date));
+          moodData.forEach(entry => {
+            labels.push(entry.date);
+            data.push(entry.mood);
+          });
+        }
+
+        new Chart(moodCtx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Mood Level (1-10)',
+              data: data,
+              borderColor: 'purple',
+              backgroundColor: 'rgba(166, 74, 201, 0.2)',
+              fill: true,
+              tension: 0.3,
+              pointRadius: 5,
+              pointHoverRadius: 7
+            }]
+          },
+          options: {
+            scales: {
+              y: { min: 1, max: 10, stepSize: 1 }
+            }
+          }
+        });
+      });
+  }
+
+  // Load saved posts
+  function loadSavedPosts() {
+    const uid = currentUser.uid;
+    savedPostsList.innerHTML = '<li>Loading saved posts...</li>';
+    db.collection('savedPosts').doc(uid).get()
+      .then(doc => {
+        if (doc.exists && doc.data().posts.length > 0) {
+          const posts = doc.data().posts;
+          savedPostsList.innerHTML = '';
+          posts.forEach(post => {
+            const li = document.createElement('li');
+            li.textContent = post.title || 'Untitled Post';
+            savedPostsList.appendChild(li);
+          });
+        } else {
+          savedPostsList.innerHTML = '<li>No saved posts yet.</li>';
+        }
+      });
+  }
+
+  // Load posted stories
+  function loadPostedStories() {
+    const uid = currentUser.uid;
+    postedStoriesList.innerHTML = '<li>Loading your stories...</li>';
+    db.collection('postedStories').doc(uid).get()
+      .then(doc => {
+        if (doc.exists && doc.data().stories.length > 0) {
+          const stories = doc.data().stories;
+          postedStoriesList.innerHTML = '';
+          stories.forEach(story => {
+            const li = document.createElement('li');
+            li.textContent = story.title || 'Untitled Story';
+            postedStoriesList.appendChild(li);
+          });
+        } else {
+          postedStoriesList.innerHTML = '<li>You have not posted any stories yet.</li>';
+        }
+      });
+  }
+
+  // Load journal text
+  function loadJournal() {
+    const uid = currentUser.uid;
+    db.collection('journals').doc(uid).get()
+      .then(doc => {
+        if (doc.exists) {
+          journalText.value = doc.data().content || '';
+        }
+      });
+  }
+
+  // Save journal
+  saveJournalBtn.addEventListener('click', () => {
+    const uid = currentUser.uid;
+    const content = journalText.value.trim();
+    if (content.length === 0) {
+      journalStatus.textContent = 'Journal cannot be empty.';
+      return;
     }
+    db.collection('journals').doc(uid).set({ content })
+      .then(() => {
+        journalStatus.textContent = 'Journal saved!';
+        setTimeout(() => journalStatus.textContent = '', 3000);
+      })
+      .catch(() => {
+        journalStatus.textContent = 'Error saving journal.';
+      });
+  });
 
-    profilePicInput.addEventListener('change', e => {
-      if (e.target.files[0]) {
-        selectedFile = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          profilePicPreview.src = ev.target.result;
-        };
-        reader.readAsDataURL(selectedFile);
-      }
-    });
-
-    profileForm.addEventListener('submit', async e => {
-      e.preventDefault();
-      if (!currentUser) return alert("User not authenticated.");
-
-      successMsg.style.display = 'none';
-      let photoURL = profilePicPreview.src;
-
-      try {
-        if (selectedFile) {
-          const fileRef = storage.ref().child(`profilePictures/${currentUser.uid}/${selectedFile.name}`);
-          await fileRef.put(selectedFile);
-          photoURL = await fileRef.getDownloadURL();
+  // Load saved worksheets
+  function loadSavedWorksheets() {
+    const uid = currentUser.uid;
+    savedWorksheetsList.innerHTML = '<li>Loading worksheets...</li>';
+    db.collection('savedWorksheets').doc(uid).get()
+      .then(doc => {
+        if (doc.exists && doc.data().worksheets.length > 0) {
+          const sheets = doc.data().worksheets;
+          savedWorksheetsList.innerHTML = '';
+          sheets.forEach(sheet => {
+            const li = document.createElement('li');
+            li.textContent = sheet.title || 'Untitled Worksheet';
+            savedWorksheetsList.appendChild(li);
+          });
+        } else {
+          savedWorksheetsList.innerHTML = '<li>No saved worksheets yet.</li>';
         }
+      });
+  }
+</script>
 
-        await db.collection('profiles').doc(currentUser.uid).set({
-          name: nameInput.value.trim(),
-          bio: bioInput.value.trim(),
-          photoURL: photoURL
-        }, { merge: true });
-
-        profilePicPreview.src = photoURL;
-        selectedFile = null;
-        successMsg.style.display = 'block';
-        setTimeout(() => successMsg.style.display = 'none', 3000);
-
-      } catch (err) {
-        alert("Error saving profile: " + err.message);
-      }
-    });
-  </script>
 </body>
 </html>
