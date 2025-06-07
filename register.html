@@ -3,30 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
   <title>Register - Speak Louder, Love Harder</title>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-  <!-- Your external JS -->
-  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 <body>
-  <main>
-    <div class="login-container">
-      <form id="registerForm" class="auth-form">
-        <h2>Create Your Account</h2>
-        <input type="text" id="displayName" placeholder="Full Name" required />
-        <input type="email" id="email" placeholder="Email" required />
-        <input type="password" id="password" placeholder="Password" required />
-        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
-        <button type="submit">Register</button>
-        <p id="errorMsg" style="color: red; display: none;"></p>
-        <p>Already have an account? <a href="index.html">Login here</a></p>
-      </form>
-    </div>
+  <main class="auth-container">
+    <h1>Register</h1>
+    <form id="registerForm" class="auth-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" required minlength="6" />
+      
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required minlength="6" />
+      
+      <button type="submit" class="btn-primary">Register</button>
+    </form>
+    <p>
+      Already have an account? <a href="login.html">Log in here</a>
+    </p>
   </main>
+
+  <script>
+    // Firebase config (same as login)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.firebasestorage.app",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Redirect if already logged in
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        window.location.href = "dashboard.html";
+      }
+    });
+
+    // Handle registration form submission
+    const registerForm = document.getElementById('registerForm');
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = registerForm.email.value.trim();
+      const password = registerForm.password.value;
+      const confirmPassword = registerForm.confirmPassword.value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      try {
+        await auth.createUserWithEmailAndPassword(email, password);
+        // Redirect on success
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("Registration failed: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
