@@ -33,7 +33,33 @@
     .logout-message {
       font-size: 1.4rem;
       color: var(--primary-color);
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .quote-box {
+      margin-top: 2rem;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 1s;
+    }
+
+    .affirmation {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
     }
   </style>
 
@@ -57,7 +83,7 @@
         localStorage.removeItem('currentUser');
         setTimeout(() => {
           window.location.href = "login.html";
-        }, 2500);
+        }, 4000);
       }).catch((error) => {
         alert("Logout error: " + error.message);
       });
@@ -72,7 +98,12 @@
 
   <main class="logout-container">
     <div class="spinner"></div>
-    <p class="logout-message">See you soon! Redirecting...</p>
+    <p class="logout-message">See you soon, beautiful soul...</p>
+
+    <div class="quote-box">
+      <p>💬 “You are allowed to be both a masterpiece and a work in progress.”</p>
+      <p class="affirmation">✨ Keep healing. Keep shining. ✨</p>
+    </div>
   </main>
 
   <footer>
