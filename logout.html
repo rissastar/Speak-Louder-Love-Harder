@@ -6,12 +6,38 @@
   <title>Logging Out...</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Firebase JS SDK -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
+  <style>
+    .logout-container {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .spinner {
+      margin: 2rem auto;
+      border: 5px solid rgba(255,255,255,0.1);
+      border-top: 5px solid var(--accent-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .logout-message {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-top: 1.5rem;
+    }
+  </style>
+
   <script>
-    // Initialize Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
       authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -24,7 +50,6 @@
 
     firebase.initializeApp(firebaseConfig);
 
-    // Logout on page load
     window.onload = () => {
       firebase.auth().signOut().then(() => {
         localStorage.removeItem('isLoggedIn');
@@ -32,10 +57,9 @@
         localStorage.removeItem('currentUser');
         setTimeout(() => {
           window.location.href = "login.html";
-        }, 2000);
+        }, 2500);
       }).catch((error) => {
-        console.error("Logout error:", error);
-        alert("Oops! Something went wrong while logging out.");
+        alert("Logout error: " + error.message);
       });
     };
   </script>
@@ -43,12 +67,12 @@
 
 <body>
   <header class="animated-header">
-    <h1 class="glow">Logging Out...</h1>
+    <h1 class="glow">Logging You Out 💖</h1>
   </header>
 
-  <main style="text-align: center; padding: 2rem;">
-    <h2>See you soon 💖</h2>
-    <p>You're being safely logged out and will be redirected shortly...</p>
+  <main class="logout-container">
+    <div class="spinner"></div>
+    <p class="logout-message">See you soon! Redirecting...</p>
   </main>
 
   <footer>
