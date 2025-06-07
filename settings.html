@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Settings – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
@@ -69,7 +68,7 @@
         return;
       }
 
-      // Load profile info from Firestore
+      // Load user profile from Firestore
       db.collection('profiles').doc(user.uid).get().then(doc => {
         if (doc.exists) {
           const data = doc.data();
@@ -81,10 +80,10 @@
         }
       });
 
-      // Upload photo button
+      // Upload photo
       document.getElementById('uploadBtn').onclick = () => {
         const file = document.getElementById('picUpload').files[0];
-        if (!file) return alert("Please pick a photo.");
+        if (!file) return alert("Please select a photo.");
         const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
         ref.put(file)
           .then(snapshot => snapshot.ref.getDownloadURL())
@@ -96,7 +95,7 @@
           .catch(console.error);
       };
 
-      // Remove photo button
+      // Remove photo
       document.getElementById('removeBtn').onclick = () => {
         db.collection('profiles').doc(user.uid).set({ photoURL: "" }, { merge: true })
           .then(() => {
@@ -106,10 +105,10 @@
           .catch(console.error);
       };
 
-      // Save profile info button
+      // Save display name + bio
       document.getElementById('saveProfile').onclick = () => {
-        const name = document.getElementById('displayName').value;
-        const bio = document.getElementById('bio').value;
+        const name = document.getElementById('displayName').value.trim();
+        const bio = document.getElementById('bio').value.trim();
         db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
           .then(() => {
             const msg = document.getElementById('profileSavedMsg');
@@ -118,7 +117,7 @@
           });
       };
 
-      // Logout button
+      // Logout
       document.getElementById('logoutBtn').onclick = () => {
         auth.signOut().then(() => window.location.href = 'logout.html');
       };
