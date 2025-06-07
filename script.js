@@ -121,3 +121,24 @@ document.querySelectorAll(".tab-buttons").forEach(tabGroup => {
     });
   });
 });
+
+// === LOGIN PAGE FUNCTIONALITY ===
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    const loginError = document.getElementById("loginError");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user && user.email === email && user.password === password) {
+      localStorage.setItem("isLoggedIn", "true");
+      loginError.textContent = "";
+      window.location.href = "profile.html";
+    } else {
+      loginError.textContent = "⚠️ Invalid email or password.";
+    }
+  });
+}
