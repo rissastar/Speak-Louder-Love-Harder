@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="script.js"></script>
-  <meta http-equiv="refresh" content="2;url=login.html" />
-  <script>
-    localStorage.removeItem('currentUser');
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Logging Out...</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Clear login session and redirect after a short delay
+    window.onload = function () {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('user');
+      localStorage.removeItem('currentUser');
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+    };
+  </script>
 </head>
 
-<header class="animated-header">
-    <h1 class="glow">Logout</h1>
-  </header>
-  
 <body>
-  <h2>Logging you out... See you soon 💖</h2>
-  
+  <header class="animated-header">
+    <h1 class="glow">Logging Out...</h1>
+  </header>
+
+  <main style="text-align: center; padding: 2rem;">
+    <h2>See you soon 💖</h2>
+    <p>Redirecting to login page...</p>
+  </main>
+
   <footer>
-  <p>Built with ❤️ to inspire and empower.</p>
-  <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
-</footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
+  </footer>
 </body>
 </html>
