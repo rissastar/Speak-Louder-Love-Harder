@@ -14,7 +14,6 @@
     button { background-color: var(--accent-color, #ff6f91); color: white; border: none; padding: 10px 15px; margin-top: 15px; cursor: pointer; font-size: 1rem; border-radius: 4px; transition: background-color 0.3s ease; }
     button:disabled { background-color: #ccc; cursor: not-allowed; }
     button:hover:not(:disabled) { background-color: #e85c7a; }
-    #profile-pic-preview { display: block; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-top: 15px; border: 2px solid var(--primary-color, #a64ac9); }
     #success-message { margin-top: 15px; color: green; font-weight: bold; }
     #error-message { margin-top: 15px; color: red; font-weight: bold; }
     nav { max-width: 450px; margin: 0 auto 20px auto; }
@@ -29,10 +28,6 @@
 
   <section>
     <h1>Profile Settings</h1>
-
-    <label for="profile-pic">Profile Picture</label>
-    <input type="file" id="profile-pic" accept="image/*" />
-    <img id="profile-pic-preview" src="default-profile.png" alt="Profile Picture Preview" />
 
     <label for="name">Name</label>
     <input type="text" id="name" placeholder="Your name" />
@@ -49,7 +44,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
   <script>
     const firebaseConfig = {
@@ -65,10 +59,7 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-    const storage = firebase.storage();
 
-    const profilePicInput = document.getElementById('profile-pic');
-    const profilePicPreview = document.getElementById('profile-pic-preview');
     const nameInput = document.getElementById('name');
     const bioInput = document.getElementById('bio');
     const saveBtn = document.getElementById('save-btn');
@@ -76,7 +67,6 @@
     const errorMessage = document.getElementById('error-message');
 
     let currentUser;
-    let profilePicFile = null;
 
     auth.onAuthStateChanged(async user => {
       if (!user) {
@@ -91,25 +81,10 @@
           const data = doc.data();
           nameInput.value = data.name || '';
           bioInput.value = data.bio || '';
-          if (data.photoURL && data.photoURL.startsWith('http')) {
-            profilePicPreview.src = data.photoURL;
-          }
         }
       } catch (error) {
         console.error('Error loading profile:', error);
         errorMessage.textContent = 'Failed to load profile data.';
-      }
-    });
-
-    profilePicInput.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (file) {
-        profilePicFile = file;
-        const reader = new FileReader();
-        reader.onload = event => {
-          profilePicPreview.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
       }
     });
 
@@ -121,39 +96,21 @@
       errorMessage.textContent = '';
 
       try {
-        let photoURL = null;
+        const name = nameInput.value.trim();
+        const bio = bioInput.value.trim();
 
-        // Get existing photoURL to keep if no new pic uploaded
-        const doc = await db.collection('profiles').doc(currentUser.uid).get();
-        if (doc.exists) {
-          photoURL = doc.data().photoURL || null;
-        }
-
-        // Upload new profile picture if selected
-        if (profilePicFile) {
-          const storageRef = storage.ref();
-          // Fixed file path overwrites old pic, avoid duplicates
-          const profilePicRef = storageRef.child(`profilePics/${currentUser.uid}/profile.jpg`);
-          const snapshot = await profilePicRef.put(profilePicFile);
-          photoURL = await snapshot.ref.getDownloadURL();
-        }
-
-        // Update Firebase Auth profile for consistent displayName and photoURL
+        // Update Firebase Auth displayName only (no photoURL)
         await currentUser.updateProfile({
-          displayName: nameInput.value.trim(),
-          photoURL: photoURL
+          displayName: name
         });
 
         // Save profile info to Firestore with merge
         await db.collection('profiles').doc(currentUser.uid).set({
-          name: nameInput.value.trim(),
-          bio: bioInput.value.trim(),
-          photoURL: photoURL
+          name: name,
+          bio: bio
         }, { merge: true });
 
         successMessage.textContent = 'Settings saved successfully!';
-        profilePicInput.value = '';
-        profilePicFile = null;
       } catch (error) {
         console.error('Error saving settings:', error);
         errorMessage.textContent = 'Error saving settings: ' + error.message;
