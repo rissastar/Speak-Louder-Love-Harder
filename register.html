@@ -15,19 +15,18 @@
 </head>
 <body>
   <main>
-    <form id="registerForm">
-      <div class="registerForm">
+    <div class="login-container">
       <form id="registerForm" class="auth-form">
+        <h2>Create Your Account</h2>
         <input type="text" id="displayName" placeholder="Full Name" required />
         <input type="email" id="email" placeholder="Email" required />
         <input type="password" id="password" placeholder="Password" required />
         <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
         <button type="submit">Register</button>
         <p id="errorMsg" style="color: red; display: none;"></p>
+        <p>Already have an account? <a href="index.html">Login here</a></p>
       </form>
     </div>
-
-    <p>Already have an account? <a href="index.html">Login here</a></p>
   </main>
 </body>
 </html>
