@@ -6,7 +6,7 @@
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="theme-vibrant">
+<body>
 
   <!-- HEADER -->
   <header class="animated-header">
@@ -149,20 +149,13 @@
     function changeTheme(theme) {
       document.body.className = "";
       document.body.classList.add(`theme-${theme}`);
-      localStorage.setItem("selectedTheme", theme);
     }
 
-    // On page load
+    // Initial setup
     updateWelcomeMessage();
     rotateQuote();
-    setInterval(rotateQuote, 10000);
-
-    // Restore theme on load
-    const savedTheme = localStorage.getItem("selectedTheme");
-    if (savedTheme) {
-      document.body.classList.add(`theme-${savedTheme}`);
-      document.getElementById("themeSelect").value = savedTheme;
-    }
+    setInterval(rotateQuote, 10000); // rotate every 10s
   </script>
+
 </body>
 </html>
