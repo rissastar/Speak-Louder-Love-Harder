@@ -3,79 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Register - Speak Louder, Love Harder</title>
+  <style>
+    :root {
+      --primary-color: #a259ff;
+      --secondary-color: #63ffc1;
+      --accent-color: #ff66a3;
+      --bg-color: #f9f9ff;
+      --text-color: #222;
+      --border-radius: 10px;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      font-family: var(--font-family);
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: center;
+    }
+    header {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: 0 0 6px rgba(162 89 255 / 0.8);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    form {
+      background: white;
+      padding: 2rem 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 1.2rem;
+      border: 2px solid var(--secondary-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 8px var(--accent-color);
+    }
+    button {
+      width: 100%;
+      padding: 0.8rem 0;
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: var(--accent-color);
+    }
+    p.message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      text-align: center;
+    }
+    .back-link {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .back-link a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .back-link a:hover {
+      color: var(--accent-color);
+    }
+  </style>
 </head>
 <body>
-  <header class="animated-header glow">Speak Louder, Love Harder - Register</header>
+  <header>Register for Speak Louder, Love Harder</header>
 
-  <main style="max-width: 400px; margin: 3rem auto; padding: 0 1rem;">
-    <form id="registerForm" class="auth-form">
-      <h2>Create Account</h2>
+  <form id="register-form" novalidate>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="username" />
 
-      <label for="registerUsername">Username</label>
-      <input type="text" id="registerUsername" required autocomplete="username" />
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="At least 6 characters" required autocomplete="new-password" minlength="6" />
 
-      <label for="registerPassword">Password</label>
-      <input type="password" id="registerPassword" required autocomplete="new-password" />
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" name="confirm-password" placeholder="Repeat your password" required autocomplete="new-password" minlength="6" />
 
-      <label for="registerPasswordConfirm">Confirm Password</label>
-      <input type="password" id="registerPasswordConfirm" required autocomplete="new-password" />
+    <button type="submit">Register</button>
+    <p class="message" id="message"></p>
+  </form>
 
-      <button type="submit" class="button glow-button">Register</button>
-
-      <p style="margin-top: 1rem;">
-        Already have an account? <a href="login.html">Login here</a>
-      </p>
-
-      <p id="registerMessage" style="color: var(--secondary); margin-top: 0.5rem;"></p>
-    </form>
-  </main>
+  <div class="back-link">
+    <a href="index.html">← Back to Home</a>
+  </div>
 
   <script>
-    const registerForm = document.getElementById('registerForm');
-    const registerMessage = document.getElementById('registerMessage');
+    const form = document.getElementById('register-form');
+    const message = document.getElementById('message');
 
-    registerForm.addEventListener('submit', e => {
+    function getUsers() {
+      const usersJSON = localStorage.getItem('users');
+      return usersJSON ? JSON.parse(usersJSON) : {};
+    }
+
+    function saveUser(email, password) {
+      const users = getUsers();
+      users[email.toLowerCase()] = { password };
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    form.addEventListener('submit', e => {
       e.preventDefault();
+      message.textContent = '';
 
-      const username = document.getElementById('registerUsername').value.trim();
-      const password = document.getElementById('registerPassword').value;
-      const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+      const email = form.email.value.trim().toLowerCase();
+      const password = form.password.value;
+      const confirmPassword = form['confirm-password'].value;
 
-      if (password !== passwordConfirm) {
-        registerMessage.style.color = 'var(--error)';
-        registerMessage.textContent = 'Passwords do not match.';
+      if (!email || !password || !confirmPassword) {
+        message.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      // Basic email format check
+      if (!email.match(/^\S+@\S+\.\S+$/)) {
+        message.textContent = 'Please enter a valid email address.';
         return;
       }
 
       if (password.length < 6) {
-        registerMessage.style.color = 'var(--error)';
-        registerMessage.textContent = 'Password must be at least 6 characters.';
+        message.textContent = 'Password must be at least 6 characters.';
         return;
       }
 
-      let users = JSON.parse(localStorage.getItem('users')) || {};
-
-      if (users[username]) {
-        registerMessage.style.color = 'var(--error)';
-        registerMessage.textContent = 'Username already taken.';
+      if (password !== confirmPassword) {
+        message.textContent = 'Passwords do not match.';
         return;
       }
 
-      // Save new user
-      users[username] = password;
-      localStorage.setItem('users', JSON.stringify(users));
+      const users = getUsers();
+      if (users[email]) {
+        message.textContent = 'This email is already registered. Please login or use another email.';
+        return;
+      }
 
-      // Auto-login
-      localStorage.setItem('currentUser', username);
+      saveUser(email, password);
 
-      registerMessage.style.color = 'var(--primary)';
-      registerMessage.textContent = 'Registration successful! Redirecting...';
+      message.style.color = 'green';
+      message.textContent = 'Registration successful! Redirecting to login...';
 
       setTimeout(() => {
-        window.location.href = 'dashboard.html';
-      }, 1200);
+        window.location.href = 'login.html';
+      }, 2000);
     });
   </script>
 </body>
