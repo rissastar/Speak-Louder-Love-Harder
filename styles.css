@@ -1,442 +1,160 @@
-/* === BASE COLORS === */
-:root {
-  --primary-color: #a64ac9;  /* Purple */
-  --secondary-color: #5edfff; /* Greenish Blue */
-  --accent-color: #ff6f91;    /* Pink */
-  --background-color: #ffffff;
-  --text-color: #000000;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.5s ease, color 0.5s ease;
-}
+  <!-- HEADER -->
+  <header class="animated-header">
+    <h1 class="glow">Speak Louder, Love Harder</h1>
+    <p>Your safe space for mental health, support & love 💖</p>
+    <div class="header-actions">
+      <span id="welcomeMessage"></span>
+      <div class="auth-buttons">
+        <button onclick="showLogin()">Login</button>
+        <button onclick="showRegister()">Register</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
 
-body.dark-mode {
-  --background-color: #121212;
-  --text-color: #ffffff;
-}
+  <!-- NAVIGATION -->
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+    <li><a href="mental-health.html">Mental Health</a></li>
+    <li><a href="addiction.html">Addiction</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
 
-/* === HEADER === */
-.animated-header {
-  text-align: center;
-  padding: 2rem 1rem;
-  animation: fadeInDown 1.5s ease;
-  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-  color: white;
-}
+  <!-- QUOTE SECTION -->
+  <section class="quote-section">
+    <blockquote id="quote">"You are loved, you are seen, you matter."</blockquote>
+    <cite id="author">— Anonymous</cite>
+  </section>
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+  <!-- AUTH SECTION -->
+  <section class="login-container" id="authSection">
+    <div class="auth-form" id="loginForm">
+      <h2>Login</h2>
+      <form onsubmit="handleLogin(event)">
+        <input type="email" placeholder="Email" required id="loginEmail" />
+        <input type="password" placeholder="Password" required id="loginPassword" />
+        <button type="submit">Login</button>
+      </form>
+      <p class="auth-msg">Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+    </div>
 
-.glow {
-  font-size: 2.5rem;
-  text-shadow: 0 0 8px var(--accent-color), 0 0 16px var(--secondary-color);
-}
+    <div class="auth-form" id="registerForm" style="display:none;">
+      <h2>Register</h2>
+      <form onsubmit="handleRegister(event)">
+        <input type="text" placeholder="Name" required id="registerName" />
+        <input type="email" placeholder="Email" required id="registerEmail" />
+        <input type="password" placeholder="Password" required id="registerPassword" />
+        <button type="submit">Register</button>
+      </form>
+      <p class="auth-msg">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+  </section>
 
-/* === HEADER ACTIONS === */
-.header-actions, .auth-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  align-items: center;
-}
+  <!-- THEME SWITCHER -->
+  <div class="theme-switcher">
+    <label for="themeSelect">🎨 Theme:</label>
+    <select id="themeSelect" onchange="changeTheme(this.value)">
+      <option value="vibrant">Vibrant</option>
+      <option value="pastel">Pastel</option>
+      <option value="ocean">Ocean</option>
+      <option value="sunset">Sunset</option>
+    </select>
+  </div>
 
-.header-actions button,
-.auth-buttons button {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.1rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  <!-- LINKTREE STYLE BUTTON -->
+  <div style="text-align: center;">
+    <a class="linktree-btn" href="guestbook-connect.html">Join the Community</a>
+  </div>
 
-.header-actions button:hover,
-.auth-buttons button:hover {
-  background-color: var(--secondary-color);
-}
+  <!-- BACK TO TOP -->
+  <a class="back-to-top" href="#">↑ Top</a>
 
-#welcomeMessage {
-  font-weight: bold;
-  font-size: 1rem;
-  color: var(--secondary-color);
-}
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Speak Louder, Love Harder. Built with 💜 by Larissa.</p>
+    <p><a href="mailto:support@speaklouder.com">Contact Us</a></p>
+  </footer>
 
-/* === NAVIGATION === */
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 1rem 0;
-  background-color: var(--primary-color);
-  list-style: none;
-  margin: 0;
-}
+  <!-- SCRIPT -->
+  <script>
+    const quotes = [
+      { text: "You are enough exactly as you are.", author: "Meghan Markle" },
+      { text: "Out of suffering have emerged the strongest souls.", author: "Kahlil Gibran" },
+      { text: "Healing takes time, and asking for help is a courageous step.", author: "Mariska Hargitay" },
+      { text: "Your story isn’t over yet.", author: "Project Semicolon" },
+      { text: "It’s okay to not be okay. Just don’t give up.", author: "Unknown" }
+    ];
 
-.nav-links li {
-  margin: 0.5rem;
-}
+    function rotateQuote() {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quote").textContent = `"${quote.text}"`;
+      document.getElementById("author").textContent = `— ${quote.author}`;
+    }
 
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
+    function showLogin() {
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("registerForm").style.display = "none";
+    }
 
-.nav-links a:hover {
-  background-color: var(--accent-color);
-  transform: scale(1.05);
-}
+    function showRegister() {
+      document.getElementById("registerForm").style.display = "block";
+      document.getElementById("loginForm").style.display = "none";
+    }
 
-/* === QUOTE SECTION === */
-.quote-section {
-  text-align: center;
-  padding: 3rem 1rem;
-  font-style: italic;
-}
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      localStorage.setItem("user", JSON.stringify({ email }));
+      updateWelcomeMessage();
+      alert("Logged in successfully!");
+      showLogin();
+    }
 
-#quote {
-  font-size: 1.5rem;
-  color: var(--primary-color);
-}
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById("registerName").value;
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+      localStorage.setItem("user", JSON.stringify({ name, email }));
+      updateWelcomeMessage();
+      alert("Registered and logged in!");
+      showLogin();
+    }
 
-#author {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--accent-color);
-  font-weight: bold;
-}
+    function logout() {
+      localStorage.removeItem("user");
+      document.getElementById("welcomeMessage").textContent = "";
+      alert("Logged out.");
+    }
 
-/* === AUTH FORM STYLING === */
-.login-container, .auth-form {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 0 20px var(--primary-color);
-  backdrop-filter: blur(8px);
-}
+    function updateWelcomeMessage() {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const message = user ? `Welcome, ${user.name || user.email}!` : "";
+      document.getElementById("welcomeMessage").textContent = message;
+    }
 
-.auth-form form,
-.login-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+    function changeTheme(theme) {
+      document.body.className = "";
+      document.body.classList.add(`theme-${theme}`);
+    }
 
-.auth-form input,
-.login-container input {
-  padding: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid var(--primary-color);
-  font-size: 1rem;
-}
-
-.auth-form button,
-.login-container button {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.auth-form button:hover,
-.login-container button:hover {
-  background-color: var(--secondary-color);
-}
-
-.auth-msg,
-.error-message {
-  font-weight: bold;
-  color: var(--accent-color);
-  text-align: center;
-  margin-top: 1rem;
-}
-
-/* === DASHBOARD === */
-.dashboard {
-  max-width: 900px;
-  margin: auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.profile-card, .quick-stats, .quote-section, .quick-links {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px var(--primary-color);
-  backdrop-filter: blur(10px);
-}
-
-textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border-radius: 5px;
-  border: 1px solid var(--primary-color);
-  font-size: 1rem;
-  resize: vertical;
-  margin-bottom: 1rem;
-}
-
-.saved-msg {
-  color: var(--accent-color);
-  font-weight: bold;
-  transition: opacity 0.5s ease;
-  opacity: 0;
-}
-
-/* === THEME SWITCHER UI === */
-.theme-switcher {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  justify-content: center;
-}
-
-.theme-switcher select {
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  border: 1px solid var(--primary-color);
-  font-size: 1rem;
-}
-
-.custom-theme-form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  margin-top: 1rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.custom-theme-form label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
-/* === THEME VARIANTS === */
-.theme-vibrant {
-  --primary-color: #a64ac9;
-  --secondary-color: #5edfff;
-  --accent-color: #ff6f91;
-}
-.theme-pastel {
-  --primary-color: #b39ddb;
-  --secondary-color: #81d4fa;
-  --accent-color: #f8bbd0;
-}
-.theme-ocean {
-  --primary-color: #01579b;
-  --secondary-color: #00acc1;
-  --accent-color: #26c6da;
-}
-.theme-sunset {
-  --primary-color: #ff7043;
-  --secondary-color: #ffd54f;
-  --accent-color: #ff8a65;
-}
-
-/* === Tabs === */
-.tab-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-}
-.tab-btn {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-.tab-btn.active,
-.tab-btn:hover {
-  background-color: var(--accent-color);
-}
-.tab-content {
-  display: none;
-  margin-top: 1rem;
-}
-.tab-content.active {
-  display: block;
-}
-
-/* === Collapsibles === */
-details {
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-summary {
-  padding: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  background: var(--primary-color);
-  color: white;
-}
-.collapsible-content {
-  padding: 1rem;
-  background: rgba(255,255,255,0.05);
-}
-
-/* === Sections === */
-.section {
-  padding: 2rem;
-  margin: 1.5rem auto;
-  max-width: 900px;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-.section.light {
-  background-color: rgba(255,255,255,0.9);
-  color: #222;
-}
-.section.dark {
-  background-color: rgba(25,25,25,0.85);
-  color: #fff;
-}
-
-/* === Grounding Tool Blocks === */
-.tool {
-  background: rgba(255,255,255,0.05);
-  border-left: 5px solid var(--secondary-color);
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 8px;
-}
-
-/* === Back to Top === */
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--accent-color);
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 50px;
-  box-shadow: 0 0 10px var(--accent-color);
-  text-decoration: none;
-}
-
-/* === Responsive === */
-@media (max-width: 600px) {
-  .nav-links {
-    flex-direction: column;
-  }
-  .link-grid a {
-    flex: 1 1 100%;
-  }
-}
-
-/* === FOOTER === */
-footer {
-  background-color: var(--primary-color);
-  color: white;
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: 0.95rem;
-  box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
-  margin-top: 3rem;
-  border-top: 3px solid var(--accent-color);
-  animation: fadeInUp 1s ease;
-}
-
-footer a {
-  color: var(--secondary-color);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === LINKTREE BUTTON ONLY === */
-.linktree-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.7rem 1.4rem;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  color: #fff;
-  text-decoration: none;
-  border-radius: 30px;
-  font-weight: bold;
-  box-shadow: 0 0 10px var(--accent-color);
-  transition: all 0.3s ease;
-}
-
-.linktree-btn:hover {
-  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
-  box-shadow: 0 0 15px var(--secondary-color);
-  transform: scale(1.05);
-}
-
-.profile-pic-section img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  border: 3px solid var(--accent-color, #ff6f91);
-  object-fit: cover;
-  box-shadow: 0 0 10px rgba(255, 111, 145, 0.6);
-  transition: all 0.3s ease-in-out;
-}
-
-.profile-pic-buttons {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.saved-msg {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  color: var(--accent-color);
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
+    // Initial setup
+    updateWelcomeMessage();
+    rotateQuote();
+    setInterval(rotateQuote, 10000); // rotate every 10s
+  </script>
+</body>
+</html>
