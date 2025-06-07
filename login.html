@@ -39,7 +39,6 @@
       <button type="submit">Log In</button>
       <p id="loginError" class="auth-msg"></p>
     </form>
-    <div id="loginSuccessMessage" class="quote-box" style="display:none;"></div>
   </main>
 
   <footer>
@@ -53,20 +52,27 @@
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-
       const email = document.getElementById("loginEmail").value.trim();
       const password = document.getElementById("loginPassword").value.trim();
 
-      const users = JSON.parse(localStorage.getItem("users")) || {};
+      const savedUser = JSON.parse(localStorage.getItem("demoUser"));
 
-      if (users[email] && users[email].password === password) {
+      if (savedUser && savedUser.email === email && savedUser.password === password) {
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("user", JSON.stringify({ email: email }));
+        localStorage.setItem("currentUser", JSON.stringify({ email }));
         window.location.href = "dashboard.html";
       } else {
         errorMsg.textContent = "⚠️ Invalid email or password.";
       }
     });
+
+    // Optional: Create a default user for demo purposes
+    if (!localStorage.getItem("demoUser")) {
+      localStorage.setItem("demoUser", JSON.stringify({
+        email: "test@example.com",
+        password: "123456"
+      }));
+    }
   </script>
 </body>
 </html>
