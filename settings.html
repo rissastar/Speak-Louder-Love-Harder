@@ -49,7 +49,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
   <script>
-    // Your Firebase config - replace with your config or load externally
+    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
       authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -89,11 +89,9 @@
           const data = doc.data();
           nameInput.value = data.name || '';
           bioInput.value = data.bio || '';
-          if (data.photoURL) {
+          if (data.photoURL && data.photoURL.startsWith('http')) {
             profilePicPreview.src = data.photoURL;
           }
-        } else {
-          // no profile found, keep defaults
         }
       } catch (error) {
         console.error('Error loading profile:', error);
@@ -120,14 +118,21 @@
       successMessage.textContent = '';
 
       try {
-        let photoURL = profilePicPreview.src;
+        // Get current photoURL from Firestore to avoid saving preview data URL
+        let photoURL = null;
+        const doc = await db.collection('profiles').doc(currentUser.uid).get();
+        if (doc.exists) {
+          photoURL = doc.data().photoURL || null;
+        }
 
         // If a new profile pic was selected, upload it to Firebase Storage
         if (profilePicFile) {
+          console.log('Uploading file:', profilePicFile.name);
           const storageRef = storage.ref();
           const profilePicRef = storageRef.child(`profilePics/${currentUser.uid}/${profilePicFile.name}`);
           const snapshot = await profilePicRef.put(profilePicFile);
           photoURL = await snapshot.ref.getDownloadURL();
+          console.log('Uploaded! Got photoURL:', photoURL);
         }
 
         // Update profile in Firestore
@@ -138,7 +143,10 @@
         }, { merge: true });
 
         successMessage.textContent = 'Settings saved successfully!';
-        profilePicFile = null; // reset after save
+
+        // Reset file input & profilePicFile variable
+        profilePicInput.value = '';
+        profilePicFile = null;
       } catch (error) {
         console.error('Error saving settings:', error);
         successMessage.textContent = 'Error saving settings: ' + error.message;
