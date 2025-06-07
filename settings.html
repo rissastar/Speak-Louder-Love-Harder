@@ -5,118 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Settings – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background: #fafafa; }
-    section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 8px #ccc; max-width: 450px; margin: auto; }
-    h1, h2 { color: var(--primary-color, #a64ac9); }
-    label { font-weight: bold; margin-top: 10px; display: block; }
-    input[type="text"], textarea { width: 100%; padding: 8px; margin-top: 6px; font-size: 1rem; border-radius: 4px; border: 1px solid #ccc; }
-    button { background-color: var(--accent-color, #ff6f91); color: white; border: none; padding: 10px 15px; margin-top: 15px; cursor: pointer; font-size: 1rem; border-radius: 4px; transition: background-color 0.3s ease; }
-    button:disabled { background-color: #ccc; cursor: not-allowed; }
-    button:hover:not(:disabled) { background-color: #e85c7a; }
-    #success-message { margin-top: 15px; color: green; font-weight: bold; }
-    #error-message { margin-top: 15px; color: red; font-weight: bold; }
-    nav { max-width: 450px; margin: 0 auto 20px auto; }
-    nav a { margin-right: 20px; color: var(--accent-color, #ff6f91); text-decoration: none; font-weight: 600; }
-  </style>
 </head>
 <body>
-  <nav>
-    <a href="dashboard.html">← Back to Dashboard</a>
-    <a href="logout.html">Logout</a>
-  </nav>
+  <header class="animated-header glow">
+    <h1>Settings</h1>
+    <nav>
+      <a href="dashboard.html" class="button">Dashboard</a>
+      <a href="logout.html" class="button">Logout</a>
+    </nav>
+  </header>
 
-  <section>
-    <h1>Profile Settings</h1>
+  <main style="max-width: 450px; margin: 2rem auto; padding: 0 1rem;">
+    <form id="settingsForm" class="auth-form">
+      <h2>Update Profile</h2>
 
-    <label for="name">Name</label>
-    <input type="text" id="name" placeholder="Your name" />
+      <label for="displayName">Display Name</label>
+      <input type="text" id="displayName" placeholder="Your display name" />
 
-    <label for="bio">Bio</label>
-    <textarea id="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+      <label for="bio">Bio</label>
+      <textarea id="bio" rows="4" placeholder="Tell us about yourself"></textarea>
 
-    <button id="save-btn">Save Settings</button>
-    <p id="success-message"></p>
-    <p id="error-message"></p>
-  </section>
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+      <button type="submit" class="button glow-button">Save Changes</button>
+      <p id="settingsMessage" style="margin-top: 1rem;"></p>
+    </form>
+  </main>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.firebasestorage.app",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
+    // Redirect if no user logged in
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+      alert('You must be logged in to access settings.');
+      window.location.href = 'login.html';
+    }
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    const profileKey = `profile_${currentUser}`; // store profile per user
+    const settingsForm = document.getElementById('settingsForm');
+    const settingsMessage = document.getElementById('settingsMessage');
 
-    const nameInput = document.getElementById('name');
-    const bioInput = document.getElementById('bio');
-    const saveBtn = document.getElementById('save-btn');
-    const successMessage = document.getElementById('success-message');
-    const errorMessage = document.getElementById('error-message');
+    // Load saved profile info if any
+    const savedProfile = JSON.parse(localStorage.getItem(profileKey)) || {};
+    document.getElementById('displayName').value = savedProfile.displayName || '';
+    document.getElementById('bio').value = savedProfile.bio || '';
 
-    let currentUser;
+    settingsForm.addEventListener('submit', e => {
+      e.preventDefault();
 
-    auth.onAuthStateChanged(async user => {
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
-      currentUser = user;
+      const displayName = document.getElementById('displayName').value.trim();
+      const bio = document.getElementById('bio').value.trim();
 
-      try {
-        const doc = await db.collection('profiles').doc(user.uid).get();
-        if (doc.exists) {
-          const data = doc.data();
-          nameInput.value = data.name || '';
-          bioInput.value = data.bio || '';
-        }
-      } catch (error) {
-        console.error('Error loading profile:', error);
-        errorMessage.textContent = 'Failed to load profile data.';
-      }
-    });
+      // Save profile to localStorage (keyed by username)
+      const profileData = { displayName, bio };
+      localStorage.setItem(profileKey, JSON.stringify(profileData));
 
-    saveBtn.addEventListener('click', async () => {
-      if (!currentUser) return;
-
-      saveBtn.disabled = true;
-      successMessage.textContent = '';
-      errorMessage.textContent = '';
-
-      try {
-        const name = nameInput.value.trim();
-        const bio = bioInput.value.trim();
-
-        // Update Firebase Auth displayName only (no photoURL)
-        await currentUser.updateProfile({
-          displayName: name
-        });
-
-        // Save profile info to Firestore with merge
-        await db.collection('profiles').doc(currentUser.uid).set({
-          name: name,
-          bio: bio
-        }, { merge: true });
-
-        successMessage.textContent = 'Settings saved successfully!';
-      } catch (error) {
-        console.error('Error saving settings:', error);
-        errorMessage.textContent = 'Error saving settings: ' + error.message;
-      } finally {
-        saveBtn.disabled = false;
-      }
+      settingsMessage.style.color = 'var(--primary)';
+      settingsMessage.textContent = 'Profile updated successfully!';
     });
   </script>
 </body>
