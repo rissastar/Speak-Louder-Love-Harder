@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
@@ -17,36 +15,34 @@
     <h1 class="glow">Your Dashboard 💖</h1>
     <button id="logoutBtn">Logout</button>
   </header>
-  
+
   <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
+    <ul class="nav-links">
+      <details class="dropdown">
+        <summary><strong>Explore Topics</strong></summary>
+        <div class="dropdown-content">
+          <li><a href="cirrhosis.html">Cirrhosis</a></li>
+          <li><a href="mental-health.html">Mental Health</a></li>
+          <li><a href="addiction.html">Addiction</a></li>
+          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+          <li><a href="physical-abuse.html">Physical Abuse</a></li>
+          <li><a href="mental-abuse.html">Mental Abuse</a></li>
+          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+          <li><a href="pitbull-love.html">Pitbull Love</a></li>
+          <li><a href="foster-children.html">Foster Children</a></li>
+        </div>
+      </details>
+    </ul>
+  </nav>
 
   <main class="dashboard">
-    <!-- Profile Picture Upload -->
     <div class="profile-pic-section">
       <img src="default-avatar.png" id="profilePic" alt="Profile picture" />
       <input type="file" id="picUpload" accept="image/*" />
       <button id="uploadBtn">Upload Photo</button>
     </div>
 
-    <!-- Name & Bio -->
     <div class="profile-details">
       <input type="text" id="displayName" placeholder="Display Name" />
       <textarea id="bio" rows="4" placeholder="Your bio..."></textarea>
@@ -54,7 +50,6 @@
       <p id="profileSavedMsg" class="saved-msg">Profile saved!</p>
     </div>
 
-    <!-- Affirmation -->
     <section class="dashboard-affirmation">
       <p class="affirmation glow" id="affirmationText">You’re healing, shining, and becoming you.</p>
     </section>
@@ -66,22 +61,29 @@
   </footer>
 
   <script>
-    // Initialize Firebase
+    // Firebase config for speak-louder-581d7
     const firebaseConfig = {
-      apiKey: "...",
-      authDomain: "...",
-      projectId: "...",
-      storageBucket: "...",
-      messagingSenderId: "...",
-      appId: "...",
-      measurementId: "..."
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.appspot.com",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
     };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
     const storage = firebase.storage();
 
-      // Load stored profile data
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Load profile data
       db.collection('profiles').doc(user.uid).get().then(doc => {
         if (doc.exists) {
           const data = doc.data();
@@ -93,41 +95,38 @@
         }
       });
 
-      // Logout button
+      // Upload profile picture
+      document.getElementById('uploadBtn').onclick = () => {
+        const file = document.getElementById('picUpload').files[0];
+        if (!file) return alert("Please pick a photo.");
+        const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
+        ref.put(file)
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            document.getElementById('profilePic').src = url;
+            return db.collection('profiles').doc(user.uid).set({ photoURL: url }, { merge: true });
+          })
+          .then(() => alert("Profile picture saved!"))
+          .catch(console.error);
+      };
+
+      // Save profile info
+      document.getElementById('saveProfile').onclick = () => {
+        const name = document.getElementById('displayName').value;
+        const bio = document.getElementById('bio').value;
+        db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
+          .then(() => {
+            const msg = document.getElementById('profileSavedMsg');
+            msg.style.opacity = 1;
+            setTimeout(() => msg.style.opacity = 0, 2000);
+          });
+      };
+
+      // Logout
       document.getElementById('logoutBtn').addEventListener('click', () => {
         auth.signOut().then(() => location.href = 'logout.html');
       });
     });
-
-    // Profile picture upload
-    document.getElementById('uploadBtn').onclick = () => {
-      const file = document.getElementById('picUpload').files[0];
-      if (!file) return alert("Please pick a photo.");
-
-      const user = auth.currentUser;
-      const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
-      ref.put(file)
-        .then(snapshot => snapshot.ref.getDownloadURL())
-        .then(url => {
-          document.getElementById('profilePic').src = url;
-          return db.collection('profiles').doc(user.uid).set({ photoURL: url }, { merge: true });
-        })
-        .then(() => alert("Profile picture saved!"))
-        .catch(console.error);
-    };
-
-    // Save name & bio
-    document.getElementById('saveProfile').onclick = () => {
-      const user = auth.currentUser;
-      const name = document.getElementById('displayName').value;
-      const bio = document.getElementById('bio').value;
-      db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
-        .then(() => {
-          const msg = document.getElementById('profileSavedMsg');
-          msg.style.opacity = 1;
-          setTimeout(() => msg.style.opacity = 0, 2000);
-        });
-    };
 
     // Rotating affirmations
     const affirmations = [
