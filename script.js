@@ -8,49 +8,78 @@ themeToggle?.addEventListener("click", () => {
   localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 });
 
-// === THEME SELECTION ===
-const themeSelect = document.getElementById("themeSelect");
-const customForm = document.getElementById("customThemeForm");
-const customPrimary = document.getElementById("customPrimary");
-const customSecondary = document.getElementById("customSecondary");
-const customAccent = document.getElementById("customAccent");
-
-function applyTheme(theme) {
-  document.body.classList.remove("theme-vibrant", "theme-pastel", "theme-ocean", "theme-sunset");
-  if (theme === "custom") {
-    const customTheme = JSON.parse(localStorage.getItem("customTheme"));
-    if (customTheme) {
-      document.documentElement.style.setProperty('--primary-color', customTheme.primary);
-      document.documentElement.style.setProperty('--secondary-color', customTheme.secondary);
-      document.documentElement.style.setProperty('--accent-color', customTheme.accent);
-    }
-  } else {
-    document.documentElement.removeAttribute('style');
-    document.body.classList.add(`theme-${theme}`);
+// === THEME SELETCTOR ===
+const themes = {
+  vibrant: {
+    '--primary': '#7f00ff',
+    '--secondary': '#39ff14',
+    '--accent': '#ff007f'
+  },
+  pastel: {
+    '--primary': '#ffc0cb',
+    '--secondary': '#b0e0e6',
+    '--accent': '#dda0dd'
+  },
+  ocean: {
+    '--primary': '#006994',
+    '--secondary': '#00ced1',
+    '--accent': '#20b2aa'
+  },
+  sunset: {
+    '--primary': '#ff5e62',
+    '--secondary': '#ff9966',
+    '--accent': '#ffcc70'
   }
-  localStorage.setItem("colorTheme", theme);
-  if (themeSelect) themeSelect.value = theme;
+};
+
+document.getElementById('themeSelect').addEventListener('change', function () {
+  const selected = this.value;
+
+  if (selected === 'custom') {
+    document.getElementById('customThemeForm').style.display = 'block';
+  } else {
+    document.getElementById('customThemeForm').style.display = 'none';
+    applyTheme(themes[selected]);
+    localStorage.setItem('selectedTheme', selected);
+  }
+});
+
+function applyTheme(themeVars) {
+  for (const variable in themeVars) {
+    document.documentElement.style.setProperty(variable, themeVars[variable]);
+  }
 }
 
 function saveCustomTheme() {
   const customTheme = {
-    primary: customPrimary.value,
-    secondary: customSecondary.value,
-    accent: customAccent.value
+    '--primary': document.getElementById('customPrimary').value,
+    '--secondary': document.getElementById('customSecondary').value,
+    '--accent': document.getElementById('customAccent').value
   };
-  localStorage.setItem("customTheme", JSON.stringify(customTheme));
-  applyTheme("custom");
-  alert("✨ Custom theme saved!");
+  applyTheme(customTheme);
+  localStorage.setItem('selectedTheme', 'custom');
+  localStorage.setItem('customTheme', JSON.stringify(customTheme));
 }
 
-const savedTheme = localStorage.getItem("colorTheme") || "vibrant";
-applyTheme(savedTheme);
-if (themeSelect) themeSelect.value = savedTheme;
+// Load saved theme on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('selectedTheme');
+  const custom = localStorage.getItem('customTheme');
 
-themeSelect?.addEventListener("change", () => {
-  const selected = themeSelect.value;
-  customForm.style.display = (selected === "custom") ? "flex" : "none";
-  applyTheme(selected);
+  if (saved) {
+    document.getElementById('themeSelect').value = saved;
+
+    if (saved === 'custom' && custom) {
+      const customColors = JSON.parse(custom);
+      applyTheme(customColors);
+      document.getElementById('customPrimary').value = customColors['--primary'];
+      document.getElementById('customSecondary').value = customColors['--secondary'];
+      document.getElementById('customAccent').value = customColors['--accent'];
+      document.getElementById('customThemeForm').style.display = 'block';
+    } else if (themes[saved]) {
+      applyTheme(themes[saved]);
+    }
+  }
 });
 
 // === QUOTES ROTATOR ===
