@@ -6,7 +6,8 @@
   <title>Your Dashboard - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header class="animated-header">
@@ -14,27 +15,30 @@
     <button id="theme-toggle">Toggle Theme</button>
   </header>
 
-<div class="user-profile">
-  <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar" />
-  <h2 id="userName">Loading...</h2>
-  <p id="userEmail"></p>
-</div>
+  <div class="user-profile">
+    <img id="userAvatar" src="default-avatar.png" alt="Avatar" class="avatar" />
+    <h2 id="userName">Loading...</h2>
+    <p id="userEmail"></p>
+  </div>
 
   <nav>
     <ul class="nav-links">
       <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-      <li><a href="addiction.html">Addiction</a></li>
-      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-      <li><a href="cirrhosis.html">Cirrhosis</a></li>
-      <li><a href="physical-abuse.html">Physical Abuse</a></li>
-      <li><a href="mental-abuse.html">Mental Abuse</a></li>
-      <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-      <li><a href="pitbull-love.html">Pitbull Love</a></li>
-      <li><a href="foster-children.html">Foster Children</a></li>
+        <summary><strong>Explore Topics</strong></summary>
+        <div class="dropdown-content">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="mental.health.html">Mental Health</a></li>
+          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+          <li><a href="addiction.html">Addiction</a></li>
+          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+          <li><a href="cirrhosis.html">Cirrhosis</a></li>
+          <li><a href="physical-abuse.html">Physical Abuse</a></li>
+          <li><a href="mental-abuse.html">Mental Abuse</a></li>
+          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+          <li><a href="pitbull-love.html">Pitbull Love</a></li>
+          <li><a href="foster-children.html">Foster Children</a></li>
+        </div>
+      </details>
     </ul>
   </nav>
 
@@ -44,7 +48,7 @@
       <p>Edit your bio below:</p>
       <textarea id="userBio" rows="4" placeholder="Tell the world about your journey..."></textarea>
       <button onclick="saveBio()">Save Bio</button>
-      <p class="saved-msg" id="savedMsg">✨ Bio saved!</p>
+      <p class="saved-msg" id="savedMsg" style="display:none;">✨ Bio saved!</p>
     </section>
 
     <section class="quick-stats">
@@ -61,13 +65,84 @@
       <cite id="author">- Maya Angelou</cite>
     </section>
 
-  
-  <button onclick="logout()">Logout</button>
+    <button onclick="logout()">Logout</button>
   </main>
 
   <footer>
     <p>Built with ❤️ to inspire and empower.</p>
   </footer>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
+      authDomain: "speak-louder-581d7.firebaseapp.com",
+      projectId: "speak-louder-581d7",
+      storageBucket: "speak-louder-581d7.firebasestorage.app",
+      messagingSenderId: "674769404942",
+      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
+      measurementId: "G-54XJLK1CGJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Elements
+    const userNameElem = document.getElementById('userName');
+    const userEmailElem = document.getElementById('userEmail');
+    const userAvatarElem = document.getElementById('userAvatar');
+    const userBioElem = document.getElementById('userBio');
+    const savedMsg = document.getElementById('savedMsg');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    // Load user info and bio from Firestore
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        userNameElem.textContent = user.displayName || "Beautiful Soul";
+        userEmailElem.textContent = user.email || "";
+        userAvatarElem.src = user.photoURL || "default-avatar.png";
+
+        // Load bio from Firestore
+        db.collection('users').doc(user.uid).get().then(doc => {
+          if (doc.exists) {
+            userBioElem.value = doc.data().bio || '';
+          }
+        });
+      } else {
+        // No user, redirect to login
+        window.location.href = "login.html";
+      }
+    });
+
+    // Save bio to Firestore
+    function saveBio() {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const bioText = userBioElem.value.trim();
+
+      db.collection('users').doc(user.uid).set({ bio: bioText }, { merge: true })
+        .then(() => {
+          savedMsg.style.display = "block";
+          setTimeout(() => { savedMsg.style.display = "none"; }, 3000);
+        })
+        .catch(err => alert("Error saving bio: " + err.message));
+    }
+
+    // Logout function
+    function logout() {
+      auth.signOut()
+        .then(() => {
+          window.location.href = "login.html";
+        });
+    }
+
+    // Theme toggle (simple example toggling a class on body)
+    themeToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
