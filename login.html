@@ -5,49 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
-      authDomain: "speak-louder-581d7.firebaseapp.com",
-      projectId: "speak-louder-581d7",
-      storageBucket: "speak-louder-581d7.firebasestorage.app",
-      messagingSenderId: "674769404942",
-      appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
-      measurementId: "G-54XJLK1CGJ"
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
 </head>
 <body>
   <header class="animated-header">
     <h1 class="glow">Welcome Back 💖</h1>
     <p style="text-align:center;">Log in and keep healing, growing, and glowing ✨</p>
   </header>
-  
+
   <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
+    <ul class="nav-links">
+      <details class="dropdown">
+        <summary><strong>Explore Topics</strong></summary>
+        <div class="dropdown-content">
+          <li><a href="cirrhosis.html">Cirrhosis</a></li>
+          <li><a href="mental-health.html">Mental Health</a></li>
+          <li><a href="addiction.html">Addiction</a></li>
+          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
+          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
+          <li><a href="physical-abuse.html">Physical Abuse</a></li>
+          <li><a href="mental-abuse.html">Mental Abuse</a></li>
+          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
+          <li><a href="pitbull-love.html">Pitbull Love</a></li>
+          <li><a href="foster-children.html">Foster Children</a></li>
+        </div>
+      </details>
+    </ul>
+  </nav>
 
   <main class="auth-form">
     <form id="loginForm">
@@ -65,30 +48,25 @@
   </footer>
 
   <script>
-  const form = document.getElementById("loginForm");
-  const errorMsg = document.getElementById("loginError");
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("loginError");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = document.getElementById("loginEmail").value.trim();
-    const password = document.getElementById("loginPassword").value.trim();
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    console.log("Attempting login with:", email); // Debug log
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Login successful for:", user.email); // Debug log
+      const users = JSON.parse(localStorage.getItem("users")) || {};
 
+      if (users[email] && users[email].password === password) {
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("user", JSON.stringify({ email: user.email }));
-
-        // Redirect immediately
+        localStorage.setItem("user", JSON.stringify({ email: email }));
         window.location.href = "dashboard.html";
-      })
-      .catch((error) => {
-        console.error("Login failed:", error); // Debug log
-        errorMsg.textContent = "⚠️ " + error.message;
-      });
-  });
-</script>
+      } else {
+        errorMsg.textContent = "⚠️ Invalid email or password.";
+      }
+    });
+  </script>
+</body>
+</html>
