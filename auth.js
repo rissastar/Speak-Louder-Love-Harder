@@ -1,8 +1,4 @@
-// auth.js
-
-// Import Firebase modules (if using modules) or include Firebase SDK in HTML before this script
-
-// Your Firebase config (use your actual config here)
+// Initialize Firebase (use your config)
 const firebaseConfig = {
   apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
   authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -13,10 +9,36 @@ const firebaseConfig = {
   measurementId: "G-54XJLK1CGJ",
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
+
+// Registration form submit handler
+const registerForm = document.getElementById("registerForm");
+registerForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const displayName = registerForm.displayName.value.trim();
+  const email = registerForm.email.value.trim();
+  const password = registerForm.password.value;
+  const confirmPassword = registerForm.confirmPassword.value;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  try {
+    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+    // Update the display name
+    await userCredential.user.updateProfile({ displayName: displayName });
+
+    alert("Registration successful! You can now log in.");
+    registerForm.reset();
+    window.location.href = "login.html"; // redirect to login page after registration
+  } catch (error) {
+    alert("Error: " + error.message);
+  }
+});
 
 // LOGIN FUNCTION
 function login(email, password) {
