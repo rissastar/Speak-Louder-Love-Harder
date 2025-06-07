@@ -68,15 +68,17 @@
         return;
       }
 
-      // Load user profile from Firestore
+      const profilePic = document.getElementById('profilePic');
+      const displayName = document.getElementById('displayName');
+      const bio = document.getElementById('bio');
+
+      // Load profile info
       db.collection('profiles').doc(user.uid).get().then(doc => {
         if (doc.exists) {
           const data = doc.data();
-          if (data.photoURL) {
-            document.getElementById('profilePic').src = data.photoURL;
-          }
-          document.getElementById('displayName').value = data.name || '';
-          document.getElementById('bio').value = data.bio || '';
+          profilePic.src = data.photoURL || 'default-avatar.png';
+          displayName.value = data.name || '';
+          bio.value = data.bio || '';
         }
       });
 
@@ -84,11 +86,12 @@
       document.getElementById('uploadBtn').onclick = () => {
         const file = document.getElementById('picUpload').files[0];
         if (!file) return alert("Please select a photo.");
+
         const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
         ref.put(file)
           .then(snapshot => snapshot.ref.getDownloadURL())
           .then(url => {
-            document.getElementById('profilePic').src = url;
+            profilePic.src = url;
             return db.collection('profiles').doc(user.uid).set({ photoURL: url }, { merge: true });
           })
           .then(() => alert("✅ Profile picture saved!"))
@@ -99,7 +102,7 @@
       document.getElementById('removeBtn').onclick = () => {
         db.collection('profiles').doc(user.uid).set({ photoURL: "" }, { merge: true })
           .then(() => {
-            document.getElementById("profilePic").src = "default-avatar.png";
+            profilePic.src = "default-avatar.png";
             alert("✅ Profile picture removed.");
           })
           .catch(console.error);
@@ -107,14 +110,16 @@
 
       // Save display name + bio
       document.getElementById('saveProfile').onclick = () => {
-        const name = document.getElementById('displayName').value.trim();
-        const bio = document.getElementById('bio').value.trim();
-        db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
+        const name = displayName.value.trim();
+        const userBio = bio.value.trim();
+
+        db.collection('profiles').doc(user.uid).set({ name, bio: userBio }, { merge: true })
           .then(() => {
             const msg = document.getElementById('profileSavedMsg');
             msg.style.opacity = 1;
             setTimeout(() => msg.style.opacity = 0, 2000);
-          });
+          })
+          .catch(console.error);
       };
 
       // Logout
