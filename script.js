@@ -8,31 +8,49 @@ themeToggle?.addEventListener("click", () => {
   localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 });
 
-// === THEME SELETCTOR ===
+// === THEME SELECTOR ===
 const themes = {
   vibrant: {
-    '--primary': '#7f00ff',
-    '--secondary': '#39ff14',
-    '--accent': '#ff007f'
+    '--primary-color': '#7f00ff',
+    '--secondary-color': '#39ff14',
+    '--accent-color': '#ff007f'
   },
   pastel: {
-    '--primary': '#ffc0cb',
-    '--secondary': '#b0e0e6',
-    '--accent': '#dda0dd'
+    '--primary-color': '#ffc0cb',
+    '--secondary-color': '#b0e0e6',
+    '--accent-color': '#dda0dd'
   },
   ocean: {
-    '--primary': '#006994',
-    '--secondary': '#00ced1',
-    '--accent': '#20b2aa'
+    '--primary-color': '#006994',
+    '--secondary-color': '#00ced1',
+    '--accent-color': '#20b2aa'
   },
   sunset: {
-    '--primary': '#ff5e62',
-    '--secondary': '#ff9966',
-    '--accent': '#ffcc70'
+    '--primary-color': '#ff5e62',
+    '--secondary-color': '#ff9966',
+    '--accent-color': '#ffcc70'
   }
 };
 
-document.getElementById('themeSelect').addEventListener('change', function () {
+function applyTheme(themeVars) {
+  for (const variable in themeVars) {
+    document.documentElement.style.setProperty(variable, themeVars[variable]);
+  }
+}
+
+function saveCustomTheme() {
+  const customTheme = {
+    '--primary-color': document.getElementById('customPrimary').value,
+    '--secondary-color': document.getElementById('customSecondary').value,
+    '--accent-color': document.getElementById('customAccent').value
+  };
+  applyTheme(customTheme);
+  localStorage.setItem('selectedTheme', 'custom');
+  localStorage.setItem('customTheme', JSON.stringify(customTheme));
+}
+
+const themeSelect = document.getElementById('themeSelect');
+themeSelect?.addEventListener('change', function () {
   const selected = this.value;
 
   if (selected === 'custom') {
@@ -44,37 +62,19 @@ document.getElementById('themeSelect').addEventListener('change', function () {
   }
 });
 
-function applyTheme(themeVars) {
-  for (const variable in themeVars) {
-    document.documentElement.style.setProperty(variable, themeVars[variable]);
-  }
-}
-
-function saveCustomTheme() {
-  const customTheme = {
-    '--primary': document.getElementById('customPrimary').value,
-    '--secondary': document.getElementById('customSecondary').value,
-    '--accent': document.getElementById('customAccent').value
-  };
-  applyTheme(customTheme);
-  localStorage.setItem('selectedTheme', 'custom');
-  localStorage.setItem('customTheme', JSON.stringify(customTheme));
-}
-
-// Load saved theme on page load
 window.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('selectedTheme');
   const custom = localStorage.getItem('customTheme');
 
   if (saved) {
-    document.getElementById('themeSelect').value = saved;
+    if (themeSelect) themeSelect.value = saved;
 
     if (saved === 'custom' && custom) {
       const customColors = JSON.parse(custom);
       applyTheme(customColors);
-      document.getElementById('customPrimary').value = customColors['--primary'];
-      document.getElementById('customSecondary').value = customColors['--secondary'];
-      document.getElementById('customAccent').value = customColors['--accent'];
+      document.getElementById('customPrimary').value = customColors['--primary-color'];
+      document.getElementById('customSecondary').value = customColors['--secondary-color'];
+      document.getElementById('customAccent').value = customColors['--accent-color'];
       document.getElementById('customThemeForm').style.display = 'block';
     } else if (themes[saved]) {
       applyTheme(themes[saved]);
@@ -103,7 +103,7 @@ function displayQuote() {
 displayQuote();
 setInterval(displayQuote, 10000);
 
-// === AUTH BUTTONS ===
+// === AUTH BUTTONS (LOGIN / REGISTER / LOGOUT) ===
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -151,7 +151,7 @@ document.querySelectorAll(".tab-buttons").forEach(tabGroup => {
   });
 });
 
-// === LOGIN PAGE FUNCTIONALITY ===
+// === LOGIN FORM FUNCTIONALITY ===
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
