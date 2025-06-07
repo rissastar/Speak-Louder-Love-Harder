@@ -189,3 +189,21 @@ document.querySelector(".back-to-top")?.addEventListener("click", (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+const affirmations = [
+  "You are worthy of love and happiness.",
+  "Your feelings are valid and important.",
+  "Each day brings new opportunities to grow.",
+  "You are not defined by your past.",
+  "You have the strength to overcome challenges.",
+  "Compassion begins with yourself.",
+  "Your voice deserves to be heard."
+];
+
+const affirmationElem = document.getElementById("dailyAffirmation");
+const newAffirmationBtn = document.getElementById("newAffirmationBtn");
+
+newAffirmationBtn.addEventListener("click", () => {
+  const randIndex = Math.floor(Math.random() * affirmations.length);
+  affirmationElem.textContent = affirmations[randIndex];
+});
