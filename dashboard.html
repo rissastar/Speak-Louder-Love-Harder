@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 </head>
 <body>
   <header class="animated-header">
@@ -19,9 +18,11 @@
 
   <nav>
     <ul class="nav-links">
+      <li><a href="settings.html">⚙️ Settings</a></li>
       <details class="dropdown">
         <summary><strong>Explore Topics</strong></summary>
         <div class="dropdown-content">
+          <li><a href="settings.html">⚙️ Settings</a></li>
           <li><a href="cirrhosis.html">Cirrhosis</a></li>
           <li><a href="mental-health.html">Mental Health</a></li>
           <li><a href="addiction.html">Addiction</a></li>
@@ -38,23 +39,6 @@
   </nav>
 
   <main class="dashboard">
-    <div class="profile-pic-section">
-      <img src="default-avatar.png" id="profilePic" alt="Profile picture"
-           onerror="this.onerror=null; this.src='default-avatar.png';" />
-      <input type="file" id="picUpload" accept="image/*" />
-      <div class="profile-pic-buttons">
-        <button id="uploadBtn">Upload Photo</button>
-        <button id="removeBtn">Remove Photo</button>
-      </div>
-    </div>
-
-    <div class="profile-details">
-      <input type="text" id="displayName" placeholder="Display Name" />
-      <textarea id="bio" rows="4" placeholder="Your bio..."></textarea>
-      <button id="saveProfile">Save Profile</button>
-      <p id="profileSavedMsg" class="saved-msg">Profile saved!</p>
-    </div>
-
     <section class="dashboard-affirmation">
       <p class="affirmation glow" id="affirmationText">You’re healing, shining, and becoming you.</p>
     </section>
@@ -78,71 +62,20 @@
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    const db = firebase.firestore();
-    const storage = firebase.storage();
 
     auth.onAuthStateChanged(user => {
       if (!user) {
         window.location.href = "login.html";
         return;
       }
-
-      // Load profile
-      db.collection('profiles').doc(user.uid).get().then(doc => {
-        if (doc.exists) {
-          const data = doc.data();
-          if (data.photoURL) {
-            document.getElementById('profilePic').src = data.photoURL;
-          }
-          document.getElementById('displayName').value = data.name || '';
-          document.getElementById('bio').value = data.bio || '';
-        }
-      });
-
-      // Upload profile picture
-      document.getElementById('uploadBtn').onclick = () => {
-        const file = document.getElementById('picUpload').files[0];
-        if (!file) return alert("Please pick a photo.");
-        const ref = storage.ref(`profilePics/${user.uid}/${file.name}`);
-        ref.put(file)
-          .then(snapshot => snapshot.ref.getDownloadURL())
-          .then(url => {
-            document.getElementById('profilePic').src = url;
-            return db.collection('profiles').doc(user.uid).set({ photoURL: url }, { merge: true });
-          })
-          .then(() => alert("✅ Profile picture saved!"))
-          .catch(console.error);
-      };
-
-      // Remove profile picture
-      document.getElementById('removeBtn').onclick = () => {
-        db.collection('profiles').doc(user.uid).set({ photoURL: "" }, { merge: true })
-          .then(() => {
-            document.getElementById("profilePic").src = "default-avatar.png";
-            alert("✅ Profile picture removed.");
-          })
-          .catch(console.error);
-      };
-
-      // Save profile info
-      document.getElementById('saveProfile').onclick = () => {
-        const name = document.getElementById('displayName').value;
-        const bio = document.getElementById('bio').value;
-        db.collection('profiles').doc(user.uid).set({ name, bio }, { merge: true })
-          .then(() => {
-            const msg = document.getElementById('profileSavedMsg');
-            msg.style.opacity = 1;
-            setTimeout(() => msg.style.opacity = 0, 2000);
-          });
-      };
-
-      // Logout
-      document.getElementById('logoutBtn').onclick = () => {
-        auth.signOut().then(() => window.location.href = 'logout.html');
-      };
     });
 
-    // Affirmations
+    // Logout button
+    document.getElementById('logoutBtn').onclick = () => {
+      auth.signOut().then(() => window.location.href = 'logout.html');
+    };
+
+    // Affirmations rotation
     const affirmations = [
       "You are strong just for being you.",
       "Your story is worth telling.",
