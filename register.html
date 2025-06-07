@@ -12,11 +12,14 @@
   <main class="auth-container">
     <h1>Register</h1>
     <form id="registerForm" class="auth-form">
+      <label for="username">username</label>
+      <input type="username" id="username" name="username"placeholder="Enter disired username" required minlength="6" />
+      
       <label for="email">Email</label>
       <input type="email" id="email" name="email" placeholder="you@example.com" required />
       
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter password" required minlength="6" />
+      <input type="password" id="password" name="password" placeholder="Enter desired password" required minlength="6" />
       
       <label for="confirmPassword">Confirm Password</label>
       <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required minlength="6" />
