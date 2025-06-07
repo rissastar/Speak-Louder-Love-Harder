@@ -1,32 +1,28 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login - Speak Louder, Love Harder</title>
-
-  <!-- CSS -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-  <!-- Login Script -->
-  <script defer src="auth.js"></script>
 </head>
 <body>
   <main class="auth-container">
-    <div class="auth-card">
-      <h2 class="glow">Welcome Back 💖</h2>
-      <form id="loginForm" class="auth-form">
-        <input type="email" id="email" placeholder="Email" required />
-        <input type="password" id="password" placeholder="Password" required />
-        <button type="submit"><a href="login.html" class="button">Login</a>
-        <p id="loginErrorMsg" class="error-message" style="display: none;"></p>
-      </form>
-      <p class="switch-auth">Don't have an account? <a href="register.html">Register here</a></p>
-    </div>
+    <h1 class="auth-title">Log In</h1>
+    <form id="loginForm" class="auth-form">
+      <input type="email" name="email" placeholder="Email address" required class="auth-input" />
+      <input type="password" name="password" placeholder="Password" required class="auth-input" />
+      <button type="submit" class="auth-button">Log In</button>
+    </form>
+    <p class="auth-message">
+      Don't have an account? <a href="register.html" class="auth-link">Register here</a>
+    </p>
   </main>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script src="auth.js"></script>
 </body>
 </html>
