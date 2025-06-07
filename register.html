@@ -2,63 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register - Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-</head>
-<body>
-  
-  <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
-  
-  <main class="auth-container">
-    <h1>Register</h1>
-    <form id="registerForm" class="auth-form">
-      <label for="username">username</label>
-      <input type="username" id="username" name="username"placeholder="Enter disired username" required minlength="6" />
-      
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="you@example.com" required />
-      
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter desired password" required minlength="6" />
-      
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required minlength="6" />
-      
-      <button type="submit" class="btn-primary">Register</button>
-    </form>
-    <p>
-      Already have an account? <a href="login.html">Log in here</a>
-    </p>
-  </main>
-  
-  <footer>
-  <p>Built with ❤️ to inspire and empower.</p>
-  <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
-</footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
   <script>
-    // Firebase config (same as login)
     const firebaseConfig = {
       apiKey: "AIzaSyCzmBdZJrtHEoxcAHte2B8iMrea-ctSxy8",
       authDomain: "speak-louder-581d7.firebaseapp.com",
@@ -68,39 +20,61 @@
       appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
       measurementId: "G-54XJLK1CGJ"
     };
-
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+  </script>
+</head>
+<body>
+  <header class="animated-header">
+    <h1 class="glow">Join Our Community 💖</h1>
+    <p style="text-align:center;">You belong here. Let’s begin this healing journey together 🌈</p>
+  </header>
 
-    // Redirect if already logged in
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        window.location.href = "dashboard.html";
-      }
-    });
+  <main class="auth-form">
+    <form id="registerForm">
+      <input type="email" id="registerEmail" placeholder="Email" required />
+      <input type="password" id="registerPassword" placeholder="Password (min 6 characters)" required />
+      <button type="submit">Create Account</button>
+      <p id="registerError" class="auth-msg"></p>
+    </form>
+    <div id="registerSuccessMessage" class="quote-box" style="display:none;"></div>
+  </main>
 
-    // Handle registration form submission
-    const registerForm = document.getElementById('registerForm');
-    registerForm.addEventListener('submit', async (e) => {
+  <footer>
+    <p>Built with ❤️ to inspire and empower.</p>
+    <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn">✨ Visit My Linktree</a>
+  </footer>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const errorMsg = document.getElementById("registerError");
+    const successBox = document.getElementById("registerSuccessMessage");
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
+      const email = document.getElementById("registerEmail").value.trim();
+      const password = document.getElementById("registerPassword").value.trim();
 
-      const email = registerForm.email.value.trim();
-      const password = registerForm.password.value;
-      const confirmPassword = registerForm.confirmPassword.value;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("user", JSON.stringify({ email: user.email }));
 
-      if (password !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-      }
+          // Show welcome affirmation
+          errorMsg.textContent = "";
+          successBox.style.display = "block";
+          successBox.innerHTML = `
+            <p>🌟 Welcome, <strong>${user.email.split('@')[0]}</strong>!</p>
+            <p class="affirmation">Your voice matters. Your healing begins here 💜</p>
+          `;
 
-      try {
-        await auth.createUserWithEmailAndPassword(email, password);
-        // Redirect on success
-        window.location.href = "dashboard.html";
-      } catch (error) {
-        alert("Registration failed: " + error.message);
-      }
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 3500);
+        })
+        .catch((error) => {
+          errorMsg.textContent = "⚠️ " + error.message;
+        });
     });
   </script>
 </body>
