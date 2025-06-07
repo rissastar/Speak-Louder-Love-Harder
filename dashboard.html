@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header class="animated-header">
@@ -19,21 +17,7 @@
   <nav>
     <ul class="nav-links">
       <li><a href="settings.html">⚙️ Settings</a></li>
-      <details class="dropdown">
-        <summary><strong>Explore Topics</strong></summary>
-        <div class="dropdown-content">
-          <li><a href="cirrhosis.html">Cirrhosis</a></li>
-          <li><a href="mental-health.html">Mental Health</a></li>
-          <li><a href="addiction.html">Addiction</a></li>
-          <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-          <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-          <li><a href="physical-abuse.html">Physical Abuse</a></li>
-          <li><a href="mental-abuse.html">Mental Abuse</a></li>
-          <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-          <li><a href="pitbull-love.html">Pitbull Love</a></li>
-          <li><a href="foster-children.html">Foster Children</a></li>
-        </div>
-      </details>
+      <!-- Add your other nav items here -->
     </ul>
   </nav>
 
@@ -58,23 +42,19 @@
       appId: "1:674769404942:web:1cbda7d50ff15208dce85f",
       measurementId: "G-54XJLK1CGJ"
     };
-
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
     auth.onAuthStateChanged(user => {
       if (!user) {
         window.location.href = "login.html";
-        return;
       }
     });
 
-    // Logout button
     document.getElementById('logoutBtn').onclick = () => {
-      auth.signOut().then(() => window.location.href = 'logout.html');
+      auth.signOut().then(() => window.location.href = "logout.html");
     };
 
-    // Affirmations rotation
     const affirmations = [
       "You are strong just for being you.",
       "Your story is worth telling.",
