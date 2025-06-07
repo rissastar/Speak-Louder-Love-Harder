@@ -131,8 +131,12 @@
     }
 
     loginBtn.addEventListener("click", () => {
-      window.location.href = "login.html";
-    });
+  window.location.href = "login.html";
+});
+
+registerBtn.addEventListener("click", () => {
+  window.location.href = "register.html";
+});
 
     logoutBtn.addEventListener("click", () => {
       localStorage.setItem("isLoggedIn", "false");
