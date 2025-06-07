@@ -416,3 +416,27 @@ footer a:hover {
   box-shadow: 0 0 15px var(--secondary-color);
   transform: scale(1.05);
 }
+
+.profile-pic-section img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 3px solid var(--accent-color, #ff6f91);
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(255, 111, 145, 0.6);
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-pic-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.saved-msg {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
