@@ -1,160 +1,262 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+/* -------------------
+   Base Colors & Fonts
+------------------- */
+:root {
+  --primary-color: #a259ff;
+  --secondary-color: #63ffc1;
+  --accent-color: #ff66a3;
+  --bg-color: #f9f9ff;
+  --text-color: #222;
+  --glow-color: rgba(255, 255, 255, 0.7);
+  --border-radius: 12px;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  <!-- HEADER -->
-  <header class="animated-header">
-    <h1 class="glow">Speak Louder, Love Harder</h1>
-    <p>Your safe space for mental health, support & love 💖</p>
-    <div class="header-actions">
-      <span id="welcomeMessage"></span>
-      <div class="auth-buttons">
-        <button onclick="showLogin()">Login</button>
-        <button onclick="showRegister()">Register</button>
-        <button onclick="logout()">Logout</button>
-      </div>
-    </div>
-  </header>
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
 
-  <!-- NAVIGATION -->
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-    <li><a href="mental-health.html">Mental Health</a></li>
-    <li><a href="addiction.html">Addiction</a></li>
-    <li><a href="settings.html">Settings</a></li>
-  </ul>
+/* -------------------
+   Header
+------------------- */
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(145deg, var(--primary-color), var(--accent-color));
+  color: white;
+  box-shadow: 0 0 20px var(--glow-color);
+  border-bottom: 5px solid var(--secondary-color);
+}
 
-  <!-- QUOTE SECTION -->
-  <section class="quote-section">
-    <blockquote id="quote">"You are loved, you are seen, you matter."</blockquote>
-    <cite id="author">— Anonymous</cite>
-  </section>
+.glow {
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--accent-color);
+}
 
-  <!-- AUTH SECTION -->
-  <section class="login-container" id="authSection">
-    <div class="auth-form" id="loginForm">
-      <h2>Login</h2>
-      <form onsubmit="handleLogin(event)">
-        <input type="email" placeholder="Email" required id="loginEmail" />
-        <input type="password" placeholder="Password" required id="loginPassword" />
-        <button type="submit">Login</button>
-      </form>
-      <p class="auth-msg">Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
-    </div>
+.header-actions {
+  margin-top: 1rem;
+}
 
-    <div class="auth-form" id="registerForm" style="display:none;">
-      <h2>Register</h2>
-      <form onsubmit="handleRegister(event)">
-        <input type="text" placeholder="Name" required id="registerName" />
-        <input type="email" placeholder="Email" required id="registerEmail" />
-        <input type="password" placeholder="Password" required id="registerPassword" />
-        <button type="submit">Register</button>
-      </form>
-      <p class="auth-msg">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
-    </div>
-  </section>
+.auth-buttons button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--secondary-color);
+  color: #000;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.auth-buttons button:hover {
+  background: var(--accent-color);
+  color: white;
+}
 
-  <!-- THEME SWITCHER -->
-  <div class="theme-switcher">
-    <label for="themeSelect">🎨 Theme:</label>
-    <select id="themeSelect" onchange="changeTheme(this.value)">
-      <option value="vibrant">Vibrant</option>
-      <option value="pastel">Pastel</option>
-      <option value="ocean">Ocean</option>
-      <option value="sunset">Sunset</option>
-    </select>
-  </div>
+/* -------------------
+   Navigation
+------------------- */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  background: var(--primary-color);
+  padding: 0.5rem;
+  flex-wrap: wrap;
+}
+.nav-links li {
+  margin: 0.5rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: background 0.3s;
+}
+.nav-links a:hover {
+  background: var(--secondary-color);
+  color: #000;
+}
 
-  <!-- LINKTREE STYLE BUTTON -->
-  <div style="text-align: center;">
-    <a class="linktree-btn" href="guestbook-connect.html">Join the Community</a>
-  </div>
+/* -------------------
+   Quote Section
+------------------- */
+.quote-section {
+  background: var(--bg-color);
+  text-align: center;
+  padding: 2rem 1rem;
+  font-style: italic;
+}
+.quote-section blockquote {
+  font-size: 1.4rem;
+  margin: 0;
+}
+.quote-section cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #777;
+}
 
-  <!-- BACK TO TOP -->
-  <a class="back-to-top" href="#">↑ Top</a>
+/* -------------------
+   Auth Forms
+------------------- */
+.login-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Speak Louder, Love Harder. Built with 💜 by Larissa.</p>
-    <p><a href="mailto:support@speaklouder.com">Contact Us</a></p>
-  </footer>
+.auth-form {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px #ccc;
+  max-width: 300px;
+  width: 100%;
+}
 
-  <!-- SCRIPT -->
-  <script>
-    const quotes = [
-      { text: "You are enough exactly as you are.", author: "Meghan Markle" },
-      { text: "Out of suffering have emerged the strongest souls.", author: "Kahlil Gibran" },
-      { text: "Healing takes time, and asking for help is a courageous step.", author: "Mariska Hargitay" },
-      { text: "Your story isn’t over yet.", author: "Project Semicolon" },
-      { text: "It’s okay to not be okay. Just don’t give up.", author: "Unknown" }
-    ];
+.auth-form h2 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
 
-    function rotateQuote() {
-      const quote = quotes[Math.floor(Math.random() * quotes.length)];
-      document.getElementById("quote").textContent = `"${quote.text}"`;
-      document.getElementById("author").textContent = `— ${quote.author}`;
-    }
+.auth-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
 
-    function showLogin() {
-      document.getElementById("loginForm").style.display = "block";
-      document.getElementById("registerForm").style.display = "none";
-    }
+.auth-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.auth-form button:hover {
+  background: var(--primary-color);
+}
 
-    function showRegister() {
-      document.getElementById("registerForm").style.display = "block";
-      document.getElementById("loginForm").style.display = "none";
-    }
+.auth-msg {
+  text-align: center;
+  margin-top: 0.5rem;
+}
 
-    function handleLogin(e) {
-      e.preventDefault();
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
-      localStorage.setItem("user", JSON.stringify({ email }));
-      updateWelcomeMessage();
-      alert("Logged in successfully!");
-      showLogin();
-    }
+/* -------------------
+   Theme Switcher
+------------------- */
+.theme-switcher {
+  text-align: center;
+  margin: 1rem auto;
+}
 
-    function handleRegister(e) {
-      e.preventDefault();
-      const name = document.getElementById("registerName").value;
-      const email = document.getElementById("registerEmail").value;
-      const password = document.getElementById("registerPassword").value;
-      localStorage.setItem("user", JSON.stringify({ name, email }));
-      updateWelcomeMessage();
-      alert("Registered and logged in!");
-      showLogin();
-    }
+.theme-switcher select {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+}
 
-    function logout() {
-      localStorage.removeItem("user");
-      document.getElementById("welcomeMessage").textContent = "";
-      alert("Logged out.");
-    }
+/* -------------------
+   Linktree Button
+------------------- */
+.linktree-btn {
+  display: inline-block;
+  margin: 2rem auto;
+  padding: 0.75rem 1.5rem;
+  background: var(--secondary-color);
+  color: #000;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 10px var(--glow-color);
+  transition: background 0.3s;
+}
+.linktree-btn:hover {
+  background: var(--accent-color);
+  color: white;
+}
 
-    function updateWelcomeMessage() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const message = user ? `Welcome, ${user.name || user.email}!` : "";
-      document.getElementById("welcomeMessage").textContent = message;
-    }
+/* -------------------
+   Footer
+------------------- */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  font-size: 0.9rem;
+}
 
-    function changeTheme(theme) {
-      document.body.className = "";
-      document.body.classList.add(`theme-${theme}`);
-    }
+/* -------------------
+   Back to Top
+------------------- */
+.back-to-top {
+  display: block;
+  text-align: center;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+}
 
-    // Initial setup
-    updateWelcomeMessage();
-    rotateQuote();
-    setInterval(rotateQuote, 10000); // rotate every 10s
-  </script>
-</body>
-</html>
+/* -------------------
+   Themes
+------------------- */
+.theme-vibrant {
+  --primary-color: #a259ff;
+  --secondary-color: #63ffc1;
+  --accent-color: #ff66a3;
+  --bg-color: #f9f9ff;
+  --text-color: #222;
+}
+
+.theme-pastel {
+  --primary-color: #e3b7f3;
+  --secondary-color: #b9fbc0;
+  --accent-color: #ffc6d9;
+  --bg-color: #fff7fb;
+  --text-color: #333;
+}
+
+.theme-ocean {
+  --primary-color: #005f73;
+  --secondary-color: #94d2bd;
+  --accent-color: #ee9b00;
+  --bg-color: #e0fbfc;
+  --text-color: #012a4a;
+}
+
+.theme-sunset {
+  --primary-color: #ff5e5b;
+  --secondary-color: #f4d06f;
+  --accent-color: #ffb997;
+  --bg-color: #fff3e4;
+  --text-color: #4a3f35;
+}
+
+/* -------------------
+   Responsive
+------------------- */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-form {
+    max-width: 90%;
+  }
+}
