@@ -4,7 +4,187 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Base Styles */
+    :root {
+      --primary-color: #a259ff;
+      --secondary-color: #63ffc1;
+      --accent-color: #ff66a3;
+      --bg-color: #f9f9ff;
+      --text-color: #222;
+      --glow: 0 0 15px var(--primary-color);
+      --font: 'Segoe UI', sans-serif;
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: var(--font);
+      background: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px var(--accent-color);
+      border-bottom: 4px solid var(--accent-color);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      list-style: none;
+      background: var(--accent-color);
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--secondary-color);
+      text-shadow: 0 0 8px white;
+    }
+
+    .nav-toggle {
+      display: block;
+      background: var(--secondary-color);
+      border: none;
+      padding: 0.8rem 1.2rem;
+      margin: 1rem auto;
+      font-weight: bold;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: var(--glow);
+    }
+
+    .top-nav {
+      text-align: center;
+    }
+
+    .top-nav .nav-links {
+      display: none;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+
+    .top-nav .nav-links.show {
+      display: flex;
+    }
+
+    .top-nav .nav-links li {
+      margin: 0.5rem 0;
+    }
+
+    section {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1, h2 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px var(--glow);
+    }
+
+    .features-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .features-list li {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .faq-item {
+      margin: 1rem auto;
+      max-width: 600px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+
+    .faq-question {
+      font-weight: bold;
+      cursor: pointer;
+      color: var(--primary-color);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-question.active + .faq-answer,
+    .faq-answer.open {
+      max-height: 200px;
+      margin-top: 0.5rem;
+    }
+
+    .quote {
+      background: var(--secondary-color);
+      color: #111;
+      font-size: 1.2rem;
+      padding: 1rem;
+      margin: 2rem auto;
+      text-align: center;
+      border-radius: var(--radius);
+      box-shadow: var(--glow);
+      max-width: 600px;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 50%;
+      display: none;
+      cursor: pointer;
+      box-shadow: var(--glow);
+    }
+
+    #backToTop.show {
+      display: block;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
 
@@ -25,6 +205,7 @@
     </section>
 
     <button class="nav-toggle" onclick="toggleNav()">📖 Menu</button>
+
     <nav class="top-nav" id="navBar">
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
@@ -73,13 +254,10 @@
     </section>
   </main>
 
-  <!-- Inspirational Quote -->
   <div class="quote" id="quoteBox">"You are enough just as you are."</div>
 
-  <!-- Back to Top Button -->
   <button id="backToTop" onclick="scrollToTop()">↑</button>
 
-  <!-- JavaScript -->
   <script>
     // Scroll fade-in
     const fadeEls = document.querySelectorAll('.fade-in');
@@ -103,14 +281,11 @@
       document.getElementById("navLinks").classList.toggle("show");
     }
 
-    // Back to top button
+    // Back to top
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) {
-        backToTop.classList.add('show');
-      } else {
-        backToTop.classList.remove('show');
-      }
+      if (window.scrollY > 200) backToTop.classList.add('show');
+      else backToTop.classList.remove('show');
     });
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -130,6 +305,5 @@
       document.getElementById("quoteBox").textContent = quotes[quoteIndex];
     }, 6000);
   </script>
-
 </body>
 </html>
