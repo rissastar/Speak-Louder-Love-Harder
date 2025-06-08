@@ -1,3 +1,251 @@
+/* Root colors for purple, green, pink vibes */
+    :root {
+      --purple: #9b59b6;
+      --green: #27ae60;
+      --pink: #e91e63;
+      --dark-bg: #121212;
+      --dark-text: #eee;
+      --light-bg: #fafafa;
+      --light-text: #222;
+      --glow-purple: #bc6ff1;
+      --glow-green: #2ecc71;
+      --glow-pink: #ff4081;
+      --transition: 0.3s ease-in-out;
+    }
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background var(--transition), color var(--transition);
+    }
+    body.light {
+      background: var(--light-bg);
+      color: var(--light-text);
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover, a:focus {
+      color: var(--glow-pink);
+      text-shadow: 0 0 8px var(--glow-pink);
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: linear-gradient(90deg, var(--purple), var(--green), var(--pink));
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      user-select: none;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
+    }
+    header h1 {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.8rem;
+      text-shadow: 0 0 15px var(--glow-purple);
+      margin-bottom: 0.25rem;
+    }
+    header p {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-shadow: 0 0 10px var(--glow-green);
+    }
+    nav {
+      margin: 1rem auto;
+      max-width: 900px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    nav a {
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      background: var(--purple);
+      box-shadow: 0 0 10px var(--glow-purple);
+      color: white;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav a:hover, nav a:focus {
+      background: var(--pink);
+      box-shadow: 0 0 20px var(--glow-pink);
+      outline: none;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    section.features {
+      margin-bottom: 3rem;
+    }
+    section.features h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--pink);
+      text-shadow: 0 0 12px var(--glow-pink);
+    }
+    ul.features-list {
+      list-style: none;
+      font-size: 1.2rem;
+      color: var(--green);
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    ul.features-list li {
+      margin-bottom: 0.6rem;
+      padding-left: 1.5rem;
+      position: relative;
+      cursor: default;
+      user-select: none;
+    }
+    ul.features-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+      font-weight: 900;
+      font-size: 1.5rem;
+      line-height: 1;
+      text-shadow: 0 0 8px var(--glow-pink);
+      top: 2px;
+    }
+    /* Quote carousel */
+    .quote-carousel {
+      margin: 3rem auto;
+      max-width: 600px;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--purple);
+      text-shadow: 0 0 10px var(--glow-purple);
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+      user-select: none;
+      transition: opacity 0.8s ease-in-out;
+    }
+    /* Glowing text style */
+    .glow-text {
+      color: var(--pink);
+      text-shadow:
+        0 0 5px var(--glow-pink),
+        0 0 10px var(--glow-pink),
+        0 0 20px var(--glow-pink),
+        0 0 40px var(--glow-pink);
+      font-weight: 700;
+    }
+    /* Dark/light toggle */
+    .toggle-switch {
+      margin: 1rem auto 2rem;
+      max-width: 900px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      user-select: none;
+    }
+    .toggle-switch label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--green);
+      text-shadow: 0 0 6px var(--glow-green);
+    }
+    .toggle-switch input[type="checkbox"] {
+      width: 50px;
+      height: 26px;
+      position: relative;
+      -webkit-appearance: none;
+      background: var(--purple);
+      outline: none;
+      border-radius: 30px;
+      transition: background var(--transition);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--glow-purple);
+    }
+    .toggle-switch input[type="checkbox"]:checked {
+      background: var(--pink);
+      box-shadow: 0 0 14px var(--glow-pink);
+    }
+    .toggle-switch input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      background: white;
+      transition: 0.3s;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }
+    .toggle-switch input[type="checkbox"]:checked::before {
+      left: 26px;
+    }
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, var(--pink), var(--green), var(--purple));
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+      user-select: none;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+      margin-top: auto;
+    }
+    footer a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+      transition: color var(--transition);
+    }
+    footer a:hover, footer a:focus {
+      color: var(--glow-pink);
+      text-shadow: 0 0 8px var(--glow-pink);
+      outline: none;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      section.features h2 {
+        font-size: 1.5rem;
+      }
+      ul.features-list {
+        font-size: 1rem;
+      }
+      nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap');
 
