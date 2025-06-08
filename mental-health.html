@@ -6,223 +6,126 @@
   <title>Mental Health | Inspire & Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+   /* Fonts and Layout */
     body {
       margin: 0;
-      font-family: 'Fredoka', sans-serif;
-      background: linear-gradient(to right, #1a1a2e, #16213e);
-      color: #fff;
-    }
-
-    .navbar {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      font-family: 'Fredoka', cursive;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
       display: flex;
-      justify-content: center;
-      padding: 1rem 0;
-      border-radius: 999px;
-      margin: 1rem auto;
-      max-width: 800px;
-      box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+      flex-direction: column;
+      min-height: 100vh;
     }
-
-    .navbar a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 20px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .navbar a:hover {
-      color: #f0f;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 4rem 2rem 2rem;
-    }
-
-    .hero h1 {
-      font-family: 'Baloo 2', cursive;
-      font-size: 3rem;
-      color: #f0f;
-      text-shadow: 0 0 10px #ff00ff;
-    }
-
-    .quote-carousel {
-      margin: 2rem auto;
-      max-width: 600px;
-      overflow: hidden;
-      position: relative;
-      height: 3rem;
-    }
-
-    .quote-track {
-      display: flex;
-      animation: scrollQuotes 25s linear infinite;
-    }
-
-    .quote {
-      flex: 0 0 100%;
-      text-align: center;
-      font-style: italic;
-      color: #ccc;
-    }
-
-    @keyframes scrollQuotes {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-500%); }
-    }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 2rem 0 1rem;
-    }
-
-    .tab-button {
-      background: #222;
-      border: 2px solid #f0f;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      margin: 0.5rem;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    .tab-button:hover,
-    .tab-button.active {
-      background: #f0f;
-      color: #000;
-      box-shadow: 0 0 10px #ff00ff;
-    }
-
-    .tab-content {
-      display: none;
+    .page-main {
+      flex: 1;
       padding: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      max-width: 900px;
-      margin: auto;
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .tab-content.active {
-      display: block;
+    /* Header Nav */
+    header.top-nav {
+      background: #9b59b6;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-
-    details {
-      margin-bottom: 1rem;
-      background: #1e1e2f;
-      border-left: 4px solid #f0f;
-      padding: 1rem;
-      border-radius: 10px;
+    header.top-nav h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.6rem;
+      margin: 0;
     }
-
-    summary {
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-actions button {
+      background: white;
+      color: #9b59b6;
+      border: none;
+      padding: 6px 12px;
       font-weight: bold;
+      border-radius: 20px;
       cursor: pointer;
-      color: #f0f;
+      transition: 0.3s ease;
+    }
+    .nav-actions button:hover {
+      background: #f3e5f5;
     }
 
-    footer {
+    /* Quote Box */
+    #quote-box {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      padding: 1rem 1.5rem;
+      border-left: 6px solid #9b59b6;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      color: #6a1b9a;
+      font-style: italic;
+      max-width: 700px;
       text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 3rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-top: 2px solid #f0f;
-      font-size: 0.9rem;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
     }
-    
-    .section {
-  max-width: 900px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-}
 
-.collapsible-section summary {
-  cursor: pointer;
-  font-size: 1.4rem;
-  color: #f0f;
-  margin-bottom: 1rem;
-}
+    /* Pill Navigation */
+    .pill-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 900px;
+    }
+    .pill-nav a {
+      background: white;
+      padding: 12px 18px;
+      border-radius: 30px;
+      color: #9b59b6;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pill-nav a:hover {
+      background: #fce4ec;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
 
-.collapsible-content {
-  padding-top: 1rem;
-}
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+    }
+    footer a {
+      color: #9b59b6;
+      text-decoration: none;
+    }
 
-.myth-fact-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.myth-fact-list li {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  border-left: 5px solid #f0f;
-  background: #1e1e2f;
-  border-radius: 10px;
-}
-
-.myth {
-  color: #ff6b6b;
-}
-
-.fact {
-  color: #b2f7ef;
-}
-
-a {
-  color: #ffccff;
-  text-decoration: underline;
-}
-
-.section1 {
-  max-width: 900px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(173, 255, 255, 0.2);
-  color: #fff;
-  font-family: 'Fredoka', sans-serif;
-}
-
-.section1 h2 {
-  font-size: 1.8rem;
-  color: #ff66cc;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 5px #ff99ff;
-}
-
-.section1 p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  color: #e0e0ff;
-}
-
-.trauma-response-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.trauma-response-list li {
-  margin-bottom: 1rem;
-  padding: 0.75rem 1rem;
-  background: #1e1e30;
-  border-left: 5px solid #ff66cc;
-  border-radius: 10px;
-  font-size: 1rem;
-  line-height: 1.5;
-  box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
-}
+    @media (max-width: 600px) {
+      .pill-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      header.top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
