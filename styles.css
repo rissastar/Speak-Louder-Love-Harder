@@ -60,7 +60,6 @@ nav {
   margin: 2rem auto;
   background: linear-gradient(135deg, var(--purple), var(--pink), var(--green));
   border-radius: 50px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   overflow-x: auto;
   max-width: 95%;
   backdrop-filter: blur(10px);
@@ -88,8 +87,6 @@ nav a {
   border-radius: 999px;
   background: linear-gradient(to right, #f78fb3, #70a1ff, #7bed9f);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease-in-out;
   font-size: 0.95rem;
   border: 2px solid white;
 }
@@ -99,10 +96,52 @@ nav a i {
 }
 
 nav a:hover {
-  transform: scale(1.08) rotate(-1deg);
   background: linear-gradient(to right, #ff6b81, #a29bfe, #55efc4);
-  box-shadow: 0 0 15px 4px rgba(255, 255, 255, 0.3);
-  text-shadow: 0 0 8px white;
+}
+
+/* Optional: highlight current page */
+nav a.active {
+  background: linear-gradient(to right, #ffeaa7, #fab1a0);
+  color: #222;
+  font-weight: 900;
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-radius: 20px;
+  }
+
+  nav ul {
+    flex-direction: row;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+nav a {
+  position: relative;
+  overflow: hidden;
+}
+
+nav a::after {
+  content: "✨";
+  position: absolute;
+  top: -1.2rem;
+  right: 0.5rem;
+  opacity: 0;
+  font-size: 1.2rem;
+  transform: scale(0.5) translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+nav a:hover::after {
+  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 
 /* Optional: style for the current page */
