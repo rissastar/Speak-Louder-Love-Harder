@@ -3,308 +3,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mental Health | Inspire & Connect</title>
+  <title>Mental Health | Speak Louder, Love Harder</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-  /* Light theme (default) */
-body {
-  background: #1a1a2e;
-  color: #eee;
-  transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-/* Dark theme toggled on body */
-body.dark-theme {
-  background: #f0f0f0;
-  color: #111;
-}
-
-/* Also tweak nav background on theme change */
-body.dark-theme .top-nav {
-  background: linear-gradient(135deg, #ff77ff, #33ccff);
-  box-shadow: 0 0 30px #33ccffaa, 0 0 50px #ff77ffaa;
-}
-
-/* Buttons in dark mode (optional) */
-body.dark-theme .nav-actions button {
-  background: linear-gradient(to right, #33ccff, #ff77ff);
-  box-shadow: 0 0 12px #33ccffcc, 0 0 25px #ff77ffcc;
-  color: #222;
-}
-  /* Section Base */
-  .section {
-    background: linear-gradient(135deg, #2c003e, #1a0028);
-    color: #fff;
-    font-family: 'Fredoka', sans-serif;
-    padding: 3rem 2rem;
-    border-radius: 20px;
-    margin: 2rem 0;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
-  }
-
-  .section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    font-family: 'Baloo 2', cursive;
-    background: linear-gradient(to right, #ff66c4, #52c7b8, #d59bf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    from { text-shadow: 0 0 10px #ff66c4; }
-    to { text-shadow: 0 0 20px #52c7b8, 0 0 30px #d59bf6; }
-  }
-
-  /* Collapsibles */
-  details {
-    margin-bottom: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 1rem;
-    border: 1px solid #ffffff30;
-  }
-
-  summary {
-    font-weight: bold;
-    font-size: 1.25rem;
-    cursor: pointer;
-    color: #fff;
-    transition: color 0.3s ease;
-  }
-
-  summary:hover {
-    color: #ffb6ff;
-  }
-
-  /* Tabs */
-  .tab-buttons {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-
-  .tab-btn {
-    padding: 0.5rem 1rem;
-    background: #3c0066;
-    border: none;
-    border-radius: 25px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 0 10px #a64ac9;
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-
-  .tab-btn.active,
-  .tab-btn:hover {
-    background: #a64ac9;
-    transform: scale(1.05);
-  }
-
-  .tab-content {
-    display: none;
-    padding: 1rem 0;
-    border-top: 1px solid #ffffff30;
-    margin-top: 0.5rem;
-    font-size: 1rem;
-  }
-
-  .tab-content.active {
-    display: block;
-  }
-
-  .tab-content ul {
-    padding-left: 1.2rem;
-    list-style-type: disc;
-  }
-   /* Fonts and Layout */
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Fredoka', cursive;
       background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
       color: #333;
       display: flex;
-      flex-direction: column;
       min-height: 100vh;
     }
-    .page-main {
-      flex: 1;
-      padding: 2rem;
+
+    nav.sidebar {
+      width: 220px;
+      background: #9b59b6;
+      color: white;
       display: flex;
       flex-direction: column;
+      padding: 1rem;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    }
+    nav.sidebar h2 {
+      font-family: 'Baloo 2', cursive;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+    }
+    nav.sidebar a {
+      display: flex;
       align-items: center;
+      gap: 12px;
+      padding: 12px 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-bottom: 0.7rem;
+      transition: background 0.3s ease;
+    }
+    nav.sidebar a:hover, nav.sidebar a.active {
+      background: #e84393;
+      box-shadow: 0 0 10px #e84393;
+    }
+    nav.sidebar a i {
+      font-size: 1.3rem;
     }
 
-    /* Header Nav */
-    /* Top nav styling */
-.top-nav {
-  background: linear-gradient(135deg, #7b2ff7, #f107a3);
-  padding: 2rem 1rem;
-  text-align: center;
-  border-radius: 20px;
-  margin: 2rem auto;
-  box-shadow: 0 0 20px #f107a3aa, 0 0 40px #7b2ff7aa;
-  animation: fadeInTop 1.5s ease-out;
-  max-width: 900px;
-}
+    main.dashboard {
+      flex-grow: 1;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+    }
 
-/* Glowing, animated gradient header text */
-.top-nav h1 {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 3rem;
-  font-weight: 600;
-  background: linear-gradient(90deg, #fff, #ff77ff, #aaffff, #fff);
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: glowText 4s ease-in-out infinite alternate;
-  margin: 0.5rem 0;
-}
-
-.top-nav h2 {
-  font-family: 'Baloo 2', cursive;
-  font-size: 1.4rem;
-  color: #ffffffcc;
-  text-shadow: 0 0 6px #f107a3cc, 0 0 8px #7b2ff7aa;
-  animation: fadeIn 2s ease-out;
-}
-
-/* Nav button container */
-.nav-actions {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* Buttons with glowing pill style */
-.nav-actions button {
-  font-family: 'Fredoka', sans-serif;
-  background: linear-gradient(to right, #ff00cc, #3333ff);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 50px;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 10px #ff00cc99, 0 0 20px #3333ff99;
-}
-
-.nav-actions button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #ff00ccdd, 0 0 25px #3333ffcc;
-}
-
-/* Text glow animation */
-@keyframes glowText {
-  0% {
-    background-position: 0% center;
-  }
-  100% {
-    background-position: 100% center;
-  }
-}
-
-/* Fade-in animation for container */
-@keyframes fadeInTop {
-  0% {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Fade-in for subtitle */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-    /* Quote Box */
-    #quote-box {
-      font-size: 1.2rem;
-      font-weight: 600;
+    header.greeting {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
       margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-button {
+      display: block;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
+      text-align: left;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      position: relative;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .card-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      background: #f3e5f5;
+    }
+    .card-button i {
+      margin-right: 12px;
+      color: #9b59b6;
+    }
+
+    #quote-box {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 auto 2rem;
       padding: 1rem 1.5rem;
       border-left: 6px solid #9b59b6;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255 255 255 / 0.8);
       border-radius: 8px;
+      position: relative;
+      max-width: 700px;
       color: #6a1b9a;
       font-style: italic;
-      max-width: 700px;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+      user-select: none;
+    }
+    #quote-box::before {
+      content: "💡";
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      font-size: 1.5rem;
     }
 
-    /* Pill Navigation */
-    .pill-nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      max-width: 900px;
+    main.dashboard::-webkit-scrollbar {
+      width: 8px;
     }
-    .pill-nav a {
-      background: white;
-      padding: 12px 18px;
-      border-radius: 30px;
-      color: #9b59b6;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      transition: 0.2s ease-in-out;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .pill-nav a:hover {
-      background: #fce4ec;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    }
-
-    /* Footer */
-    footer {
-      background: #fff;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #ddd;
-    }
-    footer a {
-      color: #9b59b6;
-      text-decoration: none;
-    }
-
-    @media (max-width: 600px) {
-      .pill-nav {
-        flex-direction: column;
-        align-items: center;
-      }
-      header.top-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
+    main.dashboard::-webkit-scrollbar-thumb {
+      background: #9b59b6;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  
+
+<nav class="sidebar">
+  <h2>🌈 Speak Louder, Love Harder</h2>
+  <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+  <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
+  <a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a>
+  <a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a>
+  <a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a>
+  <a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a>
+  <a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a>
+  <a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a>
+  <a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a>
+  <a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a>
+  <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
+</nav>
+
+</head>
+
 <header class="top-nav">
     <h1>Mental Health</h1>
     <h2>Learn more. Support more. Heal together 💖</h2>
