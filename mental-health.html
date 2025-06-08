@@ -162,50 +162,28 @@
 </head>
 <body>
 
-  <!-- 🌈 Collapsing Top Navbar -->
-  <div class="navbar">
-<nav>
-  <h2>🌈 Speak Louder, Love Harder</h2>
-  <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
-  <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
-  <a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a>
-  <a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a>
-  <a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a>
-  <a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a>
-  <a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a>
-  <a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a>
-  <a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a>
-  <a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a>
-  <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
-</nav>
-
-
-
-<header class="top-nav">
-    <h1>Mental Health</h1>
-    <h2>Learn more. Support more. Heal together 💖</h2>
-  
- <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="auth.html">Login</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
- </header>
+<div class="navbar">
+  <div class="logo">🌈 Speak Louder, Love Harder</div>
+  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="guestbook-connect.html">Guestbook</a>
+    <a href="mental-health.html">Mental Health</a>
+    <a href="addiction.html">Addiction</a>
+    <a href="cystic-fibrosis.html">CF</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pitbull Love</a>
+    <a href="foster-children.html">Foster Children</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</div>
+ 
+ <header class="top-nav">
+  <h1>Mental Health</h1>
+  <h2>Learn more. Support more. Heal together 💖</h2>
+</header>
 
  <section class="section">
   <details class="collapsible-section" open>
@@ -579,6 +557,11 @@ logoutBtn.addEventListener('click', () => {
   dashboardBtn.style.display = 'none';
   logoutBtn.style.display = 'none';
 });
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('show');
+  }
   </script>
 </body>
 </html>
