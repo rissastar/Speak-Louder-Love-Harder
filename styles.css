@@ -53,21 +53,17 @@ main {
 
 /* Nav Styling */
 nav {
-  position: relative;
-  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 100px;
-  padding: 0.75rem 1.5rem;
+  padding: 1rem;
   margin: 2rem auto;
-  max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--purple), var(--pink), var(--green));
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   overflow-x: auto;
-  white-space: nowrap;
+  max-width: 95%;
+  backdrop-filter: blur(10px);
 }
 
 nav ul {
@@ -76,40 +72,61 @@ nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex-wrap: nowrap;
 }
 
 nav li {
-  display: inline;
+  display: inline-block;
 }
 
 nav a {
-  display: inline-block;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  color: var(--text-light);
-  background: rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(to right, #f78fb3, #70a1ff, #7bed9f);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  font-size: 0.95rem;
+  border: 2px solid white;
 }
 
-body.dark nav a {
-  color: var(--text-dark);
-  background: rgba(255, 255, 255, 0.05);
+nav a i {
+  margin-right: 0.5rem;
 }
 
 nav a:hover {
-  background: var(--purple);
-  color: white;
-  transform: scale(1.05);
+  transform: scale(1.08) rotate(-1deg);
+  background: linear-gradient(to right, #ff6b81, #a29bfe, #55efc4);
+  box-shadow: 0 0 15px 4px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 8px white;
 }
 
-/* Scrollable nav on small screens */
+/* Optional: style for the current page */
+nav a.active {
+  background: linear-gradient(to right, #ffeaa7, #fab1a0);
+  color: #222;
+  font-weight: 900;
+  box-shadow: 0 0 12px 2px #fff;
+}
+
 @media (max-width: 600px) {
   nav {
-    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-radius: 20px;
+  }
+
+  nav ul {
+    flex-direction: row;
+  }
+
+  nav a {
+    font-size: 0.85rem;
     padding: 0.5rem 1rem;
-    border-radius: 16px;
   }
 }
 
@@ -203,8 +220,4 @@ form button {
 }
 form button:hover {
   background: var(--pink);
-}
-
-nav a i {
-  margin-right: 0.4rem;
 }
