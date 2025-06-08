@@ -6,6 +6,96 @@
   <title>Mental Health | Inspire & Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+  /* Section Base */
+  .section {
+    background: linear-gradient(135deg, #2c003e, #1a0028);
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin: 2rem 0;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+  }
+
+  .section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-family: 'Baloo 2', cursive;
+    background: linear-gradient(to right, #ff66c4, #52c7b8, #d59bf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #ff66c4; }
+    to { text-shadow: 0 0 20px #52c7b8, 0 0 30px #d59bf6; }
+  }
+
+  /* Collapsibles */
+  details {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #ffffff30;
+  }
+
+  summary {
+    font-weight: bold;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+
+  summary:hover {
+    color: #ffb6ff;
+  }
+
+  /* Tabs */
+  .tab-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    background: #3c0066;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 10px #a64ac9;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .tab-btn.active,
+  .tab-btn:hover {
+    background: #a64ac9;
+    transform: scale(1.05);
+  }
+
+  .tab-content {
+    display: none;
+    padding: 1rem 0;
+    border-top: 1px solid #ffffff30;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .tab-content ul {
+    padding-left: 1.2rem;
+    list-style-type: disc;
+  }
    /* Fonts and Layout */
     body {
       margin: 0;
