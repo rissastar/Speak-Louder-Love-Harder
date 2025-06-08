@@ -1,42 +1,82 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Dark/Light mode toggle
-  const toggle = document.querySelector('#mode-toggle');
-  const currentTheme = localStorage.getItem('theme');
-  if (currentTheme === 'light') document.body.classList.add('light');
-  toggle.checked = currentTheme === 'light';
+document.addEventListener("DOMContentLoaded", () => {
+  /* -------------------------------
+     DARK / LIGHT MODE TOGGLE
+  -------------------------------- */
+  const toggle = document.getElementById("mode-toggle");
+  const savedTheme = localStorage.getItem("theme");
 
-  toggle.addEventListener('change', () => {
-    document.body.classList.toggle('light');
-    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
+    toggle.checked = true;
+  }
+
+  toggle.addEventListener("change", () => {
+    document.body.classList.toggle("light");
+    const theme = document.body.classList.contains("light") ? "light" : "dark";
+    localStorage.setItem("theme", theme);
   });
 
-  // Quote carousel
-  const quotes = [
-    "You are stronger than you think.",
-    "One step at a time is all it takes.",
-    "Keep going, better days are coming.",
-    "Your story isn't over yet."
-  ];
-  let qi = 0;
-  const qc = document.querySelector('.quote-carousel');
-  const cycleQuotes = () => {
-    qc.style.opacity = 0;
-    setTimeout(() => {
-      qi = (qi + 1) % quotes.length;
-      qc.textContent = quotes[qi];
-      qc.style.opacity = 1;
-    }, 800);
-  };
-  qc.textContent = quotes[qi];
-  setInterval(cycleQuotes, 5000);
+  /* -------------------------------
+     COLLAPSIBLE SECTIONS
+  -------------------------------- */
+  const collapsibles = document.querySelectorAll(".collapsible");
 
-  // Collapsible sections
-  const coll = document.querySelectorAll('.collapsible');
-  coll.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('active');
-      const panel = btn.nextElementSibling;
-      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+  collapsibles.forEach((button) => {
+    button.addEventListener("click", () => {
+      button.classList.toggle("active");
+      const content = button.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
     });
   });
+
+  /* -------------------------------
+     QUOTE CAROUSEL
+  -------------------------------- */
+  const quotes = [
+    "💖 You are not alone.",
+    "🌈 Healing is not linear.",
+    "🌟 You matter. Always.",
+    "🧠 It's okay to not be okay.",
+    "🔥 Your story isn't over yet.",
+  ];
+  let quoteIndex = 0;
+  const quoteEl = document.getElementById("quote-carousel");
+
+  if (quoteEl) {
+    function showQuote() {
+      quoteEl.classList.remove("fadeIn");
+      void quoteEl.offsetWidth; // reflow
+      quoteEl.textContent = quotes[quoteIndex];
+      quoteEl.classList.add("fadeIn");
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+    }
+
+    showQuote();
+    setInterval(showQuote, 4000);
+  }
+
+  /* -------------------------------
+     FLOATING HEARTS
+  -------------------------------- */
+  const heartContainer = document.getElementById("hearts-container");
+
+  if (heartContainer) {
+    function launchHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 2 + 6) + "s";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      heartContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(launchHeart, 1000);
+  }
 });
