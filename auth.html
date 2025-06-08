@@ -67,11 +67,19 @@
       text-decoration: underline;
       cursor: pointer;
     }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 <body>
   <div class="auth-container" id="login-form">
     <h2>Login</h2>
+    <div id="login-error" class="error-message"></div>
     <input type="text" id="login-username" placeholder="Username" />
     <input type="password" id="login-password" placeholder="Password" />
     <button onclick="login()">Login</button>
@@ -80,6 +88,7 @@
 
   <div class="auth-container" id="register-form" style="display:none;">
     <h2>Register</h2>
+    <div id="register-error" class="error-message"></div>
     <input type="text" id="register-username" placeholder="Choose a Username" />
     <input type="password" id="register-password" placeholder="Choose a Password" />
     <button onclick="register()">Register</button>
@@ -93,29 +102,51 @@
     }
 
     function showLogin() {
-      document.getElementById("login-form").style.display = "block";
       document.getElementById("register-form").style.display = "none";
+      document.getElementById("login-form").style.display = "block";
+    }
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem("users") || "{}");
+    }
+
+    function saveUser(username, password) {
+      const users = getUsers();
+      users[username] = password;
+      localStorage.setItem("users", JSON.stringify(users));
     }
 
     function login() {
-      const username = document.getElementById("login-username").value;
-      if (username.trim()) {
+      const username = document.getElementById("login-username").value.trim();
+      const password = document.getElementById("login-password").value;
+      const users = getUsers();
+
+      if (users[username] && users[username] === password) {
         localStorage.setItem("currentUser", username);
-        window.location.href = "index.html";
+        window.location.href = "dashboard.html";
       } else {
-        alert("Please enter your username.");
+        document.getElementById("login-error").textContent = "🚫 Invalid username or password.";
       }
     }
 
     function register() {
-      const username = document.getElementById("register-username").value;
-      if (username.trim()) {
-        // Basic simulation: pretend to register
-        localStorage.setItem("currentUser", username);
-        window.location.href = "index.html";
-      } else {
-        alert("Please enter a username.");
+      const username = document.getElementById("register-username").value.trim();
+      const password = document.getElementById("register-password").value;
+      const users = getUsers();
+
+      if (!username || !password) {
+        document.getElementById("register-error").textContent = "⚠️ Please fill in both fields.";
+        return;
       }
+
+      if (users[username]) {
+        document.getElementById("register-error").textContent = "❌ Username already exists.";
+        return;
+      }
+
+      saveUser(username, password);
+      localStorage.setItem("currentUser", username);
+      window.location.href = "dashboard.html";
     }
   </script>
 </body>
