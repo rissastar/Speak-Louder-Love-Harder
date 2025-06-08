@@ -56,51 +56,32 @@ h1, h2, h3 {
   }
   
 /* ========== HEADER ========== */
-header {
-  background: var(--dark-bg);
-  color: var(--pink);
-  padding: 2rem 1rem;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-  border-bottom: 5px solid var(--pink);
-  box-shadow: 0 0 40px rgba(255, 64, 129, 0.3);
-  animation: headerPop 1s ease-out;
-}
-@keyframes headerPop {
-  0% { transform: translateY(-40px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-header h1 {
-  font-family: 'Fredoka', cursive;
-  font-size: 3rem;
+.hero-header {
+  display: inline-block;
+  padding: 1.2rem 3rem;
+  margin: 2rem auto;
+  border-radius: 999px; /* pill shape */
+  background-color: #8a2be2; /* bright solid purple (you can change this) */
+  color: #ffffff;
+  font-size: 2.8rem;
   font-weight: 900;
+  font-family: 'Fredoka', sans-serif;
+  text-align: center;
   text-shadow:
-    0 0 5px var(--pink),
-    0 0 10px var(--pink),
-    0 0 20px var(--purple);
-  animation: glowHeader 2s infinite alternate ease-in-out;
+    0 0 5px #fff,
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff,
+    0 0 30px #ff00ff;
+  box-shadow:
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff,
+    0 0 40px #ff00ff,
+    0 0 80px #ff00ff;
+  transition: transform 0.3s ease;
 }
-/* HEADER GLOW */
-@keyframes headerGlow {
-  0% {
-    text-shadow: 0 0 5px #c084fc, 0 0 10px #9333ea;
-  }
-  100% {
-    text-shadow: 0 0 20px #9333ea, 0 0 40px #7e22ce;
-    }
-}
-header p {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  color: var(--green);
-  text-shadow: 0 0 6px var(--green);
-  animation: fadeInHeader 2s ease-in-out;
-}
-@keyframes fadeInHeader {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+
+.hero-header:hover {
+  transform: scale(1.05);
 }
 
 /* ========== NAVBAR ========== */
