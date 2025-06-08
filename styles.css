@@ -6,9 +6,13 @@
   --purple: #9b59b6;
   --green: #27ae60;
   --pink: #e84393;
+  --footer-bg: linear-gradient(to right, var(--purple), var(--pink));
+  --nav-bg: linear-gradient(to right, var(--purple), var(--pink), var(--green));
 }
+
 body {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   font-family: sans-serif;
   background: var(--bg-light);
   color: var(--text-light);
@@ -18,47 +22,77 @@ body.dark {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
+
 header {
   text-align: center;
   padding: 2rem 1rem;
-  background: linear-gradient(90deg, var(--purple), var(--green), var(--pink));
+  background: var(--nav-bg);
+  color: white;
 }
+
 h1.glow {
   font-size: 2.5rem;
   animation: glow 2s infinite alternate;
   color: white;
 }
+
 @keyframes glow {
   from { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
   to { text-shadow: 0 0 20px rgba(255,255,255,1); }
 }
+
 #theme-toggle {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+
 main {
   padding: 2rem 1rem;
 }
+
+/* Nav Styling */
+nav {
+  background: var(--nav-bg);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 960px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
 nav ul {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   list-style: none;
   padding: 0;
-  justify-content: center;
 }
+
+nav li {
+  transition: transform 0.2s ease;
+}
+nav li:hover {
+  transform: scale(1.05);
+}
+
 nav a {
   text-decoration: none;
-  color: inherit;
-  background: rgba(155, 89, 182, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  color: white;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
   transition: background 0.3s;
 }
+
 nav a:hover {
-  background: rgba(155, 89, 182, 0.2);
+  background: rgba(0, 0, 0, 0.4);
 }
+
+/* Quote Box */
 .quote {
   font-size: 1.5rem;
   text-align: center;
@@ -72,19 +106,38 @@ nav a:hover {
   50% { color: var(--green); }
   100% { color: var(--pink); }
 }
+
+/* Footer Styling */
 footer {
   text-align: center;
-  padding: 1rem;
-  border-top: 1px solid rgba(0,0,0,0.1);
-}
-footer a {
-  color: inherit;
-  text-decoration: underline;
-}
-@media (max-width: 600px) {
-  nav ul { flex-direction: column; }
+  padding: 1.5rem;
+  margin-top: 3rem;
+  background: var(--footer-bg);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.15);
 }
 
+footer a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+footer a:hover {
+  color: #facc15;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* User Menu */
 .user-menu {
   position: absolute;
   top: 10px;
@@ -93,6 +146,8 @@ footer a {
 .user-menu span {
   margin-right: 10px;
 }
+
+/* Note Cards */
 .note-card {
   border: 1px solid var(--purple);
   background: rgba(155, 89, 182, 0.05);
@@ -106,7 +161,10 @@ footer a {
 .note-card small {
   color: gray;
 }
-form input, form textarea {
+
+/* Form Styling */
+form input,
+form textarea {
   display: block;
   width: 100%;
   margin-bottom: 1rem;
