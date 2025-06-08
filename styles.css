@@ -10,23 +10,26 @@
   --nav-bg: linear-gradient(to right, var(--purple), var(--pink), var(--green));
 }
 
-body {
+* {
   box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Fredoka', cursive;
-      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      color: #333;
-      display: flex;
-      min-height: 100vh;
-    }
 }
+
+body {
+  margin: 0;
+  font-family: 'Fredoka', cursive;
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 body.dark {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 2rem 1rem;
@@ -51,11 +54,31 @@ h1.glow {
   cursor: pointer;
 }
 
-main {
-  padding: 2rem 1rem;
+/* Greeting */
+header.greeting {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Nav Styling */
+/* Main Content */
+main {
+  padding: 2rem 1rem;
+  flex-grow: 1;
+}
+
+main.dashboard::-webkit-scrollbar {
+  width: 8px;
+}
+main.dashboard::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 10px;
+}
+
+/* Navigation */
 nav {
   display: flex;
   justify-content: center;
@@ -93,6 +116,9 @@ nav a {
   color: #fff;
   font-size: 0.95rem;
   border: 2px solid white;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 nav a i {
@@ -101,34 +127,6 @@ nav a i {
 
 nav a:hover {
   background: linear-gradient(to right, #ff6b81, #a29bfe, #55efc4);
-}
-
-/* Optional: highlight current page */
-nav a.active {
-  background: linear-gradient(to right, #ffeaa7, #fab1a0);
-  color: #222;
-  font-weight: 900;
-}
-
-@media (max-width: 600px) {
-  nav {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    border-radius: 20px;
-  }
-
-  nav ul {
-    flex-direction: row;
-  }
-
-  nav a {
-    font-size: 0.85rem;
-    padding: 0.5rem 1rem;
-  }
-}
-nav a {
-  position: relative;
-  overflow: hidden;
 }
 
 nav a::after {
@@ -148,7 +146,6 @@ nav a:hover::after {
   transform: scale(1) translateY(0);
 }
 
-/* Optional: style for the current page */
 nav a.active {
   background: linear-gradient(to right, #ffeaa7, #fab1a0);
   color: #222;
@@ -156,10 +153,10 @@ nav a.active {
   box-shadow: 0 0 12px 2px #fff;
 }
 
+/* Responsive Navigation */
 @media (max-width: 600px) {
   nav {
     flex-wrap: nowrap;
-    overflow-x: auto;
     border-radius: 20px;
   }
 
@@ -173,22 +170,47 @@ nav a.active {
   }
 }
 
-/* Quote Box */
+/* Quote Section */
 .quote {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 2rem;
 }
+
 .glow-text {
   animation: glow-post 3s infinite alternate;
 }
+
 @keyframes glow-post {
-  0% { color: var(--purple); }
-  50% { color: var(--green); }
+  0%   { color: var(--purple); }
+  50%  { color: var(--green); }
   100% { color: var(--pink); }
 }
 
-/* Footer Styling */
+#quote-box {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 auto 2rem;
+  padding: 1rem 1.5rem;
+  border-left: 6px solid var(--purple);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  max-width: 700px;
+  color: #6a1b9a;
+  font-style: italic;
+  user-select: none;
+  position: relative;
+}
+
+#quote-box::before {
+  content: "💡";
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-size: 1.5rem;
+}
+
+/* Footer */
 footer {
   text-align: center;
   padding: 1.5rem;
@@ -206,16 +228,9 @@ footer a {
   font-weight: bold;
   text-decoration: underline;
 }
+
 footer a:hover {
   color: #facc15;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
 /* User Menu */
@@ -224,6 +239,7 @@ footer a:hover {
   top: 10px;
   right: 10px;
 }
+
 .user-menu span {
   margin-right: 10px;
 }
@@ -236,9 +252,11 @@ footer a:hover {
   margin-top: 1rem;
   border-radius: 8px;
 }
+
 .note-card h3 {
   margin: 0 0 0.5rem;
 }
+
 .note-card small {
   color: gray;
 }
@@ -253,6 +271,7 @@ form textarea {
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+
 form button {
   padding: 0.5rem 1rem;
   background: var(--purple);
@@ -261,84 +280,37 @@ form button {
   cursor: pointer;
   border-radius: 4px;
 }
+
 form button:hover {
   background: var(--pink);
 }
 
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Fredoka', cursive;
-      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      color: #333;
-      display: flex;
-      min-height: 100vh;
-    }
+/* Card Buttons */
+.card-button {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
+  text-align: left;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
 
-    header.greeting {
-      font-family: 'Baloo 2', cursive;
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.card-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: #f3e5f5;
+}
 
-    .card-button {
-      display: block;
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto 1.5rem;
-      background: white;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
-      text-align: left;
-      text-decoration: none;
-      color: #333;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-      position: relative;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .card-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      background: #f3e5f5;
-    }
-    .card-button i {
-      margin-right: 12px;
-      color: #9b59b6;
-    }
-
-    #quote-box {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin: 0 auto 2rem;
-      padding: 1rem 1.5rem;
-      border-left: 6px solid #9b59b6;
-      background: rgba(255 255 255 / 0.8);
-      border-radius: 8px;
-      position: relative;
-      max-width: 700px;
-      color: #6a1b9a;
-      font-style: italic;
-      user-select: none;
-    }
-    #quote-box::before {
-      content: "💡";
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      font-size: 1.5rem;
-    }
-
-    main.dashboard::-webkit-scrollbar {
-      width: 8px;
-    }
-    main.dashboard::-webkit-scrollbar-thumb {
-      background: #9b59b6;
-      border-radius: 10px;
-    }
-  </style>
+.card-button i {
+  margin-right: 12px;
+  color: var(--purple);
+}
