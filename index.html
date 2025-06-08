@@ -2,203 +2,365 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* Fonts and Layout */
+    /* Root colors for purple, green, pink vibes */
+    :root {
+      --purple: #9b59b6;
+      --green: #27ae60;
+      --pink: #e91e63;
+      --dark-bg: #121212;
+      --dark-text: #eee;
+      --light-bg: #fafafa;
+      --light-text: #222;
+      --glow-purple: #bc6ff1;
+      --glow-green: #2ecc71;
+      --glow-pink: #ff4081;
+      --transition: 0.3s ease-in-out;
+    }
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
-      margin: 0;
-      font-family: 'Fredoka', cursive;
-      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    .page-main {
-      flex: 1;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Header Nav */
-    header.top-nav {
-      background: #9b59b6;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    header.top-nav h1 {
       font-family: 'Baloo 2', cursive;
-      font-size: 1.6rem;
-      margin: 0;
-    }
-    .nav-actions {
+      background: var(--dark-bg);
+      color: var(--dark-text);
+      min-height: 100vh;
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      transition: background var(--transition), color var(--transition);
     }
-    .nav-actions button {
-      background: white;
-      color: #9b59b6;
-      border: none;
-      padding: 6px 12px;
-      font-weight: bold;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s ease;
+    body.light {
+      background: var(--light-bg);
+      color: var(--light-text);
     }
-    .nav-actions button:hover {
-      background: #f3e5f5;
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
     }
-
-    /* Quote Box */
-    #quote-box {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      padding: 1rem 1.5rem;
-      border-left: 6px solid #9b59b6;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 8px;
-      color: #6a1b9a;
-      font-style: italic;
-      max-width: 700px;
+    a:hover, a:focus {
+      color: var(--glow-pink);
+      text-shadow: 0 0 8px var(--glow-pink);
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: linear-gradient(90deg, var(--purple), var(--green), var(--pink));
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
       text-align: center;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      user-select: none;
     }
-
-    /* Pill Navigation */
-    .pill-nav {
+    @keyframes gradientShift {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
+    }
+    header h1 {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.8rem;
+      text-shadow: 0 0 15px var(--glow-purple);
+      margin-bottom: 0.25rem;
+    }
+    header p {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-shadow: 0 0 10px var(--glow-green);
+    }
+    nav {
+      margin: 1rem auto;
+      max-width: 900px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
-      max-width: 900px;
     }
-    .pill-nav a {
-      background: white;
-      padding: 12px 18px;
-      border-radius: 30px;
-      color: #9b59b6;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      transition: 0.2s ease-in-out;
+    nav a {
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      background: var(--purple);
+      box-shadow: 0 0 10px var(--glow-purple);
+      color: white;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav a:hover, nav a:focus {
+      background: var(--pink);
+      box-shadow: 0 0 20px var(--glow-pink);
+      outline: none;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    section.features {
+      margin-bottom: 3rem;
+    }
+    section.features h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--pink);
+      text-shadow: 0 0 12px var(--glow-pink);
+    }
+    ul.features-list {
+      list-style: none;
+      font-size: 1.2rem;
+      color: var(--green);
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    ul.features-list li {
+      margin-bottom: 0.6rem;
+      padding-left: 1.5rem;
+      position: relative;
+      cursor: default;
+      user-select: none;
+    }
+    ul.features-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+      font-weight: 900;
+      font-size: 1.5rem;
+      line-height: 1;
+      text-shadow: 0 0 8px var(--glow-pink);
+      top: 2px;
+    }
+    /* Quote carousel */
+    .quote-carousel {
+      margin: 3rem auto;
+      max-width: 600px;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--purple);
+      text-shadow: 0 0 10px var(--glow-purple);
+      min-height: 100px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      padding: 0 1rem;
+      user-select: none;
+      transition: opacity 0.8s ease-in-out;
     }
-    .pill-nav a:hover {
-      background: #fce4ec;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    /* Glowing text style */
+    .glow-text {
+      color: var(--pink);
+      text-shadow:
+        0 0 5px var(--glow-pink),
+        0 0 10px var(--glow-pink),
+        0 0 20px var(--glow-pink),
+        0 0 40px var(--glow-pink);
+      font-weight: 700;
     }
-
+    /* Dark/light toggle */
+    .toggle-switch {
+      margin: 1rem auto 2rem;
+      max-width: 900px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      user-select: none;
+    }
+    .toggle-switch label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--green);
+      text-shadow: 0 0 6px var(--glow-green);
+    }
+    .toggle-switch input[type="checkbox"] {
+      width: 50px;
+      height: 26px;
+      position: relative;
+      -webkit-appearance: none;
+      background: var(--purple);
+      outline: none;
+      border-radius: 30px;
+      transition: background var(--transition);
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--glow-purple);
+    }
+    .toggle-switch input[type="checkbox"]:checked {
+      background: var(--pink);
+      box-shadow: 0 0 14px var(--glow-pink);
+    }
+    .toggle-switch input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      background: white;
+      transition: 0.3s;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }
+    .toggle-switch input[type="checkbox"]:checked::before {
+      left: 26px;
+    }
     /* Footer */
     footer {
-      background: #fff;
-      padding: 1rem;
+      background: linear-gradient(90deg, var(--pink), var(--green), var(--purple));
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: white;
       text-align: center;
+      padding: 1.5rem 1rem;
       font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #ddd;
+      user-select: none;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.3);
+      margin-top: auto;
     }
     footer a {
-      color: #9b59b6;
-      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+      transition: color var(--transition);
     }
-
+    footer a:hover, footer a:focus {
+      color: var(--glow-pink);
+      text-shadow: 0 0 8px var(--glow-pink);
+      outline: none;
+    }
+    /* Responsive */
     @media (max-width: 600px) {
-      .pill-nav {
-        flex-direction: column;
-        align-items: center;
+      header h1 {
+        font-size: 2rem;
       }
-      header.top-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+      section.features h2 {
+        font-size: 1.5rem;
+      }
+      ul.features-list {
+        font-size: 1rem;
+      }
+      nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
-  <header class="top-nav">
-    <h1>🌈 Speak Louder, Love Harder 💖</h1>
-    <div class="nav-actions">
-      <span id="user-greeting"></span>
-      <button id="auth-btn">Login</button>
-      <button id="dashboard-btn" style="display:none;">Dashboard</button>
-      <button id="logout-btn" style="display:none;">Logout</button>
-      <button id="theme-toggle">🌓</button>
-    </div>
+  <header role="banner">
+    <h1>Speak Louder, Love Harder</h1>
+    <p>A vibrant, community-driven website for mental health, support, and love. Featuring inspirational quotes, worksheets, glowing UI effects, and a responsive design built to uplift and connect 💖</p>
   </header>
 
-  <main class="page-main">
-    <section id="quote-box">🌟 You're stronger than you think.</section>
+  <nav aria-label="Primary Navigation">
+    <a href="mental-health.html">Mental Health</a>
+    <a href="addiction.html">Addiction</a>
+    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pitbull Love</a>
+    <a href="foster-children.html">Foster Children</a>
+  </nav>
 
-    <nav class="pill-nav">
-      <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
-      <a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a>
-      <a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a>
-      <a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a>
-      <a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a>
-      <a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a>
-      <a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a>
-      <a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a>
-      <a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a>
-      <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
-    </nav>
+  <div class="toggle-switch" role="region" aria-label="Toggle dark and light mode">
+    <label for="darkLightToggle">Dark / Light Mode</label>
+    <input type="checkbox" id="darkLightToggle" aria-checked="false" />
+  </div>
+
+  <main role="main">
+    <section class="features" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="glow-text">✨ Features</h2>
+      <ul class="features-list">
+        <li>🎨 Color Theme: Purple, Green & Pink vibes</li>
+        <li>🌗 Dark/Light Mode Toggle – remembers your preference!</li>
+        <li>💬 Auto-Rotating Inspirational Quotes</li>
+        <li>🌈 Glowing text, transitions, and hover animations</li>
+        <li>📱 Fully responsive – mobile and desktop friendly</li>
+        <li>💌 Guestbook & Connect Page to share your thoughts, stories, and worksheets</li>
+      </ul>
+    </section>
+
+    <section aria-label="Inspirational quotes" aria-live="polite" class="quote-carousel" id="quoteCarousel" tabindex="0">
+      “The only way out is through.” – Robert Frost
+    </section>
   </main>
 
-  <footer>
-    <p>Built with ❤️ by Rissa • <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+  <footer role="contentinfo">
+    Built with ❤️ to inspire and empower. Visit my <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Linktree</a>.
   </footer>
 
   <script>
-    const user = localStorage.getItem("currentUser");
-    const authBtn = document.getElementById("auth-btn");
-    const logoutBtn = document.getElementById("logout-btn");
-    const dashBtn = document.getElementById("dashboard-btn");
-    const greeting = document.getElementById("user-greeting");
+    // Dark/light mode toggle with localStorage persistence
+    const toggle = document.getElementById('darkLightToggle');
+    const body = document.body;
 
-    if (user) {
-      greeting.textContent = `👋 Welcome, ${user}`;
-      authBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
-      dashBtn.style.display = "inline-block";
+    function setMode(isLight) {
+      if(isLight){
+        body.classList.add('light');
+        toggle.setAttribute('aria-checked', 'true');
+        toggle.checked = true;
+      } else {
+        body.classList.remove('light');
+        toggle.setAttribute('aria-checked', 'false');
+        toggle.checked = false;
+      }
     }
 
-    authBtn.onclick = () => location.href = "auth.html";
-    dashBtn.onclick = () => location.href = "dashboard.html";
-    logoutBtn.onclick = () => {
-      localStorage.removeItem("currentUser");
-      location.reload();
-    };
+    // Initialize mode based on stored preference or system preference
+    const savedMode = localStorage.getItem('darkLightMode');
+    if(savedMode){
+      setMode(savedMode === 'light');
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      setMode(prefersLight);
+    }
 
+    toggle.addEventListener('change', () => {
+      if(toggle.checked){
+        setMode(true);
+        localStorage.setItem('darkLightMode', 'light');
+      } else {
+        setMode(false);
+        localStorage.setItem('darkLightMode', 'dark');
+      }
+    });
+
+    // Auto-rotating inspirational quotes
     const quotes = [
-      "🌟 You're stronger than you think.",
-      "💪 Keep going, you've got this!",
-      "🌈 Every day is a fresh start.",
-      "✨ Believe in yourself and magic happens.",
-      "💖 Spread love wherever you go."
+      '“The only way out is through.” – Robert Frost',
+      '“You, yourself, as much as anybody in the entire universe, deserve your love and affection.” – Buddha',
+      '“Healing takes time, and asking for help is a courageous step.” – Unknown',
+      '“Sometimes the smallest step in the right direction ends up being the biggest step of your life.” – Naeem Callaway',
+      '“Your mental health is a priority. Your happiness is essential.” – Unknown',
+      '“Speak your mind even if your voice shakes.” – Maggie Kuhn',
+      '“You are stronger than your struggles.” – Unknown',
+      '“Love yourself first, because that’s who you’ll be spending the rest of your life with.” – Unknown'
     ];
-    const quoteBox = document.getElementById('quote-box');
+    const quoteElem = document.getElementById('quoteCarousel');
     let quoteIndex = 0;
 
-    function showQuote() {
-      quoteBox.textContent = quotes[quoteIndex];
+    function showNextQuote() {
       quoteIndex = (quoteIndex + 1) % quotes.length;
+      // fade out, change text, fade in
+      quoteElem.style.opacity = 0;
+      setTimeout(() => {
+        quoteElem.textContent = quotes[quoteIndex];
+        quoteElem.style.opacity = 1;
+      }, 800);
     }
-    showQuote();
-    setInterval(showQuote, 7000);
+
+    setInterval(showNextQuote, 8000);
   </script>
 </body>
 </html>
