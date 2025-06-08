@@ -4,12 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Inspire & Connect</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1 class="glow">🌈 Inspire & Connect 💖</h1>
-    <button id="theme-toggle">Toggle Dark/Light</button>
+    <div class="user-area">
+      <span id="user-greeting"></span>
+      <button id="auth-btn">Login</button>
+      <button id="dashboard-btn" style="display:none;">Dashboard</button>
+      <button id="logout-btn" style="display:none;">Logout</button>
+      <button id="theme-toggle">🌓</button>
+    </div>
   </header>
 
   <main>
@@ -33,9 +39,30 @@
   </main>
 
   <footer>
-    <p>Built with ❤️ by Rissa | <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+    <p>Built with ❤️ by Rissa • <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    const user = localStorage.getItem("currentUser");
+    const authBtn = document.getElementById("auth-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const dashBtn = document.getElementById("dashboard-btn");
+    const greeting = document.getElementById("user-greeting");
+
+    if (user) {
+      greeting.textContent = `👋 Welcome, ${user}`;
+      authBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+      dashBtn.style.display = "inline-block";
+    }
+
+    authBtn.onclick = () => location.href = "auth.html";
+    dashBtn.onclick = () => location.href = "dashboard.html";
+    logoutBtn.onclick = () => {
+      localStorage.removeItem("currentUser");
+      location.reload();
+    };
+  </script>
 </body>
 </html>
