@@ -1,150 +1,346 @@
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap');
-
 :root {
-  --bg-light: #f0f0ff;
-  --bg-dark: #1e1e2f;
-  --text-light: #222;
-  --text-dark: #f0f0f0;
-  --accent1: #d86ee6;
-  --accent2: #6ee6c1;
-  --accent3: #ff79c6;
-  --glow: 0 0 12px rgba(255, 140, 255, 0.6);
+  --bg-light: #f0efff;
+  --text-light: #333;
+  --bg-dark: #121212;
+  --text-dark: #f4f4f4;
+  --purple: #9b59b6;
+  --green: #27ae60;
+  --pink: #e84393;
+  --footer-bg: linear-gradient(to right, var(--purple), var(--pink));
+  --nav-bg: linear-gradient(to right, var(--purple), var(--pink), var(--green));
 }
 
 body {
-  margin: 0;
-  font-family: 'Fredoka', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-light);
-  transition: background 0.3s, color 0.3s;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Fredoka', cursive;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
 }
-
-/* Dark mode */
 body.dark {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
 
 header {
-  background: linear-gradient(90deg, var(--accent1), var(--accent3), var(--accent2));
-  padding: 1.2rem 1rem;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  padding: 2rem 1rem;
+  background: var(--nav-bg);
+  color: white;
 }
 
 h1.glow {
-  font-family: 'Baloo 2', cursive;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
+  animation: glow 2s infinite alternate;
   color: white;
-  text-shadow: var(--glow);
 }
 
-.user-area {
-  margin-top: 0.8rem;
+@keyframes glow {
+  from { text-shadow: 0 0 5px rgba(255,255,255,0.4); }
+  to { text-shadow: 0 0 20px rgba(255,255,255,1); }
+}
+
+#theme-toggle {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+main {
+  padding: 2rem 1rem;
+}
+
+/* Nav Styling */
+nav {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.user-area button {
-  font-family: inherit;
-  background: var(--accent3);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.user-area button:hover {
-  background: var(--accent1);
-}
-
-/* Theme toggle button */
-#theme-toggle {
-  background: var(--accent2);
-}
-
-/* Main content */
-main {
-  flex: 1;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.quote {
-  font-size: 1.5rem;
-  margin: 1rem auto;
+  align-items: center;
   padding: 1rem;
-  max-width: 600px;
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 8px rgba(255, 140, 255, 0.3);
+  margin: 2rem auto;
+  background: linear-gradient(135deg, var(--purple), var(--pink), var(--green));
+  border-radius: 50px;
+  overflow-x: auto;
+  max-width: 95%;
+  backdrop-filter: blur(10px);
 }
 
-body.dark .quote {
-  background: rgba(50, 50, 70, 0.5);
-}
-
-/* Navigation */
 nav ul {
+  display: flex;
+  gap: 0.75rem;
   list-style: none;
   padding: 0;
-  margin-top: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  margin: 0;
+  flex-wrap: nowrap;
 }
 
-nav li a {
-  display: block;
-  background: var(--accent1);
-  color: white;
-  text-decoration: none;
-  padding: 0.75rem 1.2rem;
-  border-radius: 30px;
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: inline-flex;
+  align-items: center;
   font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
-}
-
-nav li a:hover {
-  background: var(--accent2);
-  transform: scale(1.05);
-}
-
-footer {
-  background: linear-gradient(90deg, var(--accent2), var(--accent3));
-  color: white;
-  text-align: center;
-  padding: 1rem;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(to right, #f78fb3, #70a1ff, #7bed9f);
+  color: #fff;
   font-size: 0.95rem;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.15);
+  border: 2px solid white;
+}
+
+nav a i {
+  margin-right: 0.5rem;
+}
+
+nav a:hover {
+  background: linear-gradient(to right, #ff6b81, #a29bfe, #55efc4);
+}
+
+/* Optional: highlight current page */
+nav a.active {
+  background: linear-gradient(to right, #ffeaa7, #fab1a0);
+  color: #222;
+  font-weight: 900;
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-radius: 20px;
+  }
+
+  nav ul {
+    flex-direction: row;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+nav a {
+  position: relative;
+  overflow: hidden;
+}
+
+nav a::after {
+  content: "✨";
+  position: absolute;
+  top: -1.2rem;
+  right: 0.5rem;
+  opacity: 0;
+  font-size: 1.2rem;
+  transform: scale(0.5) translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+nav a:hover::after {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Optional: style for the current page */
+nav a.active {
+  background: linear-gradient(to right, #ffeaa7, #fab1a0);
+  color: #222;
+  font-weight: 900;
+  box-shadow: 0 0 12px 2px #fff;
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-radius: 20px;
+  }
+
+  nav ul {
+    flex-direction: row;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Quote Box */
+.quote {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.glow-text {
+  animation: glow-post 3s infinite alternate;
+}
+@keyframes glow-post {
+  0% { color: var(--purple); }
+  50% { color: var(--green); }
+  100% { color: var(--pink); }
+}
+
+/* Footer Styling */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 3rem;
+  background: var(--footer-bg);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.15);
+}
+
+footer a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+footer a:hover {
+  color: #facc15;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-  h1.glow {
-    font-size: 1.6rem;
-  }
-
-  nav li a {
-    font-size: 0.9rem;
-    padding: 0.6rem 1rem;
-  }
-
-  .quote {
-    font-size: 1.2rem;
+  nav ul {
+    flex-direction: column;
+    align-items: center;
   }
 }
+
+/* User Menu */
+.user-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.user-menu span {
+  margin-right: 10px;
+}
+
+/* Note Cards */
+.note-card {
+  border: 1px solid var(--purple);
+  background: rgba(155, 89, 182, 0.05);
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+.note-card h3 {
+  margin: 0 0 0.5rem;
+}
+.note-card small {
+  color: gray;
+}
+
+/* Form Styling */
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+form button {
+  padding: 0.5rem 1rem;
+  background: var(--purple);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+form button:hover {
+  background: var(--pink);
+}
+
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Fredoka', cursive;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    header.greeting {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-button {
+      display: block;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
+      text-align: left;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      position: relative;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .card-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      background: #f3e5f5;
+    }
+    .card-button i {
+      margin-right: 12px;
+      color: #9b59b6;
+    }
+
+    #quote-box {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 auto 2rem;
+      padding: 1rem 1.5rem;
+      border-left: 6px solid #9b59b6;
+      background: rgba(255 255 255 / 0.8);
+      border-radius: 8px;
+      position: relative;
+      max-width: 700px;
+      color: #6a1b9a;
+      font-style: italic;
+      user-select: none;
+    }
+    #quote-box::before {
+      content: "💡";
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      font-size: 1.5rem;
+    }
+
+    main.dashboard::-webkit-scrollbar {
+      width: 8px;
+    }
+    main.dashboard::-webkit-scrollbar-thumb {
+      background: #9b59b6;
+      border-radius: 10px;
+    }
+  </style>
+
+Fix this 
