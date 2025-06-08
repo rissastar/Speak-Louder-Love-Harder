@@ -1,40 +1,24 @@
-// Theme Toggle
-const toggleBtn = document.getElementById("theme-toggle");
-const body = document.body;
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "dark") {
-  body.classList.add("dark-mode");
-}
-
-toggleBtn.addEventListener("click", () => {
-  body.classList.toggle("dark-mode");
-  localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-});
-
-// Rotating Quotes
 const quotes = [
-  "You are stronger than your struggles 💪",
-  "Healing is not linear 💖",
-  "Your story matters 📖",
-  "You are not alone 🌈",
-  "Love yourself loudly 💜",
-  "Peace begins within 🕊️"
+  "You are not alone.",
+  "Keep going, you’re doing great.",
+  "Every storm runs out of rain.",
+  "Your story isn’t over yet.",
+  "Healing is not linear."
 ];
 
-let quoteIndex = 0;
-const quoteEl = document.getElementById("quote");
-
-function rotateQuote() {
-  quoteEl.textContent = quotes[quoteIndex];
-  quoteIndex = (quoteIndex + 1) % quotes.length;
+function rotateQuotes() {
+  const idx = Math.floor(Math.random() * quotes.length);
+  document.title = quotes[idx] + " | Inspire & Connect";
 }
-setInterval(rotateQuote, 5000);
-rotateQuote();
 
-// Login/logout simulation
-function logout() {
-  localStorage.removeItem("user");
-  alert("Logged out.");
-  location.href = "index.html";
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
+
+window.onload = () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+  setInterval(rotateQuotes, 5000);
+};
