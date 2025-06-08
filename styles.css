@@ -365,3 +365,21 @@ footer {
   }
 }
 
+/* Calm Mode disables animations and sparkles */
+body.calm * {
+  animation: none !important;
+  transition: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* Optional: visually dim quote carousel */
+body.calm .quote-carousel {
+  color: var(--light-text);
+  text-shadow: none;
+}
+
+/* Optional: hide floating hearts entirely */
+body.calm .hearts {
+  display: none !important;
+}
