@@ -1,82 +1,73 @@
-document.addEventListener("DOMContentLoaded", () => {
-  /* -------------------------------
-     DARK / LIGHT MODE TOGGLE
-  -------------------------------- */
-  const toggle = document.getElementById("mode-toggle");
-  const savedTheme = localStorage.getItem("theme");
+document.addEventListener('DOMContentLoaded', () => {
+  // Dark/Light mode toggle
+  const toggle = document.querySelector('#mode-toggle');
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme === 'light') document.body.classList.add('light');
+  toggle.checked = currentTheme === 'light';
 
-  if (savedTheme === "light") {
-    document.body.classList.add("light");
-    toggle.checked = true;
-  }
-
-  toggle.addEventListener("change", () => {
-    document.body.classList.toggle("light");
-    const theme = document.body.classList.contains("light") ? "light" : "dark";
-    localStorage.setItem("theme", theme);
+  toggle.addEventListener('change', () => {
+    document.body.classList.toggle('light');
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
   });
 
-  /* -------------------------------
-     COLLAPSIBLE SECTIONS
-  -------------------------------- */
-  const collapsibles = document.querySelectorAll(".collapsible");
-
-  collapsibles.forEach((button) => {
-    button.addEventListener("click", () => {
-      button.classList.toggle("active");
-      const content = button.nextElementSibling;
-      if (content.style.maxHeight) {
-        content.style.maxHeight = null;
-      } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-      }
-    });
-  });
-
-  /* -------------------------------
-     QUOTE CAROUSEL
-  -------------------------------- */
+  // Quote carousel
   const quotes = [
-    "💖 You are not alone.",
-    "🌈 Healing is not linear.",
-    "🌟 You matter. Always.",
-    "🧠 It's okay to not be okay.",
-    "🔥 Your story isn't over yet.",
+    "You are stronger than you think.",
+    "One step at a time is all it takes.",
+    "Keep going, better days are coming.",
+    "Your story isn't over yet."
   ];
-  let quoteIndex = 0;
-  const quoteEl = document.getElementById("quote-carousel");
+  let qi = 0;
+  const qc = document.querySelector('.quote-carousel');
+  const cycleQuotes = () => {
+    qc.style.opacity = 0;
+    setTimeout(() => {
+      qi = (qi + 1) % quotes.length;
+      qc.textContent = quotes[qi];
+      qc.style.opacity = 1;
+    }, 800);
+  };
+  qc.textContent = quotes[qi];
+  setInterval(cycleQuotes, 5000);
 
-  if (quoteEl) {
-    function showQuote() {
-      quoteEl.classList.remove("fadeIn");
-      void quoteEl.offsetWidth; // reflow
-      quoteEl.textContent = quotes[quoteIndex];
-      quoteEl.classList.add("fadeIn");
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-    }
-
-    showQuote();
-    setInterval(showQuote, 4000);
-  }
+  // Collapsible sections
+  const coll = document.querySelectorAll('.collapsible');
+  coll.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
+      const panel = btn.nextElementSibling;
+      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
 
   /* -------------------------------
-     FLOATING HEARTS
+     CALM MODE TOGGLE
   -------------------------------- */
-  const heartContainer = document.getElementById("hearts-container");
+  const calmToggle = document.getElementById("calm-toggle");
+  const calmPref = localStorage.getItem("calm");
 
-  if (heartContainer) {
-    function launchHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 2 + 6) + "s";
-      heart.style.fontSize = Math.random() * 20 + 20 + "px";
-      heartContainer.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 8000);
-    }
-
-    setInterval(launchHeart, 1000);
+  if (calmPref === "on") {
+    document.body.classList.add("calm");
+    calmToggle.checked = true;
   }
-});
+
+  calmToggle.addEventListener("change", () => {
+    document.body.classList.toggle("calm");
+    const calm = document.body.classList.contains("calm") ? "on" : "off";
+    localStorage.setItem("calm", calm);
+  });
+  
+    /* -------------------------------
+     TYPEWRITER HEADER
+  -------------------------------- */
+  const typewriterEl = document.getElementById("animated-header");
+  const typewriterText = "Speak Louder, Love Harder 💖";
+  let i = 0;
+
+  function typeNextChar() {
+    if (i < typewriterText.length) {
+      typewriterEl.textContent += typewriterText.charAt(i);
+      i++;
+      setTimeout(typeNextChar, 80);
+    }
+  }
+
+  if (typewriterEl) typeNextChar();
