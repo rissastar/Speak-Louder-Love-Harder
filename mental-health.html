@@ -6,6 +6,31 @@
   <title>Mental Health | Inspire & Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+  /* Light theme (default) */
+body {
+  background: #1a1a2e;
+  color: #eee;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Dark theme toggled on body */
+body.dark-theme {
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* Also tweak nav background on theme change */
+body.dark-theme .top-nav {
+  background: linear-gradient(135deg, #ff77ff, #33ccff);
+  box-shadow: 0 0 30px #33ccffaa, 0 0 50px #ff77ffaa;
+}
+
+/* Buttons in dark mode (optional) */
+body.dark-theme .nav-actions button {
+  background: linear-gradient(to right, #33ccff, #ff77ff);
+  box-shadow: 0 0 12px #33ccffcc, 0 0 25px #ff77ffcc;
+  color: #222;
+}
   /* Section Base */
   .section {
     background: linear-gradient(135deg, #2c003e, #1a0028);
@@ -652,9 +677,32 @@
           if (content.id === tab) {
             content.classList.add('active');
           }
-        });
-      });
-    });
+          // Elements
+const authBtn = document.getElementById('auth-btn');
+const dashboardBtn = document.getElementById('dashboard-btn');
+const logoutBtn = document.getElementById('logout-btn');
+const themeToggle = document.getElementById('theme-toggle');
+
+
+// Theme toggle logic
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+});
+
+// Simulated login/logout logic
+authBtn.addEventListener('click', () => {
+  // User logs in
+  authBtn.style.display = 'none';
+  dashboardBtn.style.display = 'inline-block';
+  logoutBtn.style.display = 'inline-block';
+});
+
+logoutBtn.addEventListener('click', () => {
+  // User logs out
+  authBtn.style.display = 'inline-block';
+  dashboardBtn.style.display = 'none';
+  logoutBtn.style.display = 'none';
+});
   </script>
 </body>
 </html>
