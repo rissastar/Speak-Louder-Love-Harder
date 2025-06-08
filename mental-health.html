@@ -2,136 +2,169 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mental Health | Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mental Health | Inspire & Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom right, #ffeaa7, #fab1a0);
       margin: 0;
-      font-family: 'Fredoka', cursive;
-      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      color: #333;
-      display: flex;
-      min-height: 100vh;
+      padding-top: 100px;
     }
 
-    nav.sidebar {
-      width: 220px;
-      background: #9b59b6;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
-    }
-    nav.sidebar h2 {
-      font-family: 'Baloo 2', cursive;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: 1px;
-    }
-    nav.sidebar a {
+    /* Glowing pill navbar */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #9b59b6, #e84393);
+      border-radius: 50px;
+      padding: 0.75rem 2rem;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 15px;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
       color: white;
       text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-      margin-bottom: 0.7rem;
-      transition: background 0.3s ease;
-    }
-    nav.sidebar a:hover, nav.sidebar a.active {
-      background: #e84393;
-      box-shadow: 0 0 10px #e84393;
-    }
-    nav.sidebar a i {
-      font-size: 1.3rem;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s ease;
     }
 
-    main.dashboard {
-      flex-grow: 1;
-      padding: 2rem 2.5rem;
-      overflow-y: auto;
+    .nav-links a:hover {
+      color: #ffeaa7;
     }
 
-    header.greeting {
-      font-family: 'Baloo 2', cursive;
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
     }
 
-    .card-button {
-      display: block;
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto 1.5rem;
+    @media (max-width: 600px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #e84393;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        padding: 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        width: 180px;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+    }
+
+    .mental-health-container {
       background: white;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
-      text-align: left;
-      text-decoration: none;
-      color: #333;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-      position: relative;
-      font-weight: 600;
-      font-size: 1.2rem;
+      padding: 2rem 2.5rem;
+      border-radius: 1rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
     }
-    .card-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      background: #f3e5f5;
+
+    .mental-health-container h2 {
+      font-family: 'Baloo 2', cursive;
+      color: #9b59b6;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
     }
-    .card-button i {
-      margin-right: 12px;
+
+    .quote {
+      font-style: italic;
+      background: #f8f4ff;
+      padding: 1rem;
+      border-left: 6px solid #9b59b6;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      color: #6a1b9a;
+      font-weight: 500;
+    }
+
+    details {
+      margin-bottom: 1.2rem;
+      border: 2px solid #e84393;
+      border-radius: 10px;
+      padding: 1rem;
+      background: #fef6ff;
+      box-shadow: 0 0 15px rgba(233, 30, 99, 0.15);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
       color: #9b59b6;
     }
 
-    #quote-box {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin: 0 auto 2rem;
-      padding: 1rem 1.5rem;
-      border-left: 6px solid #9b59b6;
-      background: rgba(255 255 255 / 0.8);
-      border-radius: 8px;
-      position: relative;
-      max-width: 700px;
-      color: #6a1b9a;
-      font-style: italic;
-      user-select: none;
-    }
-    #quote-box::before {
-      content: "💡";
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      font-size: 1.5rem;
+    details[open] summary {
+      color: #e84393;
     }
 
-    main.dashboard::-webkit-scrollbar {
-      width: 8px;
+    details p, details ul {
+      margin-top: 0.8rem;
+      font-size: 1rem;
+      color: #555;
     }
-    main.dashboard::-webkit-scrollbar-thumb {
+
+    details ul {
+      padding-left: 1.5rem;
+    }
+
+    .back-btn {
+      margin-top: 2rem;
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
       background: #9b59b6;
-      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .back-btn:hover {
+      background: #e84393;
     }
   </style>
 </head>
 <body>
 
-<nav class="sidebar">
+  <!-- 🌈 Collapsing Top Navbar -->
+  <div class="navbar">
+<nav>
   <h2>🌈 Speak Louder, Love Harder</h2>
   <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
   <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
@@ -146,7 +179,7 @@
   <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
 </nav>
 
-</head>
+
 
 <header class="top-nav">
     <h1>Mental Health</h1>
@@ -493,6 +526,11 @@
       <div class="quote">“You are not alone in this.”</div>
     </div>
   </div>
+  
+  <details>
+      <summary>📞 When to Seek Support</summary>
+      <p>If you feel overwhelmed or hopeless, talk to a doctor, counselor, or trusted friend. You are not alone.</p>
+    </details>
 
 <footer>
   <p>Built with ❤️ to inspire and empower.</p>
@@ -541,6 +579,13 @@ logoutBtn.addEventListener('click', () => {
   dashboardBtn.style.display = 'none';
   logoutBtn.style.display = 'none';
 });
+
+<!-- JavaScript for hamburger toggle -->
+  <script>
+    function toggleNav() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('show');
+    }
   </script>
 </body>
 </html>
