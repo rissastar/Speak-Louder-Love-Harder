@@ -1,70 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | Speak Louder, Love Harder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Fredoka', cursive;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    nav.sidebar {
+      width: 220px;
+      background: #9b59b6;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    }
+    nav.sidebar h2 {
+      font-family: 'Baloo 2', cursive;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+    }
+    nav.sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-bottom: 0.7rem;
+      transition: background 0.3s ease;
+    }
+    nav.sidebar a:hover, nav.sidebar a.active {
+      background: #e84393;
+      box-shadow: 0 0 10px #e84393;
+    }
+    nav.sidebar a i {
+      font-size: 1.3rem;
+    }
+
+    /* Main content */
+    main.dashboard {
+      flex-grow: 1;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+    }
+
+    /* Greeting */
+    header.greeting {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: wave 2s infinite alternate;
+    }
+    @keyframes wave {
+      0% { transform: rotate(0deg);}
+      50% { transform: rotate(15deg);}
+      100% { transform: rotate(0deg);}
+    }
+
+    /* Quote of the Day */
+    #quote-box {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      padding: 1rem 1.5rem;
+      border-left: 6px solid #9b59b6;
+      background: rgba(255 255 255 / 0.8);
+      border-radius: 8px;
+      position: relative;
+      max-width: 600px;
+      color: #6a1b9a;
+      font-style: italic;
+      user-select: none;
+    }
+    #quote-box::before {
+      content: "💡";
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      font-size: 1.5rem;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 2.5rem;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
+      max-width: 700px;
+    }
+
+    section h3 {
+      margin-top: 0;
+      font-family: 'Baloo 2', cursive;
+      color: #9b59b6;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    /* Saved Worksheets / Goals */
+    ul#saved-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul#saved-list li {
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.7rem;
+      background: #f3e5f5;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    ul#saved-list li:hover {
+      background: #ce93d8;
+      color: white;
+    }
+    ul#saved-list li button.delete-btn {
+      background: #e84393;
+      border: none;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+    ul#saved-list li button.delete-btn:hover {
+      background: #9b27b0;
+    }
+
+    /* Journaling textarea */
+    textarea#journal {
+      width: 100%;
+      min-height: 150px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      font-family: 'Fredoka', cursive;
+      font-size: 1rem;
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+    button#save-journal {
+      background: #9b59b6;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button#save-journal:hover {
+      background: #e84393;
+    }
+
+    /* Bookmarks list */
+    ul#bookmarks-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul#bookmarks-list li {
+      background: #fce4ec;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.7rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    ul#bookmarks-list li:hover {
+      background: #f48fb1;
+      color: white;
+    }
+    ul#bookmarks-list li button.delete-btn {
+      background: #e84393;
+      border: none;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+    ul#bookmarks-list li button.delete-btn:hover {
+      background: #9b27b0;
+    }
+
+    /* Scroll bar styling for main content */
+    main.dashboard::-webkit-scrollbar {
+      width: 8px;
+    }
+    main.dashboard::-webkit-scrollbar-thumb {
+      background: #9b59b6;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1 class="glow">Your Dashboard</h1>
-    <div class="user-menu">
-      <span id="user-display"></span>
-      <button id="logout">Logout</button>
-    </div>
-  </header>
-  <main>
-    <h2>📝 Your Worksheets</h2>
-    <form id="note-form">
-      <input type="text" id="note-title" placeholder="Worksheet Title" required />
-      <textarea id="note-body" rows="5" placeholder="Write something..."></textarea>
-      <button type="submit">💾 Save Worksheet</button>
-    </form>
-    <div id="saved-notes"></div>
-  </main>
-  <footer><p><a href="index.html">Home</a></p></footer>
-  <script src="auth.js"></script>
-  <script>
-    const user = localStorage.getItem("currentUser");
-    if (!user) location.href = "auth.html";
-    else document.getElementById("user-display").textContent = "👤 " + user;
 
-    const noteForm = document.getElementById("note-form");
-    const savedDiv = document.getElementById("saved-notes");
-    const logoutBtn = document.getElementById("logout");
+<nav class="sidebar">
+  <h2>🌈 Inspire & Connect</h2>
+  <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+  <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
+  <a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a>
+  <a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a>
+  <a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a>
+  <a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a>
+  <a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a>
+  <a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a>
+  <a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a>
+  <a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a>
+  <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
+</nav>
 
-    const saveNote = (title, body) => {
-      let notes = JSON.parse(localStorage.getItem("notes-" + user) || "[]");
-      notes.push({ title, body, time: new Date().toLocaleString() });
-      localStorage.setItem("notes-" + user, JSON.stringify(notes));
-      loadNotes();
-    };
+<main class="dashboard">
+  <header class="greeting" id="greeting">Hi, User 👋</header>
 
-    const loadNotes = () => {
-      const notes = JSON.parse(localStorage.getItem("notes-" + user) || "[]");
-      savedDiv.innerHTML = "";
-      notes.forEach((n, i) => {
-        const card = document.createElement("div");
-        card.className = "note-card";
-        card.innerHTML = `<h3>${n.title}</h3><p>${n.body}</p><small>${n.time}</small>`;
-        savedDiv.appendChild(card);
-      });
-    };
+  <section id="quote-box">Loading quote...</section>
 
-    noteForm.onsubmit = (e) => {
-      e.preventDefault();
-      const title = document.getElementById("note-title").value;
-      const body = document.getElementById("note-body").value;
-      saveNote(title, body);
-      noteForm.reset();
-    };
+  <section>
+    <h3>📋 Saved Worksheets & Goals</h3>
+    <ul id="saved-list">
+      <!-- Saved items will appear here -->
+    </ul>
+    <input type="text" id="new-saved-item" placeholder="Add new worksheet or goal..." />
+    <button id="add-saved-btn">Add</button>
+  </section>
 
-    logoutBtn.onclick = () => {
-      localStorage.removeItem("currentUser");
-      location.href = "auth.html";
-    };
+  <section>
+    <h3>📝 Journaling</h3>
+    <textarea id="journal" placeholder="Write your thoughts here..."></textarea>
+    <button id="save-journal">Save Journal Entry</button>
+  </section>
 
-    loadNotes();
-  </script>
+  <section>
+    <h3>🔖 Bookmarks</h3>
+    <ul id="bookmarks-list">
+      <!-- Bookmarks will appear here -->
+    </ul>
+    <input type="text" id="new-bookmark" placeholder="Add new bookmark URL..." />
+    <button id="add-bookmark-btn">Add</button>
+  </section>
+</main>
+
+<script>
+  // User greeting
+  const greetingEl = document.getElementById('greeting');
+  const user = localStorage.getItem('currentUser') || "User";
+  greetingEl.textContent = `Hi, ${user} 👋`;
+
+  // Quote of the day (rotating)
+  const quotes = [
+    "🌟 You're stronger than you think.",
+    "💪 Keep going, you've got this!",
+    "🌈 Every day is a fresh start.",
+    "✨ Believe in yourself and magic happens.",
+    "💖 Spread love wherever you go."
+  ];
+  const quoteBox = document.getElementById('quote-box');
+  let quoteIndex = 0;
+
+  function showQuote() {
+    quoteBox.textContent = quotes[quoteIndex];
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+  }
+  showQuote();
+  setInterval(showQuote, 7000);
+
+  // Saved worksheets/goals
+  const savedList = document.getElementById('saved-list');
+  const newSavedInput = document.getElementById('new-saved-item');
+  const addSavedBtn = document.getElementById('add-saved-btn');
+
+  // Bookmarks
+  const bookmarksList = document.getElementById('bookmarks-list');
+  const newBookmarkInput = document.getElementById('new-bookmark');
+  const addBookmarkBtn = document.getElementById('add-bookmark-btn');
+
+  // Journal
+  const journalTextarea = document.getElementById('journal');
+  const saveJournalBtn = document.getElementById('save-journal');
+
+  // Keys for localStorage
+  const savedKey = `${user}-saved-items`;
+  const bookmarksKey = `${user}-bookmarks`;
+  const journalKey = `${user}-journal`;
+
+  // Load saved worksheets/goals
+  function loadSavedItems() {
+    const savedItems = JSON.parse(localStorage.getItem(savedKey)) || [];
+    savedList.innerHTML = '';
+    savedItems.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✕';
+      delBtn.classList.add('delete-btn');
+      delBtn.onclick = () => {
+        savedItems.splice(index, 1);
+        localStorage.setItem(savedKey, JSON.stringify(savedItems));
+        loadSavedItems();
+      };
+
+      li.appendChild(delBtn);
+      savedList.appendChild(li);
+    });
+  }
+
+  addSavedBtn.onclick = () => {
+    const val = newSavedInput.value.trim();
+    if (!val) return alert("Please enter a worksheet or goal.");
+    const savedItems = JSON.parse(localStorage.getItem(savedKey)) || [];
+    savedItems.push(val);
+    localStorage.setItem(savedKey, JSON.stringify(savedItems));
+    newSavedInput.value = '';
+    loadSavedItems();
+  };
+
+  // Load bookmarks
+  function loadBookmarks() {
+    const bookmarks = JSON.parse(localStorage.getItem(bookmarksKey)) || [];
+    bookmarksList.innerHTML = '';
+    bookmarks.forEach((url, index) => {
+      const li = document.createElement('li');
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.textContent = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      li.appendChild(link);
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✕';
+      delBtn.classList.add('delete-btn');
+      delBtn.onclick = () => {
+        bookmarks.splice(index, 1);
+        localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+        loadBookmarks();
+      };
+      li.appendChild(delBtn);
+      bookmarksList.appendChild(li);
+    });
+  }
+
+  addBookmarkBtn.onclick = () => {
+    const val = newBookmarkInput.value.trim();
+    if (!val) return alert("Please enter a valid URL.");
+    // Optional: Simple URL validation
+    try {
+      new URL(val);
+    } catch {
+      return alert("Please enter a valid URL.");
+    }
+    const bookmarks = JSON.parse(localStorage.getItem(bookmarksKey)) || [];
+    bookmarks.push(val);
+    localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+    newBookmarkInput.value = '';
+    loadBookmarks();
+  };
+
+  // Load and save journal
+  function loadJournal() {
+    const journalContent = localStorage.getItem(journalKey) || "";
+    journalTextarea.value = journalContent;
+  }
+  saveJournalBtn.onclick = () => {
+    const content = journalTextarea.value.trim();
+    localStorage.setItem(journalKey, content);
+    alert("Journal saved!");
+  };
+
+  // Initial load
+  loadSavedItems();
+  loadBookmarks();
+  loadJournal();
+
+</script>
 </body>
 </html>
