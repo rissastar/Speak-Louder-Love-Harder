@@ -110,35 +110,40 @@ main {
 /* Collapsible Sections */
 .collapsible {
   background: var(--purple);
-  color: white;
+  color: var(--pink);
   cursor: pointer;
-  padding: 1rem;
+  padding: 1rem 1.2rem;
   width: 100%;
   border: none;
   text-align: left;
   font-size: 1.1rem;
-  border-radius: 6px;
-  margin-top: 1rem;
-  box-shadow: 0 0 10px var(--glow-purple);
+  border-radius: 8px;
+  margin: 1rem 0;
   position: relative;
-  transition: background var(--transition);
+  font-weight: 700;
+  text-shadow: 0 0 10px var(--glow-pink);
+  box-shadow: 0 0 15px rgba(255, 64, 129, 0.4);
+  transition: background var(--transition), box-shadow var(--transition);
 }
 
 .collapsible::after {
-  content: '\002B';
+  content: '\002B'; /* Plus sign */
   font-size: 1.2rem;
   position: absolute;
   right: 20px;
+  color: white;
 }
 
 .collapsible.active {
   background: var(--pink);
+  color: white;
+  text-shadow: 0 0 10px var(--glow-purple);
+  box-shadow: 0 0 20px var(--glow-pink);
 }
 
 .collapsible.active::after {
-  content: "\2212";
+  content: "\2212"; /* Minus sign */
 }
-
 .content {
   max-height: 0;
   overflow: hidden;
@@ -272,4 +277,52 @@ footer {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
+}
+
+section h2,
+section h3,
+section h4 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--pink);
+  text-shadow:
+    0 0 8px var(--glow-pink),
+    0 0 14px var(--glow-pink);
+}
+
+section p,
+section ul {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+section ul {
+  list-style: none;
+  padding: 0;
+}
+
+section ul li {
+  margin-bottom: 0.8rem;
+}
+
+.section {
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 850px;
+  box-shadow: 0 0 20px rgba(155, 89, 182, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.section.light {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.section.dark {
+  background: rgba(0, 0, 0, 0.25);
 }
