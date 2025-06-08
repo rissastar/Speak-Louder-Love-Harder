@@ -135,51 +135,56 @@
   </footer>
 
   <script>
-    const form = document.getElementById('login-form');
-    const message = document.getElementById('message');
+  function showRegister() {
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("register-form").style.display = "block";
+  }
 
-    function getUsers() {
-      const usersJSON = localStorage.getItem('users');
-      return usersJSON ? JSON.parse(usersJSON) : {};
+  function showLogin() {
+    document.getElementById("login-form").style.display = "block";
+    document.getElementById("register-form").style.display = "none";
+  }
+
+  function getUsers() {
+    return JSON.parse(localStorage.getItem("users") || "{}");
+  }
+
+  function saveUser(username, password) {
+    const users = getUsers();
+    users[username] = password;
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+
+  function login() {
+    const username = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value;
+    const users = getUsers();
+
+    if (users[username] && users[username] === password) {
+      localStorage.setItem("currentUser", username);
+      window.location.href = "index.html"; // or dashboard.html
+    } else {
+      alert("❌ Incorrect username or password.");
+    }
+  }
+
+  function register() {
+    const username = document.getElementById("register-username").value.trim();
+    const password = document.getElementById("register-password").value;
+    const users = getUsers();
+
+    if (!username || !password) {
+      alert("⚠️ Please enter both username and password.");
+      return;
     }
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      message.style.color = ''; // reset
-      message.textContent = '';
+    if (users[username]) {
+      alert("🚫 Username already exists.");
+      return;
+    }
 
-      const email = form.email.value.trim().toLowerCase();
-      const password = form.password.value;
-
-      if (!email || !password) {
-        message.style.color = 'red';
-        message.textContent = 'Please enter both email and password.';
-        return;
-      }
-
-      const users = getUsers();
-
-      if (!users[email]) {
-        message.style.color = 'red';
-        message.textContent = 'No account found with this email.';
-        return;
-      }
-
-      if (users[email].password !== password) {
-        message.style.color = 'red';
-        message.textContent = 'Incorrect password.';
-        return;
-      }
-
-      // Successful login
-      localStorage.setItem('loggedInUser', email);
-      message.style.color = 'green';
-      message.textContent = 'Login successful! Redirecting...';
-
-      setTimeout(() => {
-        window.location.href = 'dashboard.html';  // Redirect to dashboard
-      }, 1500);
-    });
-  </script>
-</body>
-</html>
+    saveUser(username, password);
+    localStorage.setItem("currentUser", username);
+    window.location.href = "index.html"; // or dashboard.html
+  }
+</script>
