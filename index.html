@@ -7,8 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1 class="glow">🌈 Inspire & Connect 💖</h1>
+  <body>
+  <header class="hero">
+    <div class="overlay">
+      <h1 class="glow hero-title">🌈 Inspire & Connect</h1>
+      <p class="hero-subtitle">A vibrant, community-driven space for healing, support & love 💖</p>
+      <div class="hero-buttons">
+        <button onclick="location.href='auth.html'">Get Started</button>
+        <button onclick="document.getElementById('main-content').scrollIntoView({behavior:'smooth'})">Explore Topics</button>
+      </div>
+    </div>
     <div class="user-area">
       <span id="user-greeting"></span>
       <button id="auth-btn">Login</button>
