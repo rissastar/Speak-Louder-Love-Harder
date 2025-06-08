@@ -56,32 +56,37 @@ h1, h2, h3 {
   }
   
 /* ========== HEADER ========== */
+/* OVAL / PILL-SHAPED HEADER */
 .hero-header {
   display: inline-block;
-  padding: 1.2rem 3rem;
+  padding: 1rem 2.5rem;
   margin: 2rem auto;
-  border-radius: 999px; /* pill shape */
-  background-color: #8a2be2; /* bright solid purple (you can change this) */
-  color: #ffffff;
+  border-radius: 999px; /* Oval shape */
+  background: linear-gradient(90deg, #9333ea, #14b8a6, #f472b6);
+  background-size: 300% 300%;
+  color: white;
   font-size: 2.8rem;
-  font-weight: 900;
+  font-weight: 700;
   font-family: 'Fredoka', sans-serif;
   text-align: center;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 10px #ff00ff,
-    0 0 20px #ff00ff,
-    0 0 30px #ff00ff;
   box-shadow:
-    0 0 10px #ff00ff,
-    0 0 20px #ff00ff,
-    0 0 40px #ff00ff,
-    0 0 80px #ff00ff;
-  transition: transform 0.3s ease;
+    0 0 10px #9333ea,
+    0 0 20px #14b8a6,
+    0 0 30px #f472b6;
+  animation: gradientWave 6s ease infinite;
 }
 
-.hero-header:hover {
-  transform: scale(1.05);
+/* ANIMATED GRADIENT BG FOR HEADER */
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* ========== NAVBAR ========== */
