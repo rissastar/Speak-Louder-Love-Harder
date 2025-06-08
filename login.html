@@ -2,189 +2,157 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Register | Inspire & Connect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-color: #a259ff;
-      --secondary-color: #63ffc1;
-      --accent-color: #ff66a3;
-      --bg-color: #f9f9ff;
-      --text-color: #222;
-      --border-radius: 10px;
-      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
     body {
-      font-family: var(--font-family);
-      background: var(--bg-color);
-      color: var(--text-color);
-      margin: 0; padding: 0;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom, #ffeaa7, #fab1a0);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
       justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
     }
-    header {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      text-shadow: 0 0 6px rgba(162 89 255 / 0.8);
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    form {
+
+    .auth-container {
       background: white;
-      padding: 2rem 2.5rem;
-      border-radius: var(--border-radius);
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      width: 320px;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-    input[type="email"],
-    input[type="password"] {
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 400px;
       width: 100%;
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 1.2rem;
-      border: 2px solid var(--secondary-color);
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-      outline: none;
-      border-color: var(--accent-color);
-      box-shadow: 0 0 8px var(--accent-color);
+
+    .auth-container h2 {
+      color: #9b59b6;
+      margin-bottom: 1rem;
     }
-    button {
+
+    .auth-container input {
       width: 100%;
-      padding: 0.8rem 0;
-      background-color: var(--primary-color);
-      border: none;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .auth-container button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #9b59b6;
       color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: var(--border-radius);
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-size: 1rem;
     }
-    button:hover {
-      background-color: var(--accent-color);
+
+    .auth-container button:hover {
+      background: #e84393;
     }
-    p.message {
+
+    .switch {
       margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--accent-color);
-      text-align: center;
+      color: #555;
     }
-    .back-link {
-      margin-top: 1.5rem;
-      text-align: center;
+
+    .switch a {
+      color: #9b59b6;
+      text-decoration: underline;
+      cursor: pointer;
     }
-    .back-link a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    .back-link a:hover {
-      color: var(--accent-color);
+
+    .error {
+      color: red;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
-  <header>Login to Speak Louder, Love Harder</header>
-
-  <form id="login-form" novalidate>
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="username" />
-
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" placeholder="Your password" required autocomplete="current-password" />
-
-    <button type="submit">Login</button>
-    <p class="message" id="message"></p>
-  </form>
-
-  <div class="back-link">
-    <a href="index.html">← Back to Home</a>
+  <div class="auth-container" id="login-form">
+    <h2>Login</h2>
+    <div id="login-error" class="error"></div>
+    <input type="text" id="login-username" placeholder="Username" />
+    <input type="password" id="login-password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <div class="switch">Don't have an account? <a onclick="showRegister()">Register</a></div>
   </div>
 
-  <footer style="text-align:center; padding:1rem 0; background:#f0f0ff; border-top:1px solid #ccc; margin-top:2rem;">
-    <p>Built with ❤️ to inspire and empower.</p>
-    <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer" class="linktree-btn" title="Linktree"
-       style="
-         display: inline-block;
-         background: #a259ff;
-         color: white;
-         padding: 0.5rem 1rem;
-         border-radius: 12px;
-         font-weight: 600;
-         text-decoration: none;
-         box-shadow: 0 0 8px #a259ffaa;
-         transition: background-color 0.3s ease;
-       "
-       onmouseover="this.style.background='#ff66a3'; this.style.boxShadow='0 0 10px #ff66a3aa';"
-       onmouseout="this.style.background='#a259ff'; this.style.boxShadow='0 0 8px #a259ffaa';"
-    >✨ Visit My Linktree</a>
-  </footer>
+  <div class="auth-container" id="register-form" style="display:none;">
+    <h2>Register</h2>
+    <div id="register-error" class="error"></div>
+    <input type="text" id="register-username" placeholder="Choose a Username" />
+    <input type="password" id="register-password" placeholder="Choose a Password" />
+    <button onclick="register()">Register</button>
+    <div class="switch">Already have an account? <a onclick="showLogin()">Login</a></div>
+  </div>
 
   <script>
-  function showRegister() {
-    document.getElementById("login-form").style.display = "none";
-    document.getElementById("register-form").style.display = "block";
-  }
+    function showRegister() {
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("register-form").style.display = "block";
+      document.getElementById("login-error").textContent = "";
+    }
 
-  function showLogin() {
-    document.getElementById("login-form").style.display = "block";
-    document.getElementById("register-form").style.display = "none";
-  }
+    function showLogin() {
+      document.getElementById("login-form").style.display = "block";
+      document.getElementById("register-form").style.display = "none";
+      document.getElementById("register-error").textContent = "";
+    }
 
-  function getUsers() {
-    return JSON.parse(localStorage.getItem("users") || "{}");
-  }
+    function getUsers() {
+      return JSON.parse(localStorage.getItem("users") || "{}");
+    }
 
-  function saveUser(username, password) {
-    const users = getUsers();
-    users[username] = password;
-    localStorage.setItem("users", JSON.stringify(users));
-  }
+    function saveUser(username, password) {
+      const users = getUsers();
+      users[username] = password;
+      localStorage.setItem("users", JSON.stringify(users));
+    }
 
-  function login() {
-    const username = document.getElementById("login-username").value.trim();
-    const password = document.getElementById("login-password").value;
-    const users = getUsers();
+    function login() {
+      const username = document.getElementById("login-username").value.trim();
+      const password = document.getElementById("login-password").value;
+      const users = getUsers();
+      const error = document.getElementById("login-error");
 
-    if (users[username] && users[username] === password) {
+      if (users[username] && users[username] === password) {
+        localStorage.setItem("currentUser", username);
+        window.location.href = "index.html"; // redirect after login
+      } else {
+        error.textContent = "❌ Incorrect username or password.";
+      }
+    }
+
+    function register() {
+      const username = document.getElementById("register-username").value.trim();
+      const password = document.getElementById("register-password").value;
+      const users = getUsers();
+      const error = document.getElementById("register-error");
+
+      if (!username || !password) {
+        error.textContent = "⚠️ Please fill in both fields.";
+        return;
+      }
+
+      if (users[username]) {
+        error.textContent = "🚫 That username is already taken.";
+        return;
+      }
+
+      saveUser(username, password);
       localStorage.setItem("currentUser", username);
-      window.location.href = "index.html"; // or dashboard.html
-    } else {
-      alert("❌ Incorrect username or password.");
-    }
-  }
-
-  function register() {
-    const username = document.getElementById("register-username").value.trim();
-    const password = document.getElementById("register-password").value;
-    const users = getUsers();
-
-    if (!username || !password) {
-      alert("⚠️ Please enter both username and password.");
-      return;
+      window.location.href = "index.html"; // redirect after register
     }
 
-    if (users[username]) {
-      alert("🚫 Username already exists.");
-      return;
+    // Auto-redirect if already logged in
+    if (localStorage.getItem("currentUser")) {
+      window.location.href = "index.html";
     }
-
-    saveUser(username, password);
-    localStorage.setItem("currentUser", username);
-    window.location.href = "index.html"; // or dashboard.html
-  }
-</script>
+  </script>
+</body>
+</html>
