@@ -5,12 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mental Health — Speak Louder, Love Harder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Mental Health</h1>
+    <h1>Speak Louder, Love Harder</h1>
     <p>Your well-being matters 💖</p>
   </header>
 
@@ -20,31 +20,38 @@
     <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
     <a href="cirrhosis.html">Cirrhosis</a>
     <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-health.html">Mental Health</a>
+    <a href="mental-health.html" class="glow-text">Mental Health</a>
     <a href="sexual-abuse.html">Sexual Abuse</a>
     <a href="pitbull-love.html">Pitbull Love</a>
     <a href="foster-children.html">Foster Children</a>
   </nav>
 
+  <div class="toggle-switch">
+    <label for="mode-toggle">Light Mode</label>
+    <input type="checkbox" id="mode-toggle">
+  </div>
+
   <main>
+    <h2 class="glow-text">🧠 Mental Health Awareness</h2>
+
     <button class="collapsible">🧠 Myths & Facts About Mental Health</button>
     <div class="content">
       <ul class="myth-fact-list">
         <li>
           <span class="myth"><strong>🚫 Myth:</strong> Mental health problems are a sign of weakness.</span><br>
-          <span class="fact"><strong>✅ Fact:</strong> Mental health issues have nothing to do with personal strength or character. Seeking help is a sign of strength. 
+          <span class="fact"><strong>✅ Fact:</strong> Seeking help is a sign of strength. 
             <a href="https://www.mindspringhealth.org/resources/news/understanding-mental-health-common-myths-and-facts" target="_blank">[Source]</a>
           </span>
         </li>
         <li>
           <span class="myth"><strong>🚫 Myth:</strong> People with mental health conditions are violent.</span><br>
-          <span class="fact"><strong>✅ Fact:</strong> Most people with mental health conditions are no more likely to be violent than anyone else. Only 3%–5% of violent acts can be attributed to individuals living with a serious mental illness. 
+          <span class="fact"><strong>✅ Fact:</strong> Only 3%–5% of violent acts are linked to serious mental illness. 
             <a href="https://www.samhsa.gov/mental-health/what-is-mental-health/facts" target="_blank">[Source]</a>
           </span>
         </li>
         <li>
           <span class="myth"><strong>🚫 Myth:</strong> Mental illness can't be treated.</span><br>
-          <span class="fact"><strong>✅ Fact:</strong> Mental illness can be treated, and many people recover after seeking help. 
+          <span class="fact"><strong>✅ Fact:</strong> Mental illness can be effectively treated. 
             <a href="https://yalewell.yale.edu/mental-health/myths-facts-about-mental-health" target="_blank">[Source]</a>
           </span>
         </li>
@@ -55,10 +62,12 @@
     <div class="content">
       <ul>
         <li><strong>Fight:</strong> Anger, defensiveness, needing control.</li>
-        <li><strong>Flight:</strong> Avoiding people physically or emotionally.</li>
+        <li><strong>Flight:</strong> Avoiding people or emotions.</li>
         <li><strong>Freeze:</strong> Shutting down, dissociating.</li>
-        <li><strong>Fawn:</strong> People-pleasing to stay safe.</li>
+        <li><strong>Fawn:</strong> People-pleasing to feel safe.</li>
       </ul>
+    </div>
+    
     <button class="collapsible">💛 Common Disorders & Symptoms</button>
     <div class="content">
        <!-- Depression -->
@@ -110,26 +119,26 @@
     </ul>
   </section2>
 
- <button class="collapsible">🛠️ How to Cope</button>
+<button class="collapsible">🛠️ How to Cope</button>
     <div class="content">
-      <h4>🖐️ 5-4-3-2-1 Grounding Technique</h4>
-          <li>👀 5 things you can see</li>
-          <li>✋ 4 things you can touch</li>
-          <li>👂 3 things you can hear</li>
-          <li>👃 2 things you can smell</li>
-          <li>👅 1 thing you can taste</li>
-        </ul>
-     
+      <h4>5-4-3-2-1 Grounding</h4>
+      <ul>
+        <li>5 things you can see</li>
+        <li>4 things you can touch</li>
+        <li>3 things you can hear</li>
+        <li>2 things you can smell</li>
+        <li>1 thing you can taste</li>
+      </ul>
+
       <h4>Box Breathing</h4>
-      <p>Breathe in 4s → hold 4s → breathe out 4s → hold 4s. Repeat as needed.</p>
+      <p>Breathe in 4s → hold 4s → out 4s → hold 4s</p>
 
       <h4>Journaling Prompts</h4>
       <ul>
-        <li>"Right now, I feel..."</li>
-        <li>"Something I wish others understood is..."</li>
-        <li>"One thing I can do for myself today is..."</li>
+        <li>“Right now, I feel…”</li>
+        <li>“I am proud of myself for…”</li>
+        <li>“Today I can…”</li>
       </ul>
-      <p>🖨️ <a href="/downloads/journaling-prompts.pdf" download>Click here to download a printable journaling page</a></p>
       
         <h4>🎶 Music, Podcasts & Art Therapy</h4>
         <ul>
@@ -206,9 +215,13 @@
       <p>If you feel overwhelmed or hopeless, talk to a doctor, counselor, or trusted friend. You are not alone.</p>
     </details>
 
-<footer class="footer">
-    <p>Built with ❤️ to inspire and empower.</p>
-    <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer" class="glow-link">Linktree</a></p>
+ <footer>
+    <div class="footer-links">
+      <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">🌐 My Linktree</a>
+      <a href="guestbook.html">📖 Guestbook</a>
+      <a href="index.html">🏠 Home</a>
+    </div>
+    <div class="footer-brand">Built with ❤️ to uplift and connect.</div>
   </footer>
 
   <script src="script.js" defer></script>
