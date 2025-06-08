@@ -1,73 +1,84 @@
+// ========== DARK/LIGHT MODE TOGGLE ==========
 document.addEventListener('DOMContentLoaded', () => {
-  // Dark/Light mode toggle
-  const toggle = document.querySelector('#mode-toggle');
-  const currentTheme = localStorage.getItem('theme');
-  if (currentTheme === 'light') document.body.classList.add('light');
-  toggle.checked = currentTheme === 'light';
+  const toggle = document.getElementById('darkModeToggle');
+  const calmToggle = document.getElementById('calmModeToggle');
+  const body = document.body;
 
-  toggle.addEventListener('change', () => {
-    document.body.classList.toggle('light');
-    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  // Load saved mode
+  if (localStorage.getItem('theme') === 'light') {
+    body.classList.add('light');
+    toggle.checked = true;
+  }
+
+  toggle?.addEventListener('change', () => {
+    body.classList.toggle('light');
+    localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
   });
 
-  // Quote carousel
+  calmToggle?.addEventListener('change', () => {
+    body.classList.toggle('calm');
+  });
+
+  // ========== COLLAPSIBLE SECTIONS ==========
+  const collapsibles = document.querySelectorAll('.collapsible');
+  collapsibles.forEach((btn) => {
+    btn.addEventListener('click', function () {
+      this.classList.toggle('active');
+      const content = this.nextElementSibling;
+      content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + 'px';
+    });
+  });
+
+  // ========== QUOTE ROTATOR ==========
   const quotes = [
-    "You are stronger than you think.",
-    "One step at a time is all it takes.",
-    "Keep going, better days are coming.",
-    "Your story isn't over yet."
+    "“You are not alone.” 💖",
+    "“Breathe. You've got this.” 🌈",
+    "“One day at a time.” 🧘‍♀️",
+    "“It's okay to rest.” 🌟",
+    "“You matter. Always.” 🌸",
+    "“Speak louder. Love harder.” 💬"
   ];
-  let qi = 0;
-  const qc = document.querySelector('.quote-carousel');
-  const cycleQuotes = () => {
-    qc.style.opacity = 0;
-    setTimeout(() => {
-      qi = (qi + 1) % quotes.length;
-      qc.textContent = quotes[qi];
-      qc.style.opacity = 1;
-    }, 800);
-  };
-  qc.textContent = quotes[qi];
-  setInterval(cycleQuotes, 5000);
+  let quoteIndex = 0;
+  const quoteBox = document.querySelector('.quote-carousel');
 
-  // Collapsible sections
-  const coll = document.querySelectorAll('.collapsible');
-  coll.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('active');
-      const panel = btn.nextElementSibling;
-      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
-
-  /* -------------------------------
-     CALM MODE TOGGLE
-  -------------------------------- */
-  const calmToggle = document.getElementById("calm-toggle");
-  const calmPref = localStorage.getItem("calm");
-
-  if (calmPref === "on") {
-    document.body.classList.add("calm");
-    calmToggle.checked = true;
+  function rotateQuotes() {
+    if (!quoteBox) return;
+    quoteBox.textContent = quotes[quoteIndex];
+    quoteIndex = (quoteIndex + 1) % quotes.length;
   }
 
-  calmToggle.addEventListener("change", () => {
-    document.body.classList.toggle("calm");
-    const calm = document.body.classList.contains("calm") ? "on" : "off";
-    localStorage.setItem("calm", calm);
-  });
-  
-    /* -------------------------------
-     TYPEWRITER HEADER
-  -------------------------------- */
-  const typewriterEl = document.getElementById("animated-header");
-  const typewriterText = "Speak Louder, Love Harder 💖";
-  let i = 0;
+  rotateQuotes();
+  setInterval(rotateQuotes, 5000);
 
-  function typeNextChar() {
-    if (i < typewriterText.length) {
-      typewriterEl.textContent += typewriterText.charAt(i);
-      i++;
-      setTimeout(typeNextChar, 80);
+  // ========== FLOATING HEARTS ==========
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+  }
+  setInterval(() => {
+    if (!body.classList.contains('calm')) createHeart();
+  }, 600);
+
+  // ========== TYPEWRITER HEADER ==========
+  const typewriter = document.querySelector('.typewriter-text');
+  if (typewriter) {
+    const fullText = typewriter.textContent;
+    typewriter.textContent = '';
+    let i = 0;
+
+    function type() {
+      if (i < fullText.length) {
+        typewriter.textContent += fullText.charAt(i);
+        i++;
+        setTimeout(type, 90);
+      }
     }
+    setTimeout(type, 500);
   }
-
-  if (typewriterEl) typeNextChar();
+});
