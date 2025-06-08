@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
-
   <style>
-    /* Base Styles */
     :root {
       --primary-color: #a259ff;
       --secondary-color: #63ffc1;
@@ -14,42 +12,79 @@
       --bg-color: #f9f9ff;
       --text-color: #222;
       --glow: 0 0 15px var(--primary-color);
-      --font: 'Segoe UI', sans-serif;
       --radius: 12px;
+      --font: 'Segoe UI', sans-serif;
     }
 
-    * {
+    body.dark {
+      --bg-color: #111;
+      --text-color: #f9f9f9;
+    }
+
+    body.pink {
+      --primary-color: #ff66a3;
+      --secondary-color: #ffd3e6;
+      --accent-color: #ff8ecf;
+    }
+
+    body.green {
+      --primary-color: #63ffc1;
+      --secondary-color: #c6fff0;
+      --accent-color: #3ce69f;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
       font-family: var(--font);
       background: var(--bg-color);
       color: var(--text-color);
       scroll-behavior: smooth;
-      line-height: 1.6;
+      transition: background 0.4s, color 0.4s;
     }
 
     header {
-      background: var(--primary-color);
-      color: white;
-      padding: 1.5rem;
       text-align: center;
-      font-size: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      color: white;
+      font-size: 2.5rem;
       font-weight: bold;
-      text-shadow: 0 0 10px var(--accent-color);
-      border-bottom: 4px solid var(--accent-color);
+      text-shadow: 0 0 20px var(--secondary-color);
+      animation: pulseGlow 4s infinite ease-in-out;
+      position: relative;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 10px var(--accent-color); }
+      50% { text-shadow: 0 0 25px var(--secondary-color); }
+    }
+
+    .theme-buttons {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .theme-buttons button {
+      background: white;
+      color: var(--primary-color);
+      border: none;
+      padding: 0.4rem 0.6rem;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: var(--glow);
     }
 
     nav ul {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
       list-style: none;
       background: var(--accent-color);
       padding: 1rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
     }
 
@@ -57,7 +92,6 @@
       color: white;
       text-decoration: none;
       font-weight: bold;
-      transition: 0.3s;
     }
 
     nav a:hover {
@@ -65,82 +99,36 @@
       text-shadow: 0 0 8px white;
     }
 
-    .nav-toggle {
-      display: block;
-      background: var(--secondary-color);
+    main section {
+      padding: 3rem 1.5rem;
+      margin: 2rem auto;
+      border-radius: var(--radius);
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+    }
+
+    .auth-buttons {
+      text-align: center;
+    }
+
+    .auth-buttons button {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      margin: 0.5rem;
       border: none;
-      padding: 0.8rem 1.2rem;
-      margin: 1rem auto;
       font-weight: bold;
-      border-radius: var(--radius);
-      cursor: pointer;
-      box-shadow: var(--glow);
-    }
-
-    .top-nav {
-      text-align: center;
-    }
-
-    .top-nav .nav-links {
-      display: none;
-      flex-direction: column;
-      margin-top: 1rem;
-    }
-
-    .top-nav .nav-links.show {
-      display: flex;
-    }
-
-    .top-nav .nav-links li {
-      margin: 0.5rem 0;
-    }
-
-    section {
-      padding: 2rem;
-      text-align: center;
-    }
-
-    h1, h2 {
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-      text-shadow: 0 0 10px var(--glow);
-    }
-
-    .features-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .features-list li {
-      margin: 0.5rem 0;
       font-size: 1.1rem;
-    }
-
-    .faq-item {
-      margin: 1rem auto;
-      max-width: 600px;
-      background: white;
       border-radius: var(--radius);
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 1rem;
-    }
-
-    .faq-question {
-      font-weight: bold;
+      box-shadow: var(--glow);
       cursor: pointer;
-      color: var(--primary-color);
     }
 
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .faq-question.active + .faq-answer,
-    .faq-answer.open {
-      max-height: 200px;
-      margin-top: 0.5rem;
+    .auth-buttons button:hover {
+      background: var(--accent-color);
     }
 
     .quote {
@@ -148,11 +136,29 @@
       color: #111;
       font-size: 1.2rem;
       padding: 1rem;
-      margin: 2rem auto;
-      text-align: center;
+      margin-top: 2rem;
       border-radius: var(--radius);
       box-shadow: var(--glow);
-      max-width: 600px;
+      text-align: center;
+    }
+
+    .features-list {
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+
+    .features-list li {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .features-list li::before {
+      content: "✨";
+      position: absolute;
+      left: 0;
     }
 
     #backToTop {
@@ -174,136 +180,135 @@
       display: block;
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 1s ease;
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .linktree-btn {
+      background: var(--primary-color);
+      color: white;
+      font-weight: bold;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--glow);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .linktree-btn:hover {
+      background: var(--accent-color);
     }
   </style>
 </head>
 <body>
 
-  <header>Speak Louder, Love Harder</header>
+  <header>
+    Speak Louder, Love Harder
+    <div class="theme-buttons">
+      <button onclick="toggleDarkMode()">🌙</button>
+      <button onclick="cycleTheme()">🎨</button>
+    </div>
+  </header>
 
-  <nav aria-label="Primary navigation">
+  <nav>
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="guestbook-connect.html">Connect</a></li>
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="login.html">Login</a></li>
     </ul>
   </nav>
 
   <main>
-    <section id="about" class="fade-in">
-      <h1>Welcome to Speak Louder, Love Harder</h1>
-      <p>Your community to uplift, support, and inspire mental wellness and love.</p>
+    <section>
+      <h1>Welcome 💖</h1>
+      <p>Speak Louder, Love Harder is your safe space to heal, grow, and connect.</p>
     </section>
 
-    <button class="nav-toggle" onclick="toggleNav()">📖 Menu</button>
+    <section class="auth-buttons">
+      <h2>Join the Community</h2>
+      <button onclick="window.location.href='login.html'">Login</button>
+      <button onclick="window.location.href='register.html'">Register</button>
+    </section>
 
-    <nav class="top-nav" id="navBar">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="foster-care.html">Foster Care</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="settings.html">Settings</a></li>
-        <li><a href="login.html">Login</a></li>
-      </ul>
-    </nav>
-
-    <section id="features" class="fade-in">
+    <section>
       <h2>✨ Features</h2>
       <ul class="features-list">
-        <li>🌱 Dashboard with Mood Tracker</li>
-        <li>👤 Profile with Editable Bio</li>
-        <li>📖 Guestbook & Anonymous Stories</li>
-        <li>🧠 Mental Health & Abuse Topics</li>
-        <li>📚 Bookmarked Resources & Worksheets</li>
-        <li>📝 Journal & Daily Affirmations</li>
-        <li>🎨 Light/Dark & Custom Themes</li>
-        <li>💬 Community Support</li>
+        <li>🌈 Mood Tracker & Journal</li>
+        <li>💬 Community Guestbook</li>
+        <li>📚 Supportive Topics</li>
+        <li>🎯 Daily Affirmations & Stories</li>
       </ul>
     </section>
 
-    <section id="faq" class="faq fade-in">
-      <h2>FAQ</h2>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">Is this site anonymous?</div>
-        <div class="faq-answer">Yes, you can browse and post anonymously or choose to register to personalize your experience.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">What topics are covered?</div>
-        <div class="faq-answer">We cover topics including mental health, abuse, addiction, chronic illness, and more.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">Do I need an account to use it?</div>
-        <div class="faq-answer">No. Most content is open. However, accounts allow saving your journal, mood data, and resources.</div>
-      </div>
-    </section>
+    <div class="quote" id="quoteBox">"You are enough just as you are."</div>
   </main>
 
-  <div class="quote" id="quoteBox">"You are enough just as you are."</div>
+  <footer>
+    <p>🌟 Connect with me on Linktree</p>
+    <a href="https://linktr.ee/rissa.star" class="linktree-btn" target="_blank">🌐 My Linktree</a>
+  </footer>
 
   <button id="backToTop" onclick="scrollToTop()">↑</button>
 
   <script>
-    // Scroll fade-in
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-
-    fadeEls.forEach(el => observer.observe(el));
-
-    // Toggle FAQ
-    function toggleFAQ(el) {
-      el.classList.toggle('active');
-      const answer = el.nextElementSibling;
-      answer.classList.toggle('open');
-    }
-
-    // Toggle nav
-    function toggleNav() {
-      document.getElementById("navLinks").classList.toggle("show");
-    }
-
-    // Back to top
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) backToTop.classList.add('show');
-      else backToTop.classList.remove('show');
-    });
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Rotating Quotes
+    // Fade Quote Rotation
     const quotes = [
       "You are enough just as you are.",
-      "Healing is not linear, but you’re doing great.",
-      "Speak louder, love harder.",
-      "Every step you take matters.",
-      "Your story is powerful and needed."
+      "Healing isn’t linear, but you’re still growing.",
+      "Speak louder. Love harder.",
+      "You matter. Always.",
+      "Let light in, even when it's dark."
     ];
     let quoteIndex = 0;
     setInterval(() => {
       quoteIndex = (quoteIndex + 1) % quotes.length;
       document.getElementById("quoteBox").textContent = quotes[quoteIndex];
     }, 6000);
+
+    // Back to top
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 200);
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    }
+
+    const themes = ['default', 'pink', 'green'];
+    let themeIndex = 0;
+
+    function cycleTheme() {
+      document.body.classList.remove(...themes);
+      themeIndex = (themeIndex + 1) % themes.length;
+      const theme = themes[themeIndex];
+      if (theme !== 'default') document.body.classList.add(theme);
+      localStorage.setItem('theme', theme);
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark');
+      }
+      const savedTheme = localStorage.getItem('theme');
+      if (themes.includes(savedTheme)) {
+        document.body.classList.add(savedTheme);
+        themeIndex = themes.indexOf(savedTheme);
+      }
+    };
   </script>
 </body>
 </html>
