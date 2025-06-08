@@ -10,12 +10,22 @@
     * {
       box-sizing: border-box;
     }
-    body {
+    html, body {
       margin: 0;
+      height: 100%;
       font-family: 'Fredoka', cursive;
       background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
       color: #333;
+    }
+
+    body {
       display: flex;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
       min-height: 100vh;
     }
 
@@ -34,7 +44,6 @@
       text-align: center;
       font-weight: 700;
       font-size: 1.6rem;
-      letter-spacing: 1px;
     }
     nav.sidebar a {
       display: flex;
@@ -52,14 +61,14 @@
       background: #e84393;
       box-shadow: 0 0 10px #e84393;
     }
+
     nav.sidebar a i {
       font-size: 1.3rem;
     }
 
     main.dashboard {
-      flex-grow: 1;
-      padding: 2rem 2.5rem 5rem;
-      overflow-y: auto;
+      flex: 1;
+      padding: 2rem 2.5rem 1rem;
       display: flex;
       flex-direction: column;
     }
@@ -86,15 +95,16 @@
       text-decoration: none;
       color: #333;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
-      position: relative;
       font-weight: 600;
       font-size: 1.2rem;
     }
+
     .card-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       background: #f3e5f5;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
+
     .card-button i {
       margin-right: 12px;
       color: #9b59b6;
@@ -106,24 +116,14 @@
       margin: 0 auto 2rem;
       padding: 1rem 1.5rem;
       border-left: 6px solid #9b59b6;
-      background: rgba(255 255 255 / 0.8);
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 8px;
-      position: relative;
       max-width: 700px;
       color: #6a1b9a;
       font-style: italic;
-      user-select: none;
-    }
-    #quote-box::before {
-      content: "💡";
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      font-size: 1.5rem;
     }
 
     footer {
-      margin-top: auto;
       padding: 1rem 2rem;
       background: #fdf6ff;
       border-top: 2px solid #e1bee7;
@@ -131,6 +131,7 @@
       font-size: 0.95rem;
       color: #6a1b9a;
       font-family: 'Baloo 2', cursive;
+      margin-top: auto;
     }
 
     footer a {
@@ -146,6 +147,7 @@
     main.dashboard::-webkit-scrollbar {
       width: 8px;
     }
+
     main.dashboard::-webkit-scrollbar-thumb {
       background: #9b59b6;
       border-radius: 10px;
@@ -169,21 +171,23 @@
   <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
 </nav>
 
-<main class="dashboard">
-  <header class="greeting" id="greeting">Hi, User 👋</header>
+<div class="wrapper">
+  <main class="dashboard">
+    <header class="greeting" id="greeting">Hi, User 👋</header>
 
-  <section id="quote-box">Loading quote...</section>
+    <section id="quote-box">Loading quote...</section>
 
-  <a href="saved-goals.html" class="card-button"><i class="fas fa-clipboard-list"></i>Saved Worksheets & Goals</a>
+    <a href="saved-goals.html" class="card-button"><i class="fas fa-clipboard-list"></i>Saved Worksheets & Goals</a>
 
-  <a href="journal.html" class="card-button"><i class="fas fa-pen"></i>Journaling</a>
+    <a href="journal.html" class="card-button"><i class="fas fa-pen"></i>Journaling</a>
 
-  <a href="bookmarks.html" class="card-button"><i class="fas fa-bookmark"></i>Bookmarks</a>
+    <a href="bookmarks.html" class="card-button"><i class="fas fa-bookmark"></i>Bookmarks</a>
+  </main>
 
   <footer>
     <p>Built with ❤️ by Rissa • <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
   </footer>
-</main>
+</div>
 
 <script>
   const greetingEl = document.getElementById('greeting');
