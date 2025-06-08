@@ -52,27 +52,73 @@ h1, h2, h3 {
 
 /* ========== HEADER ========== */
 header {
-  padding: 2rem;
+  background: var(--dark-bg);
+  color: var(--pink);
+  padding: 2rem 1rem;
   text-align: center;
-  background: linear-gradient(120deg, var(--purple), var(--green), var(--pink));
-  background-size: 300% 300%;
-  animation: pulseBackground 12s ease infinite;
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 5px solid var(--glow-pink);
+  box-shadow: 0 0 40px rgba(255, 64, 129, 0.3);
+  animation: headerPop 1s ease-out;
 }
-@keyframes pulseBackground {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+@keyframes headerPop {
+  0% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
+
 header h1 {
-  font-size: 2.8rem;
-  text-shadow: 0 0 10px var(--blue), 0 0 30px var(--green);
+  font-family: 'Fredoka', cursive;
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px var(--pink),
+    0 0 10px var(--glow-pink),
+    0 0 20px var(--glow-purple);
+  animation: glowHeader 2s infinite alternate ease-in-out;
 }
+
+@keyframes glowHeader {
+  0% {
+    text-shadow:
+      0 0 5px var(--pink),
+      0 0 10px var(--pink),
+      0 0 20px var(--glow-pink);
+  }
+  100% {
+    text-shadow:
+      0 0 10px var(--purple),
+      0 0 20px var(--pink),
+      0 0 30px var(--glow-purple);
+  }
+}
+
 header p {
   font-size: 1.2rem;
-  text-shadow: 0 0 8px var(--pink);
   font-weight: 600;
   margin-top: 0.5rem;
+  color: var(--green);
+  text-shadow: 0 0 6px var(--glow-green);
+  animation: fadeInHeader 2s ease-in-out;
+}
+
+@keyframes fadeInHeader {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========== NAV ========== */
