@@ -115,40 +115,100 @@
     }
 
     /* Header Nav */
-    header.top-nav {
-      background: #9b59b6;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    header.top-nav h1 {
-      font-family: 'Baloo 2', cursive;
-      font-size: 1.6rem;
-      margin: 0;
-    }
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-actions button {
-      background: white;
-      color: #9b59b6;
-      border: none;
-      padding: 6px 12px;
-      font-weight: bold;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-    .nav-actions button:hover {
-      background: #f3e5f5;
-    }
+    /* Top nav styling */
+.top-nav {
+  background: linear-gradient(135deg, #7b2ff7, #f107a3);
+  padding: 2rem 1rem;
+  text-align: center;
+  border-radius: 20px;
+  margin: 2rem auto;
+  box-shadow: 0 0 20px #f107a3aa, 0 0 40px #7b2ff7aa;
+  animation: fadeInTop 1.5s ease-out;
+  max-width: 900px;
+}
 
+/* Glowing, animated gradient header text */
+.top-nav h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #fff, #ff77ff, #aaffff, #fff);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowText 4s ease-in-out infinite alternate;
+  margin: 0.5rem 0;
+}
+
+.top-nav h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.4rem;
+  color: #ffffffcc;
+  text-shadow: 0 0 6px #f107a3cc, 0 0 8px #7b2ff7aa;
+  animation: fadeIn 2s ease-out;
+}
+
+/* Nav button container */
+.nav-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Buttons with glowing pill style */
+.nav-actions button {
+  font-family: 'Fredoka', sans-serif;
+  background: linear-gradient(to right, #ff00cc, #3333ff);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px #ff00cc99, 0 0 20px #3333ff99;
+}
+
+.nav-actions button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff00ccdd, 0 0 25px #3333ffcc;
+}
+
+/* Text glow animation */
+@keyframes glowText {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 100% center;
+  }
+}
+
+/* Fade-in animation for container */
+@keyframes fadeInTop {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Fade-in for subtitle */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
     /* Quote Box */
     #quote-box {
       font-size: 1.2rem;
