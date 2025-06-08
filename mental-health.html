@@ -136,6 +136,93 @@
       border-top: 2px solid #f0f;
       font-size: 0.9rem;
     }
+    
+    .section {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.collapsible-section summary {
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #f0f;
+  margin-bottom: 1rem;
+}
+
+.collapsible-content {
+  padding-top: 1rem;
+}
+
+.myth-fact-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.myth-fact-list li {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-left: 5px solid #f0f;
+  background: #1e1e2f;
+  border-radius: 10px;
+}
+
+.myth {
+  color: #ff6b6b;
+}
+
+.fact {
+  color: #b2f7ef;
+}
+
+a {
+  color: #ffccff;
+  text-decoration: underline;
+}
+
+.section1 {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(173, 255, 255, 0.2);
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.section1 h2 {
+  font-size: 1.8rem;
+  color: #ff66cc;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 5px #ff99ff;
+}
+
+.section1 p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #e0e0ff;
+}
+
+.trauma-response-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.trauma-response-list li {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: #1e1e30;
+  border-left: 5px solid #ff66cc;
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+}
   </style>
 </head>
 <body>
@@ -183,9 +270,9 @@
   </ul>
 </nav>
 
- <section class="section dark">
-  <details class="collapsible-section">
-    <summary><strong>Facts & Myths About Mental Health</strong></summary>
+ <section class="section">
+  <details class="collapsible-section" open>
+    <summary><strong>🧠 Facts & Myths About Mental Health</strong></summary>
     <div class="collapsible-content">
       <ul class="myth-fact-list">
         <li>
@@ -208,22 +295,23 @@
   </details>
 </section>
 
-  <section class="section light">
-    <h2>⚡ <strong>Trauma Responses (Fight, Flight, Freeze, Fawn)</strong></h2>
-    <p>Your body reacts to trauma in 4 ways:</p>
-    <ul>
-      <li>🧨 <strong>Fight</strong>: Anger, defensiveness, needing control.</li>
-      <li>🏃 <strong>Flight</strong>: Avoiding people, running away emotionally or physically.</li>
-      <li>❄️ <strong>Freeze</strong>: Shutting down, going numb, dissociating.</li>
-      <li>🤝 <strong>Fawn</strong>: People-pleasing to stay safe or avoid conflict.</li>
-    </ul>
-  </section>
+  <section class="section2">
+  <h2>⚡ <strong>Trauma Responses (Fight, Flight, Freeze, Fawn)</strong></h2>
+  <p>Your body reacts to trauma in 4 common ways:</p>
+  <ul class="trauma-response-list">
+    <li>🧨 <strong>Fight</strong>: Anger, defensiveness, needing control.</li>
+    <li>🏃 <strong>Flight</strong>: Avoiding people, running away emotionally or physically.</li>
+    <li>❄️ <strong>Freeze</strong>: Shutting down, going numb, dissociating.</li>
+    <li>🤝 <strong>Fawn</strong>: People-pleasing to stay safe or avoid conflict.</li>
+  </ul>
+</section>
 
- <section class="section dark" id="mental-health-conditions">
+<section class="section">
   <details class="collapsible-section">
     <summary><strong>🧠 Mental Health Disorders</strong></summary>
     <div class="collapsible-content">
 
+      <!-- Depression -->
       <details>
         <summary>😔 <strong>Depression</strong></summary>
         <div class="tab-buttons">
@@ -249,6 +337,7 @@
         </div>
       </details>
 
+      <!-- Anxiety -->
       <details>
         <summary>😰 <strong>Anxiety Disorders</strong></summary>
         <div class="tab-buttons">
@@ -273,6 +362,7 @@
         </div>
       </details>
 
+      <!-- PTSD -->
       <details>
         <summary>💔 <strong>PTSD (Post-Traumatic Stress Disorder)</strong></summary>
         <div class="tab-buttons">
@@ -297,6 +387,7 @@
         </div>
       </details>
 
+      <!-- BPD -->
       <details>
         <summary>🌀 <strong>BPD (Borderline Personality Disorder)</strong></summary>
         <div class="tab-buttons">
@@ -321,6 +412,7 @@
         </div>
       </details>
 
+      <!-- OCD -->
       <details>
         <summary>🧩 <strong>OCD (Obsessive-Compulsive Disorder)</strong></summary>
         <div class="tab-buttons">
@@ -344,6 +436,7 @@
         </div>
       </details>
 
+      <!-- Bipolar -->
       <details>
         <summary>🌪️ <strong>Bipolar Disorder</strong></summary>
         <div class="tab-buttons">
@@ -366,9 +459,12 @@
           </ul>
         </div>
       </details>
+
+    </div>
+  </details>
 </section>
 
-  <section class="section light">
+  <section class="section2">
     <h2>Helpful Resources</h2>
     <ul>
       <li><a href="https://www.crisisservicescanada.ca/en/" target="_blank">Crisis Services Canada (24/7 support)</a></li>
@@ -378,7 +474,7 @@
       <li><a href="https://suicideprevention.ca/" target="_blank">Canadian Suicide Prevention Service</a></li>
       <li><a href="https://kidshelpphone.ca/" target="_blank">Kids Help Phone</a></li>
     </ul>
-  </section>
+  </section2>
 
 <section class="section dark">
   <details class="collapsible-section">
