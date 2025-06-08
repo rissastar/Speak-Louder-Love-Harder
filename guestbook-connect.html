@@ -1,144 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guestbook & Connect - Speak Louder, Love Harder</title>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Guestbook & Connect</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-  <!-- Optional Firebase Database (if needed) -->
-  <!-- <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script> -->
 </head>
 <body>
-  <header class="animated-header">
-    <h1 class="glow">Guestbook & Connect 💌</h1>
-    <button id="theme-toggle">Toggle Theme</button>
+  <header><h1 class="glow">Guestbook & Connect</h1>
+    <button id="theme-toggle">Toggle Dark/Light</button>
   </header>
-
-  <nav>
-  <ul class="nav-links">
-    <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-        <li><a href="cirrhosis.html">Cirrhosis</a></li>
-        <li><a href="physical-abuse.html">Physical Abuse</a></li>
-        <li><a href="mental-abuse.html">Mental Abuse</a></li>
-        <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </div>
-    </details>
-  </ul>
-</nav>
-  
-  <main class="guestbook-container">
-    <section class="post-form">
-      <h2>Leave a Message or Encouragement 💬</h2>
-      <textarea id="guestbookMessage" rows="4" placeholder="Write something beautiful..."></textarea>
-      <button onclick="submitGuestbook()">Post Message</button>
-    </section>
-
-    <section class="messages">
-      <h3>Community Messages</h3>
-      <ul id="guestbookMessages"></ul>
-    </section>
-
-    <section class="quote-section">
-      <blockquote id="quote">"Every storm runs out of rain."</blockquote>
-      <cite id="author">- Maya Angelou</cite>
+  <main>
+    <section>
+      <h2>Leave a Message</h2>
+      <form id="guestbook-form">
+        <textarea id="msg" rows="4" placeholder="Your thoughts..." required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="entries"></div>
     </section>
   </main>
-
   <footer>
-  <p>Built with ❤️ to inspire and empower.</p>
-  <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
-</footer>
-
+    <p><a href="index.html">Home</a> • <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+  </footer>
   <script src="script.js"></script>
-  </body>
+  <script>
+    const form = document.getElementById("guestbook-form");
+    const entriesDiv = document.getElementById("entries");
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const text = document.getElementById("msg").value;
+      const p = document.createElement("p");
+      p.textContent = text;
+      entriesDiv.prepend(p);
+      form.reset();
+    });
+  </script>
+</body>
 </html>
-
-<script>
-// === GUESTBOOK LOCAL STORAGE ===
-document.addEventListener("DOMContentLoaded", () => {
-  displayMessages();
-  rotateQuote();
-  setupThemeToggle();
-});
-
-// Submit a guestbook message
-function submitGuestbook() {
-  const textarea = document.getElementById("guestbookMessage");
-  const message = textarea.value.trim();
-
-  if (!message) {
-    alert("Please write something before posting!");
-    return;
-  }
-
-  const guestbookMessages = JSON.parse(localStorage.getItem("guestbookMessages") || "[]");
-  const newMessage = {
-    text: message,
-    timestamp: new Date().toISOString(),
-  };
-
-  guestbookMessages.unshift(newMessage); // add to top
-  localStorage.setItem("guestbookMessages", JSON.stringify(guestbookMessages));
-  textarea.value = "";
-  displayMessages();
-}
-
-// Display messages from localStorage
-function displayMessages() {
-  const messagesContainer = document.getElementById("guestbookMessages");
-  const guestbookMessages = JSON.parse(localStorage.getItem("guestbookMessages") || "[]");
-
-  messagesContainer.innerHTML = "";
-
-  guestbookMessages.forEach(msg => {
-    const li = document.createElement("li");
-    const date = new Date(msg.timestamp).toLocaleString();
-    li.innerHTML = `<p>${msg.text}</p><small>${date}</small>`;
-    messagesContainer.appendChild(li);
-  });
-}
-
-// === QUOTE ROTATOR ===
-const quotes = [
-  { text: "You are stronger than you think.", author: "Unknown" },
-  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-  { text: "Every day is a second chance.", author: "Unknown" },
-  { text: "Your story isn't over yet.", author: "Unknown" },
-  { text: "You matter. Your feelings matter.", author: "Unknown" },
-  { text: "Speak louder. Love harder.", author: "SLLH" }
-];
-
-function rotateQuote() {
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
-  document.getElementById("quote").textContent = `"${quote.text}"`;
-  document.getElementById("author").textContent = `- ${quote.author}`;
-}
-
-// === THEME TOGGLE ===
-function setupThemeToggle() {
-  const button = document.getElementById("theme-toggle");
-  const prefersDark = localStorage.getItem("theme") === "dark";
-  if (prefersDark) {
-    document.body.classList.add("dark-theme");
-  }
-
-  button.addEventListener("click", () => {
-    document.body.classList.toggle("dark-theme");
-    const isDark = document.body.classList.contains("dark-theme");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  });
-}
-</script>
