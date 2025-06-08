@@ -204,3 +204,7 @@ form button {
 form button:hover {
   background: var(--pink);
 }
+
+nav a i {
+  margin-right: 0.4rem;
+}
