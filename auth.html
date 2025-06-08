@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login / Register | Speak Louder, Love Harder</title>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       font-family: 'Fredoka', sans-serif;
@@ -24,12 +23,12 @@
       max-width: 400px;
       width: 100%;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
     .auth-container h2 {
-      text-align: center;
-      margin-bottom: 1rem;
       color: #9b59b6;
+      margin-bottom: 1rem;
     }
 
     .auth-container input {
@@ -57,7 +56,6 @@
     }
 
     .switch {
-      text-align: center;
       margin-top: 1rem;
       color: #555;
     }
@@ -68,10 +66,8 @@
       cursor: pointer;
     }
 
-    .error-message {
+    .error {
       color: red;
-      font-size: 0.9rem;
-      text-align: center;
       margin-bottom: 1rem;
     }
   </style>
@@ -79,7 +75,7 @@
 <body>
   <div class="auth-container" id="login-form">
     <h2>Login</h2>
-    <div id="login-error" class="error-message"></div>
+    <div id="login-error" class="error"></div>
     <input type="text" id="login-username" placeholder="Username" />
     <input type="password" id="login-password" placeholder="Password" />
     <button onclick="login()">Login</button>
@@ -88,66 +84,14 @@
 
   <div class="auth-container" id="register-form" style="display:none;">
     <h2>Register</h2>
-    <div id="register-error" class="error-message"></div>
+    <div id="register-error" class="error"></div>
     <input type="text" id="register-username" placeholder="Choose a Username" />
     <input type="password" id="register-password" placeholder="Choose a Password" />
     <button onclick="register()">Register</button>
     <div class="switch">Already have an account? <a onclick="showLogin()">Login</a></div>
   </div>
 
-  <script>
-    function showRegister() {
-      document.getElementById("login-form").style.display = "none";
-      document.getElementById("register-form").style.display = "block";
-    }
-
-    function showLogin() {
-      document.getElementById("register-form").style.display = "none";
-      document.getElementById("login-form").style.display = "block";
-    }
-
-    function getUsers() {
-      return JSON.parse(localStorage.getItem("users") || "{}");
-    }
-
-    function saveUser(username, password) {
-      const users = getUsers();
-      users[username] = password;
-      localStorage.setItem("users", JSON.stringify(users));
-    }
-
-    function login() {
-      const username = document.getElementById("login-username").value.trim();
-      const password = document.getElementById("login-password").value;
-      const users = getUsers();
-
-      if (users[username] && users[username] === password) {
-        localStorage.setItem("currentUser", username);
-        window.location.href = "dashboard.html";
-      } else {
-        document.getElementById("login-error").textContent = "🚫 Invalid username or password.";
-      }
-    }
-
-    function register() {
-      const username = document.getElementById("register-username").value.trim();
-      const password = document.getElementById("register-password").value;
-      const users = getUsers();
-
-      if (!username || !password) {
-        document.getElementById("register-error").textContent = "⚠️ Please fill in both fields.";
-        return;
-      }
-
-      if (users[username]) {
-        document.getElementById("register-error").textContent = "❌ Username already exists.";
-        return;
-      }
-
-      saveUser(username, password);
-      localStorage.setItem("currentUser", username);
-      window.location.href = "dashboard.html";
-    }
-  </script>
+  <!-- ✅ Link to your external auth.js -->
+  <script src="auth.js"></script>
 </body>
 </html>
