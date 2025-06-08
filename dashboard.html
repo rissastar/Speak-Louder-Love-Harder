@@ -1,235 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    /* Minimal inline styles for nav toggle (adjust in styles.css) */
-    .nav-toggle {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      margin: 1rem;
-      font-size: 1.2rem;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      user-select: none;
-    }
-    nav {
-      display: none;
-      margin: 1rem 0;
-    }
-    nav.show {
-      display: block;
-    }
-    .saved-content {
-      margin-top: 0.5rem;
-      font-style: italic;
-      color: var(--secondary-color);
-    }
-    .expandable-section summary {
-      cursor: pointer;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .auth-buttons button {
-      margin-left: 0.5rem;
-      cursor: pointer;
-      background: var(--accent-color);
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      border-radius: var(--border-radius);
-      transition: background 0.3s ease;
-    }
-    .auth-buttons button:hover {
-      background: var(--primary-color);
-    }
-  </style>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<header class="site-header">
-  <div class="site-title">Speak Louder, Love Harder</div>
-  <div class="auth-buttons">
-    <button onclick="location.href='index.html#auth-section'">Login</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-</header>
-
-<button class="nav-toggle" onclick="toggleNav()">📖 Menu</button>
-<nav id="mainNav">
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-    <li><a href="mental-health.html">Mental Health</a></li>
-    <li><a href="foster-care.html">Foster Care</a></li>
-    <li><a href="mental-abuse.html">Mental Abuse</a></li>
-    <li><a href="physical-abuse.html">Physical Abuse</a></li>
-    <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-    <li><a href="cirrhosis.html">Cirrhosis</a></li>
-    <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-    <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
-  </ul>
-</nav>
-
-<main class="dashboard-main">
-  <section class="profile-display">
-    <h2>Welcome, <span id="display-name">User</span> 💖</h2>
-    <p><em id="display-bio">Your story matters. You are loved.</em></p>
-  </section>
-
-  <section class="quote-box">
-    <h3>💬 Daily Affirmation</h3>
-    <blockquote id="quote">You are doing better than you think.</blockquote>
-  </section>
-
-  <section class="mood-tracker">
-    <h3>📊 Mood Chart</h3>
-    <canvas id="moodChart" width="400" height="200"></canvas>
-  </section>
-
-  <details class="expandable-section">
-    <summary>📓 Journal</summary>
-    <textarea id="journal-entry" placeholder="Write your thoughts..."></textarea>
-    <button onclick="saveJournal()">Save</button>
-    <p id="saved-journal" class="saved-content"></p>
-  </details>
-
-  <details class="expandable-section">
-    <summary>📌 Saved Posts</summary>
-    <ul id="saved-posts"></ul>
-  </details>
-
-  <details class="expandable-section">
-    <summary>🌈 Affirmations</summary>
-    <p>You are powerful, valuable, and resilient. 🌟</p>
-  </details>
-
-  <details class="expandable-section">
-    <summary>🧠 Feel-Good Suggestions</summary>
-    <ul>
-      <li>Go for a 10-minute walk</li>
-      <li>Listen to your favorite song</li>
-      <li>Write a love letter to yourself</li>
-    </ul>
-  </details>
-</main>
-
-<footer>
-  <p>Built with ❤️ to inspire and empower.</p>
-  <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
-</footer>
-
-<script>
-  // Redirect to login if not logged in
-  document.addEventListener("DOMContentLoaded", () => {
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    if (!loggedInUser) {
-      alert("Please login first!");
-      window.location.href = "index.html#auth-section";
-      return;
+  <header>
+    <h1 class="glow">Your Dashboard</h1>
+    <button id="logout">Logout</button>
+  </header>
+  <main>
+    <h2>Welcome, <span id="user-display"></span>!</h2>
+    <textarea id="notes" rows="6" placeholder="Write your worksheet notes here..."></textarea>
+    <button onclick="saveNotes()">Save Notes</button>
+    <p id="save-status"></p>
+  </main>
+  <footer><p><a href="index.html">Home</a></p></footer>
+  <script src="auth.js"></script>
+  <script>
+    if (!localStorage.getItem('currentUser')) {
+      location.href = "auth.html";
+    } else {
+      const user = localStorage.getItem('currentUser');
+      document.getElementById('user-display').textContent = user;
+      document.getElementById('notes').value = localStorage.getItem(`notes-${user}`) || "";
     }
 
-    // Load profile info (fall back to loggedInUser if name not set)
-    const name = localStorage.getItem("name") || loggedInUser || "Friend";
-    const bio = localStorage.getItem("bio") || "Your story matters. You are loved.";
-    document.getElementById("display-name").textContent = name;
-    document.getElementById("display-bio").textContent = bio;
-
-    // Load journal if any
-    const journal = localStorage.getItem("journal");
-    if (journal) {
-      document.getElementById("saved-journal").textContent = "Last entry: " + journal;
+    function saveNotes() {
+      const user = localStorage.getItem('currentUser');
+      const notes = document.getElementById('notes').value;
+      localStorage.setItem(`notes-${user}`, notes);
+      document.getElementById('save-status').textContent = "Notes saved ✔️";
     }
 
-    // Load saved posts list
-    const posts = JSON.parse(localStorage.getItem("savedPosts") || "[]");
-    const postList = document.getElementById("saved-posts");
-    postList.innerHTML = ""; // clear in case
-    posts.forEach(p => {
-      const li = document.createElement("li");
-      li.textContent = p;
-      postList.appendChild(li);
-    });
-
-    rotateQuotes();
-    initChart();
-  });
-
-  // Save journal entry
-  function saveJournal() {
-    const entry = document.getElementById("journal-entry").value.trim();
-    if (!entry) {
-      alert("Please enter something in your journal.");
-      return;
-    }
-    localStorage.setItem("journal", entry);
-    document.getElementById("saved-journal").textContent = "Last entry: " + entry;
-    document.getElementById("journal-entry").value = "";
-    alert("Journal saved!");
-  }
-
-  // Quote rotation
-  const quotes = [
-    "You are enough.",
-    "Healing isn’t linear, but you’re on the right path.",
-    "You are stronger than your storms.",
-    "Keep going, the world needs your light.",
-    "One step at a time is still progress."
-  ];
-  let quoteIndex = 0;
-  function rotateQuotes() {
-    setInterval(() => {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      document.getElementById("quote").textContent = quotes[quoteIndex];
-    }, 5000);
-  }
-
-  // Mood chart init with Chart.js
-  function initChart() {
-    const ctx = document.getElementById("moodChart").getContext("2d");
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        datasets: [{
-          label: "Mood Level (1–10)",
-          data: [6, 7, 5, 8, 7, 6, 9], // Replace with dynamic data if available
-          fill: true,
-          borderColor: "#a259ff",
-          backgroundColor: "rgba(162, 89, 255, 0.2)",
-          tension: 0.3,
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            suggestedMin: 1,
-            suggestedMax: 10
-          }
-        }
-      }
-    });
-  }
-
-  // Logout function
-  function logout() {
-    localStorage.removeItem("loggedInUser");
-    window.location.href = "index.html";
-  }
-
-  // Toggle nav for mobile
-  function toggleNav() {
-    const nav = document.getElementById("mainNav");
-    nav.classList.toggle("show");
-  }
-</script>
-
+    document.getElementById('logout').onclick = () => {
+      localStorage.removeItem('currentUser');
+      location.href = "auth.html";
+    };
+  </script>
 </body>
 </html>
