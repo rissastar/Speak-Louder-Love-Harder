@@ -260,3 +260,125 @@ form button {
 form button:hover {
   background: var(--pink);
 }
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Fredoka', cursive;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    nav.sidebar {
+      width: 220px;
+      background: #9b59b6;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    }
+    nav.sidebar h2 {
+      font-family: 'Baloo 2', cursive;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+    }
+    nav.sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      margin-bottom: 0.7rem;
+      transition: background 0.3s ease;
+    }
+    nav.sidebar a:hover, nav.sidebar a.active {
+      background: #e84393;
+      box-shadow: 0 0 10px #e84393;
+    }
+    nav.sidebar a i {
+      font-size: 1.3rem;
+    }
+
+    main.dashboard {
+      flex-grow: 1;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+    }
+
+    header.greeting {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-button {
+      display: block;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
+      text-align: left;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      position: relative;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .card-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      background: #f3e5f5;
+    }
+    .card-button i {
+      margin-right: 12px;
+      color: #9b59b6;
+    }
+
+    #quote-box {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 auto 2rem;
+      padding: 1rem 1.5rem;
+      border-left: 6px solid #9b59b6;
+      background: rgba(255 255 255 / 0.8);
+      border-radius: 8px;
+      position: relative;
+      max-width: 700px;
+      color: #6a1b9a;
+      font-style: italic;
+      user-select: none;
+    }
+    #quote-box::before {
+      content: "💡";
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      font-size: 1.5rem;
+    }
+
+    main.dashboard::-webkit-scrollbar {
+      width: 8px;
+    }
+    main.dashboard::-webkit-scrollbar-thumb {
+      background: #9b59b6;
+      border-radius: 10px;
+    }
+  </style>
