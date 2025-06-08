@@ -1,24 +1,36 @@
 const quotes = [
-  "You are not alone.",
-  "Keep going, you’re doing great.",
-  "Every storm runs out of rain.",
-  "Your story isn’t over yet.",
-  "Healing is not linear."
+  "You’re stronger than you think.",
+  "One day at a time.",
+  "You deserve love and care.",
+  "Progress, not perfection.",
+  "Healing is not linear. 🌱",
+  "Your story matters.",
+  "Be kind to your mind."
 ];
+let idx = 0;
 
-function rotateQuotes() {
-  const idx = Math.floor(Math.random() * quotes.length);
-  document.title = quotes[idx] + " | Inspire & Connect";
+function rotateQuote() {
+  const el = document.getElementById("quote-box");
+  idx = (idx + 1) % quotes.length;
+  el.textContent = quotes[idx];
 }
 
-function toggleTheme() {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+setInterval(rotateQuote, 5000);
+
+const toggle = document.getElementById("theme-toggle");
+const body = document.body;
+
+function loadTheme() {
+  const t = localStorage.getItem("theme");
+  if (t === "dark") body.classList.add("dark");
+}
+function saveTheme() {
+  localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
 }
 
-window.onload = () => {
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-  }
-  setInterval(rotateQuotes, 5000);
-};
+toggle.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  saveTheme();
+});
+
+loadTheme();
