@@ -2,49 +2,221 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-...hash..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fredoka', cursive;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #9b59b6;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .sidebar h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background: #8e44ad;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      min-height: 100vh;
+    }
+
+    header.hero {
+      background: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1650&q=80') no-repeat center center;
+      background-size: cover;
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .hero h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+    }
+
+    .user-area {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .user-area button {
+      margin: 0.3rem;
+      padding: 0.4rem 0.8rem;
+      border: none;
+      background: #fff;
+      color: #9b59b6;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .user-area button:hover {
+      background: #f0f0f0;
+    }
+
+    .dashboard {
+      flex-grow: 1;
+      padding: 2rem;
+    }
+
+    .quote-carousel {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(155, 89, 182, 0.15);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #6c3483;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h3 {
+      font-family: 'Baloo 2', cursive;
+      color: #9b59b6;
+    }
+
+    footer {
+      background: #9b59b6;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #fce4ec;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1 class="glow">🌈 Speak Louder, Love Harder 💖</h1>
+  <nav class="sidebar">
+    <h2>🌈 Inspire</h2>
+    <a href="dashboard.html"><i class="fas fa-house"></i> Dashboard</a>
+    <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
+    <a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a>
+    <a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a>
+    <a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a>
+    <a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a>
+    <a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a>
+    <a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a>
+    <a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a>
+    <a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a>
+    <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
+
     <div class="user-area">
-      <span id="user-greeting"></span>
+      <span id="user-greeting"></span><br>
       <button id="auth-btn">Login</button>
-      <button id="dashboard-btn" href="dashboard.html"style="display:none;">Dashboard</button>
+      <button id="dashboard-btn" style="display:none;">Dashboard</button>
       <button id="logout-btn" style="display:none;">Logout</button>
       <button id="theme-toggle">🌓</button>
     </div>
-  </header>
+  </nav>
 
-  <main>
-    <section id="quote-box" class="quote glow-text">
-      “You’re stronger than you think.”
-    </section>
-    <nav>
-  <ul>
-    <li><a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a></li>
-    <li><a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a></li>
-    <li><a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a></li>
-    <li><a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a></li>
-    <li><a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a></li>
-    <li><a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a></li>
-    <li><a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a></li>
-    <li><a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a></li>
-    <li><a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a></li>
-    <li><a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a></li>
-  </ul>
-</nav>
-  </main>
+  <div class="page-wrapper">
+    <main class="dashboard">
+      <header class="hero">
+        <h1>Speak Louder, Love Harder 💖</h1>
+        <p>A vibrant space for mental health, healing & connection</p>
+      </header>
 
-  <footer>
-    <p>Built with ❤️ by Rissa • <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
-  </footer>
+      <div class="quote-carousel" id="quote-box">Loading quotes…</div>
 
-  <script src="script.js"></script>
+      <section>
+        <h3>✨ About This Site</h3>
+        <p>This space is your safe corner on the web — a place to journal, reflect, grow, and connect with others on their own healing journeys.</p>
+      </section>
+
+      <section>
+        <h3>🛠 Features</h3>
+        <ul>
+          <li>Create an account to save journal entries, worksheets, and goals</li>
+          <li>Dark/Light mode toggle (remembers your choice!)</li>
+          <li>Inspiration carousel + supportive community space</li>
+          <li>Resources, guestbooks, and custom dashboards</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built with ❤️ by Rissa • <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+    </footer>
+  </div>
+
   <script>
     const user = localStorage.getItem("currentUser");
     const authBtn = document.getElementById("auth-btn");
@@ -65,6 +237,26 @@
       localStorage.removeItem("currentUser");
       location.reload();
     };
+
+    // Quotes auto-scroll
+    const quotes = [
+      "🌟 You're stronger than you think.",
+      "💪 Keep going, you've got this!",
+      "🌈 Every day is a fresh start.",
+      "✨ Believe in yourself and magic happens.",
+      "💖 Spread love wherever you go.",
+      "🌻 Your story matters. You matter."
+    ];
+    const quoteBox = document.getElementById('quote-box');
+    let quoteIndex = 0;
+    function showQuote() {
+      if (quoteBox) {
+        quoteBox.textContent = quotes[quoteIndex];
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+      }
+    }
+    showQuote();
+    setInterval(showQuote, 7000);
   </script>
 </body>
 </html>
