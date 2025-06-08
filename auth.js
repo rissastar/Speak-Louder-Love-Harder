@@ -1,32 +1,63 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("auth-form");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value;
-      const msg = document.getElementById("auth-message");
+// auth.js
 
-      if (!username || !password) {
-        msg.textContent = "All fields required.";
-        return;
-      }
+function showRegister() {
+  document.getElementById("login-form").style.display = "none";
+  document.getElementById("register-form").style.display = "block";
+  document.getElementById("login-error").textContent = "";
+}
 
-      const users = JSON.parse(localStorage.getItem("users") || "{}");
+function showLogin() {
+  document.getElementById("login-form").style.display = "block";
+  document.getElementById("register-form").style.display = "none";
+  document.getElementById("register-error").textContent = "";
+}
 
-      if (users[username]) {
-        if (users[username] === password) {
-          localStorage.setItem("currentUser", username);
-          location.href = "dashboard.html";
-        } else {
-          msg.textContent = "Incorrect password ❌";
-        }
-      } else {
-        users[username] = password;
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUser", username);
-        location.href = "dashboard.html";
-      }
-    });
+function getUsers() {
+  return JSON.parse(localStorage.getItem("users") || "{}");
+}
+
+function saveUser(username, password) {
+  const users = getUsers();
+  users[username] = password;
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
+function login() {
+  const username = document.getElementById("login-username").value.trim();
+  const password = document.getElementById("login-password").value;
+  const users = getUsers();
+  const error = document.getElementById("login-error");
+
+  if (users[username] && users[username] === password) {
+    localStorage.setItem("currentUser", username);
+    window.location.href = "index.html";
+  } else {
+    error.textContent = "❌ Incorrect username or password.";
   }
-});
+}
+
+function register() {
+  const username = document.getElementById("register-username").value.trim();
+  const password = document.getElementById("register-password").value;
+  const users = getUsers();
+  const error = document.getElementById("register-error");
+
+  if (!username || !password) {
+    error.textContent = "⚠️ Please fill in both fields.";
+    return;
+  }
+
+  if (users[username]) {
+    error.textContent = "🚫 That username is already taken.";
+    return;
+  }
+
+  saveUser(username, password);
+  localStorage.setItem("currentUser", username);
+  window.location.href = "index.html";
+}
+
+// Auto-redirect if already logged in
+if (localStorage.getItem("currentUser")) {
+  window.location.href = "index.html";
+}
