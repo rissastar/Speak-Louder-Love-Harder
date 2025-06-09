@@ -45,4 +45,32 @@ window.addEventListener('DOMContentLoaded', () => {
   } else {
     toggleBtn.textContent = '🌙 Dark Mode';
   }
+  
+  document.querySelectorAll("details").forEach((el) => {
+    const summary = el.querySelector("summary");
+    const content = document.createElement("div");
+
+    // Move all children except <summary> into a wrapper
+    while (summary.nextSibling) {
+      content.appendChild(summary.nextSibling);
+    }
+
+    content.style.overflow = "hidden";
+    content.style.transition = "max-height 0.4s ease";
+    content.style.maxHeight = "0px";
+    el.appendChild(content);
+
+    el.addEventListener("toggle", () => {
+      if (el.open) {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } else {
+        content.style.maxHeight = "0px";
+      }
+    });
+
+    // Fix for page reload with <details open>
+    if (el.hasAttribute("open")) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
 });
