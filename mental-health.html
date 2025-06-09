@@ -2,725 +2,218 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mental Health – Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mental Health - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root {
-      --bg-color: #fff;
-      --text-color: #333;
-      --nav-bg: #0a9396;
-      --nav-hover: #94d2bd;
-      --accent: #ee6c4d;
-    }
-
-    body.dark {
-      --bg-color: #121212;
-      --text-color: #e0e0e0;
-      --nav-bg: #1e2a2f;
-      --nav-hover: #4db6ac;
-      --accent: #ff9e80;
-    }
-
+    /* Extra styles to ensure consistency */
     body {
+      background: linear-gradient(to bottom, #e0f7fa, #ffe0f0);
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s ease, color 0.3s ease;
+      padding: 0 20px 60px;
     }
-
-    header {
-      padding: 1rem;
-      background: linear-gradient(135deg, #00b4d8, #0077b6);
-      color: white;
+    header, footer {
       text-align: center;
-      position: relative;
+      color: #444;
+      font-weight: 600;
+      margin: 10px 0;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    .toggle-dark {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* Collapsible nav */
-    .menu-toggle {
-      display: none;
-      background: var(--accent);
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      cursor: pointer;
-      margin: 1rem;
-      border-radius: 6px;
-    }
-
+    /* Nav styling */
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      background-color: var(--nav-bg);
-      padding: 1rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      background-color: var(--accent);
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: var(--nav-hover);
-      color: var(--text-color);
-    }
-
-    .collapsible-nav {
-      display: none;
-      flex-direction: column;
-    }
-
-    .collapsible-nav.show {
-      display: flex;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-
-    h2 {
-      margin-top: 2rem;
-      font-size: 1.6rem;
-      border-left: 5px solid var(--accent);
-      padding-left: 0.5rem;
-    }
-
-    details {
-      background: var(--bg-color);
-      border: 2px solid var(--accent);
+      background: rgba(255 255 255 / 0.8);
       border-radius: 8px;
-      padding: 1rem;
-      margin: 1rem 0;
-      cursor: pointer;
+      margin-bottom: 20px;
+      padding: 12px 20px;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-
-    summary {
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 3rem;
-    }
-
-    footer a {
-      color: #00d4ff;
+    nav a {
       text-decoration: none;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #333;
+      margin-right: 24px;
     }
-
-    @media (max-width: 768px) {
-      .menu-toggle {
+    nav a:hover {
+      color: #b23777;
+    }
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #b23777;
+      position: absolute;
+      right: 20px;
+      top: 12px;
+    }
+    /* Responsive nav menu */
+    @media (max-width: 800px) {
+      nav a {
+        display: none;
+      }
+      nav a.show {
+        display: block;
+        margin: 8px 0;
+      }
+      .nav-toggle {
         display: block;
       }
-
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .info-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 1rem;
-}
-
-.info-toggle {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.25rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
-}
-
-.info-toggle:hover {
-  background-color: #357ab8;
-}
-
-.info-box {
-  display: none;
-  background-color: #f0f8ff;
-  padding: 1rem;
-  border-left: 5px solid #4a90e2;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-/* Collapsible Myths & Facts */
-.collapsible {
-  background-color: #4a90e2;
-  color: white;
-  cursor: pointer;
-  padding: 1rem;
-  width: 100%;
-  border: none;
-  text-align: left;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  margin-top: 1rem;
-}
-
-.collapsible:hover {
-  background-color: #357ab8;
-}
-
-.content {
-  display: none;
-  overflow: hidden;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-left: 5px solid #4a90e2;
-  border-radius: 8px;
-  margin-top: 0.5rem;
-}
-
-.myth-fact-list {
-  list-style: none;
-  padding: 0;
-}
-
-.myth-fact-list li {
-  margin-bottom: 1rem;
-}
-
-.myth {
-  color: #d9534f;
-}
-
-.fact {
-  color: #5cb85c;
-}
-<style>
-  .disorder {
-    margin-bottom: 2rem;
-  }
-
-  .sub-toggle {
-    display: block;
-    width: 100%;
-    background-color: #f3f3f3;
-    color: #444;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px 0;
-    text-align: left;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-
-  .sub-toggle:hover {
-    background-color: #e0e0e0;
-  }
-
-  .sub-content {
-    padding: 10px 15px;
-    display: none;
-    background-color: #fafafa;
-    border-left: 4px solid #80cbc4;
-    border-radius: 0 5px 5px 0;
-    margin-bottom: 10px;
-  }
-
-  .sub-content ul {
-    margin: 0;
-    padding-left: 20px;
-  }
-
-  .sub-content a {
-    color: #007acc;
-    text-decoration: underline;
-  }
     }
-    .quote-carousel {
-  overflow: hidden;
-  background: #222;
-  color: #fff;
-  padding: 1rem 0;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 500;
-  border-top: 2px solid #555;
-  border-bottom: 2px solid #555;
-  position: relative;
-}
-
-.quote-track {
-  display: flex;
-  width: max-content;
-  animation: scrollQuotes 30s linear infinite;
-}
-
-.quote {
-  padding: 0 2rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-@keyframes scrollQuotes {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.tracker-links {
-  background-color: #f0f8ff;
-  border: 2px solid #bee3f8;
-  border-radius: 10px;
-  padding: 1.5rem;
-  margin: 2rem 0;
-  font-family: 'Segoe UI', sans-serif;
-  color: #333;
-}
-
-.tracker-links h2 {
-  margin-top: 0;
-  color: #2b6cb0;
-  font-size: 1.4rem;
-}
-
-.tracker-links a {
-  color: #2c5282;
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.tracker-links a:hover {
-  text-decoration: none;
-  color: #1a365d;
-}
-
-.share-button {
-  display: inline-block;
-  padding: 12px 20px;
-  margin-top: 10px;
-  background-color: #ff4081;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.share-button:hover {
-  background-color: #e91e63;
-}
+    /* Dark mode overrides */
+    body.dark {
+      background: linear-gradient(to bottom, #121212, #2c2c2c);
+      color: #eee;
+    }
+    body.dark nav {
+      background: rgba(40 40 40 / 0.9);
+      box-shadow: 0 3px 6px rgb(255 255 255 / 0.1);
+    }
+    body.dark nav a {
+      color: #eee;
+    }
+    body.dark nav a:hover {
+      color: #e6a0c4;
+    }
+    body.dark footer {
+      color: #bbb;
+    }
+    /* Collapsible section styling */
+    details summary {
+      font-weight: 700;
+      font-size: 1.3rem;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    details[open] summary {
+      color: #b23777;
+    }
+    .collapsible-content p {
+      line-height: 1.5;
+      margin-bottom: 1em;
+    }
+    /* Share button styling */
+    .share-button {
+      display: inline-block;
+      background: #b23777;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .share-button:hover {
+      background: #d4559a;
+    }
+    /* Dark mode for share button */
+    body.dark .share-button {
+      background: #e6a0c4;
+      color: #2c2c2c;
+    }
+    body.dark .share-button:hover {
+      background: #f2b6d3;
+    }
+    footer {
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Mental Health</h1>
-    <button class="toggle-dark" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-  </header>
-
-  <button class="menu-toggle" onclick="toggleNav()">☰ Menu</button>
-
-  <nav id="collapsibleMenu" class="collapsible-nav">
-    <a href="index.html">Home</a>
-    <a href="mental-health.html">Mental Health</a>
-    <a href="addiction.html">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
+  <nav>
+    <a href="index.html" aria-label="Go to homepage">Speak Louder, Love Harder</a>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+    <a href="mental-health.html" class="show">Mental Health</a>
+    <a href="guestbook-connect.html">Share Your Story</a>
+    <a href="resources.html">Resources</a>
   </nav>
 
-  <details style="background:#292929; padding:15px 20px; border-radius:8px; max-width:720px; margin-top:30px; box-shadow: 0 0 10px #bb86fc88; color:#e0e0e0;">
-  <summary style="font-size:18px; cursor:pointer; font-weight:bold; color:#ffb74d;">📞 When to Seek Support</summary>
-  <p style="margin-top:10px; font-size:16px;">
-    If you feel overwhelmed or hopeless, talk to a doctor, counselor, or trusted friend. You are not alone.
-  </p>
-</details>
-
-     <!-- Myths & Facts -->
-  <button class="collapsible">🧠 Myths & Facts About Mental Health</button>
-  <div class="content">
-    <ul class="myth-fact-list">
-      <li>
-        <span class="myth"><strong>🚫 Myth:</strong> Mental health problems are a sign of weakness.</span><br>
-        <span class="fact"><strong>✅ Fact:</strong> Seeking help is a sign of strength. 
-          <a href="https://www.mindspringhealth.org/resources/news/understanding-mental-health-common-myths-and-facts" target="_blank">[Source]</a>
-        </span>
-      </li>
-      <li>
-        <span class="myth"><strong>🚫 Myth:</strong> People with mental health conditions are violent.</span><br>
-        <span class="fact"><strong>✅ Fact:</strong> Only 3%–5% of violent acts are linked to serious mental illness. 
-          <a href="https://www.samhsa.gov/mental-health/what-is-mental-health/facts" target="_blank">[Source]</a>
-        </span>
-      </li>
-      <li>
-        <span class="myth"><strong>🚫 Myth:</strong> Mental illness can't be treated.</span><br>
-        <span class="fact"><strong>✅ Fact:</strong> Mental illness can be effectively treated. 
-          <a href="https://yalewell.yale.edu/mental-health/myths-facts-about-mental-health" target="_blank">[Source]</a>
-        </span>
-      </li>
-    </ul>
-  </div>
-  
-  <section>
-  <h2>⚡ Trauma Responses: Fight, Flight, Freeze, Fawn</h2>
-  <ul>
-    <li><strong>Fight:</strong> Anger, defensiveness, needing control.</li>
-    <li><strong>Flight:</strong> Avoiding people or emotions.</li>
-    <li><strong>Freeze:</strong> Shutting down, dissociating.</li>
-    <li><strong>Fawn:</strong> People-pleasing to feel safe.</li>
-  </ul>
-</section>
-
-  <div class="quote-carousel">
-  <div class="quote-track">
-    <div class="quote">“You are not alone in this.”</div>
-    <div class="quote">“It's okay to not be okay.”</div>
-    <div class="quote">“Healing is not linear.”</div>
-    <div class="quote">“You matter. Always.”</div>
-    <div class="quote">“Your story isn't over yet.”</div>
-    <div class="quote">“You are not alone in this.”</div>
-  </div>
-</div>
-  
-    <!-- Common Disorders & Symptoms Section -->
-    <button class="collapsible">💛 Common Disorders & Symptoms</button>
-    <div class="content">
-
-      <div class="disorder">
-        <h3>Depression</h3>
-        <button class="sub-toggle">✅ What it is</button>
-        <div class="sub-content">
-          <p>A serious mood disorder that affects how a person feels, thinks, and handles daily activities. Often caused by a mix of genetic, biological, environmental, and psychological factors.</p>
-        </div>
-        <button class="sub-toggle">🚫 What it's not</button>
-        <div class="sub-content">
-          <p>Just feeling sad, lazy, or being weak. It’s not something someone can just “snap out of.”</p>
-        </div>
-        <button class="sub-toggle">⚠️ Symptoms</button>
-        <div class="sub-content">
-          <ul>
-            <li>Persistent sadness or emptiness</li>
-            <li>Loss of interest in hobbies</li>
-            <li>Fatigue and low energy</li>
-            <li>Appetite or weight changes</li>
-            <li>Sleep disturbances</li>
-            <li>Feelings of worthlessness</li>
-          </ul>
-        </div>
-        <button class="sub-toggle">📚 Resource</button>
-        <div class="sub-content">
-          <a href="https://www.nimh.nih.gov/health/topics/depression/index.shtml" target="_blank" rel="noopener">NIMH on Depression</a>
-        </div>
-      </div>
-
-      <div class="disorder">
-        <h3>Anxiety</h3>
-        <button class="sub-toggle">✅ What it is</button>
-        <div class="sub-content">
-          <p>Anxiety disorders are a group of mental health conditions causing fear, dread, and physical symptoms that are out of proportion to actual situations.</p>
-        </div>
-        <button class="sub-toggle">🚫 What it's not</button>
-        <div class="sub-content">
-          <p>Being overly dramatic or attention-seeking. It’s not just worrying—it’s persistent and often uncontrollable.</p>
-        </div>
-        <button class="sub-toggle">⚠️ Symptoms</button>
-        <div class="sub-content">
-          <ul>
-            <li>Excessive worry or fear</li>
-            <li>Racing thoughts</li>
-            <li>Heart palpitations or shortness of breath</li>
-            <li>Panic attacks</li>
-            <li>Difficulty sleeping or relaxing</li>
-          </ul>
-        </div>
-        <button class="sub-toggle">📚 Resource</button>
-        <div class="sub-content">
-          <a href="https://www.nimh.nih.gov/health/topics/anxiety-disorders/index.shtml" target="_blank" rel="noopener">NIMH on Anxiety</a>
-        </div>
-      </div>
-
-      <div class="disorder">
-        <h3>Post Traumatic Stress Disorder (PTSD)</h3>
-        <button class="sub-toggle">✅ What it is</button>
-        <div class="sub-content">
-          <p>A condition triggered by experiencing or witnessing a terrifying or traumatic event. PTSD changes the way the brain processes fear and stress.</p>
-        </div>
-        <button class="sub-toggle">🚫 What it's not</button>
-        <div class="sub-content">
-          <p>Dwelling on the past or a sign of weakness. It’s a real, diagnosable condition that affects many trauma survivors.</p>
-        </div>
-        <button class="sub-toggle">⚠️ Symptoms</button>
-        <div class="sub-content">
-          <ul>
-            <li>Flashbacks and nightmares</li>
-            <li>Emotional numbness</li>
-            <li>Avoidance of reminders</li>
-            <li>Hypervigilance or being easily startled</li>
-            <li>Guilt, shame, or anger</li>
-          </ul>
-        </div>
-        <button class="sub-toggle">📚 Resource</button>
-        <div class="sub-content">
-          <a href="https://www.nimh.nih.gov/health/topics/post-traumatic-stress-disorder-ptsd" target="_blank" rel="noopener">NIMH on PTSD</a>
-        </div>
-      </div>
-
-      <div class="disorder">
-        <h3>Borderline Personality Disorder (BPD)</h3>
-        <button class="sub-toggle">✅ What it is</button>
-        <div class="sub-content">
-          <p>A disorder characterized by unstable moods, behavior, and relationships. People with BPD often struggle with self-image and intense emotional reactions.</p>
-        </div>
-        <button class="sub-toggle">🚫 What it's not</button>
-        <div class="sub-content">
-          <p>Just “attention-seeking” or manipulation. BPD is a serious mental health condition needing understanding and treatment.</p>
-        </div>
-        <button class="sub-toggle">⚠️ Symptoms</button>
-        <div class="sub-content">
-          <ul>
-            <li>Fear of abandonment</li>
-            <li>Impulsive or risky behavior</li>
-            <li>Intense, unstable relationships</li>
-            <li>Mood swings</li>
-            <li>Chronic feelings of emptiness</li>
-          </ul>
-        </div>
-        <button class="sub-toggle">📚 Resource</button>
-        <div class="sub-content">
-          <a href="https://www.nimh.nih.gov/health/topics/borderline-personality-disorder" target="_blank" rel="noopener">NIMH on BPD</a>
-        </div>
-      </div>
-
-      <div class="disorder">
-        <h3>Obsessive-Compulsive Disorder (OCD)</h3>
-        <button class="sub-toggle">✅ What it is</button>
-        <div class="sub-content">
-          <p>A disorder where people have recurring, unwanted thoughts (obsessions) and behaviors (compulsions) they feel driven to perform.</p>
-        </div>
-        <button class="sub-toggle">🚫 What it's not</button>
-        <div class="sub-content">
-          <p>Just being a perfectionist or liking things clean. OCD causes significant distress and interferes with daily life.</p>
-        </div>
-        <button class="sub-toggle">⚠️ Symptoms</button>
-        <div class="sub-content">
-          <ul>
-            <li>Repeated checking or counting</li>
-            <li>Intrusive thoughts</li>
-            <li>Need for symmetry or order</li>
-            <li>Avoiding certain objects or situations</li>
-          </ul>
-        </div>
-        <button class="sub-toggle">📚 Resource</button>
-        <div class="sub-content">
-          <a href="https://www.nimh.nih.gov/health/topics/obsessive-compulsive-disorder-ocd" target="_blank" rel="noopener">NIMH on OCD</a>
-        </div>
-      </div>
-
-      <div class="disorder">
-        <h3>Bipolar Disorder</h3>
-        <button class="sub-toggle">✅ What it is</button>
-        <div class="sub-content">
-          <p>A mental health condition marked by extreme mood swings including emotional highs (mania or hypomania) and lows (depression).</p>
-        </div>
-        <button class="sub-toggle">🚫 What it's not</button>
-        <div class="sub-content">
-          <p>Just moodiness or having a bad day. Bipolar disorder requires clinical diagnosis and treatment.</p>
-        </div>
-        <button class="sub-toggle">⚠️ Symptoms</button>
-        <div class="sub-content">
-          <ul>
-            <li>Elevated or irritable mood</li>
-            <li>Increased energy or activity</li>
-            <li>Risky behaviors</li>
-            <li>Depressive episodes</li>
-            <li>Sleep pattern changes</li>
-          </ul>
-        </div>
-        <button class="sub-toggle">📚 Resource</button>
-        <div class="sub-content">
-          <a href="https://www.nimh.nih.gov/health/topics/bipolar-disorder" target="_blank" rel="noopener">NIMH on Bipolar Disorder</a>
-        </div>
-      </div>
-      
-      <section class="section dark">
-  <details class="collapsible-section">
-    <summary><strong>🛠️ How to Cope</strong></summary>
-    <div class="collapsible-content">
-      
-      <h4>🧠 5-4-3-2-1 Grounding Technique</h4>
-      <ul>
-        <li>👁️ 5 things you can see</li>
-        <li>✋ 4 things you can touch</li>
-        <li>👂 3 things you can hear</li>
-        <li>👃 2 things you can smell</li>
-        <li>👅 1 thing you can taste</li>
-      </ul>
-
-      <h4>🌬️ Box Breathing</h4>
-      <p>Breathe in for <strong>4 seconds</strong> → Hold for <strong>4 seconds</strong> → Exhale for <strong>4 seconds</strong> → Hold again for <strong>4 seconds</strong></p>
-
-      <h4>📝 Journaling Prompts</h4>
-      <ul>
-        <li>“Right now, I feel…”</li>
-        <li>“I am proud of myself for…”</li>
-        <li>“Today I can…”</li>
-      </ul>
-
-      <h4>🎶 Music, Podcasts & Art Therapy</h4>
-      <ul>
-        <li>🎧 <a href="https://open.spotify.com/playlist/37i9dQZF1DX3rxVfibe1L0" target="_blank" rel="noopener">Soothing Spotify Playlist</a></li>
-        <li>🎨 Paint your mood — use colors and shapes to express your emotions</li>
-        <li>🎙️ <a href="https://open.spotify.com/show/5XEW37ZIw8zvDME5W7DQf3" target="_blank" rel="noopener">"The Happiness Lab" Podcast</a></li>
-      </ul>
-
-    </div>
-  </details>
-</section>
-
-    <section>
-      <h2>Resources</h2>
-      <ul>
-        <li><a href="https://www.crisisservicescanada.ca/en/" target="_blank">Crisis Services Canada</a></li>
-        <li><a href="https://www.mindyourmind.ca" target="_blank">MindYourMind</a></li>
-        <li><a href="https://cmha.ca" target="_blank">Canadian Mental Health Association</a></li>
-        <li><a href="https://www.mentalhealthcommission.ca/English" target="_blank">Mental Health Commission of Canada</a></li>
-        <li><a href="https://www.therapists.ca/" target="_blank">Find a Therapist in Canada</a></li>
-        <li><a href="https://suicideprevention.ca/" target="_blank">Canadian Suicide Prevention Service</a></li>
-        <li><a href="https://kidshelpphone.ca/" target="_blank">Kids Help Phone</a></li>
-      </ul>
-    </section>
-    
+  <main>
     <section class="section dark">
-  <details class="collapsible-section">
-    <summary><strong>🧰 Worksheets & Educational Resources</strong></summary>
-    <div class="collapsible-content">
-      <p>Engage with these resources to better understand and manage mental health:</p>
-      <ul class="features-list">
-        <li>📄 <a href="https://www.therapistaid.com/" target="_blank" rel="noopener">Therapist Aid: Free Worksheets</a></li>
-        <li>🧠 <a href="https://trustmentalhealth.com/resources/worksheets" target="_blank" rel="noopener">Trust Mental Health: CBT Worksheets</a></li>
-        <li>📝 <a href="https://www.psychologytools.com/downloads/cbt-worksheets-and-therapy-resources" target="_blank" rel="noopener">Psychology Tools: CBT Worksheets</a></li>
-        <li>📚 <a href="https://mindremakeproject.org/2019/03/10/worksheets-activities-guides-for-individual-or-group-therapy/" target="_blank" rel="noopener">Mind Remake Project: 75+ Free Worksheets</a></li>
-        <li>🎨 <a href="https://mentalhealthcenterkids.com/" target="_blank" rel="noopener">Mental Health Center Kids: Worksheets for Children</a></li>
-      </ul>
-    </div>
-  </details>
-</section>
+      <details class="collapsible-section" open>
+        <summary>📝 My Story</summary>
+        <div class="collapsible-content">
+          <p>Mental health is something I used to ignore—or honestly, just survive through. Growing up with Cystic Fibrosis meant the focus was always on my body, not my mind. But the truth is, the emotional pain I’ve carried has been just as heavy—maybe even heavier—than the physical.</p>
+          <p>Even before I was taken away from my mom, I remember feeling sad all the time. When I was 10 years old, I wrote in my journal: “I think I’m depressed. I cry myself to sleep every night.” Those feelings weren’t new—they were already inside me, growing and shaping who I was.</p>
+          <p>I was always scared—scared of being hurt, scared of being kidnapped or killed. I’m still not sure if those fears came from things I experienced or just from the world feeling so unsafe. But they were real. They made me feel small and trapped. I also remember watching my mom go downhill—knowing something was wrong but not knowing how to help her or even talk about it.</p>
+          <p>After being taken away from my mom, I was forced to talk to a therapist by court order. I didn’t feel safe or ready, and therapy felt more like a punishment than a place of healing. I didn’t know how to open up, and I carried that fear and mistrust with me for years.</p>
+          <p>Around age 14, I was diagnosed with Borderline Personality Disorder (BPD) and placed on medication. Finding something that actually helped was a frustrating journey. I went through multiple medications before finally finding Olanzapine, which stabilized some of the chaos in my head—but it left me feeling sedated and disconnected. I had to come off it. That just added to the cycle: feeling broken, trying to get better, then feeling broken all over again.</p>
+          <p>For years, I was in and out of hospitals—struggling with deep depression, suicidal thoughts, and emotional breakdowns. I wanted help. I just didn’t know how to let it in. And truthfully, I didn’t feel like I deserved it.</p>
+          <p>One of the scariest parts of living with mental illness for me has been the memory loss. There are chunks of my childhood I can’t remember at all—whole years that feel foggy or completely gone. It’s like my brain blacked out pieces to protect me. Trauma does that—it hides the memories too painful to process.</p>
+          <p>I’ve lived in survival mode for so long that it became my default setting. I overreact to things I know shouldn’t bother me, but my body doesn’t care. My heart races, my hands shake, my mind panics—and I either want to run, shut down completely, or lash out emotionally. It’s not something I choose. It’s my brain trying to protect me, even when the danger isn’t real anymore.</p>
+          <p>I’ve always had a fear of dying. Not just the act of dying—but the blackness, the nothingness that might come after. I used to lie awake at night, terrified of the thought that I might disappear and no one would remember me.</p>
+          <p>And then there’s my empathy—this thing that lets me feel so deeply, sometimes it breaks me. I carry emotions that don’t even belong to me because I can’t stand the idea of someone else suffering. But it also means I break down easily. That I care so much, it sometimes destroys me.</p>
+          <p>The loneliness that comes with all of this is intense. I’ve withdrawn from friends and family—not because I don’t love them, but because I feel like I’m drowning and I don’t want to drag anyone down with me. The uncontrollable thoughts, the self-hate, the fear, the flashbacks—it all builds up inside.</p>
+          <p>I’ve survived sexual assault, emotional abuse, neglect, abandonment. I’ve been bullied, degraded, broken down—by people who should have loved me, and by people I trusted. That kind of damage doesn’t go away overnight.</p>
+          <p>School was hell. I was bullied for my looks, for being different, for being a foster kid. They made fun of my real family—said cruel things about why we were taken. I already hated myself, and the bullying just confirmed what I believed: that I was nothing. That I didn’t belong.</p>
+          <p><strong>And yet—somehow—I’m still here.</strong></p>
+          <p>I’m in therapy again. Real therapy. I’m working with a psychiatrist, trying DBT, reading about BPD and CBT. I’m trying—even on days it feels impossible. I fight. I write. I get out of bed. I take care of Zayah.</p>
+          <p>I’ve realized I can’t do this alone. I need people who are patient, who listen, who care without judgment. I want to be a voice for others who feel invisible or broken. Because if I can survive all this, maybe they can too.</p>
+        </div>
+      </details>
+    </section>
 
-  <section class="tracker-links">
-  <h2>📋 Healing & Mood Tools</h2>
-  <p>
-    ✨ Want to use the full <strong>Daily Healing Tracker</strong>?  
-    <a href="healing-tracker.html" target="_blank" rel="noopener">Open the Healing Tracker page</a>.
-  </p>
-  <p>
-    🌈 Looking to track how you feel each day?  
-    <a href="daily_mood_tracker.pdf" target="_blank" rel="noopener">Download the Daily Mood Tracker PDF</a>.
-  </p>
-</section>
-
-  <section class="section dark">
-  <details class="collapsible-section">
-    <summary><strong>📝 My Story</strong></summary>
-    <div class="collapsible-content">
-      <p>Mental health is something I used to ignore—or honestly, just survive through. Growing up with Cystic Fibrosis meant the focus was always on my body, not my mind. But the truth is, the emotional pain I’ve carried has been just as heavy—maybe even heavier—than the physical.</p>
-      <p>Even before I was taken away from my mom, I remember feeling sad all the time. When I was 10 years old, I wrote in my journal: “I think I’m depressed. I cry myself to sleep every night.” Those feelings weren’t new—they were already inside me, growing and shaping who I was.</p>
-      <p>I was always scared—scared of being hurt, scared of being kidnapped or killed. I’m still not sure if those fears came from things I experienced or just from the world feeling so unsafe. But they were real. They made me feel small and trapped. I also remember watching my mom go downhill—knowing something was wrong but not knowing how to help her or even talk about it.</p>
-      <p>After being taken away from my mom, I was forced to talk to a therapist by court order. I didn’t feel safe or ready, and therapy felt more like a punishment than a place of healing. I didn’t know how to open up, and I carried that fear and mistrust with me for years.</p>
-      <p>Around age 14, I was diagnosed with Borderline Personality Disorder (BPD) and placed on medication. Finding something that actually helped was a frustrating journey. I went through multiple medications before finally finding Olanzapine, which stabilized some of the chaos in my head—but it left me feeling sedated and disconnected. I had to come off it. That just added to the cycle: feeling broken, trying to get better, then feeling broken all over again.</p>
-      <p>For years, I was in and out of hospitals—struggling with deep depression, suicidal thoughts, and emotional breakdowns. I wanted help. I just didn’t know how to let it in. And truthfully, I didn’t feel like I deserved it.</p>
-      <p>One of the scariest parts of living with mental illness for me has been the memory loss. There are chunks of my childhood I can’t remember at all—whole years that feel foggy or completely gone. It’s like my brain blacked out pieces to protect me. Trauma does that—it hides the memories too painful to process.</p>
-      <p>I’ve lived in survival mode for so long that it became my default setting. I overreact to things I know shouldn’t bother me, but my body doesn’t care. My heart races, my hands shake, my mind panics—and I either want to run, shut down completely, or lash out emotionally. It’s not something I choose. It’s my brain trying to protect me, even when the danger isn’t real anymore.</p>
-      <p>I’ve always had a fear of dying. Not just the act of dying—but the blackness, the nothingness that might come after. I used to lie awake at night, terrified of the thought that I might disappear and no one would remember me.</p>
-      <p>And then there’s my empathy—this thing that lets me feel so deeply, sometimes it breaks me. I carry emotions that don’t even belong to me because I can’t stand the idea of someone else suffering. But it also means I break down easily. That I care so much, it sometimes destroys me.</p>
-      <p>The loneliness that comes with all of this is intense. I’ve withdrawn from friends and family—not because I don’t love them, but because I feel like I’m drowning and I don’t want to drag anyone down with me. The uncontrollable thoughts, the self-hate, the fear, the flashbacks—it all builds up inside.</p>
-      <p>I’ve survived sexual assault, emotional abuse, neglect, abandonment. I’ve been bullied, degraded, broken down—by people who should have loved me, and by people I trusted. That kind of damage doesn’t go away overnight.</p>
-      <p>School was hell. I was bullied for my looks, for being different, for being a foster kid. They made fun of my real family—said cruel things about why we were taken. I already hated myself, and the bullying just confirmed what I believed: that I was nothing. That I didn’t belong.</p>
-      <p><strong>And yet—somehow—I’m still here.</strong></p>
-      <p>I’m in therapy again. Real therapy. I’m working with a psychiatrist, trying DBT, reading about BPD and CBT. I’m trying—even on days it feels impossible. I fight. I write. I get out of bed. I take care of Zayah.</p>
-      <p>I’ve realized I can’t do this alone. I need people who are patient, who listen, who care. Anyone who can’t show up with empathy will be left behind.</p>
-      <p>I don’t want to feel this way forever. I want peace. I want clarity. I want freedom—from trauma, shame, fear. I want to be loved the way I love. I want to be remembered. I want to matter.</p>
-      <p><strong>I am not who I was a year ago. I’ve grown through unimaginable pain. And I’m still becoming someone stronger, wiser, and more me than I’ve ever been before. 🫶🏻</strong></p>
-    </div>
-  </details>
-</section>
- <!-- Share Your Story Button -->
-  <div style="margin-top: 20px; text-align: center;">
-    <a href="guestbook-connect.html" class="share-button">📣 Share Your Story</a>
-  </div>
-</section>
-</main>
+    <section style="text-align:center; margin: 30px 0;">
+      <a href="guestbook-connect.html" class="share-button" aria-label="Share your mental health story">Share your mental health story</a>
+    </section>
+  </main>
 
   <footer>
-    <p>Stay connected ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
+    &copy; 2025 Speak Louder, Love Harder
   </footer>
 
   <script>
-  // Info buttons toggle
-  document.querySelectorAll(".info-toggle").forEach(button => {
-    button.addEventListener("click", () => {
-      const targetId = button.getAttribute("data-target");
-      const target = document.getElementById(targetId);
-      target.style.display = (target.style.display === "block") ? "none" : "block";
-    });
-  });
+    // Nav toggle for mobile
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelectorAll('nav a:not(.nav-toggle)');
 
-  // Collapsible section
-  document.querySelectorAll(".collapsible").forEach(button => {
-    button.addEventListener("click", () => {
-      const content = button.nextElementSibling;
-      content.style.display = (content.style.display === "block") ? "none" : "block";
+    navToggle.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+      navToggle.setAttribute('aria-expanded', !expanded);
+      navLinks.forEach(link => {
+        link.classList.toggle('show');
+      });
     });
-  });
-    function toggleDarkMode() {
+
+    // Dark mode toggle button creation and script
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.id = 'darkModeToggle';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.textContent = '🌓';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.padding = '10px 15px';
+    darkModeToggle.style.fontSize = '1.5rem';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '30px';
+    darkModeToggle.style.backgroundColor = '#b23777';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '9999';
+    darkModeToggle.style.boxShadow = '0 3px 8px rgba(178, 55, 119, 0.6)';
+    document.body.appendChild(darkModeToggle);
+
+    // Apply saved mode or default light
+    if(localStorage.getItem('darkMode') === 'enabled'){
+      document.body.classList.add('dark');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark');
-    }
-
-    function toggleNav() {
-      document.getElementById("collapsibleMenu").classList.toggle("show");
-    }
-    <script>
-  document.querySelectorAll('.sub-toggle').forEach(button => {
-    button.addEventListener('click', () => {
-      const content = button.nextElementSibling;
-      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      if(document.body.classList.contains('dark')){
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
     });
-  });
   </script>
 </body>
-</html> 
+</html>
