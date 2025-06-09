@@ -27,9 +27,10 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
-  transition: background 0.4s ease, color 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* Header */
 header {
   background: linear-gradient(135deg, #ff4d6d, #ff758f);
   color: white;
@@ -64,6 +65,7 @@ header h1 {
   color: var(--text-color);
 }
 
+/* Navigation */
 nav {
   background-color: var(--nav-bg);
   display: flex;
@@ -90,6 +92,7 @@ nav a:hover {
   transform: scale(1.05);
 }
 
+/* Hero Section */
 .hero {
   position: relative;
   background-image: url('https://images.unsplash.com/photo-1516632664305-eda5e9d8b9dc?auto=format&fit=crop&w=1950&q=80');
@@ -120,6 +123,7 @@ nav a:hover {
   text-align: center;
 }
 
+/* Main Content */
 main {
   text-align: center;
   padding: 2rem 1rem;
@@ -142,6 +146,7 @@ main {
   line-height: 1.6;
 }
 
+/* Buttons */
 .btn {
   display: inline-block;
   margin-top: 1rem;
@@ -162,6 +167,7 @@ main {
   transform: scale(1.1);
 }
 
+/* Footer */
 footer {
   background: #333;
   color: white;
@@ -178,6 +184,77 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+
+/* Collapsible Details (Mental Health Section) */
+details {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  margin: 1rem auto;
+  padding: 0.8rem 1rem;
+  transition: background 0.3s ease;
+  max-width: 800px;
+}
+
+details[open] {
+  background: #eef8ff;
+}
+
+details summary {
+  position: relative;
+  padding-left: 1.5em;
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none;
+}
+
+details summary::before {
+  content: "➕";
+  position: absolute;
+  left: 0;
+  font-size: 1em;
+  color: var(--nav-link-bg);
+  transition: transform 0.2s ease;
+}
+
+details[open] summary::before {
+  content: "➖";
+}
+
+details p {
+  margin: 0.5em 0;
+  font-size: 1rem;
+}
+
+details a {
+  color: #007acc;
+  text-decoration: underline;
+}
+
+details a:hover {
+  text-decoration: none;
+}
+
+/* Toast message */
+.toast-message {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--nav-link-bg, #333);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  opacity: 0.95;
+  z-index: 9999;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.toast-message.fade-out {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
 }
 
 /* Animations */
@@ -202,22 +279,6 @@ footer a:hover {
   100% { transform: scale(1); }
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-  nav a {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  header h1 {
-    font-size: 2rem;
-  }
-
-  .hero h2 {
-    font-size: 2rem;
-  }
-  
-  /* Button bounce animation */
 @keyframes bounce {
   0% { transform: scale(1); }
   50% { transform: scale(1.15); }
@@ -228,73 +289,15 @@ footer a:hover {
   animation: bounce 0.3s ease;
 }
 
-/* Toast message */
-.toast-message {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--nav-link-bg, #333);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: bold;
-  opacity: 0.95;
-  z-index: 9999;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+/* Mobile Styles */
+@media (max-width: 600px) {
+  nav a {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  header h1,
+  .hero h2 {
+    font-size: 2rem;
+  }
 }
-
-.toast-message.fade-out {
-  opacity: 0;
-  transform: translateX(-50%) translateY(20px);
-}
-
-/* Smooth background transition for dark mode */
-body {
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-  details summary {
-    position: relative;
-    padding-left: 1.5em;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  details summary::before {
-    content: "➕";
-    position: absolute;
-    left: 0;
-    font-size: 1em;
-    transition: transform 0.2s ease;
-  }
-
-  details[open] summary::before {
-    content: "➖";
-  }
-
-  details {
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    padding: 0.5em 1em;
-    border-radius: 6px;
-    background: #f9f9f9;
-    transition: background 0.3s ease;
-  }
-
-  details[open] {
-    background: #eef8ff;
-  }
-
-  details p {
-    margin: 0.5em 0;
-  }
-
-  a {
-    color: #007acc;
-    text-decoration: underline;
-  }
-
-  a:hover {
-    text-decoration: none;
-  }
