@@ -1,172 +1,176 @@
-/* Base */
-* {
-  box-sizing: border-box;
+/* -------------------
+   Root Color Variables
+-------------------- */
+:root {
+  --turquoise: #40E0D0;
+  --violet: #8A00C4;
+  --hot-pink: #FF69B4;
+  --neon-bg: #0A001F;
+  --light-bg: #FFF;
+  --light-text: #111;
+  --dark-text: #EEE;
+  --transition-fast: 0.3s ease;
+}
+
+/* Light Mode (default) */
+body {
+  background: var(--light-bg);
+  color: var(--light-text);
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-}
-body {
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background: var(--bg);
-  transition: background .3s, color .3s;
-  padding-bottom: 50px;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-/* Light / Dark variables */
-:root {
-  --bg: #fff;
-  --text: #333;
-  --accent: #0066cc;
-  --header-bg: #f5f5f5;
-  --card-bg: #fafafa;
-}
+/* Dark Mode */
 body.dark {
-  --bg: #121212;
-  --text: #eee;
-  --accent: #1e90ff;
-  --header-bg: #1f1f1f;
-  --card-bg: #1a1a1a;
+  background: var(--neon-bg);
+  color: var(--dark-text);
 }
 
-/* Header */
+/* Body & Layout */
 header {
-  background: var(--header-bg);
-  padding: 20px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, var(--turquoise), var(--violet));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
+
 header h1 {
-  font-size: 2.5rem;
-  color: var(--accent);
-  letter-spacing: 1px;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
+
 .toggle-dark {
-  background: none;
+  background: transparent;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: transform .3s;
+  transition: transform var(--transition-fast);
 }
-.toggle-dark:hover {
-  transform: rotate(20deg);
+.toggle-dark:hover,
+.toggle-dark:focus {
+  transform: scale(1.2);
 }
 
-/* Nav */
+/* Navigation */
 nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  background: var(--card-bg);
+  background: rgba(0,0,0,0.05);
 }
 nav a {
+  margin: 0.5rem 1rem;
   text-decoration: none;
-  color: var(--text);
   font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 20px;
-  transition: background .2s;
-}
-nav a:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* Section & Cards */
-.section {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-.section h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: var(--accent);
-}
-.details summary {
-  cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: bold;
-  list-style: none;
-}
-details {
-  background: var(--card-bg);
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  transition: box-shadow .3s;
-}
-details:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* Interactive summary icon */
-details summary::marker { content: none; }
-details summary {
+  color: var(--violet);
   position: relative;
-  padding-left: 25px;
+  transition: color var(--transition-fast);
 }
-details summary::before {
-  content: '🧩';
-  position: absolute;
+nav a::after {
+  content: '';
+  height: 2px;
   left: 0;
-  top: 0;
+  bottom: -3px;
+  width: 0%;
+  background: var(--hot-pink);
+  position: absolute;
+  transition: width var(--transition-fast);
+}
+nav a:hover::after {
+  width: 100%;
+}
+body.dark nav a {
+  color: var(--hot-pink);
+}
+
+/* Main Content */
+main {
+  padding: 2rem;
+}
+.section {
+  margin-bottom: 2rem;
+}
+h2 {
+  font-size: 1.8rem;
+  background: linear-gradient(45deg, var(--turquoise), var(--hot-pink));
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+/* Details */
+details {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background var(--transition-fast);
+}
+body.dark details {
+  background: rgba(0,0,0,0.2);
+}
+details summary {
   font-size: 1.2rem;
-  transition: transform .3s;
+  cursor: pointer;
+  outline: none;
 }
-details[open] summary::before {
-  transform: rotate(90deg);
+details[open] {
+  animation: expand 0.5s ease-out;
 }
-
-/* Collapsible personal story */
-.collapsible-section {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-.collapsible-content {
-  animation: fadeIn 0.5s ease-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes expand {
+  from { opacity: 0; transform: scaleY(0.9); }
+  to   { opacity: 1; transform: scaleY(1); }
 }
 
-/* Share button */
+/* My Story Section */
+.section.dark .collapsible-content {
+  font-style: italic;
+  line-height: 1.6;
+  border-left: 4px solid var(--hot-pink);
+  padding-left: 1rem;
+}
+
+/* Buttons */
 .share-button {
-  display: inline-block;
-  background: var(--accent);
+  padding: 1rem 2rem;
+  background: var(--turquoise);
   color: #fff;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  border: 2px solid var(--violet);
+  border-radius: 30px;
   text-decoration: none;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: background .3s, transform .2s;
+  transition: background var(--transition-fast), transform var(--transition-fast);
 }
 .share-button:hover {
-  background: darken(var(--accent), 10%);
-  transform: scale(1.05);
+  background: var(--hot-pink);
+  transform: translateY(-3px);
 }
 
 /* Footer */
 footer {
   text-align: center;
-  padding: 15px;
-  background: var(--header-bg);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: var(--text);
+  padding: 1rem;
+  background: rgba(0,0,0,0.05);
+  font-size: 0.9rem;
 }
 
-/* Mobile Responsiveness */
-@media(max-width: 600px) {
-  header h1 { font-size: 2rem; }
-  nav { flex-direction: column; }
+/* Responsive Design */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+  nav a {
+    margin: 0.4rem;
+    font-size: 0.9rem;
+  }
+  .share-button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
 }
