@@ -2,20 +2,165 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #ffe5ec, #e0f7fa);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeInDown 1s ease;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background-color: #0a9396;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      animation: fadeIn 2s ease;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #005f73;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #94d2bd;
+      color: #003845;
+      transform: scale(1.05);
+    }
+
+    main {
+      text-align: center;
+      padding: 2rem 1rem;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    main h2 {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .about {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+      animation: bounceIn 1.5s ease;
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background-color: #ee6c4d;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #fcbf49;
+      color: #333;
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    footer a {
+      color: #00d4ff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      60% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <header>
-  <h1 class="hero-header">Speak Louder, Love Harder 💖</h1>
-    <input type="checkbox" id="darkModeToggle">Dark Mode</p>
-    <input type="checkbox" id="calmModeToggle">Calm Mode</p>
-    <div class="quote-carousel"></div>
-    <div class="hearts"></div>
-    </header>
+    <h1>Speak Louder, Love Harder 💖</h1>
+  </header>
 
   <nav>
     <a href="mental-health.html">Mental Health</a>
@@ -29,34 +174,23 @@
     <a href="foster-children.html">Foster Children</a>
   </nav>
 
-    <div id="quote-carousel" class="quote-carousel"></div>
-
-    <section class="section light">
-      <h3 class="glow-text">✨ Features</h3>
-      <ul>
-        <li>🎨 Bold Purple, Green & Pink Theme</li>
-        <li>🌗 Dark/Light Toggle + Calm Mode</li>
-        <li>💬 Animated Inspirational Quotes</li>
-        <li>🌈 Glowing text & animated UI</li>
-        <li>📱 Fully responsive & mobile friendly</li>
-        <li>💌 Guestbook & connect pages</li>
-      </ul>
-    </section>
+  <main>
+    <h2>Welcome to Speak Louder, Love Harder 🌟</h2>
+    
+    <div class="about">
+      <p>
+        This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.
+      </p>
+      <p>
+        Whether you're here to find comfort, share your truth, or support others, you're not alone. Speak louder. Love harder. Heal together.
+      </p>
+      <a class="btn" href="mental-health.html">Start Exploring 💬</a>
+    </div>
   </main>
 
   <footer>
-    <div class="footer-links">
-      <a href="https://linktr.ee/rissa.star" target="_blank">🌐 My Linktree</a>
-      <a href="guestbook.html">📖 Guestbook</a>
-      <a href="contact.html">💌 Connect</a>
-    </div>
-    <div class="footer-brand">Built with ❤️ to inspire and empower.</div>
+    <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
   </footer>
 
-  <!-- Floating Hearts -->
-  <div class="hearts" id="hearts-container"></div>
-
-  <!-- JS -->
-  <script src="script.js" defer></script>
 </body>
 </html>
