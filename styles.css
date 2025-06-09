@@ -253,4 +253,48 @@ footer a:hover {
 body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
-}
+
+  details summary {
+    position: relative;
+    padding-left: 1.5em;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  details summary::before {
+    content: "➕";
+    position: absolute;
+    left: 0;
+    font-size: 1em;
+    transition: transform 0.2s ease;
+  }
+
+  details[open] summary::before {
+    content: "➖";
+  }
+
+  details {
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    background: #f9f9f9;
+    transition: background 0.3s ease;
+  }
+
+  details[open] {
+    background: #eef8ff;
+  }
+
+  details p {
+    margin: 0.5em 0;
+  }
+
+  a {
+    color: #007acc;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
