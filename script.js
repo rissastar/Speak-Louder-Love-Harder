@@ -1,29 +1,24 @@
 function toggleDarkMode() {
-  const body = document.body;
-  body.classList.toggle("dark-mode");
-
-  // Save to localStorage
-  const isDark = body.classList.contains("dark-mode");
-  localStorage.setItem("darkMode", isDark);
+  document.body.classList.toggle("light-mode");
+  const button = document.querySelector('.toggle-dark');
+  if (document.body.classList.contains("light-mode")) {
+    button.textContent = "🌞 Light Mode";
+  } else {
+    button.textContent = "🌙 Dark Mode";
+  }
 }
 
-// Load user preference
-window.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark-mode");
-  }
+// Collapse all other <details> when one opens (accordion effect)
+document.addEventListener("DOMContentLoaded", () => {
+  const details = document.querySelectorAll("details");
 
-  // Animate sections
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+  details.forEach((targetDetail) => {
+    targetDetail.addEventListener("click", () => {
+      details.forEach((detail) => {
+        if (detail !== targetDetail) {
+          detail.removeAttribute("open");
+        }
+      });
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.section, details, .collapsible-section').forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
   });
 });
