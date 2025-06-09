@@ -191,3 +191,50 @@ footer {
     padding: 1rem;
   }
 }
+  /* Galaxy background */
+body {
+  background: url('https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Dark overlay for better readability */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+/* Icon bullets for disorder topics */
+.section ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.section ul li::before {
+  content: "🪐";
+  margin-right: 0.5rem;
+  color: var(--turquoise);
+}
+
+/* Animate buttons on hover */
+button, .share-button {
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+button:hover, .share-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--hotpink);
+}
+
+/* Section glow fade-in stays */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
