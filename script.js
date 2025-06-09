@@ -1,23 +1,25 @@
-// Dark Mode Toggle with localStorage
-function toggleDarkMode() {
-  const body = document.body;
-  body.classList.toggle('dark');
-  const isDark = body.classList.contains('dark');
-  localStorage.setItem('darkMode', isDark);
+// Toggle Dark Mode with persistence
+const btn = document.querySelector('.toggle-dark');
+const body = document.body;
+
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    body.classList.add('dark');
+    btn.textContent = '☀️ Light Mode';
+  } else {
+    body.classList.remove('dark');
+    btn.textContent = '🌙 Dark Mode';
+  }
 }
 
-// Initialize dark mode on load
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('darkMode');
-  if (saved === 'true') document.body.classList.add('dark');
+function toggleDarkMode() {
+  body.classList.toggle('dark');
+  const isDark = body.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  btn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
 
-  // Animate toggle button icon
-  const btn = document.querySelector('.toggle-dark');
-  btn.addEventListener('mouseover', () => btn.style.transform = 'rotate(20deg)');
-  btn.addEventListener('mouseout', () => btn.style.transform = 'rotate(0deg)');
-
-  // Animate share button
-  const share = document.querySelector('.share-button');
-  share.addEventListener('mouseover', () => share.style.transform = 'scale(1.05)');
-  share.addEventListener('mouseout', () => share.style.transform = 'scale(1)');
-});
+// Initialize on page load
+btn.addEventListener('click', toggleDarkMode);
+initTheme();
