@@ -1,84 +1,48 @@
-// ========== DARK/LIGHT MODE TOGGLE ==========
-document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.getElementById('darkModeToggle');
-  const calmToggle = document.getElementById('calmModeToggle');
+// Toggle dark mode on/off
+function toggleDarkMode() {
   const body = document.body;
+  const toggleBtn = document.querySelector('.toggle-dark');
+  
+  // Toggle dark class on body
+  const isDark = body.classList.toggle('dark');
+  
+  // Update button icon and text
+  toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+  
+  // Save preference to localStorage
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  
+  // Animate button with bounce effect
+  toggleBtn.classList.add('bounce');
+  setTimeout(() => toggleBtn.classList.remove('bounce'), 300);
+  
+  // Show toast message
+  showToast(isDark ? '🌙 Dark mode enabled' : '☀️ Light mode enabled');
+}
 
-  // Load saved mode
-  if (localStorage.getItem('theme') === 'light') {
-    body.classList.add('light');
-    toggle.checked = true;
-  }
+// Show a temporary toast message at bottom center
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast-message';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  // Remove toast after delay with fade-out effect
+  setTimeout(() => {
+    toast.classList.add('fade-out');
+    setTimeout(() => toast.remove(), 500);
+  }, 2000);
+}
 
-  toggle?.addEventListener('change', () => {
-    body.classList.toggle('light');
-    localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
-  });
-
-  calmToggle?.addEventListener('change', () => {
-    body.classList.toggle('calm');
-  });
-
-  // ========== COLLAPSIBLE SECTIONS ==========
-  const collapsibles = document.querySelectorAll('.collapsible');
-  collapsibles.forEach((btn) => {
-    btn.addEventListener('click', function () {
-      this.classList.toggle('active');
-      const content = this.nextElementSibling;
-      content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + 'px';
-    });
-  });
-
-  // ========== QUOTE ROTATOR ==========
-  const quotes = [
-    "“You are not alone.” 💖",
-    "“Breathe. You've got this.” 🌈",
-    "“One day at a time.” 🧘‍♀️",
-    "“It's okay to rest.” 🌟",
-    "“You matter. Always.” 🌸",
-    "“Speak louder. Love harder.” 💬"
-  ];
-  let quoteIndex = 0;
-  const quoteBox = document.querySelector('.quote-carousel');
-
-  function rotateQuotes() {
-    if (!quoteBox) return;
-    quoteBox.textContent = quotes[quoteIndex];
-    quoteIndex = (quoteIndex + 1) % quotes.length;
-  }
-
-  rotateQuotes();
-  setInterval(rotateQuotes, 5000);
-
-  // ========== FLOATING HEARTS ==========
-  function createHeart() {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.textContent = '💖';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 8000);
-  }
-  setInterval(() => {
-    if (!body.classList.contains('calm')) createHeart();
-  }, 600);
-
-  // ========== TYPEWRITER HEADER ==========
-  const typewriter = document.querySelector('.typewriter-text');
-  if (typewriter) {
-    const fullText = typewriter.textContent;
-    typewriter.textContent = '';
-    let i = 0;
-
-    function type() {
-      if (i < fullText.length) {
-        typewriter.textContent += fullText.charAt(i);
-        i++;
-        setTimeout(type, 90);
-      }
-    }
-    setTimeout(type, 500);
+// On page load, apply saved theme preference and update button text
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  const toggleBtn = document.querySelector('.toggle-dark');
+  
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    toggleBtn.textContent = '☀️ Light Mode';
+  } else {
+    toggleBtn.textContent = '🌙 Dark Mode';
   }
 });
