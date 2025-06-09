@@ -6,6 +6,9 @@
   <title>Mental Health - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
    </head>
+  
+  <button class="toggle-dark" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+  
   <nav>
     <a href="index.html" aria-label="Go to homepage">Speak Louder, Love Harder</a>
     <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
@@ -108,52 +111,5 @@
   <footer>
     &copy; 2025 Speak Louder, Love Harder
   </footer>
-
-  <script>
-    // Nav toggle for mobile
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelectorAll('nav a:not(.nav-toggle)');
-
-    navToggle.addEventListener('click', () => {
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-      navToggle.setAttribute('aria-expanded', !expanded);
-      navLinks.forEach(link => {
-        link.classList.toggle('show');
-      });
-    });
-
-    // Dark mode toggle button creation and script
-    const darkModeToggle = document.createElement('button');
-    darkModeToggle.id = 'darkModeToggle';
-    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
-    darkModeToggle.textContent = '🌓';
-    darkModeToggle.style.position = 'fixed';
-    darkModeToggle.style.bottom = '20px';
-    darkModeToggle.style.right = '20px';
-    darkModeToggle.style.padding = '10px 15px';
-    darkModeToggle.style.fontSize = '1.5rem';
-    darkModeToggle.style.border = 'none';
-    darkModeToggle.style.borderRadius = '30px';
-    darkModeToggle.style.backgroundColor = '#b23777';
-    darkModeToggle.style.color = 'white';
-    darkModeToggle.style.cursor = 'pointer';
-    darkModeToggle.style.zIndex = '9999';
-    darkModeToggle.style.boxShadow = '0 3px 8px rgba(178, 55, 119, 0.6)';
-    document.body.appendChild(darkModeToggle);
-
-    // Apply saved mode or default light
-    if(localStorage.getItem('darkMode') === 'enabled'){
-      document.body.classList.add('dark');
-    }
-
-    darkModeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if(document.body.classList.contains('dark')){
-        localStorage.setItem('darkMode', 'enabled');
-      } else {
-        localStorage.setItem('darkMode', 'disabled');
-      }
-    });
-  </script>
 </body>
 </html>
