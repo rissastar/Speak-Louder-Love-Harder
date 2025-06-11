@@ -71,55 +71,76 @@
     </p>
   </footer>
 
-  <script type="module">
+ <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
     const supabase = createClient(
       "https://ytgrzhtntwzefwjmhgjj.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDcyNDI2ODIsImV4cCI6MjAyMjgyODY4Mn0.ZMN1LJrYO7O-9kn5nE7XMaKV3y7JKX5deJv8z6Itel8"
     );
 
-   async function loadPosts() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+    const usernameEl = document.getElementById("username");
+    const bioEl = document.getElementById("bio");
+    const avatarEl = document.getElementById("profile-pic");
 
-  const { data, error } = await supabase
-    .from("posts")
-    .select("title, content, created_at")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+    async function loadProfile() {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (!user || userError) {
+        console.error("Auth error:", userError);
+        alert("You must be logged in.");
+        return;
+      }
 
-  const postsSection = document.querySelector(".profile-posts");
-  postsSection.innerHTML = "";
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("username, bio, avatar_url")
+        .eq("id", user.id)
+        .single();
 
-  if (data && data.length > 0) {
-    data.forEach((post) => {
-      const article = document.createElement("article");
-      article.className = "profile-post";
-      article.tabIndex = 0;
-      article.innerHTML = `
-        <h3>${post.title}</h3>
-        <p>${post.content}</p>
-      `;
-      postsSection.appendChild(article);
-    });
-  } else {
-    postsSection.innerHTML = "<p>No posts yet.</p>";
-  }
-}
+      if (error) {
+        console.error("Profile load error:", error.message);
+        return;
+      }
 
-    // Load profile once
+      usernameEl.textContent = profile.username || "No username";
+      bioEl.textContent = profile.bio || "No bio available";
+      if (profile.avatar_url) {
+        avatarEl.src = profile.avatar_url;
+      }
+    }
+
+    async function loadPosts() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("posts")
+        .select("title, content, created_at")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+      const postsSection = document.querySelector(".profile-posts");
+      postsSection.innerHTML = "";
+
+      if (data && data.length > 0) {
+        data.forEach((post) => {
+          const article = document.createElement("article");
+          article.className = "profile-post";
+          article.tabIndex = 0;
+          article.innerHTML = `
+            <h3>${post.title}</h3>
+            <p>${post.content}</p>
+          `;
+          postsSection.appendChild(article);
+        });
+      } else {
+        postsSection.innerHTML = "<p>No posts yet.</p>";
+      }
+    }
+
+    // Initialize
     loadProfile();
-
-    // Realtime updates
-    supabase
-      .channel("realtime:profiles")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "profiles" },
-        (payload) => loadProfile()
-      )
-      .subscribe();
+    loadPosts();
   </script>
 </body>
 </html>
