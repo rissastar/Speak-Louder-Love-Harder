@@ -3,80 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register – Speak Louder, Love Harder</title>
+  <title>Logout — Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
-  <header class="animated-header glow">Speak Louder, Love Harder - Register</header>
 
-  <main style="max-width: 400px; margin: 3rem auto; padding: 0 1rem;">
-    <form id="registerForm" class="auth-form">
-      <h2>Create Account</h2>
+<main class="centered">
+  <h2>❤️ Goodbye!</h2>
+  <p>You have been logged out.</p>
+  <a href="index.html">Back to Home</a>
+</main>
 
-      <label for="registerUsername">Username</label>
-      <input type="text" id="registerUsername" required autocomplete="username" />
-
-      <label for="registerPassword">Password</label>
-      <input type="password" id="registerPassword" required autocomplete="new-password" />
-
-      <label for="registerPasswordConfirm">Confirm Password</label>
-      <input type="password" id="registerPasswordConfirm" required autocomplete="new-password" />
-
-      <button type="submit" class="button glow-button">Register</button>
-
-      <p style="margin-top: 1rem;">
-        Already have an account? <a href="login.html">Login here</a>
-      </p>
-
-      <p id="registerMessage" style="color: var(--secondary); margin-top: 0.5rem;"></p>
-    </form>
-  </main>
-
-  <script>
-    const registerForm = document.getElementById('registerForm');
-    const registerMessage = document.getElementById('registerMessage');
-
-    registerForm.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const username = document.getElementById('registerUsername').value.trim();
-      const password = document.getElementById('registerPassword').value;
-      const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
-
-      if (password !== passwordConfirm) {
-        registerMessage.style.color = 'var(--error)';
-        registerMessage.textContent = 'Passwords do not match.';
-        return;
-      }
-
-      if (password.length < 6) {
-        registerMessage.style.color = 'var(--error)';
-        registerMessage.textContent = 'Password must be at least 6 characters.';
-        return;
-      }
-
-      let users = JSON.parse(localStorage.getItem('users')) || {};
-
-      if (users[username]) {
-        registerMessage.style.color = 'var(--error)';
-        registerMessage.textContent = 'Username already taken.';
-        return;
-      }
-
-      // Save new user
-      users[username] = password;
-      localStorage.setItem('users', JSON.stringify(users));
-
-      // Auto-login
-      localStorage.setItem('currentUser', username);
-
-      registerMessage.style.color = 'var(--primary)';
-      registerMessage.textContent = 'Registration successful! Redirecting...';
-
-      setTimeout(() => {
-        window.location.href = 'dashboard.html';
-      }, 1200);
-    });
-  </script>
+<script type="module">
+  import { supabase } from './script.js';
+  supabase.auth.signOut().then(() => {
+    setTimeout(() => window.location.href = 'index.html', 1000);
+  });
+</script>
 </body>
 </html>
