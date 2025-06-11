@@ -1,94 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profile - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
-  <!-- Sticky Header / Navbar -->
-  <header class="sticky-header" role="banner">
-    <div class="logo" tabindex="0">Speak Louder, Love Harder</div>
-    <nav role="navigation" aria-label="Main navigation">
-      <a href="index.html" class="btn-nav">Home</a>
-      <a href="mental-health.html" class="btn-nav">Mental Health</a>
-      <a href="addiction.html" class="btn-nav">Addiction</a>
-      <a href="foster-children.html" class="btn-nav">Foster Children</a>
-      <a href="pitbull-love.html" class=btn-nav">Pitbull Love</a>
-      <a href="mental-abuse.html" class=btn-nav">Mental Abuse</a>
-      <a href="physical-abuse.html" class=btn-nav">Physical Abuse</a>
-      <a href="sexual-abuse.html" class=btn-nav">Sexual Abuse</a>
-      <a href="cirrhosis.html" class=bt-nav">Cirrhosis</a>
-      <a href="cystic-fibrosis.html" class="btn-nav">Cystic Fibrosis</a>
-      <a href="affirmations.html" class="btn-nav">Affirmations</a>
-      <a href="worksheeets.html" class="btn-nav">Worksheets</a>
-      <a href="quotes.html" class=btn-nav">Quotes</a>
-      <a href="settings.html" class="btn-nav">Settings</a>
-    </nav>
-  </header>
-
-  <section class="profile-section">
-  <h2>Update Your Profile Picture</h2>
-  <div class="profile-pic-wrapper">
-    <img id="profile-pic" src="default-avatar.png" alt="Profile Picture" />
-    <input type="file" id="file-input" accept="image/*" />
-    <button id="upload-btn">Upload Picture</button>
-  </div>
-</section>
-
-    <!-- Username -->
-    <h1 class="profile-username" tabindex="0">Rissa Star</h1>
-
-    <!-- User Bio -->
-    <p class="profile-bio" tabindex="0">
-      Passionate advocate for mental health and wellness. Sharing stories and support to help us all speak louder and love harder.
-    </p>
-
-    <!-- Profile Stats -->
-    <section class="profile-stats" aria-label="User statistics">
-      <div>
-        <strong tabindex="0">124</strong>
-        <span>Posts</span>
-      </div>
-      <div>
-        <strong tabindex="0">3.5K</strong>
-        <span>Followers</span>
-      </div>
-      <div>
-        <strong tabindex="0">250</strong>
-        <span>Following</span>
+  <main>
+    <section class="profile-section">
+      <h2>Update Your Profile Picture</h2>
+      <div class="profile-pic-wrapper">
+        <img id="profile-pic" src="default-avatar.png" alt="Profile Picture" />
+        <input type="file" id="file-input" accept="image/*" />
+        <button id="upload-btn">Upload Picture</button>
       </div>
     </section>
 
-    <!-- Edit Profile Button -->
+    <h1 id="username" class="profile-username" tabindex="0">Loading...</h1>
+    <p id="bio" class="profile-bio" tabindex="0">Loading your bio...</p>
+
+    <section class="profile-stats" aria-label="User statistics">
+      <div>
+        <strong tabindex="0">124</strong><span>Posts</span>
+      </div>
+      <div>
+        <strong tabindex="0">3.5K</strong><span>Followers</span>
+      </div>
+      <div>
+        <strong tabindex="0">250</strong><span>Following</span>
+      </div>
+    </section>
+
     <a href="settings.html" class="btn-edit-profile" role="button" tabindex="0">Edit Profile</a>
 
-    <!-- User Posts Feed -->
     <section class="profile-posts" aria-label="User posts">
+      <!-- You can later fetch real posts from Supabase -->
       <article class="profile-post" tabindex="0">
         <h3>Mindfulness and Me</h3>
-        <p>Just finished a great meditation session. Feeling calm and grounded. #mentalhealth #selfcare</p>
-      </article>
-      <article class="profile-post" tabindex="0">
-        <h3>Affirmation for Today</h3>
-        <p>"I am worthy of love and happiness." Sharing positivity to start the day right!</p>
-      </article>
-      <article class="profile-post" tabindex="0">
-        <h3>Living with Cystic Fibrosis</h3>
-        <p>Every breath is a gift. Keep fighting, keep loving. #cysticfibrosisawareness</p>
+        <p>Just finished a great meditation session.</p>
       </article>
     </section>
   </main>
 
   <footer role="contentinfo">
-    <p>
-      &copy; 2025 Speak Louder, Love Harder | 
+    <p>&copy; 2025 Speak Louder, Love Harder |
       <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">More Links</a>
     </p>
   </footer>
-  
-  <script src="script.js" defer></script>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+    const supabase = createClient(
+      "https://ytgrzhtntwzefwjmhgjj.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    );
+
+    async function loadProfile() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("username, bio, avatar_url")
+        .eq("id", user.id)
+        .single();
+
+      if (data) {
+        document.getElementById("username").textContent = data.username || "No username";
+        document.getElementById("bio").textContent = data.bio || "Tell us about yourself.";
+        document.getElementById("profile-pic").src = data.avatar_url || "default-avatar.png";
+      }
+    }
+
+    // Load profile once
+    loadProfile();
+
+    // Realtime updates
+    supabase
+      .channel("realtime:profiles")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "profiles" },
+        (payload) => loadProfile()
+      )
+      .subscribe();
+  </script>
 </body>
 </html>
