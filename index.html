@@ -24,11 +24,33 @@
 </header>
 
 <main>
-  <section id="auth-buttons" style="text-align:center; margin: 1rem;">
-    <button id="login-btn">Login</button>
-    <button id="register-btn">Register</button>
-    <button id="logout-btn" style="display:none;">Logout</button>
-  </section>
+  <!-- Auth Forms Container -->
+<div id="auth-container">
+  <div id="login-form" class="auth-form">
+    <h3>Login</h3>
+    <input type="email" id="login-email" placeholder="Email" required />
+    <input type="password" id="login-password" placeholder="Password" required />
+    <button id="login-submit">Log In</button>
+  </div>
+
+  <div id="register-form" class="auth-form" style="display:none;">
+    <h3>Register</h3>
+    <input type="email" id="register-email" placeholder="Email" required />
+    <input type="password" id="register-password" placeholder="Password (6+ chars)" required />
+    <button id="register-submit">Register</button>
+  </div>
+
+  <p>
+    <a href="#" id="show-register">Don't have an account? Register</a>
+    <a href="#" id="show-login" style="display:none;">Already have an account? Login</a>
+  </p>
+</div>
+
+<!-- User Info and Logout -->
+<div id="user-info" style="display:none;">
+  Logged in as: <span id="user-email"></span>
+  <button id="logout-btn">Logout</button>
+</div>
 
   <p id="user-info" style="text-align:center; font-weight:600; margin: 1rem;">Not logged in</p>
 
