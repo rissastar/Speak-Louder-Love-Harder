@@ -3,41 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Abuse Topics - Speak Louder, Love Harder</title>
+  <title>Abuse • Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="topics.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-
   <header class="header">
-    <div class="header-title">Abuse Topics</div>
+    <h1>Abuse Resources</h1>
     <div class="header-icons">
-      <a href="feed.html"><i class="fas fa-home"></i></a>
       <a href="settings.html"><i class="fas fa-cog"></i></a>
+      <a href="logout.html"><i class="fas fa-sign-out-alt"></i></a>
     </div>
   </header>
 
-  <main class="content">
-    <h2>Select a Type of Abuse</h2>
+  <div class="topic-toggle">
+    <button id="toggleTopics"><i class="fas fa-folder-open"></i> Topics</button>
+  </div>
+  <nav id="topicNav" class="topic-nav hidden">
+    <a href="mental-health.html">🧠 Mental Health</a>
+    <a href="addiction.html">💊 Addiction</a>
+    <a href="terminal-illness.html">🩺 Terminal Illness</a>
+    <a href="pitbull-love.html">🐶 Pitbull Love</a>
+    <a href="foster-children.html">👶 Foster Children</a>
+  </nav>
 
-    <div class="topic-buttons">
-      <a href="mental-abuse.html" class="topic-btn">
-        <i class="fas fa-brain"></i> Mental Abuse
-      </a>
-      <a href="physical-abuse.html" class="topic-btn">
-        <i class="fas fa-fist-raised"></i> Physical Abuse
-      </a>
-      <a href="sexual-abuse.html" class="topic-btn">
-        <i class="fas fa-exclamation-triangle"></i> Sexual Abuse
-      </a>
-    </div>
+  <main class="topic-section">
+    <p>Resources and stories about overcoming abuse.</p>
+    <a class="sub-link" href="mental-abuse.html">Mental Abuse</a>
+    <a class="sub-link" href="physical-abuse.html">Physical Abuse</a>
+    <a class="sub-link" href="sexual-abuse.html">Sexual Abuse</a>
   </main>
 
   <footer class="footer">
-    <a href="https://linktr.ee/rissa.star" target="_blank">
-      <i class="fas fa-link"></i> Linktree
-    </a>
+    <a href="https://linktr.ee/rissa.star" target="_blank"><i class="fas fa-link"></i> My Linktree</a>
   </footer>
 
+  <script>
+    document.getElementById('toggleTopics').addEventListener('click', () => {
+      document.getElementById('topicNav').classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>
