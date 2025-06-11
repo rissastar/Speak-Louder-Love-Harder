@@ -1,242 +1,187 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+// Supabase init
+const SUPABASE_URL = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
+const SUPABASE_ANON = 'eyJh...W4bdbL8';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// Use your actual Supabase URL and anon key
-const SUPABASE_URL = 'https://ytgrzhtntwzefwjmhgjj.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3p...'
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-
-// Elements
-const loginBtn = document.getElementById('login-btn')
-const registerBtn = document.getElementById('register-btn')
-const logoutBtn = document.getElementById('logout-btn')
-const authButtonsDiv = document.getElementById('auth-buttons')
-const postComposer = document.getElementById('post-composer')
-const postForm = document.getElementById('post-form')
-const postsContainer = document.getElementById('posts-container')
-
-let currentUser = null
-let postsSubscription = null
-
-// Escape HTML helper
-function escapeHtml(text) {
-  if (!text) return ''
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+// Utility: get current session
+async function checkAuth() {
+  const { data: { session } } = await supabase.auth.getSession();
+  return session;
 }
 
-// Check auth and update UI
-async function checkUser() {
-  const { data: { user }, error } = await supabase.auth.getUser()
-  if (error) {
-    console.error('Error getting user:', error.message)
-    currentUser = null
-    showLoggedOutState()
-    unsubscribePosts()
-    return
-  }
-
-  currentUser = user
-  if (user) {
-    showLoggedInState()
-    listenToPosts()
-  } else {
-    showLoggedOutState()
-    unsubscribePosts()
-  }
+// Auth pages
+async function initAuthPage() {
+  const path = window.location.pathname;
+  const isRegister = path.includes('register');
+  document.getElementById('page-title').textContent = isRegister ? 'Register' : 'Login';
+  document.getElementById('form-title').textContent = isRegister ? 'Create Account' : 'Login';
+  document.getElementById('submit-btn').textContent = isRegister ? 'Register' : 'Login';
+  document.getElementById('toggle-text').innerHTML = isRegister ?
+    'Already have an account? <a href="login.html">Login</a>' :
+    'Don’t have an account? <a href="register.html">Register</a>';
+  document.getElementById('auth-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+    const fn = isRegister ? 'signUp' : 'signInWithPassword';
+    const { error } = isRegister
+      ? await supabase.auth.signUp({ email, password: pass })
+      : await supabase.auth.signInWithPassword({ email, password: pass });
+    if (error) return alert(error.message);
+    window.location.href = 'feed.html';
+  });
 }
 
-function showLoggedInState() {
-  if (loginBtn) loginBtn.style.display = 'none'
-  if (registerBtn) registerBtn.style.display = 'none'
-  if (logoutBtn) logoutBtn.style.display = 'inline-block'
-  if (postComposer) postComposer.style.display = 'block'
-}
+// Feed, post creation, real-time updates
+async function initFeedPage() {
+  const session = await checkAuth();
+  if (!session) return window.location.href = 'login.html';
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.href = 'login.html';
+  });
 
-function showLoggedOutState() {
-  if (loginBtn) loginBtn.style.display = 'inline-block'
-  if (registerBtn) registerBtn.style.display = 'inline-block'
-  if (logoutBtn) logoutBtn.style.display = 'none'
-  if (postComposer) postComposer.style.display = 'none'
-  if (postsContainer) postsContainer.innerHTML = ''
-}
+  // Posting
+  document.getElementById('post-btn').addEventListener('click', async () => {
+    const text = document.getElementById('post-text').value;
+    const imgFile = document.getElementById('post-image').files[0];
+    const category = window.category || document.getElementById('post-category').value;
 
-if (loginBtn) {
-  loginBtn.onclick = async () => {
-    const email = prompt('Enter your email:')
-    const password = prompt('Enter your password:')
-    if (!email || !password) return alert('Email and password required.')
-
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) alert(error.message)
-    else {
-      alert('Logged in successfully!')
-      await checkUser()
-    }
-  }
-}
-
-if (registerBtn) {
-  registerBtn.onclick = async () => {
-    const email = prompt('Enter your email:')
-    const password = prompt('Enter your password:')
-    if (!email || !password) return alert('Email and password required.')
-
-    const { error } = await supabase.auth.signUp({ email, password })
-    if (error) alert(error.message)
-    else {
-      alert('Registration successful! Please check your email to confirm.')
-      await checkUser()
-    }
-  }
-}
-
-if (logoutBtn) {
-  logoutBtn.onclick = async () => {
-    await supabase.auth.signOut()
-    alert('Logged out.')
-    await checkUser()
-  }
-}
-
-// Upload image to Supabase storage bucket 'public'
-async function uploadImage(file) {
-  if (!file) return null
-  const fileExt = file.name.split('.').pop()
-  const fileName = `${Date.now()}.${fileExt}`
-  const filePath = `images/${fileName}`
-
-  const { error } = await supabase.storage.from('public').upload(filePath, file)
-  if (error) {
-    alert('Image upload failed: ' + error.message)
-    return null
-  }
-
-  const { data } = supabase.storage.from('public').getPublicUrl(filePath)
-  return data.publicUrl
-}
-
-if (postForm) {
-  postForm.onsubmit = async (e) => {
-    e.preventDefault()
-    if (!currentUser) {
-      alert('You must be logged in to post.')
-      return
+    let image_url = null;
+    if (imgFile) {
+      const { data, error:uploadErr } = await supabase.storage
+        .from('images')
+        .upload(`posts/${Date.now()}_${imgFile.name}`, imgFile);
+      if (uploadErr) return alert(uploadErr.message);
+      image_url = data.path;
     }
 
-    const content = document.getElementById('post-content')?.value.trim() || ''
-    const category = document.getElementById('post-category')?.value
-    const type = document.getElementById('post-type')?.value
-    const imageFile = document.getElementById('post-image')?.files[0]
+    await supabase.from('posts').insert([
+      { text, image_url, category, user_id: session.user.id }
+    ]);
+    document.getElementById('post-text').value = '';
+    document.getElementById('post-image').value = '';
+  });
 
-    if (!content || !category || !type) {
-      alert('Please fill all fields.')
-      return
-    }
+  // Real-time
+  supabase.channel('posts-ch')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, fetchPosts)
+    .subscribe();
 
-    let image_url = null
-    if (imageFile) {
-      image_url = await uploadImage(imageFile)
-      if (!image_url) return // stop if upload failed
-    }
-
-    const { error } = await supabase.from('posts').insert([
-      {
-        user_id: currentUser.id,
-        content,
-        category,
-        type,
-        image_url,
-      },
-    ])
-
-    if (error) {
-      alert('Error creating post: ' + error.message)
-    } else {
-      postForm.reset()
-      alert('Post created!')
+  async function fetchPosts() {
+    let query = supabase
+      .from('posts')
+      .select('id, text, image_url, category, inserted_at, user_id, users(email)')
+      .order('inserted_at', { ascending: false });
+    if (window.category) query = query.eq('category', window.category);
+    const { data, error } = await query;
+    if (error) console.error(error);
+    const container = document.getElementById('posts');
+    container.innerHTML = '';
+    for (let p of data) {
+      const postEl = document.createElement('div');
+      postEl.className = 'post';
+      postEl.innerHTML = `
+        <p><strong>${p.users.email}</strong> <em>${new Date(p.inserted_at).toLocaleString()}</em></p>
+        <p>${p.text}</p>
+        ${p.image_url ? `<img src="${supabase.storage.from('images').getPublicUrl(p.image_url).publicUrl}" />` : ''}
+        <button class="like-btn" data-id="${p.id}">Like</button>
+        <button class="comment-btn" data-id="${p.id}">Comment</button>
+        <div class="comments" id="comments-${p.id}"></div>
+      `;
+      container.appendChild(postEl);
+      hookLikes(p.id);
+      loadComments(p.id);
     }
   }
-}
 
-// Load posts with user info
-async function loadPosts() {
-  if (!postsContainer) return
-
-  const { data, error } = await supabase
-    .from('posts')
-    .select(`*, user:profiles!posts_user_id_fkey(username, avatar_url)`)
-    .order('created_at', { ascending: false })
-
-  if (error) {
-    postsContainer.innerHTML = '<p>Error loading posts.</p>'
-    return
+  // Likes
+  async function hookLikes(postId) {
+    document.querySelector(`.like-btn[data-id="${postId}"]`)
+      .addEventListener('click', async () => {
+        await supabase.from('likes').insert([
+          { user_id: session.user.id, post_id: postId }
+        ]);
+      });
   }
 
-  postsContainer.innerHTML = ''
-  data.forEach(post => {
-    postsContainer.appendChild(createPostElement(post))
-  })
-}
-
-function createPostElement(post) {
-  const postDiv = document.createElement('div')
-  postDiv.classList.add('post')
-
-  const user = post.user || { username: 'Unknown', avatar_url: null }
-
-  postDiv.innerHTML = `
-    <div class="post-header">
-      <img class="avatar" src="${user.avatar_url || 'https://via.placeholder.com/40?text=👤'}" alt="${escapeHtml(user.username)}'s avatar" />
-      <span class="username">${escapeHtml(user.username)}</span>
-    </div>
-    <div class="post-meta">
-      <strong>Category:</strong> ${escapeHtml(post.category)} | <strong>Type:</strong> ${escapeHtml(post.type)}<br/>
-      <small>${new Date(post.created_at).toLocaleString()}</small>
-    </div>
-    <div class="post-content">${escapeHtml(post.content)}</div>
-    ${post.image_url ? `<img class="post-image" src="${post.image_url}" alt="Post image" />` : ''}
-  `
-  return postDiv
-}
-
-// Subscribe to realtime changes on posts table
-function listenToPosts() {
-  // Unsubscribe if existing
-  unsubscribePosts()
-
-  loadPosts()
-
-  postsSubscription = supabase
-    .channel('public:posts')
-    .on(
-      'postgres_changes',
-      { event: '*', schema: 'public', table: 'posts' },
-      (payload) => {
-        console.log('Realtime posts change:', payload)
-        loadPosts()
+  // Comments
+  function loadComments(postId) {
+    supabase.channel(`comments-${postId}`)
+      .on('postgres_changes',{ event: '*', schema:'public', table:'comments', filter:`post_id=eq.${postId}` },
+        payload => renderComment(postId, payload.new))
+      .subscribe();
+    renderExistingComments(postId);
+  }
+  async function renderExistingComments(postId) {
+    const { data, error } = await supabase
+      .from('comments')
+      .select('id, text, inserted_at, user_id, users(email)')
+      .eq('post_id', postId)
+      .order('inserted_at', { ascending:true });
+    if (!error) data.forEach(c => renderComment(postId, c));
+    const container = document.getElementById(`comments-${postId}`);
+    const input = document.createElement('input');
+    input.placeholder = 'Write comment…';
+    input.addEventListener('keypress', async e => {
+      if (e.key === 'Enter') {
+        await supabase.from('comments').insert([{ text: e.target.value, user_id: session.user.id, post_id: postId }]);
+        e.target.value = '';
       }
-    )
-    .subscribe()
+    });
+    container.appendChild(input);
+  }
+  function renderComment(postId, comment) {
+    const container = document.getElementById(`comments-${postId}`);
+    const div = document.createElement('div');
+    div.textContent = `${comment.users.email}: ${comment.text}`;
+    container.appendChild(div);
+  }
+
+  fetchPosts();
 }
 
-// Unsubscribe realtime posts listener
-function unsubscribePosts() {
-  if (postsSubscription) {
-    supabase.removeChannel(postsSubscription)
-    postsSubscription = null
+// Profile page
+async function initProfilePage(isPublic=false) {
+  const session = await checkAuth();
+  if (!session && !isPublic) return window.location.href = 'login.html';
+  const userId = isPublic ? new URLSearchParams(location.search).get('user_id') : session.user.id;
+
+  const { data:profile } = await supabase.from('users').select('id,email,avatar_url').eq('id', userId).single();
+  document.getElementById('profile-avatar').src = profile.avatar_url || 'default-avatar.png';
+  document.getElementById('profile-name').textContent = profile.email;
+  document.getElementById('profile-email').textContent = profile.email;
+
+  const { data: posts } = await supabase.from('posts')
+    .select('id,text,image_url,inserted_at')
+    .eq('user_id', userId)
+    .order('inserted_at', { ascending: false });
+  const container = document.getElementById(isPublic ? 'user-posts' : 'user-posts');
+  posts.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'post';
+    div.innerHTML = `
+      <p><em>${new Date(p.inserted_at).toLocaleString()}</em></p>
+      <p>${p.text}</p>
+      ${p.image_url ? `<img src="${supabase.storage.from('images').getPublicUrl(p.image_url).publicUrl}" />` : ''}
+    `;
+    container.appendChild(div);
+  });
+
+  if (!isPublic) {
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      window.location.href = 'login.html';
+    });
   }
 }
 
-// Listen for auth changes globally
-supabase.auth.onAuthStateChange(async (event, session) => {
-  console.log('Auth state changed:', event)
-  await checkUser()
-})
-
-// Initial check on page load
-checkUser()
+// Boot
+document.addEventListener('DOMContentLoaded', () => {
+  const p = window.location.pathname.split('/').pop();
+  if (p === 'login.html' || p === 'register.html') initAuthPage();
+  else if (p === 'feed.html') initFeedPage();
+  else if (p === 'profile.html') initProfilePage();
+  else if (p === 'public-profile.html') initProfilePage(true);
+  else if (p.endsWith('.html') && window.category) initFeedPage();
+});
