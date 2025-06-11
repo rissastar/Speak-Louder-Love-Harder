@@ -1,294 +1,124 @@
-/* === Feed Page Styles - Mobile First === */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: #f2f0ff;
   color: #2a1a6d;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  padding: 0;
 }
 
-.topnav {
-  background: #5c2c90;
-  color: #dab6ff;
+.top-nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.6rem 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background: #9c27b0;
+  color: white;
+  padding: 1rem;
 }
 
-.topnav .logo {
-  font-weight: 700;
-  font-size: 1.3rem;
-}
-
-.topic-nav {
-  position: relative;
-}
-
-.topic-nav button {
-  background: transparent;
+.top-nav button {
+  background: none;
   border: none;
-  color: #dab6ff;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
 }
 
-.topic-nav .dropdown {
+.dropdown {
   position: absolute;
-  top: 120%;
-  left: 0;
-  background: #6a38c7;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  width: max-content;
-  min-width: 150px;
-  padding: 0.5rem 0;
-  list-style: none;
-  margin: 0;
-  z-index: 150;
-}
-
-.topic-nav .dropdown li a {
-  display: block;
-  padding: 0.5rem 1rem;
-  color: #f5eaff;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.topic-nav .dropdown li a:hover,
-.topic-nav .dropdown li a:focus {
-  background: #dab6ff;
-  color: #5c2c90;
-  outline: none;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 90%;
+  top: 60px;
+  left: 5%;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown.hidden {
   display: none;
 }
 
-.nav-buttons button {
-  background: transparent;
-  border: none;
-  color: #dab6ff;
-  font-size: 1.3rem;
-  margin-left: 1rem;
-  cursor: pointer;
-}
-
-main {
-  flex-grow: 1;
+.feed-container {
   padding: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-  width: 100%;
 }
 
-#postFormSection {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgb(75 0 130 / 0.15);
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-#postForm textarea {
+textarea {
   width: 100%;
-  min-height: 80px;
-  resize: vertical;
-  border: 2px solid #dab6ff;
-  border-radius: 8px;
   padding: 0.5rem;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-  color: #2a1a6d;
+  border: 2px solid #9c27b0;
+  border-radius: 8px;
+  resize: none;
+  margin-bottom: 0.5rem;
 }
 
-#postForm input[type="file"] {
-  margin-top: 0.5rem;
+#postImage {
   display: block;
+  margin-bottom: 0.5rem;
 }
 
 #imagePreview {
   max-width: 100%;
-  max-height: 180px;
-  margin-top: 0.5rem;
   border-radius: 8px;
-  object-fit: contain;
-  border: 1px solid #dab6ff;
+  margin-bottom: 1rem;
 }
 
-#postForm button {
-  background: #5c2c90;
-  color: #dab6ff;
-  font-weight: 700;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  margin-top: 0.8rem;
-  cursor: pointer;
-  width: 100%;
-  font-size: 1.1rem;
-  transition: background-color 0.3s ease;
-}
-
-#postForm button:hover,
-#postForm button:focus {
-  background: #dab6ff;
-  color: #5c2c90;
-  outline: none;
-}
-
-#feedSection ul {
+ul#postsList {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .post {
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 3px 12px rgb(75 0 130 / 0.1);
-  margin-bottom: 1.2rem;
+  border-radius: 8px;
   padding: 1rem;
-  font-size: 1rem;
-}
-
-.post .post-header {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .post .avatar {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #dab6ff;
+  margin-right: 0.5rem;
 }
 
 .post .username {
-  font-weight: 700;
+  font-weight: bold;
   color: #5c2c90;
 }
 
-.post .timestamp {
-  margin-left: auto;
-  font-size: 0.8rem;
-  color: #9a81cc;
-}
-
-.post .content {
-  margin-top: 0.6rem;
-  color: #2a1a6d;
-  white-space: pre-wrap;
-}
-
-.post img.post-image {
-  max-width: 100%;
-  margin-top: 0.8rem;
-  border-radius: 10px;
-  object-fit: contain;
-  border: 1px solid #dab6ff;
-}
-
-.post .actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  align-items: center;
-}
-
-.post .actions button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-  color: #5c2c90;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 1rem;
-}
-
-.post .actions button.liked {
-  color: #dab6ff;
-}
-
-.comments-list {
-  margin-top: 0.8rem;
-  border-top: 1px solid #dab6ff;
-  padding-top: 0.5rem;
-}
-
-.comment {
-  display: flex;
-  gap: 0.7rem;
-  margin-top: 0.5rem;
-}
-
-.comment .avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid #dab6ff;
-  object-fit: cover;
-}
-
-.comment .comment-content {
-  background: #f7f2ff;
-  border-radius: 8px;
-  padding: 0.4rem 0.7rem;
-  color: #2a1a6d;
-  font-size: 0.9rem;
-  flex-grow: 1;
-}
-
-.comment .comment-username {
-  font-weight: 600;
-  color: #5c2c90;
-}
-
-.load-more-btn {
-  background: #5c2c90;
-  color: #dab6ff;
-  font-weight: 700;
-  border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
+.post-image {
   width: 100%;
   margin-top: 1rem;
-  font-size: 1.1rem;
+  border-radius: 8px;
 }
 
-.load-more-btn:hover,
-.load-more-btn:focus {
-  background: #dab6ff;
-  color: #5c2c90;
-  outline: none;
+.comment-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-/* Accessibility focus */
-button:focus,
-a:focus {
-  outline: 3px solid #dab6ff;
-  outline-offset: 2px;
+.comment-input {
+  flex: 1;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
 }
 
-/* Responsive */
-@media (min-width: 600px) {
-  main {
-    max-width: 700px;
-  }
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #9c27b0;
+  padding: 0.5rem;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
 }
