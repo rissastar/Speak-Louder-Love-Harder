@@ -4,38 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quotes - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="css/topics.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="quotes.css" />
 </head>
 <body>
-
-  <header class="header">
-    <div class="header-title">Quotes</div>
-    <div class="header-icons">
-      <a href="feed.html"><i class="fas fa-home"></i></a>
-      <a href="settings.html"><i class="fas fa-cog"></i></a>
-    </div>
+  <header>
+    <h1>💬 Inspirational Quotes</h1>
+    <nav>
+      <button onclick="location.href='feed.html'">🏠</button>
+      <button onclick="location.href='profile.html'">👤</button>
+      <button onclick="location.href='settings.html'">⚙️</button>
+      <button onclick="location.href='logout.html'">🚪</button>
+    </nav>
   </header>
 
-  <main class="content">
-    <h2>Inspirational Quotes</h2>
-    <p style="text-align: center; color: #666;">“Out of suffering have emerged the strongest souls.” — Kahlil Gibran</p>
-    <p style="text-align: center; color: #666;">“You are more than your worst day.” — Unknown</p>
-    <p style="text-align: center; color: #666;">“Healing is not linear.” — Anonymous</p>
-    
-    <section class="post-form">
-  <textarea id="quoteInput" placeholder="Type a quote..."></textarea>
-  <button onclick="submitQuote()">Post</button>
-</section>
-
-<ul id="quoteFeed" class="post-feed"></ul>
+  <main>
+    <textarea id="quoteInput" placeholder="Share an inspirational quote..."></textarea>
+    <button onclick="submitQuote()">Post Quote 📢</button>
+    <ul id="quoteFeed"></ul>
   </main>
-  
-  <footer class="footer">
-    <a href="https://linktr.ee/rissa.star" target="_blank">
-      <i class="fas fa-link"></i> Linktree
-    </a>
+
+  <footer>
+    <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Visit my Linktree</a>
   </footer>
 
+  <script type="module" src="js/quotes.js"></script>
 </body>
 </html>
