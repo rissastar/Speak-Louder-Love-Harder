@@ -1,70 +1,128 @@
-// auth.js
-const supabaseUrl = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8';
+// main.js
+import { supabase, register, login, logout, getCurrentUser } from './auth.js'
 
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const loginBtn = document.getElementById('login-btn')
+const registerBtn = document.getElementById('register-btn')
+const logoutBtn = document.getElementById('logout-btn')
+const userInfo = document.getElementById('user-info')
+const postForm = document.getElementById('post-form')
 
-// Check user status on page load
-document.addEventListener('DOMContentLoaded', async () => {
-  const { data: { user } } = await supabase.auth.getUser();
-
+function updateUI() {
+  const user = getCurrentUser()
   if (user) {
-    document.getElementById('auth-container').style.display = 'none';
-    document.getElementById('user-info').style.display = 'block';
-    document.getElementById('user-email').textContent = user.email;
+    userInfo.textContent = `Logged in as: ${user.email}`
+    loginBtn.style.display = 'none'
+    registerBtn.style.display = 'none'
+    logoutBtn.style.display = 'inline-block'
+    postForm.style.display = 'flex'
   } else {
-    document.getElementById('auth-container').style.display = 'block';
-    document.getElementById('user-info').style.display = 'none';
+    userInfo.textContent = 'Not logged in'
+    loginBtn.style.display = 'inline-block'
+    registerBtn.style.display = 'inline-block'
+    logoutBtn.style.display = 'none'
+    postForm.style.display = 'none'
   }
-});
+}
 
-// Login
-document.getElementById('login-submit').addEventListener('click', async () => {
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-
+loginBtn.addEventListener('click', async () => {
+  const email = prompt('Enter your email:')
+  const password = prompt('Enter your password:')
+  if (!email || !password) {
+    alert('Email and password are required!')
+    return
+  }
+  const { user, error } = await login(email, password)
   if (error) {
-    alert(error.message);
+    alert(`Login error: ${error.message}`)
   } else {
-    location.reload();
+    alert('Logged in successfully!')
+    updateUI()
   }
-});
+})
 
-// Register
-document.getElementById('register-submit').addEventListener('click', async () => {
-  const email = document.getElementById('register-email').value;
-  const password = document.getElementById('register-password').value;
-
-  const { error } = await supabase.auth.signUp({ email, password });
-
+registerBtn.addEventListener('click', async () => {
+  const email = prompt('Enter your email:')
+  const password = prompt('Enter your password (min 6 chars):')
+  if (!email || !password) {
+    alert('Email and password are required!')
+    return
+  }
+  const { user, error } = await register(email, password)
   if (error) {
-    alert(error.message);
+    alert(`Registration error: ${error.message}`)
   } else {
-    alert('Check your email for confirmation!');
-    document.getElementById('register-form').style.display = 'none';
-    document.getElementById('login-form').style.display = 'block';
+    alert('Registration successful! Please check your email to confirm.')
   }
-});
+})
 
-// Toggle forms
-document.getElementById('show-register').addEventListener('click', () => {
-  document.getElementById('login-form').style.display = 'none';
-  document.getElementById('register-form').style.display = 'block';
-  document.getElementById('show-login').style.display = 'inline';
-  document.getElementById('show-register').style.display = 'none';
-});
+logoutBtn.addEventListener('click', async () => {
+  const { error } = await logout()
+  if (error) {
+    alert(`Logout error: ${error.message}`)
+  } else {
+    alert('Logged out successfully!')
+    updateUI()
+  }
+})
 
-document.getElementById('show-login').addEventListener('click', () => {
-  document.getElementById('login-form').style.display = 'block';
-  document.getElementById('register-form').style.display = 'none';
-  document.getElementById('show-login').style.display = 'none';
-  document.getElementById('show-register').style.display = 'inline';
-});
+// On page load, check if user is logged in
+window.addEventListener('load', () => {
+  updateUI()
+})
 
-// Logout
-document.getElementById('logout-btn').addEventListener('click', async () => {
-  await supabase.auth.signOut();
-  location.reload();
-});
+// Post submission
+if (postForm) {
+  postForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const user = getCurrentUser()
+    if (!user) {
+      alert('You must be logged in to post.')
+      return
+    }
+    const content = document.getElementById('post-content').value.trim()
+    const page = document.getElementById('post-page').value // dropdown select for page, you add this to your form
+    if (!content) {
+      alert('Post content cannot be empty.')
+      return
+    }
+    const { error } = await supabase
+      .from('posts')
+      .insert([{ user_id: user.id, content, page }])
+    if (error) {
+      alert('Error posting: ' + error.message)
+    } else {
+      alert('Post created!')
+      postForm.reset()
+      // Refresh posts list (you implement)
+      loadPosts()
+    }
+  })
+}
+
+// Example function to load posts from Supabase and render them
+async function loadPosts() {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false })
+  if (error) {
+    console.error(error)
+    return
+  }
+  const postsContainer = document.getElementById('posts-container')
+  if (!postsContainer) return
+  postsContainer.innerHTML = ''
+  data.forEach(post => {
+    const postEl = document.createElement('div')
+    postEl.className = 'post'
+    postEl.innerHTML = `
+      <p>${post.content}</p>
+      <small>Posted on ${new Date(post.created_at).toLocaleString()}</small>
+    `
+    postsContainer.appendChild(postEl)
+  })
+}
+
+window.addEventListener('load', () => {
+  loadPosts()
+})
