@@ -29,16 +29,14 @@
     </nav>
   </header>
 
-  <main role="main" class="profile-container" aria-label="User profile">
-    <!-- Profile Picture -->
-    <img
-      src="https://via.placeholder.com/150"
-      alt="User Profile Picture"
-      class="profile-picture"
-      tabindex="0"
-      aria-describedby="profile-picture-desc"
-    />
-    <p id="profile-picture-desc" class="sr-only">User profile picture, click to change</p>
+  <section class="profile-section">
+  <h2>Update Your Profile Picture</h2>
+  <div class="profile-pic-wrapper">
+    <img id="profile-pic" src="default-avatar.png" alt="Profile Picture" />
+    <input type="file" id="file-input" accept="image/*" />
+    <button id="upload-btn">Upload Picture</button>
+  </div>
+</section>
 
     <!-- Username -->
     <h1 class="profile-username" tabindex="0">Rissa Star</h1>
