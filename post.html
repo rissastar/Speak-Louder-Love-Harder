@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speak Louder, Love Harder - Posts</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<header>
+  <h1 class="pulse-glow">Speak Louder, Love Harder</h1>
+  <nav>
+    <a href="mental-health.html">Mental Health</a>
+    <a href="addiction.html">Addiction</a>
+    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pitbull Love</a>
+    <a href="foster-children.html">Foster Children</a>
+  </nav>
+</header>
+
+<main>
+  <section id="post-composer">
+    <h2>Create a New Post</h2>
+    <form id="postForm">
+      <label for="postText">Your Story / Text:</label><br/>
+      <textarea id="postText" rows="4" required></textarea><br/>
+
+      <label for="postImage">Upload Image (optional):</label><br/>
+      <input type="file" id="postImage" accept="image/*" /><br/>
+
+      <label for="postTopic">Topic:</label><br/>
+      <select id="postTopic" required>
+        <option value="" disabled selected>Select topic</option>
+        <option value="Mental Health">Mental Health</option>
+        <option value="Addiction">Addiction</option>
+        <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+        <option value="Cirrhosis">Cirrhosis</option>
+        <option value="Physical Abuse">Physical Abuse</option>
+        <option value="Mental Abuse">Mental Abuse</option>
+        <option value="Sexual Abuse">Sexual Abuse</option>
+        <option value="Pitbull Love">Pitbull Love</option>
+        <option value="Foster Children">Foster Children</option>
+      </select><br/>
+
+      <label for="postTag">Content Type:</label><br/>
+      <select id="postTag" required>
+        <option value="" disabled selected>Select content type</option>
+        <option value="Story">Story</option>
+        <option value="Worksheet">Worksheet</option>
+        <option value="Quote">Quote</option>
+        <option value="Affirmation">Affirmation</option>
+        <option value="Grounding Technique">Grounding Technique</option>
+        <option value="Other">Other</option>
+      </select><br/><br/>
+
+      <button type="submit">Post</button>
+    </form>
+    <p id="postStatus"></p>
+  </section>
+
+  <section id="posts-feed">
+    <h2>Posts Feed</h2>
+    <div id="postsContainer">
+      <!-- Posts will be loaded here -->
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener">linktr.ee/rissa.star</a></p>
+</footer>
+
+<script src="auth.js"></script>
+<script>
+  // Initialize Supabase client
+  const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  const postForm = document.getElementById('postForm');
+  const postsContainer = document.getElementById('postsContainer');
+  const postStatus = document.getElementById('postStatus');
+
+  async function uploadImage(file) {
+    if (!file) return null;
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random().toString(36).substring(2,15)}.${fileExt}`;
+    const filePath = `post-images/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('posts')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error('Image upload error:', uploadError);
+      return null;
+    }
+
+    const { data } = supabase.storage.from('posts').getPublicUrl(filePath);
+    return data.publicUrl;
+  }
+
+  async function fetchPosts() {
+    postsContainer.innerHTML = 'Loading posts...';
+
+    const { data: posts, error } = await supabase
+      .from('posts')
+      .select(`
+        id, 
+        content, 
+        image_url, 
+        topic, 
+        tag, 
+        created_at,
+        user_id,
+        profiles (
+          username,
+          avatar_url
+        )
+      `)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      postsContainer.innerHTML = `<p>Error loading posts: ${error.message}</p>`;
+      return;
+    }
+
+    if (!posts || posts.length === 0) {
+      postsContainer.innerHTML = '<p>No posts yet.</p>';
+      return;
+    }
+
+    postsContainer.innerHTML = '';
+    posts.forEach(post => {
+      const postEl = document.createElement('article');
+      postEl.classList.add('post');
+
+      const username = post.profiles?.username || 'Anonymous';
+      const avatar = post.profiles?.avatar_url || 'default-avatar.png'; // fallback avatar
+
+      postEl.innerHTML = `
+        <div class="post-header">
+          <img src="${avatar}" alt="Avatar" class="avatar" />
+          <strong>${username}</strong> - <em>${new Date(post.created_at).toLocaleString()}</em>
+        </div>
+        <div class="post-topic-tag">
+          <span class="topic">${post.topic}</span> | <span class="tag">${post.tag}</span>
+        </div>
+        <p class="post-content">${post.content}</p>
+        ${post.image_url ? `<img src="${post.image_url}" alt="Post image" class="post-image"/>` : ''}
+      `;
+
+      postsContainer.appendChild(postEl);
+    });
+  }
+
+  postForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    postStatus.textContent = '';
+
+    const user = supabase.auth.getUser();
+    if (!user) {
+      postStatus.textContent = 'You must be logged in to post.';
+      return;
+    }
+
+    const content = document.getElementById('postText').value.trim();
+    const topic = document.getElementById('postTopic').value;
+    const tag = document.getElementById('postTag').value;
+    const imageFile = document.getElementById('postImage').files[0];
+
+    if (!content || !topic || !tag) {
+      postStatus.textContent = 'Please fill all required fields.';
+      return;
+    }
+
+    postStatus.textContent = 'Uploading image if any...';
+    const imageUrl = await uploadImage(imageFile);
+
+    postStatus.textContent = 'Saving post...';
+    const { error } = await supabase
+      .from('posts')
+      .insert({
+        content,
+        image_url: imageUrl,
+        topic,
+        tag,
+        user_id: (await supabase.auth.getUser()).data.user.id,
+      });
+
+    if (error) {
+      postStatus.textContent = `Error posting: ${error.message}`;
+      return;
+    }
+
+    postStatus.textContent = 'Post created successfully!';
+
+    postForm.reset();
+    fetchPosts();
+  });
+
+  // Fetch posts initially
+  fetchPosts();
+
+  // You can add real-time subscription here if desired
+</script>
+
+<style>
+  main {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  #post-composer {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+  textarea {
+    width: 100%;
+    resize: vertical;
+  }
+  select, textarea, input[type="file"], button {
+    margin-top: 0.5rem;
+  }
+  button {
+    background: #ff3366;
+    border: none;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #e62e58;
+  }
+  #postsContainer article.post {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .post-topic-tag {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0.3rem 0;
+  }
+  .post-content {
+    white-space: pre-wrap;
+  }
+  .post-image {
+    margin-top: 0.5rem;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+</style>
+
+</body>
+</html>
