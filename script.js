@@ -185,3 +185,27 @@ document.addEventListener('DOMContentLoaded', () => {
   else if (p === 'public-profile.html') initProfilePage(true);
   else if (p.endsWith('.html') && window.category) initFeedPage();
 });
+
+// === Register Page Logic ===
+const registerForm = document.getElementById('register-form');
+
+if (registerForm) {
+  const message = document.getElementById('register-message');
+
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    const { error } = await supabase.auth.signUp({ email, password });
+
+    if (error) {
+      message.textContent = error.message;
+      message.style.color = 'red';
+    } else {
+      message.textContent = '✅ Check your email to confirm your registration!';
+      message.style.color = 'green';
+      registerForm.reset();
+    }
+  });
+}
