@@ -1,6 +1,6 @@
-// === Supabase Setup ===
-const supabaseUrl = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
-const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+// Initialize Supabase client
+const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
 const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // === DOM Elements ===
