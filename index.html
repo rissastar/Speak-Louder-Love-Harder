@@ -3,76 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder — Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Welcome • Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-  <header class="sticky-header">
-    <a href="index.html" class="logo" aria-label="Speak Louder, Love Harder Home">Speak Louder, Love Harder</a>
-    
-    <nav class="dropdown-nav">
-      <div class="dropdown">
-        <button class="dropbtn" id="topics-btn">Topics ▼</button>
-        <div class="dropdown-content" id="topics-dropdown">
-          <a href="mental-health.html">Mental Health</a>
-          <a href="addiction.html">Addiction</a>
-          <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-          <a href="cirrhosis.html">Cirrhosis</a>
-          <a href="physical-abuse.html">Physical Abuse</a>
-          <a href="mental-abuse.html">Mental Abuse</a>
-          <a href="sexual-abuse.html">Sexual Abuse</a>
-          <a href="pitbull-love.html">Pitbull Love</a>
-          <a href="foster-children.html">Foster Children</a>
-        </div>
-      </div>
-    </nav>
 
-    <nav>
-      <a href="login.html" class="btn-nav">Login</a>
-      <a href="register.html" class="btn-nav">Register</a>
-    </nav>
-  </header>
+<header class="header">
+  <h1>Speak Louder, Love Harder</h1>
+  <nav class="topic-nav">
+    <button class="dropdown-toggle">Topics <i class="fas fa-angle-down"></i></button>
+    <ul class="dropdown-menu">
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="addiction.html">Addiction</a></li>
+      <li><a href="terminal-illness.html">Terminal Illness</a></li>
+      <li><a href="abuse.html">Abuse</a></li>
+      <li><a href="pitbull-love.html">Pitbull Love</a></li>
+      <li><a href="foster-children.html">Foster Children</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <main>
-    <section class="hero">
-      <h1>Speak Louder, Love Harder</h1>
-      <p>A safe and supportive social platform to share stories, support, and healing around mental health, addiction, cystic fibrosis, abuse, affirmations, and more.</p>
-      <div class="hero-buttons">
-        <a href="register.html" class="btn-primary">Get Started</a>
-        <a href="login.html" class="btn-secondary">Login</a>
-      </div>
-    </section>
+<main class="main-content">
+  <section class="intro">
+    <h2>Welcome</h2>
+    <p>This is a community created to support open conversations about mental health, addiction, chronic illness, healing, and love. 
+    Share your story, find support, and connect with others through posts, quotes, affirmations, and more.</p>
+  </section>
 
-    <section class="about">
-      <h2>What We’re About</h2>
-      <p>Speak Louder, Love Harder is a vibrant community built to uplift voices often unheard. Whether you're living with chronic illness, overcoming addiction, or healing from trauma, here you’ll find a welcoming space.</p>
+  <section class="quote-rotator">
+    <div class="quote" id="quote-display">Loading quote...</div>
+  </section>
 
-      <h2>Who It's For</h2>
-      <ul>
-        <li>Individuals seeking support for mental health and addiction</li>
-        <li>People living with cystic fibrosis, cirrhosis, or other health challenges</li>
-        <li>Survivors of physical, mental, and sexual abuse</li>
-        <li>Lovers of pitbulls and advocates for foster children</li>
-        <li>Anyone wanting to share affirmations, grounding techniques, and positive stories</li>
-      </ul>
-    </section>
+  <div class="auth-buttons">
+    <a href="login.html" class="btn login-btn">Log In</a>
+    <a href="register.html" class="btn register-btn">Sign Up</a>
+  </div>
+</main>
 
-    <section class="call-to-action">
-      <h2>Join Us Today</h2>
-      <p>Create your free account, share your story, and connect with a community that cares.</p>
-      <a href="register.html" class="btn-primary btn-large">Sign Up Now</a>
-    </section>
-  </main>
+<footer class="footer">
+  <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">
+    <i class="fas fa-link"></i> Linktree
+  </a>
+</footer>
 
-  <footer>
-    <p>
-      Explore more: <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Linktree</a>
-    </p>
-    <p>© 2025 Speak Louder, Love Harder</p>
-  </footer>
-
-  <!-- Dropdown toggle script -->
-  <script type="module" src="script.js"></script>
+<script src="index.js"></script>
 </body>
 </html>
