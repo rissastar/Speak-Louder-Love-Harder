@@ -334,3 +334,92 @@ document.addEventListener('DOMContentLoaded', async () => {
   const user = await getUser()
   if (user) loadProfilePic(user)
 })
+
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabaseUrl = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
+const supabaseKey = 'YOUR_PUBLIC_ANON_KEY'; // use your actual anon key
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+async function loadSettings() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return location.href = 'login.html';
+
+  const { data: profile } = await supabase
+    .from('users')
+    .select('username,bio,avatar_url')
+    .eq('id', user.id)
+    .single();
+
+  if (profile) {
+    document.getElementById('username').value = profile.username || '';
+    document.getElementById('bio').value = profile.bio || '';
+    if (profile.avatar_url) {
+      // Optionally show avatar preview if you want
+    }
+  }
+}
+
+async function uploadAvatar(userId, file) {
+  const ext = file.name.split('.').pop();
+  const name = `avatars/${userId}_${Date.now()}.${ext}`;
+  const { data, error } = await supabase.storage.from('avatars').upload(name, file);
+  if (error) throw error;
+  return supabase.storage.from('avatars').getPublicUrl(data.path).publicUrl;
+}
+
+async function changePassword(newPass) {
+  const { error } = await supabase.auth.updateUser({ password: newPass });
+  if (error) throw error;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSettings();
+
+  document.getElementById('settings-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return alert('Please log in.');
+
+    const username = document.getElementById('username').value.trim();
+    const bio = document.getElementById('bio').value.trim();
+    const file = document.getElementById('avatar').files[0];
+    const newPass = document.getElementById('new-password').value;
+    const confirmPass = document.getElementById('confirm-password').value;
+
+    let avatar_url;
+    if (file) {
+      try {
+        avatar_url = await uploadAvatar(user.id, file);
+      } catch (err) {
+        return alert('Avatar upload failed: ' + err.message);
+      }
+    }
+
+    try {
+      await supabase
+        .from('users')
+        .upsert({ id: user.id, username, bio, avatar_url }, { returning: 'minimal' });
+    } catch {
+      return alert('Failed to update profile data.');
+    }
+
+    if (newPass) {
+      if (newPass !== confirmPass) {
+        return alert('Passwords do not match.');
+      }
+      try {
+        await changePassword(newPass);
+      } catch {
+        return alert('Failed to change password.');
+      }
+    }
+
+    alert('Settings saved!');
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    location.href = 'login.html';
+  });
+});
