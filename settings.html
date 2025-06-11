@@ -3,96 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings - Speak Louder, Love Harder</title>
+  <title>Settings | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="sticky-header">
+    <a href="profile.html" class="logo">Settings</a>
+    <nav>
+      <button class="btn-nav" id="logout-btn">Logout</button>
+    </nav>
+  </header>
 
-<header class="sticky-header">
-  <div class="logo">Speak Louder, Love Harder</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="profile.html">Profile</a>
-    <a href="settings.html" aria-current="page" class="btn-nav">Settings</a>
-  </nav>
-</header>
+  <main>
+    <form id="settings-form">
+      <h2>Your Profile Settings</h2>
 
-<main>
-  <section class="settings-section">
-  <h2>Change Profile Picture</h2>
-  <div class="profile-pic-wrapper">
-    <img id="profile-pic" src="default-avatar.png" alt="Current Profile Picture" />
-    <input type="file" id="file-input" accept="image/*" />
-    <button id="upload-btn">Upload New Picture</button>
-  </div>
-</section>
+      <label for="avatar">Profile Picture</label><br/>
+      <input type="file" id="avatar" accept="image/*" /><br/><br/>
 
-      <label for="username" class="profile-label">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Enter your username"
-        maxlength="30"
-        required
-        aria-required="true"
-        class="profile-input"
-      />
+      <label for="username">Username</label>
+      <input type="text" id="username" maxlength="30" required class="profile-input" />
 
-      <label for="bio" class="profile-label" style="margin-top: 1rem;">Bio / About Me</label>
-      <textarea
-        id="bio"
-        name="bio"
-        placeholder="Tell us a little about yourself..."
-        rows="4"
-        maxlength="280"
-        class="profile-textarea"
-      ></textarea>
+      <label for="bio">Bio / About Me</label>
+      <textarea id="bio" maxlength="280" rows="4" class="profile-textarea"></textarea>
 
-      <fieldset style="border: 1px solid #7b4dff; border-radius: 8px; margin-top: 2rem; padding: 1rem;">
-        <legend style="color: #7b4dff; font-weight: 700;">Change Password</legend>
+      <fieldset>
+        <legend>Change Password</legend>
 
-        <label for="current-password" class="profile-label" style="margin-top: 1rem;">Current Password</label>
-        <input
-          type="password"
-          id="current-password"
-          name="current-password"
-          placeholder="Current password"
-          autocomplete="current-password"
-          class="profile-input"
-        />
+        <label for="current-password">Current Password</label>
+        <input type="password" id="current-password" autocomplete="current-password" class="profile-input"/>
 
-        <label for="new-password" class="profile-label" style="margin-top: 1rem;">New Password</label>
-        <input
-          type="password"
-          id="new-password"
-          name="new-password"
-          placeholder="New password"
-          autocomplete="new-password"
-          class="profile-input"
-        />
+        <label for="new-password">New Password</label>
+        <input type="password" id="new-password" autocomplete="new-password" class="profile-input"/>
 
-        <label for="confirm-password" class="profile-label" style="margin-top: 1rem;">Confirm New Password</label>
-        <input
-          type="password"
-          id="confirm-password"
-          name="confirm-password"
-          placeholder="Confirm new password"
-          autocomplete="new-password"
-          class="profile-input"
-          style="margin-bottom: 0;"
-        />
+        <label for="confirm-password">Confirm New Password</label>
+        <input type="password" id="confirm-password" autocomplete="new-password" class="profile-input"/>
       </fieldset>
 
-      <button type="submit" class="btn-primary" style="margin-top: 2rem; width: 100%;">Save Changes</button>
+      <button type="submit" class="btn-primary">Save Changes</button>
     </form>
-  </section>
-</main>
+  </main>
 
-<footer>
-  &copy; 2025 Speak Louder, Love Harder. All rights reserved.
-</footer>
+  <footer>
+    <p>Explore more: <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+  </footer>
 
-<script src="script.js" defer></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
