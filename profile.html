@@ -1,99 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Dashboard - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Your Profile - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header>
+    <h1 class="pulse">Speak Louder, Love Harder</h1>
+    <h2>Your Profile</h2>
   </header>
-  <header class="animated-header">
-    <h1 class="glow">Welcome to Your Dashboard 💖</h1>
-    <button id="logoutBtn" style="display: none;">Logout</button>
-      <div class="theme-switcher">
-  
-  <div class="theme-switcher">
-  <label for="themeSelect">🎨 Theme:</label>
-  <select id="themeSelect">
-    <option value="vibrant">Vibrant 💖</option>
-    <option value="pastel">Pastel 🧁</option>
-    <option value="ocean">Ocean 🌊</option>
-    <option value="sunset">Sunset 🌇</option>
-    <option value="custom">✨ My Theme</option>
-  </select>
-</div>
 
-<div id="customThemeForm" class="custom-theme-form" style="display: none;">
-  <label>Primary: <input type="color" id="customPrimary" /></label>
-  <label>Secondary: <input type="color" id="customSecondary" /></label>
-  <label>Accent: <input type="color" id="customAccent" /></label>
-  <button onclick="saveCustomTheme()">Save My Theme</button>
-</div>
+  <main>
+    <div class="composer">
+      <label>Username:</label><br>
+      <input type="text" id="username" placeholder="Your username"><br><br>
+
+      <label>Bio:</label><br>
+      <textarea id="bio" placeholder="Tell us about yourself..."></textarea><br><br>
+
+      <button onclick="updateProfile()">Save Changes</button>
     </div>
-  </header>
-  
-  <nav>
-    <ul class="nav-links">
-      <details class="dropdown">
-      <summary><strong>Explore Topics</strong></summary>
-      <div class="dropdown-content">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a href="mental-health.html">Mental Health</a></li>
-      <li><a href="addiction.html">Addiction</a></li>
-      <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-      <li><a href="cirrhosis.html">Cirrhosis</a></li>
-      <li><a href="physical-abuse.html">Physical Abuse</a></li>
-      <li><a href="mental-abuse.html">Mental Abuse</a></li>
-      <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-      <li><a href="pitbull-love.html">Pitbull Love</a></li>
-      <li><a href="foster-children.html">Foster Children</a></li>
-    </ul>
-  </nav>
 
-  <main class="dashboard">
-    <section class="profile-card">
-      <h2 class="glow">Hello, Beautiful Soul 🌈</h2>
-      <p>Edit your bio below:</p>
-      <textarea id="userBio" rows="4" placeholder="Tell the world about your journey..."></textarea>
-      <button onclick="saveBio()">Save Bio</button>
-      <p class="saved-msg" id="savedMsg">✨ Bio saved!</p>
-    </section>
-
-    <section class="quick-stats">
-      <h3>Quick Stats</h3>
-      <ul>
-        <li><strong>Journal Entries:</strong> 12</li>
-        <li><strong>Days Active:</strong> 48</li>
-        <li><strong>Uplifted Others:</strong> 23</li>
-      </ul>
-    </section>
-
-    <section class="quote-section">
-      <blockquote id="quote">"Every storm runs out of rain."</blockquote>
-      <cite id="author">- Maya Angelou</cite>
-    </section>
+    <div id="status" style="text-align: center; margin-top: 20px;"></div>
   </main>
 
-  <footer>
-    <p>Built with ❤️ to inspire and empower.</p>
-  </footer>
-
-  <script src="script.js"></script>
-  <script>
-    // Load saved bio if exists
-    const bioBox = document.getElementById('userBio');
-    const savedMsg = document.getElementById('savedMsg');
-
-    bioBox.value = localStorage.getItem('userBio') || "";
-
-    function saveBio() {
-      localStorage.setItem('userBio', bioBox.value);
-      savedMsg.style.opacity = 1;
-      setTimeout(() => savedMsg.style.opacity = 0, 2000);
-    }
-  </script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="profile.js"></script>
 </body>
 </html>
