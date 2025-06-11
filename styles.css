@@ -1,246 +1,228 @@
-/* Reset + Fonts */
-* {
-  margin: 0;
-  padding: 0;
+/* === Global Reset and Base Styles === */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  background-color: #f9f9f9;
-  color: #222;
+  margin: 0;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
   line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Header & Navigation */
-header {
-  background-color: #ff4081;
-  color: white;
-  padding: 1rem;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-nav a.logo {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.6rem;
-  color: white;
+a {
+  color: #0066ff;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  color: #004bb5;
+  outline: none;
+}
+
+/* === Typography === */
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0 0 0.5em 0;
+  font-weight: 700;
+  color: #222;
+}
+
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: 1.2px;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+p {
+  margin: 0 0 1em 0;
+  font-size: 1rem;
+}
+
+/* === Layout & Containers === */
+header {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav a {
-  color: white;
-  margin-left: 1rem;
-  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 600;
 }
 
-nav a:hover {
-  text-decoration: underline;
+nav a.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0066ff;
 }
 
-nav button {
-  background: linear-gradient(135deg, #ff4081, #ff80ab);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-nav button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.3);
-}
-
-nav button:active {
-  transform: scale(0.95);
-}
-
-/* Forms */
-.form-container {
-  max-width: 400px;
+main {
+  max-width: 900px;
   margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
 }
 
-.form-container h2 {
+/* === Buttons === */
+button, input[type="submit"] {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  border: none;
+  padding: 0.6em 1.4em;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.15s ease;
+  box-shadow: 0 4px 8px rgba(101, 71, 255, 0.3);
   font-family: 'Poppins', sans-serif;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #ff4081;
 }
 
-form label {
-  font-weight: bold;
-  margin-top: 1rem;
-  display: block;
-}
-
-form input,
-form textarea,
-form select {
-  width: 100%;
-  padding: 0.75rem;
-  margin: 0.5rem 0 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-form button {
-  background: linear-gradient(135deg, #ff4081, #ff80ab);
-  color: white;
-  border: none;
-  padding: 0.75rem;
-  width: 100%;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-form button:hover {
+button:hover,
+input[type="submit"]:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
   transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.3);
+  box-shadow: 0 6px 12px rgba(101, 71, 255, 0.5);
 }
 
-form button:active {
-  transform: scale(0.95);
+button:active,
+input[type="submit"]:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(101, 71, 255, 0.2);
 }
 
-/* Post Feed */
-#post-feed {
-  max-width: 700px;
-  margin: 2rem auto;
+/* === Forms === */
+form {
+  background: #fff;
+  padding: 1.8rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  max-width: 400px;
+  margin: 1rem auto 2rem;
 }
 
+input[type="email"],
+input[type="password"],
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.8em 1em;
+  margin: 0.6rem 0 1.2rem 0;
+  border: 1.8px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6a11cb;
+  box-shadow: 0 0 8px #6a11cbaa;
+}
+
+/* === Posts & Profile === */
 .post {
   background: white;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
   margin-bottom: 1.5rem;
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease;
 }
 
-.post .author {
-  font-weight: bold;
-  color: #ff4081;
-}
-
-.post .category {
-  font-size: 0.85rem;
-  color: #777;
+.post:hover {
+  box-shadow: 0 8px 20px rgba(101, 71, 255, 0.3);
 }
 
 .post img {
-  width: 100%;
-  border-radius: 8px;
-  margin-top: 0.5rem;
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 0.6rem;
 }
 
-.likes-comments {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
-  display: flex;
-  gap: 1rem;
-}
-
-button.like-btn,
-button.comment-btn {
-  background: none;
-  border: none;
-  color: #ff4081;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-button.like-btn:hover,
-button.comment-btn:hover {
-  text-decoration: underline;
-  transform: scale(1.1);
-}
-
-button.like-btn:active,
-button.comment-btn:active {
-  transform: scale(0.95);
-}
-
-/* Profile */
 .profile-container {
-  max-width: 800px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.07);
+  max-width: 700px;
   margin: 2rem auto;
-  background: white;
-  border-radius: 10px;
-  padding: 1.5rem;
-}
-
-.profile-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .profile-avatar {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #ff4081;
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border: 3px solid #6a11cb;
+  box-shadow: 0 0 15px #6a11cb55;
 }
 
 .profile-username {
-  font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
-  color: #ff4081;
+  margin-top: 0.8rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4a00e0;
+  letter-spacing: 0.8px;
 }
 
 .profile-bio {
   font-style: italic;
-  color: #555;
+  color: #666;
+  margin-top: 0.4rem;
+  font-size: 1rem;
 }
 
-/* Footer */
-footer {
+/* === Logout Container === */
+.logout-container {
   text-align: center;
-  background: #ff4081;
-  padding: 1rem;
-  color: white;
-  margin-top: auto;
+  padding: 3rem 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-footer a {
-  color: white;
-  text-decoration: underline;
-}
-
-/* Mobile */
+/* === Responsive === */
 @media (max-width: 600px) {
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
+  header nav a {
+    margin-left: 1rem;
+    font-size: 0.9rem;
   }
-
-  .profile-info {
-    flex-direction: column;
-    align-items: center;
+  h1 {
+    font-size: 2rem;
   }
-
-  .profile-avatar {
-    width: 80px;
-    height: 80px;
+  main {
+    margin: 1rem;
+  }
+  form {
+    margin: 1rem;
+    padding: 1.2rem;
   }
 }
+
+/* === Fonts Import === */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap');
