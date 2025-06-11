@@ -7,8 +7,13 @@ function signUp() {
     return;
   }
 
-  // Store in localStorage (temporary, insecure)
-  localStorage.setItem('user_' + username, password);
+  const userData = {
+    password: password,
+    bio: "This is my default bio.",
+    posts: []
+  };
+
+  localStorage.setItem('user_' + username, JSON.stringify(userData));
   alert('Account created! Please log in.');
   window.location.href = 'login.html';
 }
