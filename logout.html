@@ -3,23 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Logout - Speak Louder, Love Harder</title>
+  <title>Logging Out - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script>
-    // Simple logout script - clear session and redirect to homepage
-    window.onload = () => {
-      // Add your logout logic here (e.g. Supabase signOut)
-      // Then redirect:
-      window.location.href = 'index.html';
-    }
-  </script>
 </head>
 <body>
   <main class="logout-container">
     <h1>Logging out...</h1>
-    <p>Please wait.</p>
+    <p>Please wait while we safely log you out.</p>
   </main>
+  
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
 <script src="script.js"></script>
+<script>
+  window.onload = () => logoutUser();
+</script>
 </body>
 </html>
