@@ -24,5 +24,32 @@
   <footer>
     <p>🌐 <a href="https://linktr.ee/rissa.star" target="_blank">My Linktree</a></p>
   </footer>
+  <!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // Supabase client setup
+  const supabase = createClient(
+    "https://rbpjytmoqvwanqgbmhem.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ"
+  );
+
+  // Handle login
+  document.getElementById("login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      alert("Login failed: " + error.message);
+    } else {
+      // Redirect to profile page on success
+      window.location.href = "profile.html";
+    }
+  });
+</script>
 </body>
 </html>
