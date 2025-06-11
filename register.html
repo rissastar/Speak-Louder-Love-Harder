@@ -2,33 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register - Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register – Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="auth-container">
-    <h1>Register</h1>
-    <form id="register-form" autocomplete="off">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required placeholder="you@example.com" />
+  <header>
+    <h1>Speak Louder, Love Harder</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <button onclick="toggleTheme()">Toggle Theme</button>
+    </nav>
+  </header>
 
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required placeholder="Choose a username" />
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required placeholder="Create a password" />
-
-      <label for="passwordConfirm">Confirm Password</label>
-      <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder="Confirm your password" />
-
+  <main>
+    <form id="register-form" class="auth-form">
+      <h2>Create Account</h2>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
       <button type="submit">Register</button>
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+      <p id="register-message"></p>
     </form>
-    <p class="switch-auth">
-      Already have an account? <a href="login.html">Login here</a>
-    </p>
   </main>
-  
-<script src="script.js"></script>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
