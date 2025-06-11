@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,20 +11,32 @@
     <h1>Your Profile</h1>
     <nav>
       <a href="feed.html">Feed</a>
-      <a href="profile.html">Profile</a>
+      <a href="profile.html" aria-current="page">Profile</a>
       <button id="logout-btn">Logout</button>
     </nav>
   </header>
+
   <main>
     <section id="profile-info">
-      <img id="profile-avatar" src="" alt="Your avatar" width="100"/>
-      <h2 id="profile-name"></h2>
-      <p id="profile-email"></p>
+      <div class="avatar-upload">
+        <img id="profile-avatar" src="default-avatar.png" alt="Your avatar" width="120" height="120" />
+        <input type="file" id="avatar-input" accept="image/*" />
+      </div>
+      <div class="profile-details">
+        <label for="display-name">Display Name:</label>
+        <input type="text" id="display-name" placeholder="Your display name" />
+        <p id="profile-email"></p>
+        <button id="save-profile-btn">Save Profile</button>
+        <p id="profile-message"></p>
+      </div>
     </section>
+
     <section id="user-posts">
-      <h3>Your Posts</h3>
+      <h2>Your Posts</h2>
+      <div id="posts-container"></div>
     </section>
   </main>
-  <script src="script.js"></script>
+
+  <script type="module" src="profile-script.js"></script>
 </body>
 </html>
