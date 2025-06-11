@@ -1,145 +1,121 @@
-import { createClient } from '@supabase/supabase-js'
+import { supabase, signIn, signUp, signOut, getUser, onAuthStateChange } from './auth.js'
 
-const supabaseUrl = 'https://ytgrzhtntwzefwjmhgjj.supabase.co'
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
+// UI Elements
+const loginBtn = document.getElementById('login-btn')
+const registerBtn = document.getElementById('register-btn')
+const logoutBtn = document.getElementById('logout-btn')
+const userInfo = document.getElementById('user-info')
+const postForm = document.getElementById('post-form')
+const postContent = document.getElementById('post-content')
+const postTopic = document.getElementById('post-topic')
+const postsContainer = document.getElementById('posts-container')
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
-// Elements
-const createPostBtn = document.getElementById('createPost');
-const postModal = document.getElementById('postModal');
-const cancelPostBtn = document.getElementById('cancelPost');
-const submitPostBtn = document.getElementById('submitPost');
-const postText = document.getElementById('postText');
-const postImage = document.getElementById('postImage');
-const feed = document.getElementById('feed');
-
-// Show modal
-createPostBtn.addEventListener('click', () => {
-  postModal.style.display = 'flex';
-  postText.value = '';
-  postImage.value = '';
-  postText.focus();
-});
-
-// Hide modal - Cancel button
-cancelPostBtn.addEventListener('click', () => {
-  postModal.style.display = 'none';
-});
-
-// Hide modal - Click outside modal content
-window.addEventListener('click', (e) => {
-  if (e.target === postModal) {
-    postModal.style.display = 'none';
-  }
-});
-
-function submitPost() {
-  const postText = document.getElementById("postText").value;
-  const postImage = document.getElementById("postImage").files[0];
-  const user = localStorage.getItem("loggedInUser");
-
-  if (!user) {
-    alert("You must be logged in to post.");
-    return;
-  }
-
-  if (!postText && !postImage) {
-    alert("Please write something or upload an image.");
-    return;
-  }
-
-  const postElement = document.createElement("div");
-  postElement.className = "post";
-
-  const textParagraph = document.createElement("p");
-  textParagraph.textContent = postText;
-  postElement.appendChild(textParagraph);
-
-  if (postImage) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const img = document.createElement("img");
-      img.src = e.target.result;
-      postElement.appendChild(img);
-
-      savePost(user, postText, img.src);
-    };
-    reader.readAsDataURL(postImage);
+// Update UI based on auth state
+async function updateUI() {
+  const user = getUser()
+  if (user) {
+    loginBtn.style.display = 'none'
+    registerBtn.style.display = 'none'
+    logoutBtn.style.display = 'inline-block'
+    userInfo.textContent = `Logged in as: ${user.email}`
+    postForm.style.display = 'block'
+    await loadPosts()
   } else {
-    savePost(user, postText, null);
+    loginBtn.style.display = 'inline-block'
+    registerBtn.style.display = 'inline-block'
+    logoutBtn.style.display = 'none'
+    userInfo.textContent = 'Not logged in'
+    postForm.style.display = 'none'
+    postsContainer.innerHTML = ''
   }
-
-  document.getElementById("postsFeed").prepend(postElement);
-
-  document.getElementById("postText").value = "";
-  document.getElementById("postImage").value = "";
 }
 
-function savePost(user, text, image) {
-  const key = "user_" + user;
-  const userData = JSON.parse(localStorage.getItem(key));
-
-  userData.posts.unshift({ text: text, image: image });
-  localStorage.setItem(key, JSON.stringify(userData));
+// Event Listeners
+loginBtn.onclick = async () => {
+  const email = prompt('Enter your email:')
+  const password = prompt('Enter your password:')
+  try {
+    await signIn(email, password)
+    alert('Logged in!')
+    updateUI()
+  } catch (e) {
+    alert(e.message)
+  }
 }
 
-// Escape HTML helper
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+registerBtn.onclick = async () => {
+  const email = prompt('Enter your email:')
+  const password = prompt('Enter your password:')
+  const username = prompt('Enter your username:')
+  try {
+    await signUp(email, password, username)
+    alert('Registered! Please check your email to confirm.')
+    updateUI()
+  } catch (e) {
+    alert(e.message)
+  }
 }
 
-// Attach like and comment event listeners to a post element
-function attachPostEventListeners(postEl) {
-  const likeBtn = postEl.querySelector('.like-btn');
-  const likeCountSpan = postEl.querySelector('.like-count');
-  const commentBtn = postEl.querySelector('.comment-btn');
-  const commentsSection = postEl.querySelector('.comments-section');
-
-  let liked = false;
-  let likeCount = 0;
-
-  likeBtn.addEventListener('click', () => {
-    liked = !liked;
-    likeCount += liked ? 1 : -1;
-    likeBtn.textContent = liked ? '❤️ Liked' : '♡ Like';
-    likeCountSpan.textContent = likeCount;
-  });
-
-  commentBtn.addEventListener('click', () => {
-    // Prevent multiple comment boxes open at once
-    if (commentsSection.querySelector('textarea')) {
-      return;
-    }
-
-    const commentBox = document.createElement('div');
-    commentBox.innerHTML = `
-      <textarea rows="2" placeholder="Write a comment..." style="width:100%; margin-top:10px;"></textarea>
-      <button>Post Comment</button>
-    `;
-
-    commentsSection.appendChild(commentBox);
-
-    const textarea = commentBox.querySelector('textarea');
-    const postCommentBtn = commentBox.querySelector('button');
-
-    postCommentBtn.addEventListener('click', () => {
-      const commentText = textarea.value.trim();
-      if (!commentText) {
-        alert('Write a comment first');
-        return;
-      }
-
-      const commentEl = document.createElement('div');
-      commentEl.textContent = commentText;
-      commentEl.style.padding = '6px 8px';
-      commentEl.style.marginTop = '6px';
-      commentEl.style.background = '#f1f1f1';
-      commentEl.style.borderRadius = '8px';
-
-      commentsSection.insertBefore(commentEl, commentBox);
-      textarea.value = '';
-    });
-  });
+logoutBtn.onclick = async () => {
+  try {
+    await signOut()
+    alert('Logged out!')
+    updateUI()
+  } catch (e) {
+    alert(e.message)
+  }
 }
+
+postForm.onsubmit = async (e) => {
+  e.preventDefault()
+  const user = getUser()
+  if (!user) {
+    alert('Please log in to post.')
+    return
+  }
+  const content = postContent.value.trim()
+  const topic = postTopic.value
+  if (!content) {
+    alert('Post content cannot be empty.')
+    return
+  }
+  try {
+    const { error } = await supabase.from('posts').insert([{
+      content,
+      topic,
+      user_id: user.id,
+      created_at: new Date().toISOString()
+    }])
+    if (error) throw error
+    postContent.value = ''
+    await loadPosts()
+  } catch (e) {
+    alert(e.message)
+  }
+}
+
+async function loadPosts() {
+  const { data, error } = await supabase.from('posts').select(`
+    *,
+    profiles(username)
+  `).order('created_at', { ascending: false })
+  if (error) {
+    alert(error.message)
+    return
+  }
+  postsContainer.innerHTML = data.map(post => `
+    <div class="post">
+      <p><strong>${post.profiles?.username || 'Anonymous'}</strong> <em>(${post.topic})</em></p>
+      <p>${post.content}</p>
+      <p><small>${new Date(post.created_at).toLocaleString()}</small></p>
+    </div>
+  `).join('')
+}
+
+// Auth state listener
+onAuthStateChange(() => {
+  updateUI()
+})
+
+// Initial UI update
+updateUI()
