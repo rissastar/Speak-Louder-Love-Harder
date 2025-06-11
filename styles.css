@@ -391,3 +391,35 @@ footer a:hover {
     max-width: 480px;
   }
 }
+.profile-label {
+  display: block;
+  font-weight: 700;
+  color: #5a3e99;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+}
+
+.profile-input,
+.profile-textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 2px solid #7b4dff;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #2a1a6d;
+  background-color: #f2f0ff;
+  transition: border-color 0.3s ease;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-input:focus,
+.profile-textarea:focus {
+  outline: none;
+  border-color: #4b00b5;
+  box-shadow: 0 0 10px #7b4dffbb;
+}
+
+.profile-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
