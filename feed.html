@@ -5,42 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Feed - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Speak Louder, Love Harder</h1>
-    <nav>
-      <a href="profile.html">My Profile</a>
-      <button id="logout-btn">Logout</button>
+    <nav class="navbar">
+      <a class="logo" href="index.html">💬 Speak Louder, Love Harder</a>
+      <a href="profile.html">Profile</a>
+      <button id="logout-btn" class="btn-logout">Logout</button>
     </nav>
   </header>
 
-  <main class="feed-container">
-    <section class="post-creator">
-      <textarea id="post-text" placeholder="Share your thoughts..."></textarea>
-      <input type="file" id="post-image" accept="image/*" />
-      <select id="post-category">
-        <option value="Mental Health">Mental Health</option>
-        <option value="Addiction">Addiction</option>
-        <option value="Cystic Fibrosis">Cystic Fibrosis</option>
-        <option value="Affirmations">Affirmations</option>
-        <option value="Stories">Stories</option>
-        <option value="Quotes">Quotes</option>
-        <option value="Worksheets">Worksheets</option>
-      </select>
-      <button id="post-btn">Post</button>
+  <main class="feed-main">
+    <section class="post-creation">
+      <h2>Create a Post</h2>
+      <form id="post-form">
+        <textarea id="post-text" placeholder="What's on your mind?" required></textarea>
+
+        <label for="post-type">Post Type:</label>
+        <select id="post-type" required>
+          <option value="" disabled selected>Select post type</option>
+          <option value="your story">Your Story</option>
+          <option value="post an image">Post an Image</option>
+          <option value="ask a question">Ask a Question</option>
+          <option value="post a worksheet">Post a Worksheet</option>
+          <option value="post a resource">Post a Resource</option>
+          <option value="post a quote">Post a Quote</option>
+          <option value="post an affirmation">Post an Affirmation</option>
+          <option value="post a grounding technique">Post a Grounding Technique</option>
+        </select>
+
+        <label for="post-category">Category:</label>
+        <select id="post-category" required>
+          <option value="" disabled selected>Select category</option>
+          <option value="cystic fibrosis">Cystic Fibrosis</option>
+          <option value="cirrhosis">Cirrhosis</option>
+          <option value="mental health">Mental Health</option>
+          <option value="mental abuse">Mental Abuse</option>
+          <option value="sexual abuse">Sexual Abuse</option>
+          <option value="physical abuse">Physical Abuse</option>
+          <option value="foster children">Foster Children</option>
+          <option value="pitbull love">Pitbull Love</option>
+        </select>
+
+        <label for="post-image">Upload Image (optional):</label>
+        <input type="file" id="post-image" accept="image/*" />
+
+        <button type="submit">Post</button>
+      </form>
     </section>
 
-    <section id="posts">
-      <!-- Posts will be dynamically loaded here -->
+    <section class="feed-posts">
+      <h2>Recent Posts</h2>
+      <div id="posts-container">
+        <!-- Posts will load here -->
+      </div>
     </section>
   </main>
 
   <footer>
-    <p><a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+    <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Find me on Linktree</a></p>
   </footer>
 
-  <script src="script.js" type="module"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
