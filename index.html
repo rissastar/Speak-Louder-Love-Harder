@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
-  
- <header>
-  <h1 class="pulse-glow">Speak Louder, Love Harder</h1>
+  <header>
+    <h1 class="pulse">Speak Louder, Love Harder</h1>
+    <div id="auth-buttons">
+      <a href="login.html" id="loginBtn">Login</a>
+      <a href="register.html" id="registerBtn">Register</a>
+      <a href="logout.html" id="logoutBtn" style="display: none;">Logout</a>
+    </div>
+  </header>
+
   <nav>
     <a href="mental-health.html">Mental Health</a>
     <a href="addiction.html">Addiction</a>
@@ -22,23 +27,36 @@
     <a href="pitbull-love.html">Pitbull Love</a>
     <a href="foster-children.html">Foster Children</a>
   </nav>
-</header>
 
-<main>
-  <section id="auth-buttons" class="centered">
-    <!-- Buttons handled in script.js -->
+  <section class="intro">
+    <h2>Real Stories. Real Healing. Real Love.</h2>
+    <p>This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.</p>
+    <p>Whether you're here to find comfort, share your truth, or support others, you're not alone. Speak louder. Love harder. Heal together.</p>
   </section>
 
-  <div id="user-info" class="centered"></div>
+  <section class="post-composer">
+    <textarea id="postText" placeholder="Share your story..."></textarea>
+    <input type="file" id="postImage" accept="image/*" />
+    <select id="postTopic">
+      <option value="mental-health">Mental Health</option>
+      <option value="addiction">Addiction</option>
+      <option value="cystic-fibrosis">Cystic Fibrosis</option>
+      <option value="cirrhosis">Cirrhosis</option>
+      <option value="physical-abuse">Physical Abuse</option>
+      <option value="mental-abuse">Mental Abuse</option>
+      <option value="sexual-abuse">Sexual Abuse</option>
+      <option value="pitbull-love">Pitbull Love</option>
+      <option value="foster-children">Foster Children</option>
+    </select>
+    <button onclick="submitPost()">Post</button>
+  </section>
 
-  <div id="post-composer" class="composer"></div>
-  <div id="posts-feed" class="feed"></div>
-</main>
+  <section id="feed" class="feed"></section>
 
-<footer>
-  <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
-</footer>
+  <footer>
+    <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
+  </footer>
 
-<script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
