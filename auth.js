@@ -1,28 +1,28 @@
-// ✅ 1. Initialize Supabase
+// ✅ Supabase Initialization
 const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ';
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// ✅ 2. Check if user is logged in on any protected page
+// ✅ Check if user is logged in (for protected pages)
 async function checkSession() {
-  const { data: { user }, error } = await supabase.auth.getUser();
-  if (!user || error) {
-    window.location.href = 'auth.html'; // redirect to login
+  const { data, error } = await supabase.auth.getUser();
+  if (!data?.user || error) {
+    window.location.href = 'auth.html'; // redirect if not logged in
   }
-  return user;
+  return data.user;
 }
 
-// ✅ 3. Logout function
+// ✅ Logout user
 async function logout() {
   await supabase.auth.signOut();
   window.location.href = 'auth.html';
 }
 
-// ✅ 4. Login function
-async function login(email, password, callback) {
+// ✅ Login function
+async function login(email, password) {
   const { error, data } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password
+    email,
+    password
   });
 
   if (error) {
@@ -32,7 +32,7 @@ async function login(email, password, callback) {
   return { success: true, data };
 }
 
-// ✅ 5. Signup function with profile creation
+// ✅ Signup function + profile creation
 async function signup(email, password) {
   const { data, error } = await supabase.auth.signUp({
     email,
