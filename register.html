@@ -2,39 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register - Speak Lou
-
-Here’s your full, final **mobile-first, colorful, Instagram/Twitter/Facebook-style `login.html` and `register.html`** — both fully connected to Supabase with password validation, clean UI, and styled error handling. Includes `auth.css` too.
-
----
-
-## ✅ `login.html`
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Speak Louder, Love Harder</title>
+  <title>Register - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="auth.css">
   <script type="module" src="auth.js" defer></script>
 </head>
 <body>
   <div class="auth-container">
-    <h1>Welcome Back 💜</h1>
-    <p>Log in to connect, share, and speak louder.</p>
+    <h1>Join the Movement 💜</h1>
+    <p>Create an account and add your profile picture in settings!</p>
 
-    <form id="login-form">
+    <form id="register-form">
       <input type="email" id="email" placeholder="Email" required>
       <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Log In</button>
+      <button type="submit">Register</button>
     </form>
 
     <div id="error-message"></div>
 
-    <p class="switch">Don't have an account? <a href="register.html">Register</a></p>
+    <p class="switch">Already have an account? <a href="login.html">Login</a></p>
   </div>
 </body>
 </html>
