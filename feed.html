@@ -5,44 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Feed - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="feed.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script defer src="feed.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
 </head>
 <body>
-  <nav class="top-nav">
-    <h1>Speak Louder</h1>
+  <nav class="topnav">
+    <div class="logo">Speak Louder, Love Harder</div>
+    <div class="topic-nav">
+      <button id="topicToggleBtn" aria-expanded="false">Topics ▼</button>
+      <ul id="topicDropdown" class="dropdown hidden" aria-label="Topics">
+        <li><a href="mental-health.html">Mental Health</a></li>
+        <li><a href="addiction.html">Addiction</a></li>
+        <li><a href="terminal-illness.html">Terminal Illness</a></li>
+        <li><a href="abuse.html">Abuse</a></li>
+        <li><a href="pitbull-love.html">Pitbull Love</a></li>
+        <li><a href="foster-children.html">Foster Children</a></li>
+      </ul>
+    </div>
     <div class="nav-buttons">
-      <button onclick="logout()" title="Logout">🚪</button>
-      <a href="settings.html" title="Settings">⚙️</a>
+      <button id="settingsBtn" aria-label="Settings" title="Settings">⚙️</button>
+      <button id="logoutBtn" aria-label="Logout" title="Logout">🚪</button>
     </div>
   </nav>
 
-  <div id="topicNav" class="topic-nav">
-    <button onclick="toggleTopics()">📂 Topics</button>
-    <div id="topicDropdown" class="dropdown hidden">
-      <a href="mental-health.html">Mental Health</a>
-      <a href="addiction.html">Addiction</a>
-      <a href="terminal-illness.html">Terminal Illness</a>
-      <a href="abuse.html">Abuse</a>
-      <a href="pitbull-love.html">Pitbull Love</a>
-      <a href="foster-children.html">Foster Children</a>
-    </div>
-  </div>
+  <main>
+    <section id="postFormSection">
+      <form id="postForm">
+        <textarea id="postContent" placeholder="What's on your mind?" required maxlength="500"></textarea>
+        <input type="file" id="postImage" accept="image/*" />
+        <img id="imagePreview" alt="Image Preview" class="hidden" />
+        <button type="submit" id="submitPostBtn">Post</button>
+      </form>
+    </section>
 
-  <main id="post-feed"></main>
-
-  <section id="create-post">
-    <textarea id="post-content" placeholder="Share something..."></textarea>
-    <input type="file" id="post-image" accept="image/*" />
-    <button onclick="submitPost()">Post</button>
-  </section>
+    <section id="feedSection">
+      <ul id="postsList" aria-live="polite" aria-relevant="additions"></ul>
+      <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+    </section>
+  </main>
 
   <footer>
-    <a href="worksheets.html">📄 Worksheets</a>
-    <a href="quotes.html">🧠 Quotes</a>
-    <a href="affirmations.html">💜 Affirmations</a>
-    <a href="grounding-techniques.html">🌀 Grounding</a>
-    <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
+    <p>Find me on <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Linktree</a></p>
   </footer>
+
+  <script src="feed.js" defer></script>
 </body>
 </html>
