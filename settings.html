@@ -3,133 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings – Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Settings | Speak Louder, Love Harder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins&display=swap" rel="stylesheet" />
   <style>
-    .nav-toggle {
-      background-color: var(--primary-color);
-      color: #fff;
-      padding: 10px 16px;
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      margin: 1rem;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f0ff;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
-
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      padding: 0 1rem;
+    .settings-container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
+      padding: 2.5rem 2rem;
     }
-
-    .nav-links a {
-      text-decoration: none;
-      padding: 8px 12px;
-      background: var(--secondary-color);
-      color: #000;
-      border-radius: var(--border-radius);
+    h1 {
+      color: #4b00b5;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
       text-align: center;
     }
-
-    .nav-links.show {
+    form {
       display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
     }
-
-    .auth-buttons {
-      display: flex;
-      gap: 1rem;
-      margin: 1rem;
+    label {
+      font-weight: 600;
+      color: #4a2c91;
     }
-
-    .auth-buttons button {
-      padding: 0.5rem 1rem;
-      border-radius: var(--border-radius);
-      border: none;
-      background-color: var(--accent-color);
+    input {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #9c6cff;
+      outline-color: #4b00b5;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+    input:focus {
+      border-color: #4b00b5;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
       color: white;
+      background: linear-gradient(135deg, #7b4dff, #4b00b5);
+      border: none;
+      border-radius: 30px;
       cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .message {
+      margin-top: 1rem;
+      font-weight: 600;
+      text-align: center;
+      color: #4b00b5;
     }
   </style>
 </head>
 <body>
+  <main class="settings-container" role="main" aria-label="Account Settings">
+    <h1>Account Settings</h1>
+    <form id="settingsForm" novalidate>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Your username" required />
 
-<header class="site-header">
-  <div class="site-title">Speak Louder, Love Harder</div>
-  <div class="auth-buttons">
-    <button onclick="location.href='index.html#auth-section'">Login</button>
-    <button onclick="logout()">Logout</button>
-  </div>
-</header>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
 
-<button class="nav-toggle" onclick="toggleNav()">📖 Menu</button>
-<nav>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="guestbook-connect.html">Guestbook & Connect</a></li>
-    <li><a href="mental-health.html">Mental Health</a></li>
-    <li><a href="foster-care.html">Foster Care</a></li>
-    <li><a href="mental-abuse.html">Mental Abuse</a></li>
-    <li><a href="physical-abuse.html">Physical Abuse</a></li>
-    <li><a href="sexual-abuse.html">Sexual Abuse</a></li>
-    <li><a href="cirrhosis.html">Cirrhosis</a></li>
-    <li><a href="cystic-fibrosis.html">Cystic Fibrosis</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-  </ul>
-</nav>
+      <label for="password">New Password</label>
+      <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" />
 
-<main class="settings-page">
-  <section class="settings-form">
-    <h2>🛠️ Edit Your Profile</h2>
+      <label for="confirmPassword">Confirm New Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
 
-    <label for="name">Display Name:</label>
-    <input type="text" id="name" placeholder="Enter your name" />
+      <button type="submit">Save Changes</button>
+    </form>
+    <p class="message" id="message" aria-live="polite"></p>
+  </main>
 
-    <label for="bio">Bio:</label>
-    <textarea id="bio" placeholder="Write something about yourself..."></textarea>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-    <button onclick="saveSettings()">Save</button>
-    <p id="status-msg" class="status-msg"></p>
-  </section>
-</main>
+    const supabase = createClient(
+      'https://ytgrzhtntwzefwjmhgjj.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
+    );
 
-<footer>
-  <p>Built with ❤️ to inspire and empower.</p>
-  <a href="https://linktr.ee/rissa.star" target="_blank" class="linktree-btn" title="Linktree">✨ Visit My Linktree</a>
-</footer>
+    const form = document.getElementById('settingsForm');
+    const messageEl = document.getElementById('message');
 
-<script>
-  // Toggle nav visibility
-  function toggleNav() {
-    document.getElementById("navLinks").classList.toggle("show");
-  }
-
-  // Load saved values
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("name").value = localStorage.getItem("name") || "";
-    document.getElementById("bio").value = localStorage.getItem("bio") || "";
-  });
-
-  function saveSettings() {
-    const name = document.getElementById("name").value.trim();
-    const bio = document.getElementById("bio").value.trim();
-
-    if (!name || !bio) {
-      document.getElementById("status-msg").textContent = "Please fill out both fields.";
-      return;
+    async function loadUserData() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      document.getElementById('username').value = user.user_metadata?.username || '';
+      document.getElementById('email').value = user.email;
     }
 
-    localStorage.setItem("name", name);
-    localStorage.setItem("bio", bio);
-    document.getElementById("status-msg").textContent = "✅ Profile updated!";
-  }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      messageEl.textContent = '';
 
-  function logout() {
-    localStorage.removeItem("loggedInUser");
-    location.href = "index.html";
-  }
-</script>
+      const username = form.username.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
 
+      if (password && password !== confirmPassword) {
+        messageEl.textContent = "Passwords don't match.";
+        messageEl.style.color = 'red';
+        return;
+      }
+
+      // Update profile
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Update email if changed
+      if (email !== user.email) {
+        const { error: emailError } = await supabase.auth.updateUser({ email });
+        if (emailError) {
+          messageEl.textContent = `Email update error: ${emailError.message}`;
+          messageEl.style.color = 'red';
+          return;
+        }
+      }
+
+      // Update password if provided
+      if (password) {
+        const { error: passError } = await supabase.auth.updateUser({ password });
+        if (passError) {
+          messageEl.textContent = `Password update error: ${passError.message}`;
+          messageEl.style.color = 'red';
+          return;
+        }
+      }
+
+      // Update username in user metadata
+      const { error: metaError } = await supabase.auth.updateUser({
+        data: { username }
+      });
+
+      if (metaError) {
+        messageEl.textContent = `Username update error: ${metaError.message}`;
+        messageEl.style.color = 'red';
+        return;
+      }
+
+      messageEl.textContent = "Profile updated successfully!";
+      messageEl.style.color = '#4b00b5';
+      form.password.value = '';
+      form.confirmPassword.value = '';
+    });
+
+    loadUserData();
+  </script>
 </body>
 </html>
