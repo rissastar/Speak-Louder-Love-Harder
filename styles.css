@@ -286,3 +286,50 @@ header, .post, .auth-form, #new-post, .categories .grid a {
 nav a:hover {
   color: var(--accent);
 }
+/* Topic color themes */
+
+body.mental-health {
+  --accent: #e91e63;
+  --button: #e91e63;
+  --button-hover: #c2185b;
+}
+body.addiction {
+  --accent: #4caf50;
+  --button: #4caf50;
+  --button-hover: #388e3c;
+}
+body.cystic-fibrosis {
+  --accent: #2196f3;
+  --button: #2196f3;
+  --button-hover: #1976d2;
+}
+body.cirrhosis {
+  --accent: #ff9800;
+  --button: #ff9800;
+  --button-hover: #f57c00;
+}
+body.physical-abuse {
+  --accent: #9c27b0;
+  --button: #9c27b0;
+  --button-hover: #7b1fa2;
+}
+body.mental-abuse {
+  --accent: #3f51b5;
+  --button: #3f51b5;
+  --button-hover: #303f9f;
+}
+body.sexual-abuse {
+  --accent: #f44336;
+  --button: #f44336;
+  --button-hover: #d32f2f;
+}
+body.pitbull-love {
+  --accent: #795548;
+  --button: #795548;
+  --button-hover: #5d4037;
+}
+body.foster-children {
+  --accent: #00bcd4;
+  --button: #00bcd4;
+  --button-hover: #0097a7;
+}
