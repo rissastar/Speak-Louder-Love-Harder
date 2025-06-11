@@ -1,3 +1,4 @@
+// Existing Supabase initialization...
 const supabase = supabase.createClient(
   'https://ytgrzhtntwzefwjmhgjj.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
@@ -7,11 +8,19 @@ const usernameInput = document.getElementById('username');
 const bioInput = document.getElementById('bio');
 const passwordInput = document.getElementById('new-password');
 const avatarInput = document.getElementById('avatar');
+const avatarPreview = document.getElementById('avatar-preview');
+const currentAvatar = document.getElementById('current-avatar');
 
-const strengthMeter = document.getElementById('strength-meter');
-const strengthText = document.getElementById('strength-text');
+// Show toast message
+function showToast(message, success = true) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.background = success ? '#6d4aff' : '#ff4d4d';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
 
-// Load current user profile
+// Load user data
 (async () => {
   const { data: { user } } = await supabase.auth.getUser();
   const { data, error } = await supabase
@@ -23,15 +32,30 @@ const strengthText = document.getElementById('strength-text');
   if (data) {
     usernameInput.value = data.username || '';
     bioInput.value = data.bio || '';
+
+    if (data.avatar_url) {
+      const { data: avatar } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(data.avatar_url);
+      currentAvatar.src = avatar.publicUrl;
+    }
   }
 })();
 
-// Handle profile updates
+// Image preview
+avatarInput.addEventListener('change', () => {
+  const file = avatarInput.files[0];
+  if (file) {
+    avatarPreview.src = URL.createObjectURL(file);
+  }
+});
+
+// Update form
 document.getElementById('settings-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const { data: { user } } = await supabase.auth.getUser();
 
-  await supabase.from('profiles').update({
+  const { error } = await supabase.from('profiles').update({
     username: usernameInput.value,
     bio: bioInput.value
   }).eq('id', user.id);
@@ -40,10 +64,10 @@ document.getElementById('settings-form').addEventListener('submit', async (e) =>
     await supabase.auth.updateUser({ password: passwordInput.value });
   }
 
-  alert('Profile updated!');
+  showToast('Profile updated!');
 });
 
-// Password strength meter
+// Password strength
 passwordInput.addEventListener('input', () => {
   const value = passwordInput.value;
   let strength = 0;
@@ -57,12 +81,15 @@ passwordInput.addEventListener('input', () => {
   const colors = ['red', 'orange', 'yellow', '#6d4aff', 'green'];
   const labels = ['Very Weak', 'Weak', 'Okay', 'Good', 'Strong'];
 
-  strengthMeter.style.width = `${(strength / 5) * 100}%`;
-  strengthMeter.style.backgroundColor = colors[strength - 1] || 'transparent';
-  strengthText.textContent = labels[strength - 1] || '';
+  const meter = document.getElementById('strength-meter');
+  const text = document.getElementById('strength-text');
+
+  meter.style.width = `${(strength / 5) * 100}%`;
+  meter.style.backgroundColor = colors[strength - 1] || 'transparent';
+  text.textContent = labels[strength - 1] || '';
 });
 
-// Handle avatar upload
+// Upload avatar
 document.getElementById('avatar-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const file = avatarInput.files[0];
@@ -76,41 +103,41 @@ document.getElementById('avatar-form').addEventListener('submit', async (e) => {
     .upload(filePath, file, { upsert: true });
 
   if (uploadError) {
-    alert('Upload failed');
+    showToast('Upload failed!', false);
   } else {
     await supabase
       .from('profiles')
       .update({ avatar_url: filePath })
       .eq('id', user.id);
-    alert('Avatar uploaded!');
+
+    const { data: avatar } = supabase.storage.from('avatars').getPublicUrl(filePath);
+    currentAvatar.src = avatar.publicUrl;
+    showToast('Avatar uploaded!');
   }
 });
 
-// Handle account deletion
+// Delete account
 document.getElementById('delete-account').addEventListener('click', async () => {
-  const password = prompt('Please enter your password to confirm deletion:');
+  const password = prompt('Enter your password to confirm deletion:');
   if (!password) return;
 
   const email = (await supabase.auth.getUser()).data.user.email;
   const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
 
   if (signInError) {
-    alert('Incorrect password');
+    showToast('Incorrect password', false);
     return;
   }
 
   const user = signInData.user;
-
-  // Delete avatar
   const avatarPath = `avatars/${user.id}.jpg`;
+
   await supabase.storage.from('avatars').remove([avatarPath]);
-
-  // Delete profile
   await supabase.from('profiles').delete().eq('id', user.id);
-
-  // Delete user session
   await supabase.auth.signOut();
 
-  alert('Your account has been deleted.');
-  window.location.href = 'register.html';
+  showToast('Account deleted');
+  setTimeout(() => {
+    window.location.href = 'register.html';
+  }, 1500);
 });
