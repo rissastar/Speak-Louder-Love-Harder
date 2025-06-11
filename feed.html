@@ -2,33 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Feed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feed - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1>Feed</h1>
+    <h1>Speak Louder, Love Harder</h1>
     <nav>
-      <a href="feed.html">Feed</a>
-      <a href="profile.html" id="profile-link">Profile</a>
+      <a href="profile.html">My Profile</a>
       <button id="logout-btn">Logout</button>
     </nav>
   </header>
-  <main>
-    <section id="new-post">
-      <textarea id="post-text" placeholder="What's on your mind?" rows="3"></textarea>
+
+  <main class="feed-container">
+    <section class="post-creator">
+      <textarea id="post-text" placeholder="Share your thoughts..."></textarea>
       <input type="file" id="post-image" accept="image/*" />
       <select id="post-category">
-        <option value="">Category…</option>
-        <option>Mental Health</option>
-        <option>Addiction</option>
-        <!-- ...other options... -->
+        <option value="Mental Health">Mental Health</option>
+        <option value="Addiction">Addiction</option>
+        <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+        <option value="Affirmations">Affirmations</option>
+        <option value="Stories">Stories</option>
+        <option value="Quotes">Quotes</option>
+        <option value="Worksheets">Worksheets</option>
       </select>
       <button id="post-btn">Post</button>
     </section>
-    <section id="posts"></section>
+
+    <section id="posts">
+      <!-- Posts will be dynamically loaded here -->
+    </section>
   </main>
-  <script src="script.js"></script>
+
+  <footer>
+    <p><a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
+  </footer>
+
+  <script src="script.js" type="module"></script>
 </body>
 </html>
