@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
-
-<header>
+  
+ <header>
   <h1 class="pulse-glow">Speak Louder, Love Harder</h1>
   <nav>
     <a href="mental-health.html">Mental Health</a>
@@ -24,61 +25,14 @@
 </header>
 
 <main>
-  <!-- Auth Forms Container -->
-<div id="auth-container">
-  <div id="login-form" class="auth-form">
-    <h3>Login</h3>
-    <input type="email" id="login-email" placeholder="Email" required />
-    <input type="password" id="login-password" placeholder="Password" required />
-    <button id="login-submit">Log In</button>
-  </div>
-
-  <div id="register-form" class="auth-form" style="display:none;">
-    <h3>Register</h3>
-    <input type="email" id="register-email" placeholder="Email" required />
-    <input type="password" id="register-password" placeholder="Password (6+ chars)" required />
-    <button id="register-submit">Register</button>
-  </div>
-
-  <p>
-    <a href="#" id="show-register">Don't have an account? Register</a>
-    <a href="#" id="show-login" style="display:none;">Already have an account? Login</a>
-  </p>
-</div>
-
-<!-- User Info and Logout -->
-<div id="user-info" style="display:none;">
-  Logged in as: <span id="user-email"></span>
-  <button id="logout-btn">Logout</button>
-</div>
-
-  <p id="user-info" style="text-align:center; font-weight:600; margin: 1rem;">Not logged in</p>
-
-  <section id="post-section" style="max-width:600px; margin: auto;">
-    <form id="post-form" style="display:none; flex-direction: column;">
-      <label for="post-topic">Choose topic:</label>
-      <select id="post-topic" required>
-        <option value="Mental Health">Mental Health</option>
-        <option value="Addiction">Addiction</option>
-        <option value="Cystic Fibrosis">Cystic Fibrosis</option>
-        <option value="Cirrhosis">Cirrhosis</option>
-        <option value="Physical Abuse">Physical Abuse</option>
-        <option value="Mental Abuse">Mental Abuse</option>
-        <option value="Sexual Abuse">Sexual Abuse</option>
-        <option value="Pitbull Love">Pitbull Love</option>
-        <option value="Foster Children">Foster Children</option>
-        <option value="Worksheets">Worksheets</option>
-        <option value="Quotes">Quotes</option>
-        <option value="Affirmations">Affirmations</option>
-        <option value="Grounding Techniques">Grounding Techniques</option>
-      </select>
-
-      <textarea id="post-content" placeholder="Write your post here..." required></textarea>
-      <button type="submit">Post</button>
-    </form>
+  <section id="auth-buttons" class="centered">
+    <!-- Buttons handled in script.js -->
   </section>
 
-  <section id="posts-container" style="max-width:600px; margin: 2rem auto;"></section>
+  <div id="user-info" class="centered"></div>
+
+  <div id="post-composer" class="composer"></div>
+  <div id="posts-feed" class="feed"></div>
 </main>
 
 <footer>
@@ -86,6 +40,5 @@
 </footer>
 
 <script type="module" src="script.js"></script>
-<script src="auth.js"></script>
 </body>
 </html>
