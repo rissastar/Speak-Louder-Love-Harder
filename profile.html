@@ -3,17 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Profile - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Settings | Speak Louder, Love Harder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f0ff;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .settings-container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
+      padding: 2.5rem 2rem;
+    }
+    h1 {
+      color: #4b00b5;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    label {
+      font-weight: 600;
+      color: #4a2c91;
+    }
+    input {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #9c6cff;
+      outline-color: #4b00b5;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+    input:focus {
+      border-color: #4b00b5;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #7b4dff, #4b00b5);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .message {
+      margin-top: 1rem;
+      font-weight: 600;
+      text-align: center;
+      color: #4b00b5;
+    }
+  </style>
 </head>
-<body>
-  <header>
-    <nav class="navbar">
-      <a class="logo" href="index.html">💬 Speak Louder, Love Harder</a>
-      <a href="feed.html">Feed</a>
-      <button id="logout-btn" class="btn-logout">Logout</button>
-    </nav>
-    <nav class="dropdown-nav">
+
+  <nav class="dropdown-nav">
   <div class="dropdown">
     <button class="dropbtn">Topics ▼</button>
     <div class="dropdown-content">
@@ -28,28 +90,109 @@
       <a href="foster-children.html">Foster Children</a>
   </div>
 </nav>
-  </header>
 
-  <main class="profile-container">
-    <section class="profile-info">
-      <img id="profile-avatar" src="https://via.placeholder.com/100?text=Avatar" alt="User Avatar" class="profile-avatar" />
-      <h2 id="profile-name">Loading...</h2>
-      <p id="profile-email"></p>
-      <p id="profile-bio">No bio set yet.</p>
-    </section>
+<body>
+  <main class="settings-container" role="main" aria-label="Account Settings">
+    <h1>Account Settings</h1>
+    <form id="settingsForm" novalidate>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Your username" required />
 
-    <section class="profile-posts">
-      <h3>Your Posts</h3>
-      <div id="user-posts">
-        <!-- User's posts loaded here -->
-      </div>
-    </section>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+      <label for="password">New Password</label>
+      <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" />
+
+      <label for="confirmPassword">Confirm New Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
+
+      <button type="submit">Save Changes</button>
+    </form>
+    <p class="message" id="message" aria-live="polite"></p>
   </main>
 
-  <footer>
-    <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Find me on Linktree</a></p>
-  </footer>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js';
 
-  <script type="module" src="script.js"></script>
+    const supabase = createClient(
+      'https://ytgrzhtntwzefwjmhgjj.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
+    );
+
+    const form = document.getElementById('settingsForm');
+    const messageEl = document.getElementById('message');
+
+    async function loadUserData() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      document.getElementById('username').value = user.user_metadata?.username || '';
+      document.getElementById('email').value = user.email;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      messageEl.textContent = '';
+
+      const username = form.username.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
+
+      if (password && password !== confirmPassword) {
+        messageEl.textContent = "Passwords don't match.";
+        messageEl.style.color = 'red';
+        return;
+      }
+
+      // Update profile
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Update email if changed
+      if (email !== user.email) {
+        const { error: emailError } = await supabase.auth.updateUser({ email });
+        if (emailError) {
+          messageEl.textContent = `Email update error: ${emailError.message}`;
+          messageEl.style.color = 'red';
+          return;
+        }
+      }
+
+      // Update password if provided
+      if (password) {
+        const { error: passError } = await supabase.auth.updateUser({ password });
+        if (passError) {
+          messageEl.textContent = `Password update error: ${passError.message}`;
+          messageEl.style.color = 'red';
+          return;
+        }
+      }
+
+      // Update username in user metadata
+      const { error: metaError } = await supabase.auth.updateUser({
+        data: { username }
+      });
+
+      if (metaError) {
+        messageEl.textContent = `Username update error: ${metaError.message}`;
+        messageEl.style.color = 'red';
+        return;
+      }
+
+      messageEl.textContent = "Profile updated successfully!";
+      messageEl.style.color = '#4b00b5';
+      form.password.value = '';
+      form.confirmPassword.value = '';
+    });
+
+    loadUserData();
+  </script>
 </body>
 </html>
