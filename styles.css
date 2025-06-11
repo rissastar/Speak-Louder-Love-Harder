@@ -1,74 +1,88 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f0f2f5;
-  margin: 0; padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: #fafafa;
+  margin: 0;
+  padding: 0;
   color: #333;
 }
+
 header {
-  background: #ff4757;
+  background: #ff69b4;
   color: white;
+  padding: 20px;
   text-align: center;
-  padding: 1rem;
 }
-nav a {
-  margin: 0 0.5rem;
-  color: #fff;
+
+header h1.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { text-shadow: 0 0 5px #fff; }
+  50% { text-shadow: 0 0 20px #ff69b4; }
+  100% { text-shadow: 0 0 5px #fff; }
+}
+
+#auth-buttons a {
+  margin: 0 10px;
+  color: white;
   text-decoration: none;
 }
-.centered {
-  max-width: 360px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  text-align: center;
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: #eee;
+  padding: 10px;
 }
-.auth-form, .composer {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #ccc;
+
+nav a {
+  margin: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
 }
-.auth-form input,
-.composer input,
-.composer textarea,
-.composer select,
-.auth-form button,
-.composer button {
+
+.intro {
+  padding: 20px;
+  background: #fff;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.post-composer {
+  background: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+textarea {
   width: 100%;
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  font-size: 1rem;
+  height: 80px;
+  margin-bottom: 10px;
 }
-.composer textarea {
-  min-height: 100px;
-  resize: vertical;
+
+select, input[type="file"], button {
+  display: block;
+  margin-top: 10px;
 }
-.auth-form button, .composer button {
-  background: #ff6b81;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
+
+.feed {
+  padding: 20px;
 }
-.auth-form button:hover, .composer button:hover {
-  background: #ff4757;
+
+.post {
+  background: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
 }
-.feed .post {
-  background: white;
-  margin: 0.5rem auto;
-  padding: 0.75rem;
-  border-radius: 6px;
-  box-shadow: 0 0 5px #bbb;
-  max-width: 600px;
-}
-.pulse-glow {
-  font-size: 2.5rem;
-  animation: pulse 2.5s infinite;
-  text-shadow:
-    0 0 10px #ff6b81,
-    0 0 20px #ff6b81,
-    0 0 30px #ff4757;
-}
-@keyframes pulse {
-  0%,100% { text-shadow: 0 0 10px #ff6b81; }
-  50% { text-shadow: 0 0 20px #ff9aa2; }
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #f0f0f0;
 }
