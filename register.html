@@ -3,29 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register - Speak Louder, Love Harder</title>
+  <title>Register | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .register-container {
+      max-width: 420px;
+      margin: 5rem auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .register-container h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+      color: #4b00b5;
+    }
+
+    .register-container input[type="email"],
+    .register-container input[type="password"],
+    .register-container input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0 20px;
+      border: 2px solid #d4c1ff;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #f8f4ff;
+      color: #3a0ca3;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #7b4dff, #4b00b5);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .register-container button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #4b00b5, #7b4dff);
+    }
+
+    .register-container p {
+      margin-top: 1.5rem;
+      color: #4a2c91;
+      font-size: 1rem;
+    }
+
+    .register-container a {
+      font-weight: 700;
+      color: #7b4dff;
+    }
+
+    .register-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">💜 Speak Louder, Love Harder</a>
-    </nav>
-  </header>
-
-  <main>
+  <div class="register-container">
+    <h2>Create Your Account 💜</h2>
     <form id="register-form">
-      <h2>Register</h2>
-      <input type="text" placeholder="Username" required />
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
-      <input type="submit" value="Sign Up" />
-      <p>Already have an account? <a href="login.html">Login here</a>.</p>
+      <input type="text" id="username" placeholder="Username" required minlength="3" maxlength="20" />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password (min 6 characters)" required minlength="6" />
+      <button type="submit">Register</button>
     </form>
-  </main>
+    <p>Already have an account? <a href="login.html">Log In</a></p>
+  </div>
 
-  <footer>
-    <p>🌐 <a href="https://linktr.ee/rissa.star" target="_blank">My Linktree</a></p>
-  </footer>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+    const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ'
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const form = document.getElementById('register-form')
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const username = document.getElementById('username').value.trim()
+      const email = document.getElementById('email').value.trim()
+      const password = document.getElementById('password').value
+
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters.')
+        return
+      }
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      }, {
+        data: { username }
+      })
+
+      if (error) {
+        alert('Registration failed: ' + error.message)
+      } else {
+        alert('Registration successful! Redirecting to your profile...')
+        window.location.href = 'profile.html'
+      }
+    })
+  </script>
 </body>
 </html>
