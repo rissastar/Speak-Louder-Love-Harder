@@ -1,0 +1,56 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f2f0ff; color: #2a1a6d;
+  max-width: 600px; margin: auto; padding: 10px;
+}
+
+.header {
+  background: #7e57c2; padding: 10px 15px;
+  display: flex; justify-content: space-between;
+  align-items: center; color: white; border-radius: 10px;
+}
+.header h1 { font-size: 18px; }
+.header-icons a {
+  color: white; font-size: 18px; margin-left: 10px;
+}
+
+.topic-toggle { text-align: center; margin: 15px 0; }
+.topic-toggle button {
+  background: #6c2bd9; color: white; padding: 10px 15px;
+  font-size: 14px; border: none; border-radius: 8px;
+}
+.topic-nav {
+  display: none; flex-direction: column;
+  background: #e4d5ff; border-radius: 10px; padding: 10px;
+}
+.topic-nav a {
+  padding: 10px; margin: 5px 0;
+  text-decoration: none; color: #452475;
+  background: white; border-radius: 6px; font-weight: 600;
+}
+.topic-nav.hidden { display: none; }
+.topic-nav:not(.hidden) { display: flex; }
+
+.topic-content {
+  margin: 20px 0; text-align: center;
+}
+.topic-content p {
+  font-size: 15px; margin-bottom: 10px;
+}
+.topic-links {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.topic-links a {
+  background: #9575cd; color: white;
+  padding: 12px; border-radius: 8px;
+  font-weight: 600; text-decoration: none;
+}
+
+.footer {
+  text-align: center; margin: 30px 0 10px;
+}
+.footer a {
+  text-decoration: none; color: #7e57c2; font-weight: bold;
+}
+.footer i { margin-right: 6px; }
