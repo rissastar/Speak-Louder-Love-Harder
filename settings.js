@@ -1,111 +1,116 @@
-// js/settings.js
-
 const supabase = supabase.createClient(
-  'https://zgjfbbfnldxlvzstnfzy.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU'
+  'https://ytgrzhtntwzefwjmhgjj.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
 );
 
-const avatarPreview = document.getElementById('avatar-preview');
-const avatarUpload = document.getElementById('avatar-upload');
 const usernameInput = document.getElementById('username');
 const bioInput = document.getElementById('bio');
-const settingsForm = document.getElementById('settings-form');
+const passwordInput = document.getElementById('new-password');
+const avatarInput = document.getElementById('avatar');
 
-let avatarUrl = null;
+const strengthMeter = document.getElementById('strength-meter');
+const strengthText = document.getElementById('strength-text');
 
-// Load current user profile info
-async function loadProfile() {
-  const user = supabase.auth.getUser();
-  const session = await supabase.auth.getSession();
+// Load current user profile
+(async () => {
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single();
 
-  if (!session.data.session) {
-    // Not logged in, redirect to login page
-    window.location.href = 'login.html';
+  if (data) {
+    usernameInput.value = data.username || '';
+    bioInput.value = data.bio || '';
+  }
+})();
+
+// Handle profile updates
+document.getElementById('settings-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  await supabase.from('profiles').update({
+    username: usernameInput.value,
+    bio: bioInput.value
+  }).eq('id', user.id);
+
+  if (passwordInput.value.length >= 6) {
+    await supabase.auth.updateUser({ password: passwordInput.value });
+  }
+
+  alert('Profile updated!');
+});
+
+// Password strength meter
+passwordInput.addEventListener('input', () => {
+  const value = passwordInput.value;
+  let strength = 0;
+
+  if (value.length > 5) strength++;
+  if (value.length > 8) strength++;
+  if (/[A-Z]/.test(value)) strength++;
+  if (/[0-9]/.test(value)) strength++;
+  if (/[\W]/.test(value)) strength++;
+
+  const colors = ['red', 'orange', 'yellow', '#6d4aff', 'green'];
+  const labels = ['Very Weak', 'Weak', 'Okay', 'Good', 'Strong'];
+
+  strengthMeter.style.width = `${(strength / 5) * 100}%`;
+  strengthMeter.style.backgroundColor = colors[strength - 1] || 'transparent';
+  strengthText.textContent = labels[strength - 1] || '';
+});
+
+// Handle avatar upload
+document.getElementById('avatar-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const file = avatarInput.files[0];
+  if (!file) return;
+
+  const { data: { user } } = await supabase.auth.getUser();
+  const filePath = `avatars/${user.id}.jpg`;
+
+  const { error: uploadError } = await supabase.storage
+    .from('avatars')
+    .upload(filePath, file, { upsert: true });
+
+  if (uploadError) {
+    alert('Upload failed');
+  } else {
+    await supabase
+      .from('profiles')
+      .update({ avatar_url: filePath })
+      .eq('id', user.id);
+    alert('Avatar uploaded!');
+  }
+});
+
+// Handle account deletion
+document.getElementById('delete-account').addEventListener('click', async () => {
+  const password = prompt('Please enter your password to confirm deletion:');
+  if (!password) return;
+
+  const email = (await supabase.auth.getUser()).data.user.email;
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (signInError) {
+    alert('Incorrect password');
     return;
   }
 
-  const userId = session.data.session.user.id;
+  const user = signInData.user;
 
-  // Fetch profile data from 'profiles' table
-  let { data, error } = await supabase
-    .from('profiles')
-    .select('username, bio, avatar_url')
-    .eq('id', userId)
-    .single();
+  // Delete avatar
+  const avatarPath = `avatars/${user.id}.jpg`;
+  await supabase.storage.from('avatars').remove([avatarPath]);
 
-  if (error && error.code !== 'PGRST116') {
-    alert('Error loading profile: ' + error.message);
-  } else if (data) {
-    usernameInput.value = data.username || '';
-    bioInput.value = data.bio || '';
-    avatarUrl = data.avatar_url || null;
-    if (avatarUrl) {
-      avatarPreview.src = avatarUrl;
-    }
-  }
-}
+  // Delete profile
+  await supabase.from('profiles').delete().eq('id', user.id);
 
-// Upload avatar image and return public URL
-async function uploadAvatar(file) {
-  try {
-    const session = await supabase.auth.getSession();
-    const userId = session.data.session.user.id;
-    const fileExt = file.name.split('.').pop();
-    const filePath = `${userId}/avatar.${fileExt}`;
+  // Delete user session
+  await supabase.auth.signOut();
 
-    // Upload to storage bucket "avatars"
-    let { error: uploadError } = await supabase.storage
-      .from('avatars')
-      .upload(filePath, file, { upsert: true });
-
-    if (uploadError) throw uploadError;
-
-    // Get public URL
-    const { data } = supabase.storage.from('avatars').getPublicUrl(filePath);
-    return data.publicUrl;
-  } catch (error) {
-    alert('Avatar upload failed: ' + error.message);
-    return null;
-  }
-}
-
-// Handle avatar file selection
-avatarUpload.addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  // Show preview immediately
-  avatarPreview.src = URL.createObjectURL(file);
-
-  // Upload file and get URL
-  const publicUrl = await uploadAvatar(file);
-  if (publicUrl) avatarUrl = publicUrl;
+  alert('Your account has been deleted.');
+  window.location.href = 'register.html';
 });
-
-// Handle form submission
-settingsForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const session = await supabase.auth.getSession();
-  const userId = session.data.session.user.id;
-
-  const updates = {
-    id: userId,
-    username: usernameInput.value,
-    bio: bioInput.value,
-    avatar_url: avatarUrl,
-    updated_at: new Date().toISOString(),
-  };
-
-  const { error } = await supabase.from('profiles').upsert(updates);
-
-  if (error) {
-    alert('Failed to update profile: ' + error.message);
-  } else {
-    alert('Profile updated successfully!');
-    // Optionally reload or redirect
-  }
-});
-
-// Initialize page by loading profile info
-loadProfile();
