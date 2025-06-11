@@ -41,3 +41,22 @@ async function updateProfile() {
 
 loadProfile();
 window.updateProfile = updateProfile;
+
+const avatarFile = document.getElementById('avatar').files[0];
+let avatar_url = null;
+
+if (avatarFile) {
+  const fileExt = avatarFile.name.split('.').pop();
+  const filePath = `${user.id}.${fileExt}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from('avatars')
+    .upload(filePath, avatarFile, { upsert: true });
+
+  if (uploadError) {
+    document.getElementById('status').textContent = 'Upload failed';
+    return;
+  }
+
+  avatar_url = `https://rbpjytmoqvwanqgbmhem.supabase.co/storage/v1/object/public/avatars/${filePath}`;
+}
