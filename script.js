@@ -1,66 +1,117 @@
 const SUPABASE_URL = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8';
-
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZWZfYW5vbiIsImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-document.addEventListener('DOMContentLoaded', async () => {
+// Utility
+async function getUser() {
   const { data: { user } } = await supabase.auth.getUser();
-  if (user) {
-    document.getElementById('loginBtn')?.remove();
-    document.getElementById('registerBtn')?.remove();
-    document.getElementById('logoutBtn').style.display = 'inline';
-  }
+  return user;
+}
 
+// DOM Elements
+const composer = document.getElementById('post-composer');
+const feed = document.getElementById('feed');
+const authButtons = document.getElementById('auth-buttons');
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+
+// Setup Page
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await getUser();
+  loginBtn.style.display = user ? 'none' : 'inline-block';
+  registerBtn.style.display = user ? 'none' : 'inline-block';
+  logoutBtn.style.display = user ? 'inline-block' : 'none';
+
+  buildComposer(user);
   loadFeed();
+
+  document.querySelectorAll('nav a').forEach(link => {
+    link.onclick = e => {
+      e.preventDefault();
+      loadFeed(link.dataset.topic);
+    };
+  });
 });
 
-async function submitPost() {
-  const textarea = document.getElementById('postText');
-  const topic = document.getElementById('postTopic').value;
-  const imageInput = document.getElementById('postImage');
-  const text = textarea.value;
-
-  const user = (await supabase.auth.getUser()).data.user;
-  if (!user) return alert("Please log in to post.");
-
-  let imageUrl = null;
-  if (imageInput.files.length > 0) {
-    const file = imageInput.files[0];
-    const { data, error } = await supabase.storage.from('images').upload(`public/${Date.now()}-${file.name}`, file);
-    if (error) return alert("Image upload failed.");
-    imageUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${data.path}`;
+// Build Composer
+function buildComposer(user) {
+  if (!user) {
+    composer.innerHTML = `<p>Please <a href="login.html">login</a> to post.</p>`;
+    return;
   }
-
-  const { error } = await supabase.from('posts').insert({
-    user_id: user.id,
-    content: text,
-    topic,
-    image_url: imageUrl
-  });
-
-  if (error) {
-    alert("Post failed.");
-  } else {
-    textarea.value = '';
-    imageInput.value = '';
-    loadFeed();
-  }
+  composer.innerHTML = `
+    <select id="postType">
+      <option value="story">Story</option>
+      <option value="quote">Quote</option>
+      <option value="affirmation">Affirmation</option>
+      <option value="worksheet">Worksheet</option>
+      <option value="grounding">Grounding Technique</option>
+    </select>
+    <select id="postCategory">
+      <option value="mental-health">Mental Health</option>
+      <option value="addiction">Addiction</option>
+      <option value="cystic-fibrosis">Cystic Fibrosis</option>
+      <option value="cirrhosis">Cirrhosis</option>
+      <option value="physical-abuse">Physical Abuse</option>
+      <option value="mental-abuse">Mental Abuse</option>
+      <option value="sexual-abuse">Sexual Abuse</option>
+      <option value="pitbull-love">Pitbull Love</option>
+      <option value="foster-children">Foster Children</option>
+    </select>
+    <textarea id="postContent" placeholder="Write something..."></textarea>
+    <input type="file" id="postImage" accept="image/*" />
+    <button id="submitPost">Post</button>
+  `;
+  document.getElementById('submitPost').onclick = handlePost;
 }
 
-async function loadFeed() {
-  const { data: posts } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
-  const feed = document.getElementById('feed');
-  feed.innerHTML = '';
+// Handle Post
+async function handlePost() {
+  const user = await getUser();
+  if (!user) return alert('Log in to post.');
 
-  posts.forEach(post => {
-    const div = document.createElement('div');
-    div.className = 'post';
-    div.innerHTML = `
-      <p><strong>Topic:</strong> ${post.topic}</p>
+  const type = document.getElementById('postType').value;
+  const category = document.getElementById('postCategory').value;
+  const content = document.getElementById('postContent').value.trim();
+  const file = document.getElementById('postImage').files[0];
+
+  if (!content) return alert('Please add content.');
+
+  let image_url = null;
+  if (file) {
+    const path = `images/${Date.now()}_${file.name}`;
+    const { data, error } = await supabase.storage.from('uploads').upload(path, file);
+    if (error) return alert('Upload failed.');
+    image_url = `${SUPABASE_URL}/storage/v1/object/public/uploads/${path}`;
+  }
+
+  const { error } = await supabase.from('posts').insert([{ user_id: user.id, content, post_type: type, category, image_url }]);
+  if (error) return alert('Failed to post.');
+
+  document.getElementById('postContent').value = '';
+  document.getElementById('postImage').value = '';
+  loadFeed();
+}
+
+// Load Feed
+async function loadFeed(topic = null) {
+  const query = supabase.from('posts').select('*, profiles(username)').order('created_at', { ascending: false });
+  if (topic) query.eq('category', topic);
+  const { data } = await query;
+  
+  feed.innerHTML = data.length ? data.map(post => `
+    <div class="post">
+      <h3>${post.post_type} • ${post.category.replace('-', ' ')}</h3>
+      <p><strong>${post.profiles?.username || 'Anon'}</strong> – ${new Date(post.created_at).toLocaleString()}</p>
       <p>${post.content}</p>
-      ${post.image_url ? `<img src="${post.image_url}" style="max-width: 100%;">` : ''}
-      <p><small>${new Date(post.created_at).toLocaleString()}</small></p>
-    `;
-    feed.appendChild(div);
-  });
+      ${post.image_url ? `<img src="${post.image_url}" alt="Post image">` : ''}
+    </div>
+  `).join('') : '<p>No posts here yet.</p>';
 }
+
+// Logout
+logoutBtn.onclick = async () => {
+  await supabase.auth.signOut();
+  window.location.reload();
+};
