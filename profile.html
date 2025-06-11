@@ -2,67 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Profile - Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1>Your Profile</h1>
-    <nav>
+    <nav class="navbar">
+      <a class="logo" href="index.html">💬 Speak Louder, Love Harder</a>
       <a href="feed.html">Feed</a>
-      <a href="profile.html">Profile</a>
-      <button id="logout-btn">Logout</button>
+      <button id="logout-btn" class="btn-logout">Logout</button>
     </nav>
   </header>
 
-  <main>
-    <section id="profile-info">
-      <img id="profile-avatar" src="default-avatar.png" alt="Your avatar" width="100"/>
-      <h2 id="profile-name"></h2>
+  <main class="profile-container">
+    <section class="profile-info">
+      <img id="profile-avatar" src="https://via.placeholder.com/100?text=Avatar" alt="User Avatar" class="profile-avatar" />
+      <h2 id="profile-name">Loading...</h2>
       <p id="profile-email"></p>
+      <p id="profile-bio">No bio set yet.</p>
     </section>
 
-    <section id="create-post">
-      <h3>Create a New Post</h3>
-      <textarea id="post-text" placeholder="Write something..." required></textarea>
-
-      <label for="post-type">Post Type:</label>
-      <select id="post-type" required>
-        <option value="">Select type</option>
-        <option value="your_story">Your Story</option>
-        <option value="post_image">Post an Image</option>
-        <option value="ask_question">Ask a Question</option>
-        <option value="post_worksheet">Post a Worksheet</option>
-        <option value="post_resource">Post a Resource</option>
-        <option value="post_quote">Post a Quote</option>
-        <option value="post_affirmation">Post an Affirmation</option>
-        <option value="post_grounding">Post a Grounding Technique</option>
-      </select>
-
-      <label for="post-category">Topic:</label>
-      <select id="post-category" required>
-        <option value="">Select a topic</option>
-        <option value="cystic_fibrosis">Cystic Fibrosis</option>
-        <option value="cirrhosis">Cirrhosis</option>
-        <option value="mental_health">Mental Health</option>
-        <option value="mental_abuse">Mental Abuse</option>
-        <option value="sexual_abuse">Sexual Abuse</option>
-        <option value="physical_abuse">Physical Abuse</option>
-        <option value="foster_children">Foster Children</option>
-        <option value="pitbull_love">Pitbull Love</option>
-      </select>
-
-      <input type="file" id="post-image" accept="image/*" />
-      <button id="post-btn">Post</button>
-    </section>
-
-    <section id="user-posts">
+    <section class="profile-posts">
       <h3>Your Posts</h3>
-      <!-- User's posts will be loaded here -->
+      <div id="user-posts">
+        <!-- User's posts loaded here -->
+      </div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <footer>
+    <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Find me on Linktree</a></p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
