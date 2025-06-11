@@ -3,35 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grounding Techniques - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="css/topics.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <title>Grounding - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="css/grounding.css" />
 </head>
 <body>
-
-  <header class="header">
-    <div class="header-title">Grounding</div>
-    <div class="header-icons">
-      <a href="feed.html"><i class="fas fa-home"></i></a>
-      <a href="settings.html"><i class="fas fa-cog"></i></a>
-    </div>
+  <header>
+    <h1>🧘 Grounding Techniques</h1>
+    <nav>
+      <button onclick="location.href='feed.html'">🏠</button>
+      <button onclick="location.href='profile.html'">👤</button>
+      <button onclick="location.href='settings.html'">⚙️</button>
+      <button onclick="location.href='logout.html'">🚪</button>
+    </nav>
   </header>
 
-  <main class="content">
-    <h2>Practice Staying Present</h2>
-    <ul style="color: #00695c; font-weight: 500;">
-      <li>🌿 5-4-3-2-1 Senses Exercise</li>
-      <li>🌬️ Deep breathing with your hand on your chest</li>
-      <li>🧊 Hold an ice cube and describe the sensation</li>
-      <li>🧍 Stand barefoot and focus on your weight</li>
-    </ul>
+  <main>
+    <textarea id="groundingInput" placeholder="Share a grounding technique..."></textarea>
+    <button onclick="submitGrounding()">Share ✨</button>
+    <ul id="groundingFeed"></ul>
   </main>
 
-  <footer class="footer">
-    <a href="https://linktr.ee/rissa.star" target="_blank">
-      <i class="fas fa-link"></i> Linktree
-    </a>
+  <footer>
+    <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
   </footer>
 
+  <script type="module" src="js/grounding.js"></script>
 </body>
 </html>
