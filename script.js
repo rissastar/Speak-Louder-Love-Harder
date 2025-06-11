@@ -274,3 +274,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+const supabase = createClient(
+  'https://ytgrzhtntwzefwjmhgjj.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
+)
+
+const fileInput = document.getElementById('file-input')
+const uploadBtn = document.getElementById('upload-btn')
+const profilePic = document.getElementById('profile-pic')
+
+// Fake user ID (replace with real Supabase auth user ID)
+const userId = 'user123' 
+
+uploadBtn.addEventListener('click', async () => {
+  const file = fileInput.files[0]
+  if (!file) return alert('Please select a file.')
+
+  const fileName = `${userId}/avatar.jpg`
+
+  // Upload to Supabase Storage
+  const { error: uploadError } = await supabase
+    .storage
+    .from('profile-pictures')
+    .upload(fileName, file, { upsert: true })
+
+  if (uploadError) {
+    console.error(uploadError)
+    return alert('Upload failed.')
+  }
+
+  // Get the public URL
+  const { data } = supabase
+    .storage
+    .from('profile-pictures')
+    .getPublicUrl(fileName)
+
+  profilePic.src = data.publicUrl
+  alert('Profile picture updated!')
+})
