@@ -248,3 +248,41 @@ section {
     font-size: 1.5rem;
   }
 }
+/* THEME STYLES */
+:root {
+  --bg: #f0f2f5;
+  --text: #333;
+  --card: #fff;
+  --accent: #e91e63;
+  --button: #6200ea;
+  --button-hover: #5e35b1;
+}
+
+[data-theme='dark'] {
+  --bg: #121212;
+  --text: #eee;
+  --card: #1e1e1e;
+  --accent: #ff4081;
+  --button: #bb86fc;
+  --button-hover: #9b67d5;
+}
+
+/* Use theme variables */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+header, .post, .auth-form, #new-post, .categories .grid a {
+  background: var(--card);
+  color: var(--text);
+}
+.post button, .btn, #new-post button {
+  background: var(--button);
+  color: white;
+}
+.post button:hover, .btn:hover, #new-post button:hover {
+  background: var(--button-hover);
+}
+nav a:hover {
+  color: var(--accent);
+}
