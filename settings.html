@@ -3,179 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings | Speak Louder, Love Harder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f5f0ff;
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    .settings-container {
-      max-width: 600px;
-      width: 100%;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
-      padding: 2.5rem 2rem;
-    }
-    h1 {
-      color: #4b00b5;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-    label {
-      font-weight: 600;
-      color: #4a2c91;
-    }
-    input {
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      border: 2px solid #9c6cff;
-      outline-color: #4b00b5;
-      font-family: 'Poppins', sans-serif;
-      transition: border-color 0.3s ease;
-    }
-    input:focus {
-      border-color: #4b00b5;
-    }
-    button {
-      margin-top: 1.5rem;
-      padding: 12px 0;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: white;
-      background: linear-gradient(135deg, #7b4dff, #4b00b5);
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    button:hover {
-      transform: scale(1.05);
-    }
-    .message {
-      margin-top: 1rem;
-      font-weight: 600;
-      text-align: center;
-      color: #4b00b5;
-    }
-  </style>
+  <title>Settings - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="settings-container" role="main" aria-label="Account Settings">
-    <h1>Account Settings</h1>
-    <form id="settingsForm" novalidate>
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Your username" required />
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+<header class="sticky-header">
+  <div class="logo">Speak Louder, Love Harder</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="settings.html" aria-current="page" class="btn-nav">Settings</a>
+  </nav>
+</header>
 
-      <label for="password">New Password</label>
-      <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" />
+<main>
+  <section class="profile-card" style="max-width: 480px; margin: 2rem auto; padding: 2rem;">
+    <h1 class="profile-username">Account Settings</h1>
 
-      <label for="confirmPassword">Confirm New Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
+    <form id="settings-form" novalidate style="margin-top: 1.5rem;">
+      <div class="profile-picture-container" style="margin-bottom: 1.5rem; text-align: center;">
+        <img
+          id="profile-picture-preview"
+          src="https://via.placeholder.com/160/7b4dff/fff?text=Profile+Pic"
+          alt="Profile Picture Preview"
+          tabindex="0"
+          style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; cursor: pointer; box-shadow: 0 0 15px #7b4dffbb;"
+          aria-describedby="profile-pic-desc"
+        />
+        <small id="profile-pic-desc" style="display: block; margin-top: 0.3rem; color: #6c55cc;">
+          Click or press Enter to change profile picture
+        </small>
+        <input type="file" id="profile-picture-input" accept="image/*" hidden />
+      </div>
 
-      <button type="submit">Save Changes</button>
+      <label for="username" class="profile-label">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Enter your username"
+        maxlength="30"
+        required
+        aria-required="true"
+        class="profile-input"
+      />
+
+      <label for="bio" class="profile-label" style="margin-top: 1rem;">Bio / About Me</label>
+      <textarea
+        id="bio"
+        name="bio"
+        placeholder="Tell us a little about yourself..."
+        rows="4"
+        maxlength="280"
+        class="profile-textarea"
+      ></textarea>
+
+      <fieldset style="border: 1px solid #7b4dff; border-radius: 8px; margin-top: 2rem; padding: 1rem;">
+        <legend style="color: #7b4dff; font-weight: 700;">Change Password</legend>
+
+        <label for="current-password" class="profile-label" style="margin-top: 1rem;">Current Password</label>
+        <input
+          type="password"
+          id="current-password"
+          name="current-password"
+          placeholder="Current password"
+          autocomplete="current-password"
+          class="profile-input"
+        />
+
+        <label for="new-password" class="profile-label" style="margin-top: 1rem;">New Password</label>
+        <input
+          type="password"
+          id="new-password"
+          name="new-password"
+          placeholder="New password"
+          autocomplete="new-password"
+          class="profile-input"
+        />
+
+        <label for="confirm-password" class="profile-label" style="margin-top: 1rem;">Confirm New Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          placeholder="Confirm new password"
+          autocomplete="new-password"
+          class="profile-input"
+          style="margin-bottom: 0;"
+        />
+      </fieldset>
+
+      <button type="submit" class="btn-primary" style="margin-top: 2rem; width: 100%;">Save Changes</button>
     </form>
-    <p class="message" id="message" aria-live="polite"></p>
-  </main>
+  </section>
+</main>
 
-  <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+<footer>
+  &copy; 2025 Speak Louder, Love Harder. All rights reserved.
+</footer>
 
-    const supabase = createClient(
-      'https://ytgrzhtntwzefwjmhgjj.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
-    );
-
-    const form = document.getElementById('settingsForm');
-    const messageEl = document.getElementById('message');
-
-    async function loadUserData() {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) {
-        window.location.href = 'login.html';
-        return;
-      }
-      document.getElementById('username').value = user.user_metadata?.username || '';
-      document.getElementById('email').value = user.email;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      messageEl.textContent = '';
-
-      const username = form.username.value.trim();
-      const email = form.email.value.trim();
-      const password = form.password.value;
-      const confirmPassword = form.confirmPassword.value;
-
-      if (password && password !== confirmPassword) {
-        messageEl.textContent = "Passwords don't match.";
-        messageEl.style.color = 'red';
-        return;
-      }
-
-      // Update profile
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      // Update email if changed
-      if (email !== user.email) {
-        const { error: emailError } = await supabase.auth.updateUser({ email });
-        if (emailError) {
-          messageEl.textContent = `Email update error: ${emailError.message}`;
-          messageEl.style.color = 'red';
-          return;
-        }
-      }
-
-      // Update password if provided
-      if (password) {
-        const { error: passError } = await supabase.auth.updateUser({ password });
-        if (passError) {
-          messageEl.textContent = `Password update error: ${passError.message}`;
-          messageEl.style.color = 'red';
-          return;
-        }
-      }
-
-      // Update username in user metadata
-      const { error: metaError } = await supabase.auth.updateUser({
-        data: { username }
-      });
-
-      if (metaError) {
-        messageEl.textContent = `Username update error: ${metaError.message}`;
-        messageEl.style.color = 'red';
-        return;
-      }
-
-      messageEl.textContent = "Profile updated successfully!";
-      messageEl.style.color = '#4b00b5';
-      form.password.value = '';
-      form.confirmPassword.value = '';
-    });
-
-    loadUserData();
-  </script>
+<script src="script.js" defer></script>
 </body>
 </html>
