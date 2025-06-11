@@ -8,59 +8,41 @@
   <style>
     .logout-container {
       max-width: 420px;
-      margin: 5rem auto;
+      margin: 8rem auto;
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
-      padding: 2.5rem 2rem;
+      padding: 3rem 2rem;
       text-align: center;
-    }
-
-    .logout-container h2 {
-      margin-bottom: 1.5rem;
-      font-size: 2.2rem;
+      font-size: 1.2rem;
       color: #4b00b5;
     }
 
-    .logout-container button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #7b4dff, #4b00b5);
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 700;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
-
-    .logout-container button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(135deg, #4b00b5, #7b4dff);
-    }
-
     .logout-container p {
-      margin-top: 1.5rem;
-      color: #4a2c91;
-      font-size: 1rem;
+      margin-bottom: 2rem;
     }
 
     .logout-container a {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #7b4dff, #4b00b5);
+      color: white;
       font-weight: 700;
-      color: #7b4dff;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     .logout-container a:hover {
-      text-decoration: underline;
+      background: linear-gradient(135deg, #4b00b5, #7b4dff);
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
   <div class="logout-container">
-    <h2>Log Out 💜</h2>
-    <button id="logout-button">Logout</button>
-    <p>Want to log back in? <a href="login.html">Click here</a></p>
+    <p>Logging you out...</p>
+    <a href="login.html" id="login-link" style="display:none;">Go to Login</a>
   </div>
 
   <script type="module">
@@ -71,17 +53,18 @@
 
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    const logoutBtn = document.getElementById('logout-button')
-
-    logoutBtn.addEventListener('click', async () => {
+    async function logout() {
       const { error } = await supabase.auth.signOut()
       if (error) {
-        alert('Logout failed: ' + error.message)
+        alert('Error logging out: ' + error.message)
+        document.getElementById('login-link').style.display = 'inline-block'
       } else {
-        alert('You have been logged out.')
+        // Redirect to login after logout
         window.location.href = 'login.html'
       }
-    })
+    }
+
+    logout()
   </script>
 </body>
 </html>
