@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>User Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <nav>
-      <a href="index.html" class="logo">Speak Louder, Love Harder</a>
+    <nav class="navbar">
+      <a href="index.html" class="logo">💬 Speak Louder, Love Harder</a>
       <a href="login.html">Login</a>
       <a href="register.html">Register</a>
     </nav>
@@ -18,23 +17,23 @@
 
   <main class="profile-container">
     <section class="profile-info">
-      <img src="https://via.placeholder.com/100?text=Avatar" alt="User Avatar" class="profile-avatar" />
-      <h2 class="profile-username">Username</h2>
-      <p class="profile-bio">This user hasn't added a bio yet.</p>
+      <img id="profile-avatar" src="https://via.placeholder.com/100?text=Avatar" alt="User Avatar" class="profile-avatar" />
+      <h2 id="profile-username">Loading...</h2>
+      <p id="profile-bio">No bio set yet.</p>
     </section>
 
     <section class="profile-posts">
       <h3>User's Posts</h3>
       <div id="user-posts">
-        <!-- Posts will be dynamically loaded here -->
+        <!-- Posts loaded dynamically -->
       </div>
     </section>
   </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-<script src="script.js"></script>
   <footer>
     <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Find me on Linktree</a></p>
   </footer>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
