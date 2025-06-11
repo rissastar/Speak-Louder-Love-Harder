@@ -122,6 +122,7 @@ footer a {
   text-decoration: none;
 }
 
+/* Intro Section */
 .intro {
   background: #fff;
   padding: 20px;
@@ -140,15 +141,38 @@ footer a {
   margin-bottom: 10px;
 }
 
+/* Header Animation */
+@keyframes fadeSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow: 0 0 8px #fff, 0 0 20px #ff66b2, 0 0 30px #ff0080, 0 0 40px #ff0080;
+  }
+  50% {
+    text-shadow: 0 0 12px #fff, 0 0 25px #ff99cc, 0 0 35px #ff4d94, 0 0 50px #ff004c;
+  }
+}
+
 .site-header {
   background: #ff0080;
   color: white;
   text-align: center;
   padding: 20px;
+  animation: fadeSlideDown 1s ease-out forwards;
 }
 .site-header h1 {
   margin: 0;
   font-size: 32px;
   font-weight: bold;
   letter-spacing: 1px;
+  animation: pulseGlow 3s infinite ease-in-out;
 }
