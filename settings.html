@@ -18,24 +18,14 @@
 </header>
 
 <main>
-  <section class="profile-card" style="max-width: 480px; margin: 2rem auto; padding: 2rem;">
-    <h1 class="profile-username">Account Settings</h1>
-
-    <form id="settings-form" novalidate style="margin-top: 1.5rem;">
-      <div class="profile-picture-container" style="margin-bottom: 1.5rem; text-align: center;">
-        <img
-          id="profile-picture-preview"
-          src="https://via.placeholder.com/160/7b4dff/fff?text=Profile+Pic"
-          alt="Profile Picture Preview"
-          tabindex="0"
-          style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; cursor: pointer; box-shadow: 0 0 15px #7b4dffbb;"
-          aria-describedby="profile-pic-desc"
-        />
-        <small id="profile-pic-desc" style="display: block; margin-top: 0.3rem; color: #6c55cc;">
-          Click or press Enter to change profile picture
-        </small>
-        <input type="file" id="profile-picture-input" accept="image/*" hidden />
-      </div>
+  <section class="settings-section">
+  <h2>Change Profile Picture</h2>
+  <div class="profile-pic-wrapper">
+    <img id="profile-pic" src="default-avatar.png" alt="Current Profile Picture" />
+    <input type="file" id="file-input" accept="image/*" />
+    <button id="upload-btn">Upload New Picture</button>
+  </div>
+</section>
 
       <label for="username" class="profile-label">Username</label>
       <input
