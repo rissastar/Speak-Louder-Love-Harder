@@ -31,6 +31,17 @@ async function updateProfile() {
     .update({ username, bio })
     .eq('id', user.id);
 
+const update = { username, bio };
+if (avatar_url) update.avatar_url = avatar_url;
+
+const { error } = await supabase.from('profiles')
+  .update(update)
+  .eq('id', user.id);
+  
+  if (data.avatar_url) {
+  document.getElementById('preview').src = data.avatar_url;
+}
+
   const status = document.getElementById('status');
   if (error) {
     status.textContent = 'Update failed: ' + error.message;
