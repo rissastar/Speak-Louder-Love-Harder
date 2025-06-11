@@ -2,27 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Profile — Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
+  <header>
+    <h1>Your Profile</h1>
+    <a href="index.html">Home</a>
+  </header>
 
-<header>
-  <h1 class="pulse-glow">Speak Louder, Love Harder</h1>
-</header>
+  <section class="profile">
+    <h2 id="userEmail"></h2>
+    <p><strong>Joined:</strong> <span id="joinedDate"></span></p>
+  </section>
 
-<main class="centered">
-  <h2>My Profile</h2>
-  <input type="text" id="profile-username" placeholder="Username" required />
-  <textarea id="profile-bio" placeholder="Your bio..."></textarea>
-  <input type="file" id="profile-avatar" accept="image/*" />
-  <img id="avatar-preview" width="100" alt="Your Avatar" />
-  <button id="save-profile">Save Profile</button>
-  <p id="profile-status"></p>
-</main>
+  <footer>
+    <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
+  </footer>
 
-<script type="module" src="script.js"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient(
+      'https://ytgrzhtntwzefwjmhgjj.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
+    );
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('userEmail').innerText = user.email;
+      document.getElementById('joinedDate').innerText = new Date(user.created_at).toLocaleDateString();
+    }
+  </script>
 </body>
 </html>
