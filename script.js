@@ -239,13 +239,24 @@ if (loginForm) {
     }
   });
 }
-// === Auto-Redirect Logged-In Users (Login/Register Pages Only) ===
-const currentPage = window.location.pathname;
+// === Redirect Unauthenticated Users From Protected Pages ===
+const protectedPages = ['profile.html', 'create-post.html', 'messages.html'];
 
-supabase.auth.getSession().then(({ data: { session } }) => {
-  if (session) {
-    if (currentPage.includes('login.html') || currentPage.includes('register.html')) {
-      window.location.href = 'profile.html';
+if (protectedPages.some(page => currentPage.includes(page))) {
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!session) {
+      window.location.href = 'login.html';
     }
-  }
-});
+  });
+}
+// === Logout Button Support ===
+const logoutBtn = document.getElementById('logout-btn');
+
+if (logoutBtn) {
+  logoutBtn.style.display = 'inline-block';
+
+  logoutBtn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.href = 'login.html';
+  });
+}
