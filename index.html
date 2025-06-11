@@ -2,239 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Speak Louder, Love Harder</title>
-  <style>
-    :root {
-      --bg-color: #fff;
-      --text-color: #333;
-      --nav-bg: #0a9396;
-      --nav-link-bg: #005f73;
-      --nav-hover: #94d2bd;
-      --accent: #ee6c4d;
-      --hero-overlay: rgba(0, 0, 0, 0.4);
-    }
-
-    body.dark {
-      --bg-color: #121212;
-      --text-color: #e0e0e0;
-      --nav-bg: #1e2a2f;
-      --nav-link-bg: #263238;
-      --nav-hover: #4db6ac;
-      --accent: #ff9e80;
-      --hero-overlay: rgba(0, 0, 0, 0.6);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-
-    header {
-      background: linear-gradient(135deg, #ff4d6d, #ff758f);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      position: relative;
-      animation: fadeInDown 1s ease;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      letter-spacing: 2px;
-    }
-
-    .toggle-dark {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: var(--nav-link-bg);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .toggle-dark:hover {
-      background: var(--nav-hover);
-      color: var(--text-color);
-    }
-
-    nav {
-      background-color: var(--nav-bg);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem;
-      animation: fadeIn 2s ease;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      background-color: var(--nav-link-bg);
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: var(--nav-hover);
-      color: var(--text-color);
-      transform: scale(1.05);
-    }
-
-    .hero {
-      position: relative;
-      background-image: url('https://images.unsplash.com/photo-1516632664305-eda5e9d8b9dc?auto=format&fit=crop&w=1950&q=80');
-      background-size: cover;
-      background-position: center;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-      animation: fadeIn 1.5s ease;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--hero-overlay);
-    }
-
-    .hero h2 {
-      position: relative;
-      font-size: 2.8rem;
-      z-index: 2;
-      text-align: center;
-    }
-
-    main {
-      text-align: center;
-      padding: 2rem 1rem;
-      animation: fadeInUp 1.5s ease;
-    }
-
-    .about {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: white;
-      color: #333;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 2rem;
-      background: var(--bg-color);
-      color: var(--text-color);
-      animation: bounceIn 1.5s ease;
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      background-color: var(--accent);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background-color: var(--nav-hover);
-      color: var(--text-color);
-      transform: scale(1.1);
-    }
-
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 1.5rem;
-      animation: fadeInUp 1.2s ease;
-    }
-
-    footer a {
-      color: #00d4ff;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      60% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); }
-    }
-
-    @media (max-width: 600px) {
-      nav a {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.9rem;
-      }
-
-      header h1 {
-        font-size: 2rem;
-      }
-
-      .hero h2 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <h1>Speak Louder, Love Harder 💖</h1>
-    <button class="toggle-dark" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-  </header>
-
-  <nav>
+  <!-- Main Navigation -->
+  <nav class="main-nav">
     <a href="mental-health.html">Mental Health</a>
     <a href="addiction.html">Addiction</a>
     <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
@@ -246,30 +21,39 @@
     <a href="foster-children.html">Foster Children</a>
   </nav>
 
-  <section class="hero">
+  <!-- Intro Section -->
+  <section class="intro">
     <h2>Real Stories. Real Healing. Real Love.</h2>
+    <p>This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.</p>
+    <p>Whether you're here to find comfort, share your truth, or support others, you're not alone. <strong>Speak louder. Love harder. Heal together.</strong></p>
   </section>
 
-  <main>
-    <div class="about">
-      <p>
-        This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.
-      </p>
-      <p>
-        Whether you're here to find comfort, share your truth, or support others, you're not alone. Speak louder. Love harder. Heal together.
-      </p>
-      <a class="btn" href="mental-health.html">Start Exploring 💬</a>
-    </div>
-  </main>
+  <!-- Stories -->
+  <section class="story-bar">
+    <div class="story"><img src="img/story1.jpg" class="story-avatar" alt="Story" /></div>
+    <div class="story"><img src="img/story2.jpg" class="story-avatar" alt="Story" /></div>
+  </section>
 
+  <!-- Feed -->
+  <main id="feed"></main>
+
+  <!-- Floating Post Button -->
+  <button id="createPost">+</button>
+
+  <!-- Bottom Navigation -->
+  <nav class="navbar">
+    <div class="nav-icon">🏠</div>
+    <div class="nav-icon">🔍</div>
+    <div class="nav-icon">➕</div>
+    <div class="nav-icon">💬</div>
+    <div class="nav-icon">👤</div>
+  </nav>
+
+  <!-- Footer -->
   <footer>
     <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
   </footer>
 
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
