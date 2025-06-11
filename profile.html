@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,59 +8,82 @@
 </head>
 <body>
 
-  <!-- Top Nav -->
-  <header class="top-nav">
-    <h1 class="logo">Speak Louder</h1>
-    <button id="logout-btn" class="logout-btn">Logout</button>
+  <!-- Sticky Header / Navbar -->
+  <header class="sticky-header" role="banner">
+    <div class="logo" tabindex="0">Speak Louder, Love Harder</div>
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="index.html" class="btn-nav">Home</a>
+      <a href="mental-health.html" class="btn-nav">Mental Health</a>
+      <a href="addiction.html" class="btn-nav">Addiction</a>
+      <a href="cystic-fibrosis.html" class="btn-nav">Cystic Fibrosis</a>
+      <a href="affirmations.html" class="btn-nav">Affirmations</a>
+      <a href="profile.html" class="btn-nav" aria-current="page">Profile</a>
+      <a href="settings.html" class="btn-nav">Settings</a>
+      <a href="https://linktr.ee/rissa.star" class="btn-nav" target="_blank" rel="noopener noreferrer">More</a>
+    </nav>
   </header>
 
-  <main class="profile-container">
-    <!-- Cover photo -->
-    <div class="cover-photo"></div>
+  <main role="main" class="profile-container" aria-label="User profile">
+    <!-- Profile Picture -->
+    <img
+      src="https://via.placeholder.com/150"
+      alt="User Profile Picture"
+      class="profile-picture"
+      tabindex="0"
+      aria-describedby="profile-picture-desc"
+    />
+    <p id="profile-picture-desc" class="sr-only">User profile picture, click to change</p>
 
-    <!-- Profile avatar and info -->
-    <img id="profile-avatar" class="profile-avatar" src="default-avatar.png" alt="Profile Picture" />
-    <div class="profile-info">
-      <h2 id="profile-username">@username</h2>
-      <p id="profile-email">email@example.com</p>
-      <p id="profile-bio" class="profile-bio">Your bio will show here.</p>
-    </div>
+    <!-- Username -->
+    <h1 class="profile-username" tabindex="0">Rissa Star</h1>
 
-    <!-- Tabs -->
-    <div class="profile-tabs">
-      <div class="profile-tab active" id="tab-posts">Posts</div>
-    </div>
+    <!-- User Bio -->
+    <p class="profile-bio" tabindex="0">
+      Passionate advocate for mental health and wellness. Sharing stories and support to help us all speak louder and love harder.
+    </p>
 
-    <!-- Posts -->
-    <div id="user-posts" class="posts-container">
-      <!-- Posts loaded here -->
-    </div>
+    <!-- Profile Stats -->
+    <section class="profile-stats" aria-label="User statistics">
+      <div>
+        <strong tabindex="0">124</strong>
+        <span>Posts</span>
+      </div>
+      <div>
+        <strong tabindex="0">3.5K</strong>
+        <span>Followers</span>
+      </div>
+      <div>
+        <strong tabindex="0">250</strong>
+        <span>Following</span>
+      </div>
+    </section>
+
+    <!-- Edit Profile Button -->
+    <a href="settings.html" class="btn-edit-profile" role="button" tabindex="0">Edit Profile</a>
+
+    <!-- User Posts Feed -->
+    <section class="profile-posts" aria-label="User posts">
+      <article class="profile-post" tabindex="0">
+        <h3>Mindfulness and Me</h3>
+        <p>Just finished a great meditation session. Feeling calm and grounded. #mentalhealth #selfcare</p>
+      </article>
+      <article class="profile-post" tabindex="0">
+        <h3>Affirmation for Today</h3>
+        <p>"I am worthy of love and happiness." Sharing positivity to start the day right!</p>
+      </article>
+      <article class="profile-post" tabindex="0">
+        <h3>Living with Cystic Fibrosis</h3>
+        <p>Every breath is a gift. Keep fighting, keep loving. #cysticfibrosisawareness</p>
+      </article>
+    </section>
   </main>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <a href="feed.html" aria-label="Home">🏠</a>
-    <a href="profile.html" class="active" aria-label="Profile">👤</a>
-    <a href="#" id="topics-btn" aria-label="Topics">📚</a>
-  </nav>
-
-  <!-- Topics Dropdown -->
-  <div id="topics-dropdown" class="topics-dropdown">
-    <a href="mental-health.html">Mental Health</a>
-    <a href="addiction.html">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
-    <a href="affirmations.html">Affirmations</a>
-    <a href="grounding.html">Grounding</a>
-    <a href="worksheets.html">Worksheets</a>
-  </div>
-
-  <script src="script.js" defer></script>
+  <footer role="contentinfo">
+    <p>
+      &copy; 2025 Speak Louder, Love Harder | 
+      <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">More Links</a>
+    </p>
+  </footer>
 
 </body>
 </html>
