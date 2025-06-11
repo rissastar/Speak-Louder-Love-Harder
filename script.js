@@ -243,3 +243,34 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutBtn.addEventListener('click', logout);
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const profilePicPreview = document.getElementById("profile-picture-preview");
+  const profilePicInput = document.getElementById("profile-picture-input");
+
+  if (profilePicPreview && profilePicInput) {
+    profilePicPreview.addEventListener("click", () => profilePicInput.click());
+    profilePicPreview.addEventListener("keypress", e => {
+      if (e.key === "Enter" || e.key === " ") profilePicInput.click();
+    });
+
+    profilePicInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        profilePicPreview.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const settingsForm = document.getElementById("settings-form");
+  if (settingsForm) {
+    settingsForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Settings saved (demo only). Backend integration coming soon!");
+    });
+  }
+});
