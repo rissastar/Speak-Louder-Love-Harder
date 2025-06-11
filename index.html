@@ -2,79 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
-
   <header>
     <h1 class="pulse">Speak Louder, Love Harder</h1>
+    <nav>
+      <a href="mental-health.html">Mental Health</a>
+      <a href="addiction.html">Addiction</a>
+      <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+      <a href="cirrhosis.html">Cirrhosis</a>
+      <a href="physical-abuse.html">Physical Abuse</a>
+      <a href="mental-abuse.html">Mental Abuse</a>
+      <a href="sexual-abuse.html">Sexual Abuse</a>
+      <a href="pitbull-love.html">Pitbull Love</a>
+      <a href="foster-children.html">Foster Children</a>
+      <a href="profile.html">My Profile</a>
+    </nav>
+    <div id="auth-buttons"></div>
+  </header>
+
+  <main>
     <h2>Real Stories. Real Healing. Real Love.</h2>
     <p>This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.</p>
     <p>Whether you're here to find comfort, share your truth, or support others, you're not alone. Speak louder. Love harder. Heal together.</p>
-
-    <!-- Auth Buttons -->
-    <div id="auth-buttons">
-      <!-- Filled by JS -->
-    </div>
-  </header>
-
-  <nav>
-    <a href="mental-health.html">Mental Health</a>
-    <a href="addiction.html">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
-  </nav>
-
-  <main>
-    <!-- Post Composer -->
-    <section class="composer" id="composer-section" style="display:none;">
-      <textarea id="post-text" placeholder="What's on your heart?"></textarea>
-      <button onclick="submitPost()">Post</button>
-    </section>
-
-    <!-- Posts Feed -->
-    <section id="feed">
-      <h3>Latest Posts</h3>
-      <div id="posts"></div>
-    </section>
   </main>
 
   <footer>
     <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
   </footer>
-  
-  <script stv="script.js"></script>
-  <script src="auth.js"></script>
-  <script src="feed.js"></script>
-  <script>
-    async function updateAuthUI() {
-      const { data, error } = await supabase.auth.getUser();
-      const authButtons = document.getElementById('auth-buttons');
-      const composer = document.getElementById('composer-section');
 
-      if (data?.user) {
-        // Show logout and composer if logged in
-        authButtons.innerHTML = `<button onclick="logout()">Logout</button>`;
-        composer.style.display = 'block';
-      } else {
-        // Show login/register buttons if not logged in
-        authButtons.innerHTML = `
-          <a href="auth.html"><button>Login</button></a>
-          <a href="auth.html"><button>Register</button></a>
-        `;
-        composer.style.display = 'none';
-      }
-    }
-
-    updateAuthUI();
-  </script>
+  <script type="module" src="auth.js"></script>
 </body>
 </html>
