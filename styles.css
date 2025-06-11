@@ -1,238 +1,74 @@
-/* styles.css */
-
 body {
   font-family: Arial, sans-serif;
   background: #f0f2f5;
-  margin: 0; 
-  padding: 0;
+  margin: 0; padding: 0;
   color: #333;
 }
-
 header {
   background: #ff4757;
   color: white;
+  text-align: center;
   padding: 1rem;
+}
+nav a {
+  margin: 0 0.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+.centered {
+  max-width: 360px;
+  margin: 2rem auto;
+  padding: 0 1rem;
   text-align: center;
 }
-
-nav a {
+.auth-form, .composer {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ccc;
+}
+.auth-form input,
+.composer input,
+.composer textarea,
+.composer select,
+.auth-form button,
+.composer button {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.composer textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.auth-form button, .composer button {
+  background: #ff6b81;
+  border: none;
   color: white;
-  margin: 0 0.75rem;
-  text-decoration: none;
-  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
 }
-
-nav a:hover {
-  text-decoration: underline;
+.auth-form button:hover, .composer button:hover {
+  background: #ff4757;
 }
-
+.feed .post {
+  background: white;
+  margin: 0.5rem auto;
+  padding: 0.75rem;
+  border-radius: 6px;
+  box-shadow: 0 0 5px #bbb;
+  max-width: 600px;
+}
 .pulse-glow {
-  font-size: 3rem;
-  font-weight: 900;
+  font-size: 2.5rem;
   animation: pulse 2.5s infinite;
   text-shadow:
     0 0 10px #ff6b81,
     0 0 20px #ff6b81,
-    0 0 30px #ff4757,
-    0 0 40px #ff4757;
+    0 0 30px #ff4757;
 }
-
 @keyframes pulse {
-  0%, 100% {
-    text-shadow:
-      0 0 10px #ff6b81,
-      0 0 20px #ff6b81,
-      0 0 30px #ff4757,
-      0 0 40px #ff4757;
-  }
-  50% {
-    text-shadow:
-      0 0 20px #ff9aa2,
-      0 0 30px #ff9aa2,
-      0 0 40px #ff6b81,
-      0 0 50px #ff6b81;
-  }
-}
-
-main {
-  padding: 1rem;
-}
-
-#auth-buttons button {
-  margin: 0 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background: #ff6b81;
-  color: white;
-  transition: background 0.3s;
-}
-
-#auth-buttons button:hover {
-  background: #ff4757;
-}
-
-#user-info {
-  font-weight: 700;
-  margin-top: 1rem;
-  text-align: center;
-}
-
-#post-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 2rem;
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #ccc;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#post-form label, 
-#post-form select, 
-#post-form textarea, 
-#post-form button {
-  font-size: 1rem;
-  width: 100%;
-}
-
-#post-form select, 
-#post-form textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: vertical;
-  font-family: inherit;
-}
-
-#post-form textarea {
-  min-height: 100px;
-}
-
-#post-form button {
-  background: #ff6b81;
-  color: white;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 700;
-  transition: background 0.3s;
-}
-
-#post-form button:hover {
-  background: #ff4757;
-}
-
-#posts-container {
-  margin-top: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.post {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 5px #bbb;
-}
-
-.post-topic {
-  font-weight: 700;
-  color: #ff4757;
-  margin-bottom: 0.5rem;
-}
-
-footer {
-  background: #222;
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 3rem;
-  font-size: 0.9rem;
-}
-
-footer a {
-  color: #ff6b81;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-#auth-container {
-  max-width: 320px;
-  margin: 1rem auto;
-  padding: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 0 10px #ccc;
-  font-family: Arial, sans-serif;
-}
-
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.auth-form input {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-}
-
-.auth-form button {
-  padding: 0.6rem;
-  font-weight: bold;
-  background-color: #e63946;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.auth-form button:hover {
-  background-color: #d62828;
-}
-
-#auth-container p {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-#auth-container a {
-  color: #1d3557;
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 0.9rem;
-}
-
-#user-info {
-  max-width: 320px;
-  margin: 1rem auto;
-  text-align: center;
-  font-weight: 600;
-}
-
-#logout-btn {
-  margin-left: 1rem;
-  padding: 0.3rem 0.7rem;
-  background-color: #457b9d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#logout-btn:hover {
-  background-color: #1d3557;
+  0%,100% { text-shadow: 0 0 10px #ff6b81; }
+  50% { text-shadow: 0 0 20px #ff9aa2; }
 }
