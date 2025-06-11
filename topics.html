@@ -1,65 +1,52 @@
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #f3ecff;
-  color: #2a1a6d;
-  padding: 10px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abuse • Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="abuse.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #7e57c2;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-.header-title {
-  font-size: 18px;
-  font-weight: bold;
-}
-.header-icons a {
-  color: white;
-  margin-left: 10px;
-  font-size: 18px;
-}
+  <header class="header">
+    <h1>Abuse Topics</h1>
+    <div class="header-icons">
+      <a href="settings.html"><i class="fas fa-cog"></i></a>
+      <a href="logout.html"><i class="fas fa-sign-out-alt"></i></a>
+    </div>
+  </header>
 
-.content h2 {
-  text-align: center;
-  margin: 20px 0;
-}
+  <!-- Topic Dropdown -->
+  <div class="topic-toggle">
+    <button id="toggleTopics"><i class="fas fa-folder-open"></i> Topics</button>
+  </div>
+  <nav id="topicNav" class="topic-nav hidden">
+    <a href="mental-health.html">🧠 Mental Health</a>
+    <a href="addiction.html">💊 Addiction</a>
+    <a href="terminal-illness.html">🩺 Terminal Illness</a>
+    <a href="abuse.html">🚨 Abuse</a>
+    <a href="pitbull-love.html">🐶 Pitbull Love</a>
+    <a href="foster-children.html">👶 Foster Children</a>
+  </nav>
 
-.topic-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.topic-btn {
-  background: #9575cd;
-  color: white;
-  text-decoration: none;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-}
-.topic-btn i {
-  margin-right: 10px;
-}
+  <section class="topic-content">
+    <p>Select an area of abuse to explore:</p>
+    <div class="topic-links">
+      <a href="mental-abuse.html">🧠 Mental Abuse</a>
+      <a href="physical-abuse.html">💥 Physical Abuse</a>
+      <a href="sexual-abuse.html">🔒 Sexual Abuse</a>
+    </div>
+  </section>
 
-.footer {
-  margin-top: 30px;
-  text-align: center;
-}
-.footer a {
-  color: #7e57c2;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 16px;
-}
-.footer i {
-  margin-right: 5px;
-}
+  <footer class="footer">
+    <a href="https://linktr.ee/rissa.star" target="_blank"><i class="fas fa-link"></i> My Linktree</a>
+  </footer>
+
+  <script>
+    document.getElementById('toggleTopics').addEventListener('click', () => {
+      document.getElementById('topicNav').classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
