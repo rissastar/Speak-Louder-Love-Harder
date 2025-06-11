@@ -3,26 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Logged Out - Speak Louder, Love Harder</title>
+  <title>Login | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .login-container {
+      max-width: 420px;
+      margin: 5rem auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+      color: #4b00b5;
+    }
+
+    .login-container input[type="email"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0 20px;
+      border: 2px solid #d4c1ff;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #f8f4ff;
+      color: #3a0ca3;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #7b4dff, #4b00b5);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .login-container button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #4b00b5, #7b4dff);
+    }
+
+    .login-container p {
+      margin-top: 1.5rem;
+      color: #4a2c91;
+      font-size: 1rem;
+    }
+
+    .login-container a {
+      font-weight: 700;
+      color: #7b4dff;
+    }
+
+    .login-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">💜 Speak Louder, Love Harder</a>
-    </nav>
-  </header>
+  <div class="login-container">
+    <h2>Welcome Back 💜</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Log In</button>
+    </form>
+    <p>Don't have an account? <a href="register.html">Register</a></p>
+  </div>
 
-  <main class="logout-container">
-    <h1>You’ve been logged out 💫</h1>
-    <p>Thanks for being part of the conversation. Come back soon 💜</p>
-    <a href="login.html">
-      <button>Log In Again</button>
-    </a>
-  </main>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 
-  <footer>
-    <p>🌐 <a href="https://linktr.ee/rissa.star" target="_blank">My Linktree</a></p>
-  </footer>
+    const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ'
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const form = document.getElementById('login-form')
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (error) {
+        alert('Login failed: ' + error.message)
+      } else {
+        window.location.href = 'profile.html'
+      }
+    })
+  </script>
 </body>
 </html>
