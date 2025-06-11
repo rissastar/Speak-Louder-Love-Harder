@@ -286,16 +286,32 @@ const fileInput = document.getElementById('file-input')
 const uploadBtn = document.getElementById('upload-btn')
 const profilePic = document.getElementById('profile-pic')
 
-// Fake user ID (replace with real Supabase auth user ID)
-const userId = 'user123' 
+async function getUser() {
+  const { data, error } = await supabase.auth.getUser()
+  if (error || !data.user) {
+    alert('Not logged in.')
+    return null
+  }
+  return data.user
+}
 
-uploadBtn.addEventListener('click', async () => {
+async function loadProfilePic(user) {
+  const filePath = `${user.id}/avatar.jpg`
+  const { data } = supabase.storage.from('profile-pictures').getPublicUrl(filePath)
+  if (data?.publicUrl) {
+    profilePic.src = data.publicUrl
+  }
+}
+
+uploadBtn?.addEventListener('click', async () => {
+  const user = await getUser()
+  if (!user) return
+
   const file = fileInput.files[0]
   if (!file) return alert('Please select a file.')
 
-  const fileName = `${userId}/avatar.jpg`
+  const fileName = `${user.id}/avatar.jpg`
 
-  // Upload to Supabase Storage
   const { error: uploadError } = await supabase
     .storage
     .from('profile-pictures')
@@ -306,12 +322,15 @@ uploadBtn.addEventListener('click', async () => {
     return alert('Upload failed.')
   }
 
-  // Get the public URL
-  const { data } = supabase
-    .storage
-    .from('profile-pictures')
-    .getPublicUrl(fileName)
+  const { data } = supabase.storage.from('profile-pictures').getPublicUrl(fileName)
+  if (data?.publicUrl) {
+    profilePic.src = data.publicUrl
+    alert('Profile picture updated!')
+  }
+})
 
-  profilePic.src = data.publicUrl
-  alert('Profile picture updated!')
+// Load user avatar on page load
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await getUser()
+  if (user) loadProfilePic(user)
 })
