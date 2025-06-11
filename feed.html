@@ -4,83 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Feed - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="feed.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script defer src="feed.js"></script>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <a class="logo" href="index.html">💬 Speak Louder, Love Harder</a>
-      <a href="profile.html">Profile</a>
-      <button id="logout-btn" class="btn-logout">Logout</button>
-    </nav>
-    <nav class="dropdown-nav">
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▼</button>
-    <div class="dropdown-content">
+  <nav class="top-nav">
+    <h1>Speak Louder</h1>
+    <div class="nav-buttons">
+      <button onclick="logout()" title="Logout">🚪</button>
+      <a href="settings.html" title="Settings">⚙️</a>
+    </div>
+  </nav>
+
+  <div id="topicNav" class="topic-nav">
+    <button onclick="toggleTopics()">📂 Topics</button>
+    <div id="topicDropdown" class="dropdown hidden">
       <a href="mental-health.html">Mental Health</a>
       <a href="addiction.html">Addiction</a>
-      <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-      <a href="cirrhosis.html">Cirrhosis</a>
-      <a href="physical-abuse.html">Physical Abuse</a>
-      <a href="mental-abuse.html">Mental Abuse</a>
-      <a href="sexual-abuse.html">Sexual Abuse</a>
+      <a href="terminal-illness.html">Terminal Illness</a>
+      <a href="abuse.html">Abuse</a>
       <a href="pitbull-love.html">Pitbull Love</a>
       <a href="foster-children.html">Foster Children</a>
     </div>
-</nav>
-  </header>
+  </div>
 
-  <main class="feed-main">
-    <section class="post-creation">
-      <h2>Create a Post</h2>
-      <form id="post-form">
-        <textarea id="post-text" placeholder="What's on your mind?" required></textarea>
+  <main id="post-feed"></main>
 
-        <label for="post-type">Post Type:</label>
-        <select id="post-type" required>
-          <option value="" disabled selected>Select post type</option>
-          <option value="your story">Your Story</option>
-          <option value="post an image">Post an Image</option>
-          <option value="ask a question">Ask a Question</option>
-          <option value="post a worksheet">Post a Worksheet</option>
-          <option value="post a resource">Post a Resource</option>
-          <option value="post a quote">Post a Quote</option>
-          <option value="post an affirmation">Post an Affirmation</option>
-          <option value="post a grounding technique">Post a Grounding Technique</option>
-        </select>
-
-        <label for="post-category">Category:</label>
-        <select id="post-category" required>
-          <option value="" disabled selected>Select category</option>
-          <option value="cystic fibrosis">Cystic Fibrosis</option>
-          <option value="cirrhosis">Cirrhosis</option>
-          <option value="mental health">Mental Health</option>
-          <option value="mental abuse">Mental Abuse</option>
-          <option value="sexual abuse">Sexual Abuse</option>
-          <option value="physical abuse">Physical Abuse</option>
-          <option value="foster children">Foster Children</option>
-          <option value="pitbull love">Pitbull Love</option>
-        </select>
-
-        <label for="post-image">Upload Image (optional):</label>
-        <input type="file" id="post-image" accept="image/*" />
-
-        <button type="submit">Post</button>
-      </form>
-    </section>
-
-    <section class="feed-posts">
-      <h2>Recent Posts</h2>
-      <div id="posts-container">
-        <!-- Posts will load here -->
-      </div>
-    </section>
-  </main>
+  <section id="create-post">
+    <textarea id="post-content" placeholder="Share something..."></textarea>
+    <input type="file" id="post-image" accept="image/*" />
+    <button onclick="submitPost()">Post</button>
+  </section>
 
   <footer>
-    <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Find me on Linktree</a></p>
+    <a href="worksheets.html">📄 Worksheets</a>
+    <a href="quotes.html">🧠 Quotes</a>
+    <a href="affirmations.html">💜 Affirmations</a>
+    <a href="grounding-techniques.html">🌀 Grounding</a>
+    <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
   </footer>
-
-  <script type="module" src="script.js"></script>
 </body>
 </html>
