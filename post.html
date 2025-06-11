@@ -34,20 +34,24 @@
       <label for="postImage">Upload Image (optional):</label><br/>
       <input type="file" id="postImage" accept="image/*" /><br/>
 
-      <label for="postTopic">Topic:</label><br/>
-      <select id="postTopic" required>
-        <option value="" disabled selected>Select topic</option>
-        <option value="Mental Health">Mental Health</option>
-        <option value="Addiction">Addiction</option>
-        <option value="Cystic Fibrosis">Cystic Fibrosis</option>
-        <option value="Cirrhosis">Cirrhosis</option>
-        <option value="Physical Abuse">Physical Abuse</option>
-        <option value="Mental Abuse">Mental Abuse</option>
-        <option value="Sexual Abuse">Sexual Abuse</option>
-        <option value="Pitbull Love">Pitbull Love</option>
-        <option value="Foster Children">Foster Children</option>
-      </select><br/>
+     <form id="post-form" style="display:none; flex-direction: column; max-width: 400px; margin: auto;">
+  <textarea id="post-content" rows="4" placeholder="What's on your mind?" required></textarea>
+  <select id="post-page" required>
+    <option value="" disabled selected>Select a topic</option>
+    <option value="Mental Health">Mental Health</option>
+    <option value="Addiction">Addiction</option>
+    <option value="Cystic Fibrosis">Cystic Fibrosis</option>
+    <option value="Cirrhosis">Cirrhosis</option>
+    <option value="Physical Abuse">Physical Abuse</option>
+    <option value="Mental Abuse">Mental Abuse</option>
+    <option value="Sexual Abuse">Sexual Abuse</option>
+    <option value="Pitbull Love">Pitbull Love</option>
+    <option value="Foster Children">Foster Children</option>
+  </select>
+  <button type="submit">Post</button>
+</form>
 
+<div id="posts-container" style="max-width:600px; margin: 1rem auto;"></div>
       <label for="postTag">Content Type:</label><br/>
       <select id="postTag" required>
         <option value="" disabled selected>Select content type</option>
