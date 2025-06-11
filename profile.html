@@ -1,131 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings | Speak Louder, Love Harder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins&display=swap" rel="stylesheet" />
+  <title>Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-
-  <nav class="dropdown-nav">
-  <div class="dropdown">
-    <button class="dropbtn">Topics ▼</button>
-    <div class="dropdown-content">
-      <a href="mental-health.html">Mental Health</a>
-      <a href="addiction.html">Addiction</a>
-      <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-      <a href="cirrhosis.html">Cirrhosis</a>
-      <a href="physical-abuse.html">Physical Abuse</a>
-      <a href="mental-abuse.html">Mental Abuse</a>
-      <a href="sexual-abuse.html">Sexual Abuse</a>
-      <a href="pitbull-love.html">Pitbull Love</a>
-      <a href="foster-children.html">Foster Children</a>
-  </div>
-</nav>
-
 <body>
-  <main class="settings-container" role="main" aria-label="Account Settings">
-    <h1>Account Settings</h1>
-    <form id="settingsForm" novalidate>
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Your username" required />
 
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+  <!-- Top Nav -->
+  <header class="top-nav">
+    <h1 class="logo">Speak Louder</h1>
+    <button id="logout-btn" class="logout-btn">Logout</button>
+  </header>
 
-      <label for="password">New Password</label>
-      <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" />
+  <main class="profile-container">
+    <!-- Cover photo -->
+    <div class="cover-photo"></div>
 
-      <label for="confirmPassword">Confirm New Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
+    <!-- Profile avatar and info -->
+    <img id="profile-avatar" class="profile-avatar" src="default-avatar.png" alt="Profile Picture" />
+    <div class="profile-info">
+      <h2 id="profile-username">@username</h2>
+      <p id="profile-email">email@example.com</p>
+      <p id="profile-bio" class="profile-bio">Your bio will show here.</p>
+    </div>
 
-      <button type="submit">Save Changes</button>
-    </form>
-    <p class="message" id="message" aria-live="polite"></p>
+    <!-- Tabs -->
+    <div class="profile-tabs">
+      <div class="profile-tab active" id="tab-posts">Posts</div>
+    </div>
+
+    <!-- Posts -->
+    <div id="user-posts" class="posts-container">
+      <!-- Posts loaded here -->
+    </div>
   </main>
 
-  <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js';
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="feed.html" aria-label="Home">🏠</a>
+    <a href="profile.html" class="active" aria-label="Profile">👤</a>
+    <a href="#" id="topics-btn" aria-label="Topics">📚</a>
+  </nav>
 
-    const supabase = createClient(
-      'https://ytgrzhtntwzefwjmhgjj.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
-    );
+  <!-- Topics Dropdown -->
+  <div id="topics-dropdown" class="topics-dropdown">
+    <a href="mental-health.html">Mental Health</a>
+    <a href="addiction.html">Addiction</a>
+    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+    <a href="cirrhosis.html">Cirrhosis</a>
+    <a href="physical-abuse.html">Physical Abuse</a>
+    <a href="mental-abuse.html">Mental Abuse</a>
+    <a href="sexual-abuse.html">Sexual Abuse</a>
+    <a href="pitbull-love.html">Pitbull Love</a>
+    <a href="foster-children.html">Foster Children</a>
+    <a href="affirmations.html">Affirmations</a>
+    <a href="grounding.html">Grounding</a>
+    <a href="worksheets.html">Worksheets</a>
+  </div>
 
-    const form = document.getElementById('settingsForm');
-    const messageEl = document.getElementById('message');
+  <script src="script.js" defer></script>
 
-    async function loadUserData() {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) {
-        window.location.href = 'login.html';
-        return;
-      }
-      document.getElementById('username').value = user.user_metadata?.username || '';
-      document.getElementById('email').value = user.email;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      messageEl.textContent = '';
-
-      const username = form.username.value.trim();
-      const email = form.email.value.trim();
-      const password = form.password.value;
-      const confirmPassword = form.confirmPassword.value;
-
-      if (password && password !== confirmPassword) {
-        messageEl.textContent = "Passwords don't match.";
-        messageEl.style.color = 'red';
-        return;
-      }
-
-      // Update profile
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      // Update email if changed
-      if (email !== user.email) {
-        const { error: emailError } = await supabase.auth.updateUser({ email });
-        if (emailError) {
-          messageEl.textContent = `Email update error: ${emailError.message}`;
-          messageEl.style.color = 'red';
-          return;
-        }
-      }
-
-      // Update password if provided
-      if (password) {
-        const { error: passError } = await supabase.auth.updateUser({ password });
-        if (passError) {
-          messageEl.textContent = `Password update error: ${passError.message}`;
-          messageEl.style.color = 'red';
-          return;
-        }
-      }
-
-      // Update username in user metadata
-      const { error: metaError } = await supabase.auth.updateUser({
-        data: { username }
-      });
-
-      if (metaError) {
-        messageEl.textContent = `Username update error: ${metaError.message}`;
-        messageEl.style.color = 'red';
-        return;
-      }
-
-      messageEl.textContent = "Profile updated successfully!";
-      messageEl.style.color = '#4b00b5';
-      form.password.value = '';
-      form.confirmPassword.value = '';
-    });
-
-    loadUserData();
-  </script>
 </body>
 </html>
