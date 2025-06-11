@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Public Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>User Profile</h1>
+  <div id="profile"></div>
+</body>
+<script type="module">
+import { supabase } from './auth.js';
+
+const params = new URLSearchParams(window.location.search);
+const user_id = params.get('user_id');
+
+async function showProfile() {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user_id)
+    .single();
+
+  const container = document.getElementById('profile');
+  if (error) {
+    container.textContent = 'User not found.';
+    return;
+  }
+
+  container.innerHTML = `
+    <img src="${data.avatar_url || ''}" width="100"><br>
+    <strong>@${data.username}</strong><br>
+    <p>${data.bio || ''}</p>
+  `;
+}
+
+showProfile();
+</script>
+</html>
