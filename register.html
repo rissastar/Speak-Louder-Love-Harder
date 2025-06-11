@@ -22,9 +22,9 @@
       color: #4b00b5;
     }
 
+    .register-container input[type="text"],
     .register-container input[type="email"],
-    .register-container input[type="password"],
-    .register-container input[type="text"] {
+    .register-container input[type="password"] {
       width: 100%;
       padding: 12px;
       margin: 12px 0 20px;
@@ -90,6 +90,7 @@
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     const form = document.getElementById('register-form')
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault()
 
@@ -102,17 +103,19 @@
         return
       }
 
+      // Sign up user and add username in metadata
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-      }, {
-        data: { username }
+        options: {
+          data: { username }
+        }
       })
 
       if (error) {
         alert('Registration failed: ' + error.message)
       } else {
-        alert('Registration successful! Redirecting to your profile...')
+        alert('Registration successful! Redirecting to profile...')
         window.location.href = 'profile.html'
       }
     })
