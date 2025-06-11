@@ -1,35 +1,99 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 0;
+  background: #f5f8fa;
   color: #333;
 }
+
 header {
-  background: #6a1b9a;
+  background-color: #1da1f2;
   color: white;
-  padding: 20px;
+  padding: 1rem;
   text-align: center;
 }
+
 nav a {
-  margin: 0 10px;
   color: white;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #1da1f2;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: 0 0.3rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0d95e8;
+}
+
+#user-info {
+  margin: 1rem;
+  font-weight: 600;
+}
+
+#post-form {
+  margin: 1rem auto;
+  max-width: 600px;
+  display: none;
+  flex-direction: column;
+}
+
+#post-form textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+#post-form select {
+  margin-bottom: 0.5rem;
+  padding: 0.3rem;
+  font-size: 1rem;
+}
+
+#posts-container {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.post {
+  background-color: white;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.post p {
+  margin: 0.2rem 0;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #e1e8ed;
+  margin-top: 3rem;
+}
+
+footer a {
+  color: #1da1f2;
+  font-weight: bold;
   text-decoration: none;
 }
-.pulse {
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { text-shadow: 0 0 5px white; }
-  50% { text-shadow: 0 0 20px white; }
-  100% { text-shadow: 0 0 5px white; }
-}
-main {
-  padding: 20px;
-}
-footer {
-  background: #333;
-  color: white;
-  padding: 10px;
-  text-align: center;
+
+footer a:hover {
+  text-decoration: underline;
 }
