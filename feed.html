@@ -2,52 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feed - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="feed.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+  <script type="module" src="feed.js" defer></script>
 </head>
 <body>
-  <nav class="topnav">
-    <div class="logo">Speak Louder, Love Harder</div>
-    <div class="topic-nav">
-      <button id="topicToggleBtn" aria-expanded="false">Topics ▼</button>
-      <ul id="topicDropdown" class="dropdown hidden" aria-label="Topics">
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="terminal-illness.html">Terminal Illness</a></li>
-        <li><a href="abuse.html">Abuse</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="foster-children.html">Foster Children</a></li>
-      </ul>
+  <nav class="top-nav">
+    <button id="topicToggleBtn" aria-expanded="false">☰ Topics</button>
+    <div id="topicDropdown" class="dropdown hidden">
+      <a href="mental-health.html">Mental Health</a>
+      <a href="addiction.html">Addiction</a>
+      <a href="abuse.html">Abuse</a>
+      <a href="terminal-illness.html">Terminal Illness</a>
+      <a href="pitbull-love.html">Pitbull Love</a>
+      <a href="foster-children.html">Foster Children</a>
     </div>
-    <div class="nav-buttons">
-      <button id="settingsBtn" aria-label="Settings" title="Settings">⚙️</button>
-      <button id="logoutBtn" aria-label="Logout" title="Logout">🚪</button>
-    </div>
+    <button id="logoutBtn">🚪</button>
+    <button id="settingsBtn">⚙️</button>
   </nav>
 
-  <main>
-    <section id="postFormSection">
-      <form id="postForm">
-        <textarea id="postContent" placeholder="What's on your mind?" required maxlength="500"></textarea>
-        <input type="file" id="postImage" accept="image/*" />
-        <img id="imagePreview" alt="Image Preview" class="hidden" />
-        <button type="submit" id="submitPostBtn">Post</button>
-      </form>
-    </section>
+  <main class="feed-container">
+    <form id="postForm">
+      <textarea id="postContent" placeholder="What's on your mind?" required></textarea>
+      <input type="file" id="postImage" accept="image/*" />
+      <img id="imagePreview" class="hidden" alt="Preview" />
+      <button type="submit">Post</button>
+    </form>
 
-    <section id="feedSection">
-      <ul id="postsList" aria-live="polite" aria-relevant="additions"></ul>
-      <button id="loadMoreBtn" class="load-more-btn">Load More</button>
-    </section>
+    <ul id="postsList"></ul>
+    <button id="loadMoreBtn">Load More</button>
   </main>
 
-  <footer>
-    <p>Find me on <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Linktree</a></p>
+  <footer class="footer">
+    <a href="worksheets.html">📄 Worksheets</a>
+    <a href="quotes.html">💬 Quotes</a>
+    <a href="affirmations.html">🌟 Affirmations</a>
+    <a href="grounding-techniques.html">🧘‍♀️ Grounding</a>
+    <a href="https://linktr.ee/rissa.star" target="_blank">🔗 Linktree</a>
   </footer>
-
-  <script src="feed.js" defer></script>
 </body>
 </html>
