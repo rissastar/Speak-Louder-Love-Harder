@@ -185,3 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
   else if (p === 'public-profile.html') initProfilePage(true);
   else if (p.endsWith('.html') && window.category) initFeedPage();
 });
+
+function toggleTheme() {
+  const current = localStorage.getItem('theme') || 'light';
+  const next = current === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+});
