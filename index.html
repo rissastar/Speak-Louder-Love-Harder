@@ -2,73 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  
-  <header class="site-header">
-  <h1>Speak Louder, Love Harder</h1>
-</header>
+  <header>
+    <h1 class="glow">Speak Louder, Love Harder</h1>
+    <nav>
+      <a href="mental-health.html">Mental Health</a>
+      <a href="addiction.html">Addiction</a>
+      <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
+      <a href="cirrhosis.html">Cirrhosis</a>
+      <a href="physical-abuse.html">Physical Abuse</a>
+      <a href="mental-abuse.html">Mental Abuse</a>
+      <a href="sexual-abuse.html">Sexual Abuse</a>
+      <a href="pitbull-love.html">Pitbull Love</a>
+      <a href="foster-children.html">Foster Children</a>
+    </nav>
+  </header>
 
-  <!-- Main Navigation -->
-  <nav class="main-nav">
-    <a href="mental-health.html">Mental Health</a>
-    <a href="addiction.html">Addiction</a>
-    <a href="cystic-fibrosis.html">Cystic Fibrosis</a>
-    <a href="cirrhosis.html">Cirrhosis</a>
-    <a href="physical-abuse.html">Physical Abuse</a>
-    <a href="mental-abuse.html">Mental Abuse</a>
-    <a href="sexual-abuse.html">Sexual Abuse</a>
-    <a href="pitbull-love.html">Pitbull Love</a>
-    <a href="foster-children.html">Foster Children</a>
-  </nav>
+  <main>
+    <section class="intro">
+      <h2>Real Stories. Real Healing. Real Love.</h2>
+      <p>This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.</p>
+      <p>Whether you're here to find comfort, share your truth, or support others, you're not alone. Speak louder. Love harder. Heal together.</p>
+    </section>
 
-  <!-- Intro Section -->
-  <section class="intro">
-    <h2>Real Stories. Real Healing. Real Love.</h2>
-    <p>This website is a heart-driven space for healing, truth, and connection. From surviving abuse, chronic illness, and addiction, to celebrating pitbulls and the strength of foster children — we cover it all. Real stories, real struggles, real hope.</p>
-    <p>Whether you're here to find comfort, share your truth, or support others, you're not alone. <strong>Speak louder. Love harder. Heal together.</strong></p>
-  </section>
+    <section id="feed-container">
+      <button id="createPost" class="create-post-btn" title="Create a new post">＋</button>
+      <div id="feed" class="feed"></div>
+    </section>
+  </main>
 
-  <!-- Stories -->
-  <section class="story-bar">
-    <div class="story"><img src="img/story1.jpg" class="story-avatar" alt="Story" /></div>
-    <div class="story"><img src="img/story2.jpg" class="story-avatar" alt="Story" /></div>
-  </section>
-
-  <!-- Feed -->
-  <main id="feed"></main>
-
-  <!-- Floating Post Button -->
-  <button id="createPost">+</button>
-
-  <!-- Bottom Navigation -->
-  <nav class="navbar">
-    <div class="nav-icon">🏠</div>
-    <div class="nav-icon">🔍</div>
-    <div class="nav-icon">➕</div>
-    <div class="nav-icon">💬</div>
-    <div class="nav-icon">👤</div>
-  </nav>
-
-  <!-- Footer -->
   <footer>
-    <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank">linktr.ee/rissa.star</a></p>
+    <p>Stay connected with Rissa ➜ <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">linktr.ee/rissa.star</a></p>
   </footer>
 
-<!-- Post Composer Modal -->
-<div id="postModal" class="modal">
-  <div class="modal-content">
-    <h2>Create Post</h2>
-    <textarea id="postText" placeholder="Write your story here..." rows="5"></textarea>
-    <div class="modal-buttons">
-      <button id="submitPost">Post</button>
-      <button id="cancelPost">Cancel</button>
+  <!-- Post Composer Modal -->
+  <div id="postModal" class="modal">
+    <div class="modal-content">
+      <h2>Create Post</h2>
+      <textarea id="postText" placeholder="Write your story here..." rows="5"></textarea>
+
+      <label for="postImage" style="display:block; margin-bottom:8px; font-weight:600; color:#333;">Add an image (optional):</label>
+      <input type="file" id="postImage" accept="image/*" />
+
+      <div class="modal-buttons">
+        <button id="submitPost">Post</button>
+        <button id="cancelPost">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
 
   <script src="script.js"></script>
 </body>
