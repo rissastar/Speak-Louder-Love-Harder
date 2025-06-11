@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Your Profile - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile — Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
-  <header>
-    <h1 class="pulse">Speak Louder, Love Harder</h1>
-    <h2>Your Profile</h2>
-  </header>
 
-  <main>
-    <div class="composer">
-      <label>Username:</label><br>
-      <input type="text" id="username"><br><br>
+<header>
+  <h1 class="pulse-glow">Speak Louder, Love Harder</h1>
+</header>
 
-      <label>Bio:</label><br>
-      <textarea id="bio"></textarea><br><br>
+<main class="centered">
+  <h2>My Profile</h2>
+  <input type="text" id="profile-username" placeholder="Username" required />
+  <textarea id="profile-bio" placeholder="Your bio..."></textarea>
+  <input type="file" id="profile-avatar" accept="image/*" />
+  <img id="avatar-preview" width="100" alt="Your Avatar" />
+  <button id="save-profile">Save Profile</button>
+  <p id="profile-status"></p>
+</main>
 
-      <label>Profile Picture:</label><br>
-      <input type="file" id="avatar" accept="image/*"><br><br>
-      <img id="preview" width="100"><br><br>
-
-      <button onclick="updateProfile()">Save Changes</button>
-    </div>
-
-    <div id="status"></div>
-  </main>
-
-  <script type="module" src="auth.js"></script>
-  <script type="module" src="profile.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
