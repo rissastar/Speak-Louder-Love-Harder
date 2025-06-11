@@ -1,185 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard | Speak Louder, Love Harder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Fredoka', cursive;
-      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-      color: #333;
-      display: flex;
-      min-height: 100vh;
-    }
-
-    nav.sidebar {
-      width: 220px;
-      background: #9b59b6;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
-    }
-    nav.sidebar h2 {
-      font-family: 'Baloo 2', cursive;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: 1px;
-    }
-    nav.sidebar a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 15px;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-      margin-bottom: 0.7rem;
-      transition: background 0.3s ease;
-    }
-    nav.sidebar a:hover, nav.sidebar a.active {
-      background: #e84393;
-      box-shadow: 0 0 10px #e84393;
-    }
-    nav.sidebar a i {
-      font-size: 1.3rem;
-    }
-
-    main.dashboard {
-      flex-grow: 1;
-      padding: 2rem 2.5rem;
-      overflow-y: auto;
-    }
-
-    header.greeting {
-      font-family: 'Baloo 2', cursive;
-      font-size: 1.8rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card-button {
-      display: block;
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto 1.5rem;
-      background: white;
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgb(155 89 182 / 0.15);
-      text-align: left;
-      text-decoration: none;
-      color: #333;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-      position: relative;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .card-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      background: #f3e5f5;
-    }
-    .card-button i {
-      margin-right: 12px;
-      color: #9b59b6;
-    }
-
-    #quote-box {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin: 0 auto 2rem;
-      padding: 1rem 1.5rem;
-      border-left: 6px solid #9b59b6;
-      background: rgba(255 255 255 / 0.8);
-      border-radius: 8px;
-      position: relative;
-      max-width: 700px;
-      color: #6a1b9a;
-      font-style: italic;
-      user-select: none;
-    }
-    #quote-box::before {
-      content: "💡";
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      font-size: 1.5rem;
-    }
-
-    main.dashboard::-webkit-scrollbar {
-      width: 8px;
-    }
-    main.dashboard::-webkit-scrollbar-thumb {
-      background: #9b59b6;
-      border-radius: 10px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="profile-box">
+    <h1 id="username"></h1>
+    <p id="bio"></p>
 
-<nav class="sidebar">
-  <h2>🌈 Speak Louder, Love Harder</h2>
-  <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
-  <a href="guestbook-connect.html"><i class="fas fa-comments"></i> Guestbook</a>
-  <a href="mental-health.html"><i class="fas fa-brain"></i> Mental Health</a>
-  <a href="addiction.html"><i class="fas fa-syringe"></i> Addiction</a>
-  <a href="cystic-fibrosis.html"><i class="fas fa-lungs"></i> CF</a>
-  <a href="cirrhosis.html"><i class="fas fa-disease"></i> Cirrhosis</a>
-  <a href="physical-abuse.html"><i class="fas fa-hand-fist"></i> Physical Abuse</a>
-  <a href="mental-abuse.html"><i class="fas fa-head-side-virus"></i> Mental Abuse</a>
-  <a href="sexual-abuse.html"><i class="fas fa-user-shield"></i> Sexual Abuse</a>
-  <a href="pitbull-love.html"><i class="fas fa-dog"></i> Pitbull Love</a>
-  <a href="foster-children.html"><i class="fas fa-children"></i> Foster Children</a>
-</nav>
+    <h2>Your Posts</h2>
+    <div id="userPosts"></div>
 
-<main class="dashboard">
-  <header class="greeting" id="greeting">Hi, User 👋</header>
+    <h3>Edit Bio</h3>
+    <textarea id="newBio"></textarea><br>
+    <button onclick="updateBio()">Update Bio</button>
 
-  <section id="quote-box">Loading quote...</section>
+    <br><br>
+    <a href="dashboard.html">Back to Dashboard</a>
+  </div>
 
-  <a href="saved-goals.html" class="card-button"><i class="fas fa-clipboard-list"></i>Saved Worksheets & Goals</a>
+  <script>
+    const user = localStorage.getItem('loggedInUser');
+    if (!user) {
+      window.location.href = 'login.html';
+    }
 
-  <a href="journal.html" class="card-button"><i class="fas fa-pen"></i>Journaling</a>
+    const userData = JSON.parse(localStorage.getItem('user_' + user));
 
-  <a href="bookmarks.html" class="card-button"><i class="fas fa-bookmark"></i>Bookmarks</a>
-</main>
+    document.getElementById('username').innerText = "@" + user;
+    document.getElementById('bio').innerText = userData.bio;
+    document.getElementById('newBio').value = userData.bio;
 
-<script>
-  const greetingEl = document.getElementById('greeting');
-  const user = localStorage.getItem('currentUser') || "User";
-  greetingEl.textContent = `Hi, ${user} 👋`;
+    function updateBio() {
+      userData.bio = document.getElementById('newBio').value;
+      localStorage.setItem('user_' + user, JSON.stringify(userData));
+      document.getElementById('bio').innerText = userData.bio;
+      alert("Bio updated!");
+    }
 
-  const quotes = [
-    "🌟 You're stronger than you think.",
-    "💪 Keep going, you've got this!",
-    "🌈 Every day is a fresh start.",
-    "✨ Believe in yourself and magic happens.",
-    "💖 Spread love wherever you go."
-  ];
-  const quoteBox = document.getElementById('quote-box');
-  let quoteIndex = 0;
-
-  function showQuote() {
-    quoteBox.textContent = quotes[quoteIndex];
-    quoteIndex = (quoteIndex + 1) % quotes.length;
-  }
-  showQuote();
-  setInterval(showQuote, 7000);
-</script>
-
+    const postsContainer = document.getElementById('userPosts');
+    userData.posts.forEach((post, index) => {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.innerHTML = `<p>${post.text}</p>${post.image ? `<img src="${post.image}" />` : ""}`;
+      postsContainer.appendChild(div);
+    });
+  </script>
 </body>
 </html>
