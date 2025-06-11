@@ -2,42 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Profile - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
     <h1>Your Profile</h1>
     <nav>
       <a href="feed.html">Feed</a>
-      <a href="profile.html" aria-current="page">Profile</a>
+      <a href="profile.html">Profile</a>
       <button id="logout-btn">Logout</button>
     </nav>
   </header>
 
   <main>
     <section id="profile-info">
-      <div class="avatar-upload">
-        <img id="profile-avatar" src="default-avatar.png" alt="Your avatar" width="120" height="120" />
-        <input type="file" id="avatar-input" accept="image/*" />
-      </div>
-      <div class="profile-details">
-        <label for="display-name">Display Name:</label>
-        <input type="text" id="display-name" placeholder="Your display name" />
-        <p id="profile-email"></p>
-        <button id="save-profile-btn">Save Profile</button>
-        <p id="profile-message"></p>
-      </div>
+      <img id="profile-avatar" src="default-avatar.png" alt="Your avatar" width="100"/>
+      <h2 id="profile-name"></h2>
+      <p id="profile-email"></p>
+    </section>
+
+    <section id="create-post">
+      <h3>Create a New Post</h3>
+      <textarea id="post-text" placeholder="Write something..." required></textarea>
+
+      <label for="post-type">Post Type:</label>
+      <select id="post-type" required>
+        <option value="">Select type</option>
+        <option value="your_story">Your Story</option>
+        <option value="post_image">Post an Image</option>
+        <option value="ask_question">Ask a Question</option>
+        <option value="post_worksheet">Post a Worksheet</option>
+        <option value="post_resource">Post a Resource</option>
+        <option value="post_quote">Post a Quote</option>
+        <option value="post_affirmation">Post an Affirmation</option>
+        <option value="post_grounding">Post a Grounding Technique</option>
+      </select>
+
+      <label for="post-category">Topic:</label>
+      <select id="post-category" required>
+        <option value="">Select a topic</option>
+        <option value="cystic_fibrosis">Cystic Fibrosis</option>
+        <option value="cirrhosis">Cirrhosis</option>
+        <option value="mental_health">Mental Health</option>
+        <option value="mental_abuse">Mental Abuse</option>
+        <option value="sexual_abuse">Sexual Abuse</option>
+        <option value="physical_abuse">Physical Abuse</option>
+        <option value="foster_children">Foster Children</option>
+        <option value="pitbull_love">Pitbull Love</option>
+      </select>
+
+      <input type="file" id="post-image" accept="image/*" />
+      <button id="post-btn">Post</button>
     </section>
 
     <section id="user-posts">
-      <h2>Your Posts</h2>
-      <div id="posts-container"></div>
+      <h3>Your Posts</h3>
+      <!-- User's posts will be loaded here -->
     </section>
   </main>
 
-  <script type="module" src="profile-script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
