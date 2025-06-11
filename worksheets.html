@@ -4,29 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Worksheets - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="css/topics.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="worksheets.css" />
 </head>
 <body>
-
-  <header class="header">
-    <div class="header-title">Worksheets</div>
-    <div class="header-icons">
-      <a href="feed.html"><i class="fas fa-home"></i></a>
-      <a href="settings.html"><i class="fas fa-cog"></i></a>
-    </div>
+  <header>
+    <h1>📄 Worksheets</h1>
+    <nav>
+      <button onclick="location.href='feed.html'">🏠</button>
+      <button onclick="location.href='profile.html'">👤</button>
+      <button onclick="location.href='settings.html'">⚙️</button>
+      <button onclick="location.href='logout.html'">🚪</button>
+    </nav>
   </header>
 
-  <main class="content">
-    <h2>Explore Mental Health Worksheets</h2>
-    <p style="text-align: center; color: #666;">Coming soon: downloadable and printable tools to help you reflect, grow, and heal.</p>
+  <main>
+    <input type="text" id="worksheetTitle" placeholder="Worksheet title" />
+    <input type="file" id="worksheetFile" accept="application/pdf" />
+    <button onclick="uploadWorksheet()">Upload Worksheet</button>
+    <ul id="worksheetFeed"></ul>
   </main>
 
-  <footer class="footer">
-    <a href="https://linktr.ee/rissa.star" target="_blank">
-      <i class="fas fa-link"></i> Linktree
-    </a>
+  <footer>
+    <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
   </footer>
 
+  <script type="module" src="worksheets.js"></script>
 </body>
 </html>
