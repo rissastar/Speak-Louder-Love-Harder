@@ -1,72 +1,63 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profile - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Your Profile - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="css/profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-
 <body>
-  <div class="logo" tabindex="0">Speak Louder, Love Harder</div>
-  <nav role="navigation" aria-label="Main navigation">
-    <a href="index.html" class="btn-nav">Home</a>
-    <a href="mental-health.html" class="btn-nav">Mental Health</a>
-    <a href="addiction.html" class="btn-nav">Addiction</a>
-    <a href="cystic-fibrosis.html" class="btn-nav">Cystic Fibrosis</a>
-    <a href="cirrhosis.html" class="btn-nav">Cirrhosis</a>
-    <a href="foster-children.html" class="btn-nav">Foster Children</a>
-    <a href="pitbull-love.html" class="btn-nav">Pitbull Love</a>
-    <a href="mental-abuse.html" class="btn-nav">Mental Abuse</a>
-    <a href="physical-abuse.html" class="btn-nav">Physical Abuse</a>
-    <a href="sexual-abuse.html" class="btn-nav">Sexual Abuse</a>
-    <a href="affirmations.html" class="btn-nav">Affirmations</a>
-    <a href="worksheets.html" class="btn-nav">Worksheets</a>
-    <a href="quotes.html" class="btn-nav">Quotes</a>
-    <a href="profile.html" class="btn-nav">Profile</a>
-    <a href="settings.html" class="btn-nav">Settings</a>
-    <a href="logout.html" class="btn-nav">Logout</a>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>My Profile</h1>
+    <div class="header-icons">
+      <a href="settings.html"><i class="fas fa-cog"></i></a>
+      <a href="logout.html"><i class="fas fa-sign-out-alt"></i></a>
+    </div>
+  </header>
+
+  <!-- Topic Nav (Dropdown) -->
+  <nav class="topic-nav">
+    <button id="toggleTopics"><i class="fas fa-chevron-down"></i> Topics</button>
+    <ul id="topicList" class="hidden">
+      <li><a href="mental-health.html">Mental Health</a></li>
+      <li><a href="addiction.html">Addiction</a></li>
+      <li><a href="terminal-illness.html">Terminal Illness</a></li>
+      <li><a href="abuse.html">Abuse</a></li>
+      <li><a href="pitbull-love.html">Pitbull Love</a></li>
+      <li><a href="foster-children.html">Foster Children</a></li>
+    </ul>
   </nav>
-</header>
-      
-    <main>
-    <section class="profile-section">
-      <h2>Update Your Profile Picture</h2>
-      <div class="profile-pic-wrapper">
-    </section>
 
-    <h1 id="username" class="profile-username" tabindex="0">Loading...</h1>
-    <p id="bio" class="profile-bio" tabindex="0">Loading your bio...</p>
+  <!-- Profile Info -->
+  <section class="profile-container">
+    <img id="avatar" src="https://via.placeholder.com/100" alt="Profile Picture" />
+    <h2 id="username">@username</h2>
+    <p id="bio">Your bio will appear here.</p>
+  </section>
 
-    <section class="profile-stats" aria-label="User statistics">
-      <div>
-        <strong tabindex="0">124</strong><span>Posts</span>
-      </div>
-      <div>
-        <strong tabindex="0">3.5K</strong><span>Followers</span>
-      </div>
-      <div>
-        <strong tabindex="0">250</strong><span>Following</span>
-      </div>
-    </section>
+  <!-- Tool Nav -->
+  <section class="tool-nav">
+    <a href="worksheets.html"><i class="fas fa-file-alt"></i> Worksheets</a>
+    <a href="quotes.html"><i class="fas fa-quote-left"></i> Quotes</a>
+    <a href="affirmations.html"><i class="fas fa-heart"></i> Affirmations</a>
+    <a href="grounding-techniques.html"><i class="fas fa-leaf"></i> Grounding</a>
+  </section>
 
-    <a href="settings.html" class="btn-edit-profile" role="button" tabindex="0">Edit Profile</a>
+  <!-- User Posts -->
+  <section class="user-posts" id="userPosts">
+    <p>Loading your posts...</p>
+  </section>
 
-    <section class="profile-posts" aria-label="User posts">
-      <!-- You can later fetch real posts from Supabase -->
-      <article class="profile-post" tabindex="0">
-        <h3>Mindfulness and Me</h3>
-        <p>Just finished a great meditation session.</p>
-      </article>
-    </section>
-  </main>
-
-  <footer role="contentinfo">
-    <p>&copy; 2025 Speak Louder, Love Harder |
-      <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">More Links</a>
-    </p>
+  <!-- Footer -->
+  <footer class="footer">
+    <a href="https://linktr.ee/rissa.star" target="_blank">
+      <i class="fas fa-link"></i> Visit my Linktree
+    </a>
   </footer>
 
- <script type="module">script.js</script>
+  <script src="js/profile.js"></script>
 </body>
 </html>
