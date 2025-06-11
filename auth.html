@@ -55,46 +55,41 @@
   </form>
   <div id="status" class="message"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  <script src="auth.js"></script>
+<script>
+  document.getElementById('auth-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    const form = document.getElementById('auth-form');
+    const result = await login(email, password);
     const status = document.getElementById('status');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    if (!result.success) {
+      status.textContent = result.message;
+      status.className = 'error';
+    } else {
+      status.textContent = 'Logged in! Redirecting...';
+      status.className = 'message';
+      setTimeout(() => window.location.href = 'index.html', 1000);
+    }
+  });
 
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+  document.getElementById('signup-btn').addEventListener('click', async () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-      if (error) {
-        status.textContent = error.message;
-        status.className = 'error';
-      } else {
-        status.textContent = 'Logged in! Redirecting...';
-        status.className = 'message';
-        setTimeout(() => window.location.href = 'index.html', 1000);
-      }
-    });
+    const result = await signup(email, password);
+    const status = document.getElementById('status');
 
-    document.getElementById('signup-btn').addEventListener('click', async () => {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      const { error } = await supabase.auth.signUp({ email, password });
-
-      if (error) {
-        status.textContent = error.message;
-        status.className = 'error';
-      } else {
-        status.textContent = 'Signup successful! Please check your email to confirm.';
-        status.className = 'message';
-      }
-    });
-  </script>
+    if (!result.success) {
+      status.textContent = result.message;
+      status.className = 'error';
+    } else {
+      status.textContent = 'Signed up! Please check your email.';
+      status.className = 'message';
+    }
+  });
+</script>
 </body>
 </html>
