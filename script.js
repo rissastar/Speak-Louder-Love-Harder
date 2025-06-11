@@ -38,3 +38,29 @@ if (registerForm) {
     }
   });
 }
+
+// Initialize Supabase client
+const supabase = supabase || createClient(
+  "https://ytgrzhtntwzefwjmhgjj.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8"
+);
+
+// Global logout function
+async function logoutUser(redirectTo = "index.html") {
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+  } catch (err) {
+    console.error("Logout failed:", err.message);
+  } finally {
+    window.location.href = redirectTo;
+  }
+}
+
+// Optional: bind to a button if present
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => logoutUser());
+  }
+});
