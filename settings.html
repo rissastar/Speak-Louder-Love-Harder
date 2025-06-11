@@ -2,33 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings • Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="settings.css" />
+  <script type="module" src="settings.js" defer></script>
 </head>
 <body>
-  <div class="settings-container">
-    <h1 class="page-title">Your Profile Settings</h1>
+  <nav class="top-nav">
+    <button id="toggleTopics">☰ Topics</button>
+    <div id="topicDropdown" class="dropdown hidden">
+      <a href="mental-health.html">Mental Health</a>
+      <a href="addiction.html">Addiction</a>
+      <a href="abuse.html">Abuse</a>
+      <a href="terminal-illness.html">Terminal Illness</a>
+      <a href="pitbull-love.html">Pitbull Love</a>
+      <a href="foster-children.html">Foster Children</a>
+    </div>
+    <div class="nav-icons">
+      <a href="profile.html">👤</a>
+      <a href="logout.html">🚪</a>
+    </div>
+  </nav>
+
+  <main class="settings-container">
+    <h1>Account Settings</h1>
 
     <div class="avatar-section">
-      <img id="avatar-preview" src="images/default-avatar.png" alt="Profile Picture" />
-      <label for="avatar-upload" class="upload-btn">Change Profile Picture</label>
-      <input type="file" id="avatar-upload" accept="image/*" hidden />
-      <small class="avatar-note">Upload a profile picture here anytime!</small>
+      <img id="avatar-preview" src="default-avatar.png" alt="Profile Picture" />
+      <input type="file" id="avatar-input" accept="image/*" />
+      <button id="upload-avatar">Upload Avatar</button>
     </div>
 
-    <form id="settings-form" class="settings-form">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Your username" required />
-
-      <label for="bio">Bio</label>
-      <textarea id="bio" name="bio" placeholder="Write something about yourself..."></textarea>
-
+    <form id="settings-form">
+      <input type="text" id="username" placeholder="Your Username" />
+      <textarea id="bio" placeholder="Your Bio"></textarea>
+      <input type="password" id="new-password" placeholder="New Password" />
       <button type="submit">Save Changes</button>
     </form>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="settings.js"></script>
+    <div id="settings-message"></div>
+  </main>
+
+  <footer>
+    <a href="https://linktr.ee/rissa.star" target="_blank">💜 Linktree</a>
+  </footer>
 </body>
 </html>
