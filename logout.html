@@ -1,21 +1,87 @@
-<script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js'
-
-  const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ'
-
-  const supabase = createClient(supabaseUrl, supabaseKey)
-
-  async function logout() {
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      alert('Error signing out: ' + error.message)
-    } else {
-      // Redirect to login or homepage
-      window.location.href = 'login.html'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logout | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .logout-container {
+      max-width: 420px;
+      margin: 5rem auto;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(75, 0, 181, 0.2);
+      padding: 2.5rem 2rem;
+      text-align: center;
     }
-  }
 
-  // Example: attach logout function to a button with id "logout-btn"
-  document.getElementById('logout-btn')?.addEventListener('click', logout)
-</script>
+    .logout-container h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+      color: #4b00b5;
+    }
+
+    .logout-container button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #7b4dff, #4b00b5);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .logout-container button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #4b00b5, #7b4dff);
+    }
+
+    .logout-container p {
+      margin-top: 1.5rem;
+      color: #4a2c91;
+      font-size: 1rem;
+    }
+
+    .logout-container a {
+      font-weight: 700;
+      color: #7b4dff;
+    }
+
+    .logout-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="logout-container">
+    <h2>Log Out 💜</h2>
+    <button id="logout-button">Logout</button>
+    <p>Want to log back in? <a href="login.html">Click here</a></p>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+    const supabaseUrl = 'https://rbpjytmoqvwanqgbmhem.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJicGp5dG1vcXZ3YW5xZ2JtaGVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MDIyNDMsImV4cCI6MjA2NTE3ODI0M30.xEjcJfZA4iIs7R27KsX6SEiZiU2yD6R3AjHFpfhFnDQ'
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const logoutBtn = document.getElementById('logout-button')
+
+    logoutBtn.addEventListener('click', async () => {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        alert('Logout failed: ' + error.message)
+      } else {
+        alert('You have been logged out.')
+        window.location.href = 'login.html'
+      }
+    })
+  </script>
+</body>
+</html>
