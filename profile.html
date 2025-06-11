@@ -2,39 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Profile - Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Profile</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
+    <h1>Your Profile</h1>
     <nav>
-      <a href="index.html" class="logo">Speak Louder, Love Harder</a>
-      <a href="logout.html">Logout</a>
+      <a href="feed.html">Feed</a>
+      <a href="profile.html">Profile</a>
+      <button id="logout-btn">Logout</button>
     </nav>
   </header>
-
-  <main class="profile-container">
-    <section class="profile-info editable">
-      <img src="https://via.placeholder.com/100?text=Avatar" alt="Your Avatar" class="profile-avatar" />
-      <h2 class="profile-username">Your Username</h2>
-      <textarea id="bio" placeholder="Write something about yourself..."></textarea>
-      <button id="save-profile-btn">Save Profile</button>
+  <main>
+    <section id="profile-info">
+      <img id="profile-avatar" src="" alt="Your avatar" width="100"/>
+      <h2 id="profile-name"></h2>
+      <p id="profile-email"></p>
     </section>
-
-    <section class="profile-posts">
+    <section id="user-posts">
       <h3>Your Posts</h3>
-      <div id="my-posts">
-        <!-- User's posts will be dynamically loaded here -->
-      </div>
     </section>
   </main>
-
-  <footer>
-    <p><a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">Find me on Linktree</a></p>
-  </footer>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
