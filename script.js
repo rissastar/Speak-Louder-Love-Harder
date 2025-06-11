@@ -27,59 +27,55 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Submit post
-submitPostBtn.addEventListener('click', () => {
-  const text = postText.value.trim();
-  const file = postImage.files[0];
+function submitPost() {
+  const postText = document.getElementById("postText").value;
+  const postImage = document.getElementById("postImage").files[0];
+  const user = localStorage.getItem("loggedInUser");
 
-  if (!text && !file) {
-    alert('Please write something or add an image before posting.');
+  if (!user) {
+    alert("You must be logged in to post.");
     return;
   }
 
-  const postEl = document.createElement('div');
-  postEl.className = 'post';
+  if (!postText && !postImage) {
+    alert("Please write something or upload an image.");
+    return;
+  }
 
-  if (file) {
+  const postElement = document.createElement("div");
+  postElement.className = "post";
+
+  const textParagraph = document.createElement("p");
+  textParagraph.textContent = postText;
+  postElement.appendChild(textParagraph);
+
+  if (postImage) {
     const reader = new FileReader();
     reader.onload = function (e) {
-      const imageHtml = `<img src="${e.target.result}" alt="Post Image" class="post-img" />`;
-      postEl.innerHTML = `
-        <div class="post-header">
-          <img src="img/avatar.png" alt="User" class="avatar" />
-          <div><strong>You</strong></div>
-        </div>
-        <div class="post-caption">${escapeHtml(text)}</div>
-        ${imageHtml}
-        <div class="post-actions">
-          <button class="like-btn">♡ Like</button> <span class="like-count">0</span>
-          <button class="comment-btn">💬 Comment</button>
-        </div>
-        <div class="comments-section"></div>
-      `;
-      feed.prepend(postEl);
-      attachPostEventListeners(postEl);
-      postModal.style.display = 'none';
+      const img = document.createElement("img");
+      img.src = e.target.result;
+      postElement.appendChild(img);
+
+      savePost(user, postText, img.src);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(postImage);
   } else {
-    postEl.innerHTML = `
-      <div class="post-header">
-        <img src="img/avatar.png" alt="User" class="avatar" />
-        <div><strong>You</strong></div>
-      </div>
-      <div class="post-caption">${escapeHtml(text)}</div>
-      <div class="post-actions">
-        <button class="like-btn">♡ Like</button> <span class="like-count">0</span>
-        <button class="comment-btn">💬 Comment</button>
-      </div>
-      <div class="comments-section"></div>
-    `;
-    feed.prepend(postEl);
-    attachPostEventListeners(postEl);
-    postModal.style.display = 'none';
+    savePost(user, postText, null);
   }
-});
+
+  document.getElementById("postsFeed").prepend(postElement);
+
+  document.getElementById("postText").value = "";
+  document.getElementById("postImage").value = "";
+}
+
+function savePost(user, text, image) {
+  const key = "user_" + user;
+  const userData = JSON.parse(localStorage.getItem(key));
+
+  userData.posts.unshift({ text: text, image: image });
+  localStorage.setItem(key, JSON.stringify(userData));
+}
 
 // Escape HTML helper
 function escapeHtml(text) {
