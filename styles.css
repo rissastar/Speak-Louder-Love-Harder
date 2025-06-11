@@ -423,3 +423,42 @@ footer a:hover {
   resize: vertical;
   min-height: 80px;
 }
+
+.profile-section {
+  margin: 2rem auto;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 0 15px #d4c1ff99;
+  text-align: center;
+}
+
+.profile-pic-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(75, 0, 181, 0.3);
+}
+
+#upload-btn {
+  background-color: #7b4dff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#upload-btn:hover {
+  background-color: #4b00b5;
+}
