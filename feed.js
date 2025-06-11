@@ -1,159 +1,133 @@
-// Mark which posts the current user has liked
-async function markLikesForPosts(postsArray) {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user || postsArray.length === 0) return;
+// === Supabase Setup ===
+const supabaseUrl = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
+const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-  const postIds = postsArray.map(p => p.id);
-  const { data: likes, error } = await supabase
-    .from('likes')
-    .select('post_id')
-    .eq('user_id', user.id)
-    .in('post_id', postIds);
+// === DOM Elements ===
+const postForm = document.getElementById('postForm');
+const postContent = document.getElementById('postContent');
+const postImageInput = document.getElementById('postImage');
+const imagePreview = document.getElementById('imagePreview');
+const postsList = document.getElementById('postsList');
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+const topicToggleBtn = document.getElementById('topicToggleBtn');
+const topicDropdown = document.getElementById('topicDropdown');
+const logoutBtn = document.getElementById('logoutBtn');
+const settingsBtn = document.getElementById('settingsBtn');
+
+const POSTS_PER_PAGE = 10;
+
+// === Topic Dropdown Toggle ===
+topicToggleBtn.addEventListener('click', () => {
+  const expanded = topicToggleBtn.getAttribute('aria-expanded') === 'true';
+  topicToggleBtn.setAttribute('aria-expanded', !expanded);
+  topicDropdown.classList.toggle('hidden');
+});
+
+// === Logout and Settings ===
+logoutBtn.addEventListener('click', async () => {
+  await supabase.auth.signOut();
+  window.location.href = 'logout.html';
+});
+
+settingsBtn.addEventListener('click', () => {
+  window.location.href = 'settings.html';
+});
+
+// === Image Preview ===
+postImageInput.addEventListener('change', () => {
+  const file = postImageInput.files[0];
+  if (!file) return imagePreview.classList.add('hidden');
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    imagePreview.src = e.target.result;
+    imagePreview.classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+});
+
+// === Escape HTML ===
+function escapeHtml(text) {
+  return text.replace(/[&<>"']/g, match => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[match]
+  ));
+}
+
+// === Fetch Posts ===
+async function fetchPosts() {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*, profiles(username, avatar_url)')
+    .order('created_at', { ascending: false })
+    .limit(POSTS_PER_PAGE);
 
   if (error) {
-    console.error('Error fetching likes:', error);
-    return;
+    console.error('Error loading posts:', error);
+    return [];
   }
+  return data;
+}
 
-  const likedPostIds = likes.map(like => like.post_id);
-  postsArray.forEach(post => {
-    post.likedByCurrentUser = likedPostIds.includes(post.id);
+// === Render Posts ===
+function renderPosts(posts) {
+  postsList.innerHTML = '';
+  posts.forEach(post => {
+    const user = post.profiles || {};
+    const avatar = user.avatar_url
+      ? `<img src="${user.avatar_url}" class="avatar" alt="${user.username}'s avatar" />`
+      : `<div class="avatar">${(user.username || '?')[0]}</div>`;
+
+    const image = post.image_url
+      ? `<img src="${post.image_url}" class="post-image" alt="Post Image" />`
+      : '';
+
+    const postItem = document.createElement('li');
+    postItem.className = 'post';
+    postItem.innerHTML = `
+      <div class="post-header">
+        ${avatar}
+        <span class="username">${user.username || 'Unknown'}</span>
+      </div>
+      <div class="content">${escapeHtml(post.content || '')}</div>
+      ${image}
+    `;
+    postsList.appendChild(postItem);
   });
 }
 
-// Submit new post
+// === Load Posts ===
+async function loadInitialPosts() {
+  const posts = await fetchPosts();
+  renderPosts(posts);
+}
+
+// === Handle Form Submission ===
 postForm.addEventListener('submit', async e => {
   e.preventDefault();
-
   const content = postContent.value.trim();
   const file = postImageInput.files[0];
 
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    alert('You must be logged in to post.');
-    return;
-  }
-
   let image_url = null;
-
   if (file) {
-    const filePath = `posts/${user.id}_${Date.now()}_${file.name}`;
-    const { error: uploadError } = await supabase.storage
+    const filePath = `${Date.now()}-${file.name}`;
+    const { error: uploadErr } = await supabase.storage
       .from('images')
       .upload(filePath, file);
 
-    if (uploadError) {
-      alert('Image upload failed.');
-      return;
-    }
-
-    const { data: imageData } = supabase.storage.from('images').getPublicUrl(filePath);
-    image_url = imageData.publicUrl;
+    if (uploadErr) return alert('Image upload failed.');
+    image_url = supabase.storage.from('images').getPublicUrl(filePath).publicURL;
   }
 
-  const { error: insertError } = await supabase.from('posts').insert({
-    user_id: user.id,
-    content,
-    image_url
-  });
-
-  if (insertError) {
-    alert('Failed to create post.');
-    return;
-  }
-
-  postContent.value = '';
-  postImageInput.value = '';
-  imagePreview.classList.add('hidden');
-  imagePreview.src = '';
-
-  await loadInitialPosts();
-});
-
-// Like/unlike posts
-postsList.addEventListener('click', async e => {
-  if (!e.target.classList.contains('like-btn')) return;
-
-  const postEl = e.target.closest('.post');
-  const postId = postEl.getAttribute('data-post-id');
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    alert('You must be logged in to like posts.');
-    return;
-  }
-
-  const isLiked = e.target.classList.contains('liked');
-
-  if (isLiked) {
-    await supabase.from('likes').delete().match({
-      post_id: postId,
-      user_id: user.id
-    });
-  } else {
-    await supabase.from('likes').insert({
-      post_id: postId,
-      user_id: user.id
-    });
-  }
-
-  await loadInitialPosts();
-});
-
-// Toggle comment form
-postsList.addEventListener('click', e => {
-  if (!e.target.classList.contains('comment-btn')) return;
-
-  const postEl = e.target.closest('.post');
-  const form = postEl.querySelector('.comment-form');
-  form.classList.toggle('hidden');
-});
-
-// Submit comment
-postsList.addEventListener('submit', async e => {
-  if (!e.target.classList.contains('comment-form')) return;
-  e.preventDefault();
-
-  const input = e.target.querySelector('.comment-input');
-  const content = input.value.trim();
-  if (!content) return;
-
-  const postEl = e.target.closest('.post');
-  const postId = postEl.getAttribute('data-post-id');
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    alert('You must be logged in to comment.');
-    return;
-  }
-
-  const { error } = await supabase.from('comments').insert({
-    post_id: postId,
-    user_id: user.id,
-    content
-  });
-
+  const { error } = await supabase.from('posts').insert({ content, image_url });
   if (error) {
-    alert('Failed to post comment.');
-    return;
-  }
-
-  input.value = '';
-  await loadInitialPosts();
-});
-
-// Load more posts on button click
-loadMoreBtn.addEventListener('click', async () => {
-  const morePosts = await fetchPosts(lastPostId);
-  await markLikesForPosts(morePosts);
-  renderPosts(morePosts, true);
-
-  if (morePosts.length < POSTS_PER_PAGE) {
-    loadMoreBtn.style.display = 'none';
+    alert('Failed to post.');
   } else {
-    lastPostId = morePosts[morePosts.length - 1].created_at;
+    postForm.reset();
+    imagePreview.classList.add('hidden');
+    loadInitialPosts();
   }
 });
 
-// Auto-initialize feed
-document.addEventListener('DOMContentLoaded', loadInitialPosts);
+// === Init ===
+loadInitialPosts();
