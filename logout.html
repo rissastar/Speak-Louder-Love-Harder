@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Logging Out - Speak Louder, Love Harder</title>
+  <title>Logged Out - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">💜 Speak Louder, Love Harder</a>
+    </nav>
+  </header>
+
   <main class="logout-container">
-    <h1>Logging out...</h1>
-    <p>Please wait.</p>
+    <h1>You’ve been logged out 💫</h1>
+    <p>Thanks for being part of the conversation. Come back soon 💜</p>
+    <a href="login.html">
+      <button>Log In Again</button>
+    </a>
   </main>
 
-  <script type="module">
-    import { supabase, logoutUser } from './script.js';
-
-    window.onload = async () => {
-      await logoutUser();
-      // After logoutUser redirects, this code won't continue, but just in case:
-      document.querySelector('h1').textContent = "Logged out.";
-      document.querySelector('p').textContent = "Redirecting...";
-    };
-  </script>
+  <footer>
+    <p>🌐 <a href="https://linktr.ee/rissa.star" target="_blank">My Linktree</a></p>
+  </footer>
 </body>
 </html>
