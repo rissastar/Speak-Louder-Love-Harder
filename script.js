@@ -1,7 +1,9 @@
-// Supabase init
-const SUPABASE_URL = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
-const SUPABASE_ANON = 'eyJh...W4bdbL8';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+// === Supabase Setup ===
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabaseUrl = 'https://ytgrzhtntwzefwjmhgjj.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8';
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Utility: get current session
 async function checkAuth() {
@@ -186,9 +188,10 @@ document.addEventListener('DOMContentLoaded', () => {
   else if (p.endsWith('.html') && window.category) initFeedPage();
 });
 
-// === Register Page Logic ===
-const registerForm = document.getElementById('register-form');
+});
 
+// === Registration Logic ===
+const registerForm = document.getElementById('register-form');
 if (registerForm) {
   const message = document.getElementById('register-message');
 
@@ -197,15 +200,42 @@ if (registerForm) {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
       message.textContent = error.message;
       message.style.color = 'red';
     } else {
-      message.textContent = '✅ Check your email to confirm your registration!';
+      message.textContent = '✅ Registered! Redirecting...';
       message.style.color = 'green';
-      registerForm.reset();
+      setTimeout(() => {
+        window.location.href = 'profile.html';
+      }, 1500);
+    }
+  });
+}
+
+// === Login Logic ===
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+  const message = document.getElementById('login-message');
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      message.textContent = error.message;
+      message.style.color = 'red';
+    } else {
+      message.textContent = '✅ Logged in! Redirecting...';
+      message.style.color = 'green';
+      setTimeout(() => {
+        window.location.href = 'profile.html';
+      }, 1500);
     }
   });
 }
