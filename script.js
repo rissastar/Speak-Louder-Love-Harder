@@ -319,3 +319,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const topicsBtn = document.getElementById('topics-btn');
+  const dropdown = document.getElementById('topics-dropdown');
+
+  if (topicsBtn && dropdown) {
+    // Toggle dropdown
+    topicsBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent immediate outside close
+      dropdown.classList.toggle('show');
+    });
+
+    // Close when clicking any topic link
+    dropdown.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        dropdown.classList.remove('show');
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target) && !topicsBtn.contains(e.target)) {
+        dropdown.classList.remove('show');
+      }
+    });
+  }
+});
