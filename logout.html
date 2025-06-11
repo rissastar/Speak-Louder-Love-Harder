@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Logout - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Simple logout script - clear session and redirect to homepage
+    window.onload = () => {
+      // Add your logout logic here (e.g. Supabase signOut)
+      // Then redirect:
+      window.location.href = 'index.html';
+    }
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Logging Out...</h1>
-  </header>
-
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    const supabase = createClient(
-      'https://ytgrzhtntwzefwjmhgjj.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0Z3J6aHRudHd6ZWZ3am1oZ2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2MTA4NjYsImV4cCI6MjA2NTE4Njg2Nn0.wx89qV1s1jePtZhuP5hnViu1KfPjMCnNrtUBW4bdbL8'
-    );
-
-    await supabase.auth.signOut();
-    window.location.href = 'index.html';
-  </script>
+  <main class="logout-container">
+    <h1>Logging out...</h1>
+    <p>Please wait.</p>
+  </main>
 </body>
 </html>
