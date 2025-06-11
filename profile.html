@@ -48,22 +48,34 @@
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
     );
 
-    async function loadProfile() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+   async function loadPosts() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
 
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("username, bio, avatar_url")
-        .eq("id", user.id)
-        .single();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("title, content, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
 
-      if (data) {
-        document.getElementById("username").textContent = data.username || "No username";
-        document.getElementById("bio").textContent = data.bio || "Tell us about yourself.";
-        document.getElementById("profile-pic").src = data.avatar_url || "default-avatar.png";
-      }
-    }
+  const postsSection = document.querySelector(".profile-posts");
+  postsSection.innerHTML = "";
+
+  if (data && data.length > 0) {
+    data.forEach((post) => {
+      const article = document.createElement("article");
+      article.className = "profile-post";
+      article.tabIndex = 0;
+      article.innerHTML = `
+        <h3>${post.title}</h3>
+        <p>${post.content}</p>
+      `;
+      postsSection.appendChild(article);
+    });
+  } else {
+    postsSection.innerHTML = "<p>No posts yet.</p>";
+  }
+}
 
     // Load profile once
     loadProfile();
