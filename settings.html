@@ -3,51 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Settings | Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Settings • Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="settings.css" />
 </head>
 <body>
-  <header class="sticky-header">
-    <a href="profile.html" class="logo">Settings</a>
-    <nav>
-      <button class="btn-nav" id="logout-btn">Logout</button>
-    </nav>
-  </header>
+  <div class="settings-container">
+    <h1 class="page-title">Your Profile Settings</h1>
 
-  <main>
-    <form id="settings-form">
-      <h2>Your Profile Settings</h2>
+    <div class="avatar-section">
+      <img id="avatar-preview" src="images/default-avatar.png" alt="Profile Picture" />
+      <label for="avatar-upload" class="upload-btn">Change Profile Picture</label>
+      <input type="file" id="avatar-upload" accept="image/*" hidden />
+      <small class="avatar-note">Upload a profile picture here anytime!</small>
+    </div>
 
-      <label for="avatar">Profile Picture</label><br/>
-      <input type="file" id="avatar" accept="image/*" /><br/><br/>
-
+    <form id="settings-form" class="settings-form">
       <label for="username">Username</label>
-      <input type="text" id="username" maxlength="30" required class="profile-input" />
+      <input type="text" id="username" name="username" placeholder="Your username" required />
 
-      <label for="bio">Bio / About Me</label>
-      <textarea id="bio" maxlength="280" rows="4" class="profile-textarea"></textarea>
+      <label for="bio">Bio</label>
+      <textarea id="bio" name="bio" placeholder="Write something about yourself..."></textarea>
 
-      <fieldset>
-        <legend>Change Password</legend>
-
-        <label for="current-password">Current Password</label>
-        <input type="password" id="current-password" autocomplete="current-password" class="profile-input"/>
-
-        <label for="new-password">New Password</label>
-        <input type="password" id="new-password" autocomplete="new-password" class="profile-input"/>
-
-        <label for="confirm-password">Confirm New Password</label>
-        <input type="password" id="confirm-password" autocomplete="new-password" class="profile-input"/>
-      </fieldset>
-
-      <button type="submit" class="btn-primary">Save Changes</button>
+      <button type="submit">Save Changes</button>
     </form>
-  </main>
+  </div>
 
-  <footer>
-    <p>Explore more: <a href="https://linktr.ee/rissa.star" target="_blank">Linktree</a></p>
-  </footer>
-
-  <script type="module" src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="settings.js"></script>
 </body>
 </html>
