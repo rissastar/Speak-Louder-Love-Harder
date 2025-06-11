@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Abuse • Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="abuse.css" />
+  <title>Topics • Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="topics.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
   <header class="header">
-    <h1>Abuse Topics</h1>
+    <h1>Explore Topics</h1>
     <div class="header-icons">
-      <a href="settings.html"><i class="fas fa-cog"></i></a>
-      <a href="logout.html"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="settings.html" aria-label="Settings"><i class="fas fa-cog"></i></a>
+      <a href="logout.html" aria-label="Logout"><i class="fas fa-sign-out-alt"></i></a>
     </div>
   </header>
 
-  <!-- Topic Dropdown -->
+  <!-- Topic Dropdown Toggle -->
   <div class="topic-toggle">
-    <button id="toggleTopics"><i class="fas fa-folder-open"></i> Topics</button>
+    <button id="toggleTopics" aria-expanded="false" aria-controls="topicNav">
+      <i class="fas fa-folder-open"></i> Topics
+    </button>
   </div>
-  <nav id="topicNav" class="topic-nav hidden">
+
+  <!-- Topic Nav -->
+  <nav id="topicNav" class="topic-nav hidden" aria-label="Topic Navigation">
     <a href="mental-health.html">🧠 Mental Health</a>
     <a href="addiction.html">💊 Addiction</a>
     <a href="terminal-illness.html">🩺 Terminal Illness</a>
@@ -30,23 +34,53 @@
     <a href="foster-children.html">👶 Foster Children</a>
   </nav>
 
-  <section class="topic-content">
-    <p>Select an area of abuse to explore:</p>
-    <div class="topic-links">
-      <a href="mental-abuse.html">🧠 Mental Abuse</a>
-      <a href="physical-abuse.html">💥 Physical Abuse</a>
-      <a href="sexual-abuse.html">🔒 Sexual Abuse</a>
-    </div>
-  </section>
+  <main class="main-content">
+
+    <section class="topic-section">
+      <h2>Worksheets</h2>
+      <p>Explore helpful worksheets created to support your journey.</p>
+      <a href="worksheets.html" class="btn-section">Go to Worksheets</a>
+    </section>
+
+    <section class="topic-section">
+      <h2>Quotes</h2>
+      <p>Find inspiration and strength in our curated quotes.</p>
+      <a href="quotes.html" class="btn-section">View Quotes</a>
+    </section>
+
+    <section class="topic-section">
+      <h2>Affirmations</h2>
+      <p>Empower yourself daily with positive affirmations.</p>
+      <a href="affirmations.html" class="btn-section">See Affirmations</a>
+    </section>
+
+    <section class="topic-section">
+      <h2>Grounding Techniques</h2>
+      <p>Learn techniques to stay present and centered.</p>
+      <a href="grounding-techniques.html" class="btn-section">Explore Grounding</a>
+    </section>
+
+  </main>
 
   <footer class="footer">
-    <a href="https://linktr.ee/rissa.star" target="_blank"><i class="fas fa-link"></i> My Linktree</a>
+    <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-link"></i> My Linktree
+    </a>
   </footer>
 
   <script>
-    document.getElementById('toggleTopics').addEventListener('click', () => {
-      document.getElementById('topicNav').classList.toggle('hidden');
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.getElementById("toggleTopics");
+      const topicNav = document.getElementById("topicNav");
+
+      if (toggleBtn && topicNav) {
+        toggleBtn.addEventListener("click", () => {
+          const isHidden = topicNav.classList.toggle("hidden");
+          toggleBtn.setAttribute("aria-expanded", !isHidden);
+        });
+      }
     });
   </script>
+
 </body>
 </html>
