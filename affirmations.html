@@ -4,34 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Affirmations - Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="css/topics.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="affirmations.css" />
 </head>
 <body>
-
-  <header class="header">
-    <div class="header-title">Affirmations</div>
-    <div class="header-icons">
-      <a href="feed.html"><i class="fas fa-home"></i></a>
-      <a href="settings.html"><i class="fas fa-cog"></i></a>
-    </div>
+  <header>
+    <h1>🌈 Affirmations</h1>
+    <nav>
+      <button onclick="location.href='feed.html'">🏠</button>
+      <button onclick="location.href='profile.html'">👤</button>
+      <button onclick="location.href='settings.html'">⚙️</button>
+      <button onclick="location.href='logout.html'">🚪</button>
+    </nav>
   </header>
 
-  <main class="content">
-    <h2>Say it with strength 💜</h2>
-    <ul style="color: #4a148c; font-weight: 500;">
-      <li>I am enough just as I am.</li>
-      <li>My past does not define my future.</li>
-      <li>I deserve love, peace, and healing.</li>
-      <li>I am strong, even when it feels hard.</li>
-    </ul>
+  <main>
+    <textarea id="affirmationInput" placeholder="Type an affirmation..."></textarea>
+    <button onclick="submitAffirmation()">Post Affirmation ✨</button>
+    <ul id="affirmationFeed"></ul>
   </main>
 
-  <footer class="footer">
-    <a href="https://linktr.ee/rissa.star" target="_blank">
-      <i class="fas fa-link"></i> Linktree
-    </a>
+  <footer>
+    <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
   </footer>
 
+  <script type="module" src="affirmations.js"></script>
 </body>
 </html>
