@@ -239,3 +239,13 @@ if (loginForm) {
     }
   });
 }
+// === Auto-Redirect Logged-In Users (Login/Register Pages Only) ===
+const currentPage = window.location.pathname;
+
+supabase.auth.getSession().then(({ data: { session } }) => {
+  if (session) {
+    if (currentPage.includes('login.html') || currentPage.includes('register.html')) {
+      window.location.href = 'profile.html';
+    }
+  }
+});
