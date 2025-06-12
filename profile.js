@@ -115,3 +115,54 @@ passwordInput.addEventListener('input', () => {
   strengthMeter.style.backgroundColor = colors[strength - 1] || 'transparent';
   strengthText.textContent = labels[strength - 1] || '';
 });
+
+// profile.js
+import { supabase } from './supabaseClient.js';
+import { checkAuth } from './auth.js';
+import { escapeHTML } from './utils.js';
+
+export async function initProfilePage(publicView = false) {
+  const session = await checkAuth(!publicView);
+  if (!session && !publicView) return;
+
+  const userId = publicView
+    ? new URLSearchParams(location.search).get('user_id')
+    : session.user.id;
+
+  const { data: user } = await supabase
+    .from('users')
+    .select('username, email, avatar_url')
+    .eq('id', userId)
+    .single();
+
+  if (!user) return;
+
+  const avatarUrl = user.avatar_url
+    ? supabase.storage.from('avatars').getPublicUrl(user.avatar_url).publicUrl
+    : 'default-avatar.png';
+
+  document.getElementById('profile-avatar').src = avatarUrl;
+  document.getElementById('profile-username').textContent = user.username || user.email;
+  document.getElementById('profile-email').textContent = user.email;
+
+  const { data: posts } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('user_id', userId)
+    .order('inserted_at', { ascending: false });
+
+  const postsContainer = document.getElementById('user-posts');
+  postsContainer.innerHTML = '';
+  posts.forEach(post => {
+    const image = post.image_url
+      ? supabase.storage.from('images').getPublicUrl(post.image_url).publicUrl
+      : null;
+    postsContainer.innerHTML += `
+      <div class="post">
+        <small>${post.category} • ${post.type}</small>
+        <p>${escapeHTML(post.text)}</p>
+        ${image ? `<img src="${image}" class="post-image" />` : ''}
+      </div>
+    `;
+  });
+}
