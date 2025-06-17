@@ -1,12 +1,14 @@
 // Addiction & Recovery – Rising Smoke Particle Animation + Quick Exit
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Create and insert canvas
+  // Create canvas element
   const canvas = document.createElement('canvas');
   canvas.id = 'backgroundCanvas';
   canvas.style.position = 'fixed';
   canvas.style.top = 0;
   canvas.style.left = 0;
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
   canvas.style.zIndex = '-1';
   canvas.style.pointerEvents = 'none';
   document.body.appendChild(canvas);
@@ -22,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Create particles
+  // Smoke-like particles
   const particles = Array.from({ length: 60 }, () => ({
     x: Math.random() * width,
     y: height + Math.random() * height,
@@ -57,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animate();
 
-  // Quick Exit Button
+  // Quick Exit Function
   const quickExitBtn = document.getElementById('quickExitBtn');
   if (quickExitBtn) {
     quickExitBtn.addEventListener('click', () => {
