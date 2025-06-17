@@ -12,13 +12,13 @@
   <main>
     <h1 class="app-title">🌌 Speak Louder, Love Harder</h1>
     <p class="subtitle">Healing. Connection. Empowerment.</p>
-    
-    <div class="panic-tools">
-  <button id="quickExit" class="panic-btn">⚠️ Quick Exit</button>
-  <button id="panicInfo" class="panic-btn">📞 Panic Help</button>
-</div>
 
-    <!-- Category 1 -->
+    <div class="panic-tools">
+      <button id="quickExit" class="panic-btn">⚠️ Quick Exit</button>
+      <button id="panicInfo" class="panic-btn">📞 Panic Help</button>
+    </div>
+
+    <!-- Mental Health -->
     <section class="category">
       <h2>🧠 Mental Health Conditions & Disorders</h2>
       <div class="sub-grid">
@@ -33,7 +33,7 @@
       </div>
     </section>
 
-    <!-- Category 2 -->
+    <!-- Addiction -->
     <section class="category">
       <h2>🌀 Addiction & Recovery</h2>
       <div class="sub-grid">
@@ -45,7 +45,7 @@
       </div>
     </section>
 
-    <!-- Category 3 -->
+    <!-- Trauma -->
     <section class="category">
       <h2>🛡️ Trauma & Abuse</h2>
       <div class="sub-grid">
@@ -57,7 +57,7 @@
       </div>
     </section>
 
-    <!-- Category 4 -->
+    <!-- Populations -->
     <section class="category">
       <h2>🌍 Support for Specific Populations</h2>
       <div class="sub-grid">
@@ -70,7 +70,7 @@
       </div>
     </section>
 
-    <!-- Category 5 -->
+    <!-- Grief -->
     <section class="category">
       <h2>🕯️ Grief & Loss</h2>
       <div class="sub-grid">
@@ -82,7 +82,7 @@
       </div>
     </section>
 
-    <!-- Category 6 -->
+    <!-- Chronic Conditions -->
     <section class="category">
       <h2>♿ Chronic Conditions & Disability</h2>
       <div class="sub-grid">
@@ -93,7 +93,7 @@
       </div>
     </section>
 
-    <!-- Category 7 -->
+    <!-- Wellness -->
     <section class="category">
       <h2>🌱 Wellness & Coping Strategies</h2>
       <div class="sub-grid">
@@ -105,35 +105,23 @@
       </div>
     </section>
   </main>
+
   <div id="panicModal" class="modal hidden">
-  <div class="modal-content">
-    <h2>🆘 Emergency Help</h2>
-    <p>If you're in immediate danger, please call emergency services.</p>
-    
-    <h3>Hotlines</h3>
-    <ul>
-      <li><strong>USA:</strong> 988 (Suicide & Crisis Lifeline)</li>
-      <li><strong>Canada:</strong> 1-833-456-4566 (Talk Suicide Canada)</li>
-      <li><strong>UK:</strong> 116 123 (Samaritans)</li>
-      <li><strong>Worldwide:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com 🌐</a></li>
-    </ul>
-    
-    <button onclick="window.location.href='https://weather.com'" class="exit-quietly">Quick Exit Now</button>
-    <button onclick="closeModal()" class="close-modal">Close</button>
+    <div class="modal-content">
+      <h2>🆘 Emergency Help</h2>
+      <p>If you're in immediate danger, please call emergency services.</p>
+      <h3>Hotlines</h3>
+      <ul>
+        <li><strong>USA:</strong> 988 (Suicide & Crisis Lifeline)</li>
+        <li><strong>Canada:</strong> 1-833-456-4566 (Talk Suicide Canada)</li>
+        <li><strong>UK:</strong> 116 123 (Samaritans)</li>
+        <li><strong>Worldwide:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com 🌐</a></li>
+      </ul>
+      <button onclick="window.location.href='https://weather.com'" class="exit-quietly">Quick Exit Now</button>
+      <button onclick="closeModal()" class="close-modal">Close</button>
+    </div>
   </div>
-</div>
-<script>
-  document.getElementById("quickExit").onclick = () => {
-    window.location.href = "https://weather.com";
-  };
 
-  document.getElementById("panicInfo").onclick = () => {
-    document.getElementById("panicModal").classList.remove("hidden");
-  };
-
-  function closeModal() {
-    document.getElementById("panicModal").classList.add("hidden");
-  }
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
