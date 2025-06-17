@@ -1,31 +1,62 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: black;
   color: white;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  z-index: 0;
 }
 
 .galaxy-background {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at center, #020111 0%, #000000 100%);
+  top: 0; left: 0;
+  background: radial-gradient(ellipse at center, #020111 0%, #000000 80%);
+  overflow: hidden;
+  z-index: -2;
+}
+
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  pointer-events: none;
+  overflow: visible;
   z-index: -1;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation-name: twinkle;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; transform: scale(1);}
+  to { opacity: 1; transform: scale(1.3);}
 }
 
 .app-title {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-top: 2rem;
+  text-shadow: 0 0 12px #ff4d4d;
 }
 
 .subtitle {
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 1rem;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .category {
@@ -38,9 +69,10 @@ body {
 }
 
 .category h2 {
-  color: #fff;
-  font-size: 1.4rem;
+  color: #ff4d4d;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
+  text-shadow: 0 0 6px #ff4d4d;
 }
 
 .sub-grid {
@@ -56,13 +88,17 @@ body {
   padding: 0.8rem;
   text-decoration: none;
   border-radius: 10px;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 600;
   transition: background 0.3s, transform 0.2s;
+  text-align: center;
+  box-shadow: 0 0 6px rgba(255,77,77,0.7);
 }
 
 .sub-grid a:hover {
-  background: rgba(255,255,255,0.2);
-  transform: scale(1.03);
+  background: rgba(255,77,77,0.3);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255,77,77,1);
 }
 
 .panic-tools {
@@ -80,12 +116,14 @@ body {
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+  transition: background-color 0.3s ease;
 }
 .panic-btn:hover {
   background-color: #ff1f1f;
+  box-shadow: 0 0 14px rgba(255, 31, 31, 1);
 }
 
 .modal.hidden {
@@ -99,10 +137,11 @@ body {
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(8px);
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
 }
 
 .modal-content {
@@ -110,22 +149,29 @@ body {
   color: white;
   padding: 2rem;
   border-radius: 12px;
-  max-width: 90%;
+  max-width: 400px;
+  width: 100%;
   text-align: left;
-  box-shadow: 0 0 20px #ff6666;
+  box-shadow: 0 0 25px #ff6666;
 }
 
 .modal-content h2 {
   margin-top: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  color: #ff4d4d;
+  text-shadow: 0 0 8px #ff4d4d;
 }
 
 .modal-content ul {
   list-style-type: none;
-  padding: 0;
+  padding-left: 0;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
+
 .modal-content ul li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
 }
 
 .modal-content a {
@@ -143,7 +189,15 @@ body {
   border-radius: 8px;
   cursor: pointer;
   margin-right: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  transition: background-color 0.3s ease;
 }
+
 .exit-quietly:hover {
+  background-color: #666;
+}
+
+.close-modal:hover {
   background-color: #666;
 }
