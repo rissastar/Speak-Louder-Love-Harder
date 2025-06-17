@@ -1,51 +1,48 @@
-// Quick Exit functionality
-const quickExit = document.getElementById('quickExitBtn');
-if (quickExit) {
-  quickExit.addEventListener('click', () => {
-    window.location.href = 'https://www.google.com';
+// Ripple background for addiction theme
+const canvas = document.getElementById("backgroundCanvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let ripples = [];
+
+function createRipple() {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
+  const radius = 0;
+  const maxRadius = 80 + Math.random() * 80;
+  ripples.push({ x, y, radius, maxRadius });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#0d0d0d";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ripples.forEach((r, i) => {
+    r.radius += 0.7;
+    if (r.radius > r.maxRadius) {
+      ripples.splice(i, 1);
+      return;
+    }
+    ctx.beginPath();
+    ctx.arc(r.x, r.y, r.radius, 0, 2 * Math.PI);
+    ctx.strokeStyle = `rgba(109, 191, 158, ${1 - r.radius / r.maxRadius})`;
+    ctx.lineWidth = 2;
+    ctx.stroke();
   });
+
+  requestAnimationFrame(animate);
 }
+setInterval(createRipple, 700);
+animate();
 
-// Starfield background animation
-const canvas = document.getElementById('bgCanvas');
-if (canvas) {
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let width, height;
-
-  function initStars() {
-    stars = [];
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    for (let i = 0; i < 150; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.2,
-        alpha: Math.random(),
-        dAlpha: 0.01 + Math.random() * 0.02
-      });
-    }
-  }
-
-  function drawStars() {
-    ctx.clearRect(0, 0, width, height);
-    for (const star of stars) {
-      star.alpha += star.dAlpha;
-      if (star.alpha <= 0 || star.alpha >= 1) star.dAlpha *= -1;
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-      ctx.fillStyle = `rgba(255, 111, 163, ${star.alpha})`;
-      ctx.shadowColor = '#ff6fa3';
-      ctx.shadowBlur = 5;
-      ctx.fill();
-    }
-    requestAnimationFrame(drawStars);
-  }
-
-  window.addEventListener('resize', initStars);
-  initStars();
-  drawStars();
-}
+// Quick Exit Button
+document.getElementById("quickExitBtn").addEventListener("click", () => {
+  window.location.href = "https://www.google.com";
+});
