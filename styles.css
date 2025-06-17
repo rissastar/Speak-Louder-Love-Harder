@@ -1,75 +1,33 @@
-/* Base Reset & Font */
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
+  background: black;
   color: white;
-  text-align: center;
-  background: transparent;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
 }
 
-h1.app-title {
-  font-size: 2em;
+.galaxy-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #020111 0%, #000000 100%);
+  z-index: -1;
+}
+
+.app-title {
+  text-align: center;
+  font-size: 2rem;
   margin-top: 2rem;
 }
 
 .subtitle {
-  font-size: 1.2em;
-  margin-bottom: 2rem;
-  color: #ccc;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
 }
 
-/* Galaxy Background */
-.galaxy-background {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  background-image: url('https://raw.githubusercontent.com/Kamigami55/animated-galaxy-bg/main/stars.gif');
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
-  animation: flicker 20s linear infinite;
-}
-
-/* Grid Layout */
-.button-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  padding: 0 1rem 3rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* Button Styling */
-.grid-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
-  padding: 1rem;
-  color: white;
-  text-decoration: none;
-  font-size: 1em;
-  backdrop-filter: blur(4px);
-  transition: transform 0.2s ease, background 0.3s ease;
-}
-.grid-btn span {
-  font-size: 1.5em;
-  display: block;
-  margin-bottom: 0.5em;
-}
-.grid-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
-}
-
-/* Flicker Animation */
-@keyframes flicker {
-  0%, 100% {opacity: 1;}
-  50% {opacity: 0.97;}
-}
 .category {
   margin: 2.5rem 1rem;
   background: rgba(255, 255, 255, 0.05);
@@ -106,6 +64,7 @@ h1.app-title {
   background: rgba(255,255,255,0.2);
   transform: scale(1.03);
 }
+
 .panic-tools {
   display: flex;
   justify-content: center;
@@ -128,6 +87,7 @@ h1.app-title {
 .panic-btn:hover {
   background-color: #ff1f1f;
 }
+
 .modal.hidden {
   display: none;
 }
