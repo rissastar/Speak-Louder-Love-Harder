@@ -1,12 +1,17 @@
-/* Addiction Subpage Styling – Flowing Flame Theme */
-
-body {
+/* Basic Reset and Layout */
+* {
   margin: 0;
   padding: 0;
-  background-color: #1a1218;
-  color: #ffe8e6;
-  font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #f4f4f4;
+  background: transparent;
   overflow-x: hidden;
+  position: relative;
 }
 
 canvas#backgroundCanvas {
@@ -14,116 +19,110 @@ canvas#backgroundCanvas {
   top: 0;
   left: 0;
   z-index: -1;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
 }
 
-/* Header with back link */
+/* Header */
 header {
-  padding: 2rem 1rem 1rem;
   text-align: center;
-}
-
-header h1 {
-  font-size: 2rem;
-  color: #ff6f61;
-  text-shadow: 0 0 15px rgba(255, 111, 97, 0.6);
-  margin: 0;
+  padding: 1.5rem 1rem 1rem;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(5px);
+  position: relative;
 }
 
 .back-link {
   position: absolute;
   left: 1rem;
-  top: 1.2rem;
-  font-size: 1rem;
+  top: 1.5rem;
   text-decoration: none;
-  color: #ffbbb3;
-  border: 1px solid #ff6f61;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  background-color: #3d1513;
-  box-shadow: 0 0 6px rgba(255, 111, 97, 0.3);
-  transition: background-color 0.3s ease;
+  color: #88f;
+  font-size: 1rem;
 }
 
-.back-link:hover {
-  background-color: #5b1f1c;
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Subnav Bar */
+/* Navigation */
 .subnav {
   display: flex;
   overflow-x: auto;
-  background: #2a1513;
+  background: rgba(0, 0, 0, 0.4);
   padding: 0.5rem;
-  border-bottom: 1px solid #ff6f61;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid #333;
 }
 
 .subnav a {
-  flex: 1;
-  color: #ffc7c2;
-  text-align: center;
-  padding: 0.6rem;
-  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  color: #ccc;
   text-decoration: none;
-  border-right: 1px solid #432221;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: background 0.3s, color 0.3s;
 }
 
 .subnav a.active,
 .subnav a:hover {
-  background-color: #471e1b;
+  background: #88f;
   color: #fff;
-  font-weight: bold;
 }
 
-/* Content Container */
-main.container {
-  padding: 2rem 1rem 4rem;
-  max-width: 800px;
-  margin: auto;
-  position: relative;
-  z-index: 1;
+/* Content */
+.container {
+  padding: 1rem;
 }
 
 h2 {
+  margin-top: 1.5rem;
+  color: #ffd1dc;
   font-size: 1.4rem;
-  color: #ffb3a7;
-  margin-top: 2rem;
 }
 
-ul, p {
-  font-size: 1.05rem;
-  line-height: 1.7;
+ul {
+  margin: 0.5rem 0 1rem 1rem;
+  list-style-type: disc;
 }
 
-/* Blockquote */
+li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+p {
+  margin: 0.5rem 0 1rem;
+  line-height: 1.6;
+}
+
 blockquote {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  border-left: 4px solid #ff6f61;
-  font-style: italic;
   margin: 1rem 0;
-  color: #ffc4be;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid #88f;
+  font-style: italic;
+  color: #ccc;
 }
 
 /* Quick Exit Button */
 #quickExitBtn {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.6rem 0.9rem;
-  background: #ff6f61;
+  bottom: 15px;
+  right: 15px;
+  background: #f44;
+  color: white;
+  font-size: 1.5rem;
   border: none;
   border-radius: 50%;
-  font-size: 1.2rem;
-  color: #fff;
-  box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
+  width: 48px;
+  height: 48px;
   cursor: pointer;
-  z-index: 10;
-  transition: background 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(255, 50, 50, 0.7);
 }
 
 #quickExitBtn:hover {
-  background: #d94c43;
+  background: #c33;
 }
