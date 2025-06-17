@@ -1,4 +1,4 @@
-// Chronic Conditions – Orbital Rings Animation + Quick Exit
+// Chronic Conditions – Slow Rising Bubbles Animation + Quick Exit
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.createElement('canvas');
@@ -23,41 +23,35 @@ document.addEventListener("DOMContentLoaded", () => {
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  const rings = Array.from({ length: 8 }, (_, i) => ({
-    radius: 50 + i * 30,
-    angle: Math.random() * Math.PI * 2,
-    speed: 0.001 + Math.random() * 0.002,
-    alpha: 0.05 + Math.random() * 0.05
+  const bubbles = Array.from({ length: 40 }, () => ({
+    x: Math.random() * width,
+    y: height + Math.random() * 200,
+    radius: 10 + Math.random() * 15,
+    speedY: 0.3 + Math.random() * 0.6,
+    alpha: 0.1 + Math.random() * 0.3
   }));
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
-
-    ctx.save();
-    ctx.translate(width / 2, height / 2);
-
-    for (let ring of rings) {
-      ring.angle += ring.speed;
+    for (let b of bubbles) {
       ctx.beginPath();
-      ctx.arc(
-        Math.cos(ring.angle) * ring.radius,
-        Math.sin(ring.angle) * ring.radius,
-        ring.radius,
-        0,
-        Math.PI * 2
-      );
-      ctx.strokeStyle = `rgba(128, 222, 234, ${ring.alpha})`;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
+      ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(173, 216, 230, ${b.alpha})`;
+      ctx.fill();
 
-    ctx.restore();
+      b.y -= b.speedY;
+      if (b.y < -b.radius) {
+        b.y = height + b.radius;
+        b.x = Math.random() * width;
+        b.alpha = 0.1 + Math.random() * 0.3;
+      }
+    }
     requestAnimationFrame(animate);
   }
 
   animate();
 
-  // Quick Exit Button
+  // Quick Exit
   const quickExitBtn = document.getElementById('quickExitBtn');
   if (quickExitBtn) {
     quickExitBtn.addEventListener('click', () => {
