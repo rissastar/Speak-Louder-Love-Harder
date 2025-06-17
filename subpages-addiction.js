@@ -1,59 +1,42 @@
-// Animated Background - flowing lines to symbolize paths & complexity
+// Starry background animation
 const canvas = document.getElementById('backgroundCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let lines = [];
-
-function createLines(count) {
-  for (let i = 0; i < count; i++) {
-    lines.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      length: Math.random() * 40 + 10,
-      speed: Math.random() * 0.5 + 0.3,
-      angle: Math.random() * Math.PI * 2,
-      alpha: Math.random() * 0.6 + 0.2,
-      color: `rgba(136, 136, 255, ${Math.random() * 0.4 + 0.1})`
-    });
-  }
+let stars = [];
+for (let i = 0; i < 150; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 1.2,
+    speed: Math.random() * 0.5 + 0.2
+  });
 }
 
-function animateLines() {
+function animateStars() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  lines.forEach(line => {
+  ctx.fillStyle = '#fff';
+  stars.forEach(star => {
     ctx.beginPath();
-    const endX = line.x + Math.cos(line.angle) * line.length;
-    const endY = line.y + Math.sin(line.angle) * line.length;
-    ctx.strokeStyle = line.color;
-    ctx.globalAlpha = line.alpha;
-    ctx.moveTo(line.x, line.y);
-    ctx.lineTo(endX, endY);
-    ctx.stroke();
-
-    line.x += Math.cos(line.angle) * line.speed;
-    line.y += Math.sin(line.angle) * line.speed;
-
-    // Wrap around screen
-    if (line.x < 0 || line.x > canvas.width || line.y < 0 || line.y > canvas.height) {
-      line.x = Math.random() * canvas.width;
-      line.y = Math.random() * canvas.height;
+    ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+    ctx.fill();
+    star.y += star.speed;
+    if (star.y > canvas.height) {
+      star.y = 0;
+      star.x = Math.random() * canvas.width;
     }
   });
-  requestAnimationFrame(animateLines);
+  requestAnimationFrame(animateStars);
 }
 
-createLines(90);
-animateLines();
+animateStars();
 
-// Responsive canvas
 window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
 
-// Quick Exit Button
 document.getElementById('quickExitBtn').addEventListener('click', () => {
   window.location.href = 'https://www.google.com';
 });
