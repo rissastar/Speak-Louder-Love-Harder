@@ -1,9 +1,10 @@
-/* General Layout */
+/* Addiction Section - Styles */
+
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  color: #fff;
+  color: #ffffff;
   background-color: #000;
   overflow: hidden;
   position: relative;
@@ -16,11 +17,11 @@ canvas#backgroundCanvas {
   z-index: -1;
 }
 
-/* Layout */
+/* Header */
 header {
   text-align: center;
   padding: 1em;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
 }
 
 .back-link {
@@ -44,6 +45,7 @@ h1 {
   padding: 2em 1em;
 }
 
+/* Subnav */
 nav.subnav {
   display: flex;
   flex-wrap: wrap;
@@ -54,30 +56,37 @@ nav.subnav {
 }
 
 nav.subnav a {
-  background: #2c2c2c;
+  background: #222;
   padding: 0.6em 1em;
   border-radius: 8px;
   color: #fff;
   font-size: 0.9em;
   text-decoration: none;
-  transition: 0.2s;
+  transition: 0.2s ease-in-out;
 }
 
 nav.subnav a.active,
 nav.subnav a:hover {
-  background: #5aa98b;
+  background: #6dbf9e;
+  color: #000;
 }
 
+/* Content */
 section {
   margin-bottom: 2em;
 }
 
+ul {
+  padding-left: 1.5em;
+  list-style-type: disc;
+}
+
 blockquote {
   font-style: italic;
-  color: #aadacc;
-  border-left: 4px solid #5aa98b;
+  color: #9fe0cb;
+  border-left: 4px solid #6dbf9e;
   padding-left: 1em;
-  margin: 1em 0;
+  margin: 1.5em 0;
 }
 
 /* Quick Exit */
@@ -87,9 +96,9 @@ blockquote {
   right: 1em;
   background: #f44;
   color: white;
-  font-size: 1.2em;
+  font-size: 1.3em;
   border: none;
   padding: 0.6em 1em;
   border-radius: 10px;
-  z-index: 99;
+  z-index: 999;
 }
