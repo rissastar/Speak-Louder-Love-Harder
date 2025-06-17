@@ -6,134 +6,126 @@
 <meta name="theme-color" content="#0b0c2b" />
 <title>Depression — Speak Louder, Love Harder</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  /* Same styles as before */
   body, html {
     margin: 0; padding: 0; height: 100%;
-    font-family: 'Montserrat', sans-serif;
     background: #0b0c2b;
-    color: #e0e0f8;
+    color: #ff6fa3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
   }
-  #bgCanvas {
+  canvas#bgCanvas {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
+    background: radial-gradient(ellipse at center, #0b0c2b 0%, #040417 100%);
   }
   header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 2px solid #ff6fa3;
-    background: rgba(11, 12, 43, 0.85);
+    background: #120c29cc;
+    padding: 1rem 1.5rem;
+    text-align: center;
     position: sticky;
     top: 0;
+    border-bottom: 1px solid #ff6fa3;
     z-index: 10;
   }
   header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
+    margin: 0; font-size: 1.6rem;
     color: #ff6fa3;
-    text-shadow: 0 0 8px #ff6fa3;
-    margin: 0;
-  }
-  .btn-back {
-    background: transparent;
-    border: 2px solid #ff6fa3;
-    color: #ff6fa3;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .btn-back:hover,
-  .btn-back:focus {
-    background-color: #ff6fa3;
-    color: #0b0c2b;
-    outline: none;
+    text-shadow: 0 0 10px #ff6fa3;
   }
   nav.subnav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 15px 10px 30px;
-    gap: 10px;
+    background: #120c29cc;
+    border-bottom: 1px solid #ff6fa3;
+    padding: 0.5rem 0;
+    position: sticky;
+    top: 56px;
+    z-index: 9;
   }
   nav.subnav a {
-    background: #1e1f4c;
-    border: 2px solid #ff6fa3;
     color: #ff6fa3;
+    padding: 0.5rem 1rem;
     text-decoration: none;
-    font-weight: 700;
-    padding: 8px 15px;
-    border-radius: 20px;
-    box-shadow: 0 0 8px #ff6fa3;
-    transition: background-color 0.3s;
-    flex: 1 0 calc(50% - 20px);
-    text-align: center;
-    min-width: 130px;
+    font-weight: 600;
+    border-radius: 6px;
+    margin: 0 0.25rem;
+    transition: background 0.3s, color 0.3s;
+    user-select: none;
   }
   nav.subnav a:hover,
   nav.subnav a:focus {
-    background-color: #ff6fa3;
+    background: #ff6fa3;
     color: #0b0c2b;
     outline: none;
   }
+  nav.subnav a.active {
+    background: #ff6fa3;
+    color: #0b0c2b;
+    cursor: default;
+  }
   main.container {
-    max-width: 700px;
-    margin: 0 auto 60px;
-    padding: 0 20px;
+    max-width: 800px;
+    margin: 2rem auto 3rem;
+    padding: 0 1.5rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
   }
   main.container h2 {
-    color: #ff98b5;
-    margin-top: 30px;
-    font-weight: 700;
+    color: #ff6fa3;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 6px #ff6fa3;
   }
-  main.container p, main.container ul {
-    line-height: 1.6;
-    color: #f0d7e8;
-  }
-  main.container ul {
-    margin-left: 20px;
-  }
-  main.container ul li {
-    margin-bottom: 8px;
+  main.container p {
+    margin-bottom: 1rem;
   }
   #quickExitBtn {
     position: fixed;
-    top: 15px;
-    right: 15px;
-    background: #ff3e3e;
-    color: #fff;
+    bottom: 20px;
+    right: 20px;
+    background: #ff6fa3;
     border: none;
-    border-radius: 6px;
-    padding: 10px 16px;
-    font-weight: 700;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-weight: bold;
+    color: #0b0c2b;
+    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 0 10px #ff3e3e;
-    z-index: 9999;
-    transition: background-color 0.3s;
+    box-shadow: 0 0 10px #ff6fa3;
+    user-select: none;
+    z-index: 20;
+    transition: background 0.3s;
   }
   #quickExitBtn:hover,
   #quickExitBtn:focus {
-    background-color: #e12b2b;
+    background: #ff92b8;
     outline: none;
   }
-  a.external-link {
+  a.btn-back {
     color: #ff6fa3;
+    font-weight: 600;
+    text-decoration: none;
+    position: absolute;
+    left: 1rem;
+    top: 1.2rem;
+    font-size: 1.2rem;
+  }
+  a.btn-back:hover,
+  a.btn-back:focus {
     text-decoration: underline;
   }
   @media (max-width: 480px) {
-    nav.subnav a {
-      flex: 1 0 100%;
-      min-width: auto;
-    }
     main.container {
-      padding: 0 12px;
+      padding: 0 1rem;
+      font-size: 1rem;
+    }
+    nav.subnav a {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.9rem;
     }
   }
 </style>
@@ -149,7 +141,7 @@
 <nav class="subnav" aria-label="Mental Health Subtopics Navigation">
   <a href="mental-health-overview.html">Overview & Education</a>
   <a href="anxiety.html">Anxiety Disorders</a>
-  <a href="depression.html" aria-current="page">Depression</a>
+  <a href="depression.html" class="active" aria-current="page">Depression</a>
   <a href="ptsd.html">PTSD</a>
   <a href="eating-disorders.html">Eating Disorders</a>
   <a href="suicide-prevention.html">Suicide Prevention</a>
@@ -160,59 +152,25 @@
 <main class="container" role="main">
   <section>
     <h2>What is Depression?</h2>
-    <p>Depression is a common but serious mood disorder affecting thoughts, feelings, and physical health. It can cause persistent sadness, loss of interest, and disrupt daily life.</p>
+    <p>Depression is a common but serious mood disorder that negatively affects how you feel, think, and handle daily activities.</p>
   </section>
-
   <section>
-    <h2>Signs & Symptoms</h2>
-    <ul>
-      <li>Persistent sad or empty mood</li>
-      <li>Loss of interest or pleasure in usual activities</li>
-      <li>Fatigue or loss of energy</li>
-      <li>Difficulty concentrating or making decisions</li>
-      <li>Changes in appetite or sleep patterns</li>
-      <li>Feelings of worthlessness or guilt</li>
-      <li>Thoughts of death or suicide</li>
-    </ul>
+    <h2>Symptoms</h2>
+    <p>Symptoms include persistent sadness, loss of interest, changes in appetite, sleep disturbances, fatigue, and difficulty concentrating.</p>
   </section>
-
   <section>
-    <h2>Coping & Support</h2>
-    <ul>
-      <li>Reach out to trusted friends, family, or mental health professionals.</li>
-      <li>Engage in regular physical activity.</li>
-      <li>Practice mindfulness and relaxation techniques.</li>
-      <li>Set small, manageable goals daily.</li>
-      <li>Maintain a balanced diet and sleep routine.</li>
-      <li>Avoid alcohol and recreational drugs.</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Treatment Options</h2>
-    <p>Treatments include psychotherapy (talk therapy), medications (antidepressants), lifestyle changes, or a combination. Work with healthcare providers to find the best approach.</p>
-  </section>
-
-  <section>
-    <h2>Emergency Resources</h2>
-    <p>If you or someone you know is in crisis, reach out immediately:</p>
-    <ul>
-      <li><strong>Canada:</strong> Crisis Services Canada - 1-833-456-4566</li>
-      <li><strong>USA:</strong> Suicide Prevention Lifeline - 988</li>
-      <li><strong>Global:</strong> <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank" rel="noopener noreferrer" class="external-link">International Crisis Centers</a></li>
-    </ul>
+    <h2>Treatment</h2>
+    <p>Treatment options include psychotherapy, medication, lifestyle changes, and support from loved ones. Seeking professional help is important.</p>
   </section>
 </main>
 
-<button id="quickExitBtn" aria-label="Quick exit button">Quick Exit</button>
+<button id="quickExitBtn" aria-label="Quick exit button">×</button>
 
 <script>
-  // Quick exit button redirects immediately to a neutral safe page
   document.getElementById('quickExitBtn').addEventListener('click', () => {
     window.location.href = 'https://www.google.com';
   });
 
-  // Starfield background animation
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
   let stars = [];
@@ -224,7 +182,6 @@
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
-
     for (let i = 0; i < 150; i++) {
       stars.push({
         x: Math.random() * width,
