@@ -1,11 +1,27 @@
-document.getElementById("quickExit").onclick = () => {
-  window.location.href = "https://weather.com";
-};
+// Panic modal open/close logic
+const panicModal = document.getElementById('panicModal');
+const openPanicBtn = document.getElementById('openPanicModal');
+const closePanicBtn = document.getElementById('closePanicModal');
+const exitButton = document.getElementById('exitButton');
 
-document.getElementById("panicInfo").onclick = () => {
-  document.getElementById("panicModal").classList.remove("hidden");
-};
+openPanicBtn.addEventListener('click', () => {
+  panicModal.classList.remove('hidden');
+});
 
-function closeModal() {
-  document.getElementById("panicModal").classList.add("hidden");
+closePanicBtn.addEventListener('click', () => {
+  panicModal.classList.add('hidden');
+});
+
+exitButton.addEventListener('click', () => {
+  // Redirect user quietly to a neutral site
+  window.location.href = 'https://www.google.com';
+});
+
+// Register the service worker for PWA offline support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('Service Worker registered.', reg))
+      .catch(err => console.log('Service Worker registration failed:', err));
+  });
 }
