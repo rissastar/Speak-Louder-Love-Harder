@@ -1,0 +1,119 @@
+/* Trauma & Abuse Styles – Speak Louder, Love Harder */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+:root {
+  --bg-color: #0c0b11;
+  --accent: #9c27b0;
+  --text: #ffffff;
+  --text-muted: #cccccc;
+  --card-bg: #1a1a26;
+  --link: #e1bee7;
+  --hover: #ba68c8;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text);
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #18161f 0%, #0c0b11 100%);
+}
+
+header {
+  text-align: center;
+  padding: 1rem;
+  background: #18161f;
+  border-bottom: 2px solid var(--accent);
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.back-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  color: var(--link);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.container {
+  padding: 1.5rem;
+}
+
+h2, h3 {
+  color: var(--accent);
+}
+
+p, li {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+nav.subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  justify-content: center;
+  background: #111;
+}
+
+nav.subnav a {
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  border-radius: 5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+}
+
+nav.subnav a.active,
+nav.subnav a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--accent);
+  font-style: italic;
+}
+
+#quickExitBtn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: #ff3d00;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  z-index: 9999;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff3d00aa;
+}
