@@ -1,84 +1,60 @@
-// === Floating Candlelight Effect ===
-const canvas = document.getElementById('backgroundCanvas');
-const ctx = canvas.getContext('2d');
-let width, height, particles;
+// Grief & Loss – Floating Orbs Animation + Quick Exit
 
-function resizeCanvas() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'backgroundCanvas';
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.zIndex = '-1';
+  canvas.style.pointerEvents = 'none';
+  document.body.appendChild(canvas);
 
-function createParticles(count) {
-  const arr = [];
-  for (let i = 0; i < count; i++) {
-    arr.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 1.5 + 0.5,
-      speedY: Math.random() * 0.5 + 0.2,
-      opacity: Math.random() * 0.4 + 0.2
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Orbs
+  const orbs = Array.from({ length: 30 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    radius: 10 + Math.random() * 20,
+    speedY: 0.2 + Math.random() * 0.4,
+    alpha: 0.05 + Math.random() * 0.1
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    for (let orb of orbs) {
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 192, 203, ${orb.alpha})`;
+      ctx.fill();
+      orb.y += orb.speedY;
+      if (orb.y > height + orb.radius) {
+        orb.y = -orb.radius;
+        orb.x = Math.random() * width;
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Quick Exit
+  const quickExitBtn = document.getElementById('quickExitBtn');
+  if (quickExitBtn) {
+    quickExitBtn.addEventListener('click', () => {
+      window.location.href = 'https://www.google.com';
     });
   }
-  return arr;
-}
-
-function drawParticles() {
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = 'rgba(255, 244, 194, 0.6)';
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.globalAlpha = p.opacity;
-    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fill();
-    p.y -= p.speedY;
-    if (p.y < -10) {
-      p.y = height + 10;
-      p.x = Math.random() * width;
-    }
-  });
-  requestAnimationFrame(drawParticles);
-}
-particles = createParticles(100);
-drawParticles();
-
-// === Quick Exit ===
-document.getElementById('quickExitBtn').addEventListener('click', () => {
-  window.location.href = 'https://www.google.com';
 });
-
-// === Grief Journaling (localStorage) ===
-function saveJournal() {
-  const entry = document.querySelector('.journal-box').value.trim();
-  if (entry) {
-    const saved = JSON.parse(localStorage.getItem('griefJournal') || '[]');
-    saved.push({ date: new Date().toLocaleString(), text: entry });
-    localStorage.setItem('griefJournal', JSON.stringify(saved));
-    alert("Your journal entry has been saved locally.");
-    document.querySelector('.journal-box').value = '';
-  } else {
-    alert("Please write something before saving.");
-  }
-}
-
-// === Tribute Submission (Memorial Wall) ===
-const tributeForm = document.querySelector('.tribute-form');
-if (tributeForm) {
-  const nameInput = tributeForm.querySelector('input');
-  const messageInput = tributeForm.querySelector('textarea');
-  const memorialsContainer = document.getElementById('memorials');
-
-  tributeForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = nameInput.value.trim();
-    const message = messageInput.value.trim();
-    if (name && message) {
-      const tribute = document.createElement('p');
-      tribute.innerHTML = `<strong>${name}</strong>: ${message}`;
-      memorialsContainer.prepend(tribute);
-      nameInput.value = '';
-      messageInput.value = '';
-    }
-  });
-}
