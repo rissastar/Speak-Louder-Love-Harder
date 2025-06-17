@@ -1,217 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#0b0c2b" />
-<title>Eating Disorders — Speak Louder, Love Harder</title>
-<style>
-  /* Same styles as previous pages */
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    background: #0b0c2b;
-    color: #ff6fa3;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-  }
-  canvas#bgCanvas {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    background: radial-gradient(ellipse at center, #0b0c2b 0%, #040417 100%);
-  }
-  header {
-    background: #120c29cc;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    border-bottom: 1px solid #ff6fa3;
-    z-index: 10;
-  }
-  header h1 {
-    margin: 0; font-size: 1.6rem;
-    color: #ff6fa3;
-    text-shadow: 0 0 10px #ff6fa3;
-  }
-  nav.subnav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background: #120c29cc;
-    border-bottom: 1px solid #ff6fa3;
-    padding: 0.5rem 0;
-    position: sticky;
-    top: 56px;
-    z-index: 9;
-  }
-  nav.subnav a {
-    color: #ff6fa3;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 6px;
-    margin: 0 0.25rem;
-    transition: background 0.3s, color 0.3s;
-    user-select: none;
-  }
-  nav.subnav a:hover,
-  nav.subnav a:focus {
-    background: #ff6fa3;
-    color: #0b0c2b;
-    outline: none;
-  }
-  nav.subnav a.active {
-    background: #ff6fa3;
-    color: #0b0c2b;
-    cursor: default;
-  }
-  main.container {
-    max-width: 800px;
-    margin: 2rem auto 3rem;
-    padding: 0 1.5rem;
-    line-height: 1.6;
-    font-size: 1.1rem;
-  }
-  main.container h2 {
-    color: #ff6fa3;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 6px #ff6fa3;
-  }
-  main.container p {
-    margin-bottom: 1rem;
-  }
-  #quickExitBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #ff6fa3;
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    font-weight: bold;
-    color: #0b0c2b;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff6fa3;
-    user-select: none;
-    z-index: 20;
-    transition: background 0.3s;
-  }
-  #quickExitBtn:hover,
-  #quickExitBtn:focus {
-    background: #ff92b8;
-    outline: none;
-  }
-  a.btn-back {
-    color: #ff6fa3;
-    font-weight: 600;
-    text-decoration: none;
-    position: absolute;
-    left: 1rem;
-    top: 1.2rem;
-    font-size: 1.2rem;
-  }
-  a.btn-back:hover,
-  a.btn-back:focus {
-    text-decoration: underline;
-  }
-  @media (max-width: 480px) {
-    main.container {
-      padding: 0 1rem;
-      font-size: 1rem;
-    }
-    nav.subnav a {
-      padding: 0.4rem 0.7rem;
-      font-size: 0.9rem;
-    }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eating Disorders - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-<canvas id="bgCanvas"></canvas>
+  <canvas id="bgCanvas"></canvas>
 
-<header>
-  <a href="index.html" class="btn-back" aria-label="Back to main page">← Back</a>
-  <h1>Mental Health: Eating Disorders</h1>
-</header>
+  <header>
+    <a href="index.html" class="back-link">← Back</a>
+    <h1>Eating Disorders</h1>
+  </header>
 
-<nav class="subnav" aria-label="Mental Health Subtopics Navigation">
-  <a href="mental-health-overview.html">Overview & Education</a>
-  <a href="anxiety.html">Anxiety Disorders</a>
-  <a href="depression.html">Depression</a>
-  <a href="ptsd.html">PTSD</a>
-  <a href="eating-disorders.html" class="active" aria-current="page">Eating Disorders</a>
-  <a href="suicide-prevention.html">Suicide Prevention</a>
-  <a href="self-harm-support.html">Self-Harm Support</a>
-  <a href="neurodiversity.html">Neurodiversity (Autism, ADHD)</a>
-</nav>
+  <nav class="subnav">
+    <a href="mental-health.html">Overview</a>
+    <a href="anxiety.html">Anxiety</a>
+    <a href="depression.html">Depression</a>
+    <a href="ptsd.html">PTSD</a>
+    <a href="eating-disorders.html" class="active">Eating Disorders</a>
+    <a href="self-harm.html">Self-Harm</a>
+    <a href="suicide-prevention.html">Suicide Prevention</a>
+    <a href="neurodiversity.html">Neurodiversity</a>
+  </nav>
 
-<main class="container" role="main">
-  <section>
-    <h2>Understanding Eating Disorders</h2>
-    <p>Eating disorders are serious conditions related to persistent eating behaviors that negatively impact health, emotions, and the ability to function.</p>
-  </section>
-  <section>
-    <h2>Common Types</h2>
-    <p>Includes anorexia nervosa, bulimia nervosa, binge-eating disorder, and others.</p>
-  </section>
-  <section>
-    <h2>Treatment & Recovery</h2>
-    <p>Treatment usually involves medical care, nutritional counseling, therapy, and support groups. Early intervention improves outcomes.</p>
-  </section>
-</main>
+  <main class="container">
+    <section>
+      <h2>Understanding Eating Disorders</h2>
+      <p>Eating disorders are serious and complex mental health conditions that affect a person's relationship with food, body image, and self-worth. They are not choices or phases — they are valid illnesses deserving of care and compassion.</p>
+    </section>
 
-<button id="quickExitBtn" aria-label="Quick exit button">×</button>
+    <section>
+      <h2>Common Types</h2>
+      <ul>
+        <li><strong>Anorexia Nervosa:</strong> Restriction of food intake and intense fear of gaining weight.</li>
+        <li><strong>Bulimia Nervosa:</strong> Cycles of binge eating followed by purging or compensatory behaviors.</li>
+        <li><strong>Binge Eating Disorder:</strong> Recurring episodes of eating large amounts of food without purging.</li>
+        <li><strong>ARFID:</strong> Avoidant/Restrictive Food Intake Disorder, often sensory- or trauma-related.</li>
+      </ul>
+    </section>
 
-<script>
-  document.getElementById('quickExitBtn').addEventListener('click', () => {
-    window.location.href = 'https://www.google.com';
-  });
+    <section>
+      <h2>You Are Not Alone</h2>
+      <p>Recovery is possible. Your value is not tied to your appearance, weight, or food intake. You deserve nourishment, rest, and kindness.</p>
+    </section>
 
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let width, height;
+    <section>
+      <h2>Ways to Cope</h2>
+      <ul>
+        <li>Reach out to a dietitian or therapist experienced in eating disorders</li>
+        <li>Try gentle grounding exercises before or after meals</li>
+        <li>Journal how you feel without judgment using our <strong>Emotion Box</strong></li>
+        <li>Use a distraction tool like the <strong>Bubble Popper</strong> or <strong>Hope Jar</strong></li>
+      </ul>
+    </section>
 
-  function initStars() {
-    stars = [];
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    for (let i = 0; i < 150; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.2,
-        alpha: Math.random(),
-        dAlpha: 0.01 + Math.random() * 0.02
-      });
-    }
-  }
+    <section>
+      <h2>Helplines</h2>
+      <ul>
+        <li><strong>Canada:</strong> NEDIC Helpline – 1-866-633-4220</li>
+        <li><strong>USA:</strong> NEDA Helpline – 1-800-931-2237</li>
+        <li><strong>Global:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com</a></li>
+      </ul>
+    </section>
+  </main>
 
-  function drawStars() {
-    ctx.clearRect(0, 0, width, height);
-    for (const star of stars) {
-      star.alpha += star.dAlpha;
-      if (star.alpha <= 0 || star.alpha >= 1) star.dAlpha *= -1;
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-      ctx.fillStyle = `rgba(255, 111, 163, ${star.alpha})`;
-      ctx.shadowColor = '#ff6fa3';
-      ctx.shadowBlur = 5;
-      ctx.fill();
-    }
-    requestAnimationFrame(drawStars);
-  }
-
-  window.addEventListener('resize', initStars);
-
-  initStars();
-  drawStars();
-</script>
+  <button id="quickExitBtn" aria-label="Quick exit">×</button>
 </body>
 </html>
