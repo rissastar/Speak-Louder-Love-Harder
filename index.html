@@ -2,169 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Speak Louder, Love Harder — Topics Index</title>
-  <style>
-    body {
-      background: #0a0b1f;
-      color: #f0f0ff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 1rem;
-    }
-
-    h1 {
-      text-align: center;
-      color: #74f2f4;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .category {
-      margin-bottom: 2rem;
-    }
-
-    .category h2 {
-      font-size: 1.2rem;
-      color: #a3f7f7;
-      border-bottom: 1px solid #444;
-      margin-bottom: 0.75rem;
-    }
-
-    .button-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .button-grid button {
-      flex: 1 1 calc(50% - 1rem);
-      min-width: 140px;
-      padding: 0.75rem;
-      background: #1e1f3a;
-      border: 1px solid #74f2f4;
-      border-radius: 8px;
-      color: #74f2f4;
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .button-grid button:hover {
-      background: #2a2b55;
-      box-shadow: 0 0 10px #74f2f4aa;
-    }
-
-    button:focus {
-      outline: 2px solid #74f2f4;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #777;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="galaxy-background"></div>
 
-<h1>Speak Louder, Love Harder<br />Support Topics</h1>
+  <main>
+    <h1 class="app-title">🌌 Speak Louder, Love Harder</h1>
+    <p class="subtitle">Healing. Connection. Empowerment.</p>
 
-<div class="category">
-  <h2>Mental Health Conditions & Disorders</h2>
-  <div class="button-grid">
-    <button onclick="location.href='mental-health/overview.html'">Overview</button>
-    <button onclick="location.href='mental-health/anxiety.html'">Anxiety</button>
-    <button onclick="location.href='mental-health/depression.html'">Depression</button>
-    <button onclick="location.href='mental-health/ptsd.html'">PTSD</button>
-    <button onclick="location.href='mental-health/eating-disorders.html'">Eating Disorders</button>
-    <button onclick="location.href='mental-health/suicide-prevention.html'">Suicide Prevention</button>
-    <button onclick="location.href='mental-health/self-harm.html'">Self-Harm Support</button>
-    <button onclick="location.href='mental-health/neurodiversity.html'">Neurodiversity</button>
-  </div>
-</div>
+    <!-- Category 1 -->
+    <section class="category">
+      <h2>🧠 Mental Health Conditions & Disorders</h2>
+      <div class="sub-grid">
+        <a href="overview-mental-health.html">Overview & Education</a>
+        <a href="anxiety.html">Anxiety Disorders</a>
+        <a href="depression.html">Depression</a>
+        <a href="ptsd.html">PTSD</a>
+        <a href="eating-disorders.html">Eating Disorders</a>
+        <a href="suicide-prevention.html">Suicide Prevention</a>
+        <a href="self-harm.html">Self-Harm Support</a>
+        <a href="neurodiversity.html">Neurodiversity (Autism, ADHD)</a>
+      </div>
+    </section>
 
-<div class="category">
-  <h2>Addiction & Recovery</h2>
-  <div class="button-grid">
-    <button onclick="location.href='addiction/understanding.html'">Understanding Addiction</button>
-    <button onclick="location.href='addiction/recovery-stories.html'">Recovery Stories</button>
-    <button onclick="location.href='addiction/relapse-prevention.html'">Relapse Prevention</button>
-    <button onclick="location.href='addiction/mindfulness.html'">Mindfulness</button>
-    <button onclick="location.href='addiction/support-groups.html'">Support Groups</button>
-  </div>
-</div>
+    <!-- Category 2 -->
+    <section class="category">
+      <h2>🌀 Addiction & Recovery</h2>
+      <div class="sub-grid">
+        <a href="understanding-addiction.html">Understanding Addiction</a>
+        <a href="recovery-stories.html">Recovery Stories</a>
+        <a href="relapse-prevention.html">Relapse Prevention</a>
+        <a href="mindfulness-cravings.html">Mindfulness for Cravings</a>
+        <a href="support-groups.html">Support Groups</a>
+      </div>
+    </section>
 
-<div class="category">
-  <h2>Trauma & Abuse</h2>
-  <div class="button-grid">
-    <button onclick="location.href='trauma/what-is-trauma.html'">What is Trauma?</button>
-    <button onclick="location.href='trauma/recognizing-abuse.html'">Recognizing Abuse</button>
-    <button onclick="location.href='trauma/healing.html'">Healing & Empowerment</button>
-    <button onclick="location.href='trauma/grounding-techniques.html'">Grounding Techniques</button>
-    <button onclick="location.href='trauma/emergency-help.html'">Emergency Help</button>
-  </div>
-</div>
+    <!-- Category 3 -->
+    <section class="category">
+      <h2>🛡️ Trauma & Abuse</h2>
+      <div class="sub-grid">
+        <a href="what-is-trauma.html">What is Trauma?</a>
+        <a href="recognizing-abuse.html">Recognizing Abuse</a>
+        <a href="healing-empowerment.html">Healing & Empowerment</a>
+        <a href="grounding-techniques.html">Grounding Techniques</a>
+        <a href="emergency-help.html">Emergency Help</a>
+      </div>
+    </section>
 
-<div class="category">
-  <h2>Support for Specific Populations</h2>
-  <div class="button-grid">
-    <button onclick="location.href='populations/foster-children.html'">Foster Children</button>
-    <button onclick="location.href='populations/lgbtq.html'">LGBTQ+ Community</button>
-    <button onclick="location.href='populations/veterans.html'">Veterans & Military</button>
-    <button onclick="location.href='populations/youth.html'">Youth & Teens</button>
-    <button onclick="location.href='populations/elderly.html'">Elderly Support</button>
-    <button onclick="location.href='populations/intersectionality.html'">Intersectional Identities</button>
-  </div>
-</div>
+    <!-- Category 4 -->
+    <section class="category">
+      <h2>🌍 Support for Specific Populations</h2>
+      <div class="sub-grid">
+        <a href="foster-children.html">Foster Children</a>
+        <a href="lgbtq-community.html">LGBTQ+ Community</a>
+        <a href="veterans.html">Veterans & Military Families</a>
+        <a href="youth.html">Youth & Adolescents</a>
+        <a href="elderly.html">Elderly</a>
+        <a href="intersectionality.html">Intersectionality & Marginalized Groups</a>
+      </div>
+    </section>
 
-<div class="category">
-  <h2>Grief & Loss</h2>
-  <div class="button-grid">
-    <button onclick="location.href='grief/understanding-grief.html'">Understanding Grief</button>
-    <button onclick="location.href='grief/supporting-others.html'">Supporting Others</button>
-    <button onclick="location.href='grief/memorial-wall.html'">Memorial Wall</button>
-    <button onclick="location.href='grief/grief-journaling.html'">Grief Journaling</button>
-    <button onclick="location.href='grief/counseling.html'">Counseling Resources</button>
-  </div>
-</div>
+    <!-- Category 5 -->
+    <section class="category">
+      <h2>🕯️ Grief & Loss</h2>
+      <div class="sub-grid">
+        <a href="understanding-grief.html">Understanding Grief</a>
+        <a href="supporting-others.html">Supporting Others</a>
+        <a href="memorial-wall.html">Memorial Wall</a>
+        <a href="grief-journaling.html">Grief Journaling</a>
+        <a href="grief-counseling.html">Grief Counseling Resources</a>
+      </div>
+    </section>
 
-<div class="category">
-  <h2>Chronic Conditions & Disability</h2>
-  <div class="button-grid">
-    <button onclick="location.href='chronic/living-well.html'">Living with Illness</button>
-    <button onclick="location.href='chronic/mental-health.html'">Mental Health & Disability</button>
-    <button onclick="location.href='chronic/accessibility.html'">Accessibility Resources</button>
-    <button onclick="location.href='chronic/symptom-management.html'">Symptom Management</button>
-  </div>
-</div>
+    <!-- Category 6 -->
+    <section class="category">
+      <h2>♿ Chronic Conditions & Disability</h2>
+      <div class="sub-grid">
+        <a href="chronic-illness.html">Living with Chronic Illness</a>
+        <a href="mental-health-disability.html">Mental Health & Disability</a>
+        <a href="accessibility.html">Accessibility Resources</a>
+        <a href="pain-management.html">Pain & Symptom Management</a>
+      </div>
+    </section>
 
-<div class="category">
-  <h2>Wellness & Coping Tools</h2>
-  <div class="button-grid">
-    <button onclick="location.href='wellness/stress.html'">Stress Management</button>
-    <button onclick="location.href='wellness/mindfulness.html'">Mindfulness</button>
-    <button onclick="location.href='wellness/body-image.html'">Body Image</button>
-    <button onclick="location.href='wellness/parenting.html'">Parenting Support</button>
-    <button onclick="location.href='wellness/hope-jar.html'">Hope Jar</button>
-  </div>
-</div>
-
-<div class="category">
-  <h2>General Info</h2>
-  <div class="button-grid">
-    <button onclick="location.href='about.html'">About Us</button>
-    <button onclick="location.href='faq.html'">FAQ</button>
-    <button style="background:#ff3b5c; color:white;" onclick="location.href='emergency.html'">Emergency / Panic</button>
-  </div>
-</div>
-
-<footer>
-  &copy; 2025 Speak Louder, Love Harder
-</footer>
-
+    <!-- Category 7 -->
+    <section class="category">
+      <h2>🌱 Wellness & Coping Strategies</h2>
+      <div class="sub-grid">
+        <a href="stress-management.html">Stress Management</a>
+        <a href="mindfulness.html">Mindfulness & Meditation</a>
+        <a href="body-image.html">Body Image & Self-Esteem</a>
+        <a href="parenting-support.html">Parenting Support</a>
+        <a href="hope-jar.html">Daily Gratitude & Hope Jar</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
