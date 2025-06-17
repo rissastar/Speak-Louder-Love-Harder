@@ -1,67 +1,59 @@
-// Animated flowing flame background + quick exit
+// Animated Background - flowing lines to symbolize paths & complexity
+const canvas = document.getElementById('backgroundCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById('backgroundCanvas');
-  const ctx = canvas.getContext('2d');
+let lines = [];
 
-  let width, height;
-  function resizeCanvas() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  }
-
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  const flames = Array.from({ length: 50 }, () => ({
-    x: Math.random() * width,
-    y: height + Math.random() * 200,
-    radius: 15 + Math.random() * 25,
-    speedY: 0.5 + Math.random() * 1.5,
-    alpha: 0.1 + Math.random() * 0.3,
-    phase: Math.random() * Math.PI * 2
-  }));
-
-  function animateFlames() {
-    ctx.clearRect(0, 0, width, height);
-
-    for (let flame of flames) {
-      const glow = 30 + 10 * Math.sin(flame.phase);
-      ctx.beginPath();
-      const gradient = ctx.createRadialGradient(
-        flame.x,
-        flame.y,
-        0,
-        flame.x,
-        flame.y,
-        flame.radius + glow
-      );
-      gradient.addColorStop(0, `rgba(255, 111, 97, ${flame.alpha})`);
-      gradient.addColorStop(1, 'rgba(255, 111, 97, 0)');
-      ctx.fillStyle = gradient;
-      ctx.arc(flame.x, flame.y, flame.radius + glow, 0, Math.PI * 2);
-      ctx.fill();
-
-      flame.y -= flame.speedY;
-      flame.phase += 0.05;
-
-      if (flame.y < -flame.radius) {
-        flame.y = height + flame.radius;
-        flame.x = Math.random() * width;
-        flame.alpha = 0.1 + Math.random() * 0.3;
-      }
-    }
-
-    requestAnimationFrame(animateFlames);
-  }
-
-  animateFlames();
-
-  // Quick Exit button
-  const quickExit = document.getElementById('quickExitBtn');
-  if (quickExit) {
-    quickExit.addEventListener('click', () => {
-      window.location.href = 'https://www.google.com';
+function createLines(count) {
+  for (let i = 0; i < count; i++) {
+    lines.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      length: Math.random() * 40 + 10,
+      speed: Math.random() * 0.5 + 0.3,
+      angle: Math.random() * Math.PI * 2,
+      alpha: Math.random() * 0.6 + 0.2,
+      color: `rgba(136, 136, 255, ${Math.random() * 0.4 + 0.1})`
     });
   }
+}
+
+function animateLines() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  lines.forEach(line => {
+    ctx.beginPath();
+    const endX = line.x + Math.cos(line.angle) * line.length;
+    const endY = line.y + Math.sin(line.angle) * line.length;
+    ctx.strokeStyle = line.color;
+    ctx.globalAlpha = line.alpha;
+    ctx.moveTo(line.x, line.y);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+
+    line.x += Math.cos(line.angle) * line.speed;
+    line.y += Math.sin(line.angle) * line.speed;
+
+    // Wrap around screen
+    if (line.x < 0 || line.x > canvas.width || line.y < 0 || line.y > canvas.height) {
+      line.x = Math.random() * canvas.width;
+      line.y = Math.random() * canvas.height;
+    }
+  });
+  requestAnimationFrame(animateLines);
+}
+
+createLines(90);
+animateLines();
+
+// Responsive canvas
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// Quick Exit Button
+document.getElementById('quickExitBtn').addEventListener('click', () => {
+  window.location.href = 'https://www.google.com';
 });
