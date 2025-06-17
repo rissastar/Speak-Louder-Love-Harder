@@ -1,115 +1,155 @@
-/* Base styles */
-body, html {
+/* subpages-addiction.css */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  color: #f5f5f5;
-  background: #0d0d0d;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background: #fdfdfd; /* light fallback */
 }
 
 canvas#backgroundCanvas {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
+  display: block;
+  background: radial-gradient(#ffe6e6, #fff9f9);
 }
 
 /* Header */
 header {
-  text-align: center;
-  padding: 1rem 1.5rem;
-  background: rgba(20, 20, 30, 0.8);
-  box-shadow: 0 0 10px #730099;
-  border-bottom: 2px solid #730099;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header .back-link {
+  text-decoration: none;
+  color: #ff4d4d;
+  font-size: 1.2rem;
+  margin-right: 1rem;
 }
 
 header h1 {
-  font-size: 1.8rem;
-  margin: 0.2rem 0;
-  color: #ffe0ff;
+  font-size: 1.6rem;
+  flex-grow: 1;
+  text-align: center;
+  color: #cc0033;
 }
 
-a.back-link {
-  display: inline-block;
-  color: #c88aff;
-  text-decoration: none;
-  font-size: 1rem;
-  margin-bottom: 0.4rem;
-}
-
-/* Subnav */
-nav.subnav {
+/* Sub-navigation */
+.subnav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  background: rgba(10, 10, 20, 0.8);
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.9);
   padding: 0.5rem 0;
-  border-bottom: 1px solid #444;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-nav.subnav a {
-  color: #ccc;
+.subnav a {
+  color: #555;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  margin: 0.25rem;
-  border-radius: 5px;
-  transition: background 0.3s ease;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  transition: background 0.3s, color 0.3s;
 }
 
-nav.subnav a.active,
-nav.subnav a:hover {
-  background: #a862ea;
-  color: #fff;
+.subnav a:hover {
+  background: #ffe0e0;
+  color: #c00;
 }
 
-/* Main content */
-main.container {
-  padding: 1.5rem;
-  max-width: 800px;
-  margin: auto;
-  background: rgba(25, 25, 35, 0.85);
-  border-radius: 12px;
-  margin-top: 1.5rem;
-}
-
-section {
-  margin-bottom: 2rem;
-}
-
-section h2 {
-  color: #ffbbff;
-  border-bottom: 1px solid #8844aa;
-  padding-bottom: 0.4rem;
-  margin-bottom: 0.6rem;
-}
-
-ul li {
-  margin-bottom: 0.5rem;
-}
-
-blockquote {
-  font-style: italic;
-  border-left: 4px solid #cc77ff;
-  padding-left: 1rem;
-  margin: 1rem 0;
-  color: #e0d0ff;
-}
-
-/* Quick exit */
-#quickExitBtn {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+.subnav a.active {
   background: #ff4d4d;
   color: #fff;
+}
+
+/* Main Content */
+main.container {
+  position: relative;
+  max-width: 740px;
+  margin: 2rem auto;
+  padding: 0 1.2rem;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+main h2 {
+  margin-top: 1.5rem;
+  font-size: 1.4rem;
+  color: #cc0033;
+}
+
+main p, main ul {
+  margin-top: 0.5rem;
+  color: #333;
+}
+
+main ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+main ul li {
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+main ul li::before {
+  content: "➤";
+  position: absolute;
+  left: 0;
+  color: #cc0033;
+}
+
+/* Blockquote */
+main blockquote {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #fff5f5;
+  border-left: 4px solid #ff4d4d;
+  font-style: italic;
+  color: #444;
+}
+
+/* Quick Exit Button */
+#quickExitBtn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #ff4d4d;
   border: none;
+  color: #fff;
   font-size: 1.5rem;
+  line-height: 1;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
-  padding: 0.5rem 0.75rem;
   cursor: pointer;
-  box-shadow: 0 0 10px #ff4d4d;
-  z-index: 99;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+#quickExitBtn:hover {
+  opacity: 1;
 }
