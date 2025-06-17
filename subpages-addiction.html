@@ -1,48 +1,34 @@
-// Animated ripple background
-const canvas = document.getElementById("backgroundCanvas");
-const ctx = canvas.getContext("2d");
+// Addiction & Recovery JS – Canvas Pulse Animation + Quick Exit
 
+// Pulse canvas animation for background effect
+const canvas = document.getElementById('backgroundCanvas');
+const ctx = canvas.getContext('2d');
+
+let width, height;
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
 }
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
 
-let ripples = [];
+let waveOffset = 0;
+function animate() {
+  ctx.clearRect(0, 0, width, height);
+  waveOffset += 0.02;
 
-function createRipple() {
-  const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height;
-  const radius = 0;
-  const maxRadius = 100 + Math.random() * 100;
-  ripples.push({ x, y, radius, maxRadius });
+  for (let i = 0; i < height; i += 3) {
+    const amplitude = 30 * Math.sin(i * 0.02 + waveOffset);
+    ctx.fillStyle = `rgba(255, 111, 97, ${0.05 + 0.05 * Math.sin(i * 0.01 + waveOffset)})`;
+    ctx.fillRect((width / 2) + amplitude, i, 2, 2);
+    ctx.fillRect((width / 2) - amplitude, i, 2, 2);
+  }
+
+  requestAnimationFrame(animate);
 }
+animate();
 
-function animateBackground() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#111";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ripples.forEach((ripple, index) => {
-    ripple.radius += 0.8;
-    if (ripple.radius > ripple.maxRadius) {
-      ripples.splice(index, 1);
-      return;
-    }
-    ctx.beginPath();
-    ctx.arc(ripple.x, ripple.y, ripple.radius, 0, 2 * Math.PI);
-    ctx.strokeStyle = `rgba(90, 169, 139, ${1 - ripple.radius / ripple.maxRadius})`;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  });
-
-  requestAnimationFrame(animateBackground);
-}
-setInterval(createRipple, 700);
-animateBackground();
-
-// Quick Exit
-document.getElementById("quickExitBtn").addEventListener("click", () => {
-  window.location.href = "https://www.weather.com"; // Or any safe neutral site
+// Quick Exit Button
+document.getElementById('quickExitBtn').addEventListener('click', () => {
+  window.location.href = 'https://www.google.com';
 });
