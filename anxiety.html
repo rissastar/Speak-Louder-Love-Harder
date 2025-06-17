@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0b0c2b" />
+<title>Anxiety Disorders — Speak Louder, Love Harder</title>
+<style>
+  /* Base Reset & Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background: #0b0c2b;
+    color: #e0e0f8;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Galaxy animated background canvas */
+  #bgCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+  }
+
+  /* Container */
+  .container {
+    max-width: 700px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00ffe7;
+    text-shadow: 0 0 8px #00ffe7;
+    margin: 0;
+  }
+
+  /* Back button */
+  .btn-back {
+    background: transparent;
+    border: 2px solid #00ffe7;
+    color: #00ffe7;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .btn-back:hover,
+  .btn-back:focus {
+    background-color: #00ffe7;
+    color: #0b0c2b;
+    outline: none;
+  }
+
+  /* Content styles */
+  article h2 {
+    color: #7df9ff;
+    margin-top: 30px;
+  }
+  article p {
+    line-height: 1.6;
+    margin-top: 10px;
+    color: #c4d7ff;
+  }
+
+  ul.tips {
+    margin-top: 15px;
+    padding-left: 20px;
+  }
+  ul.tips li {
+    margin-bottom: 8px;
+  }
+
+  /* Quick exit button */
+  #quickExitBtn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: #ff3e3e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff3e3e;
+    z-index: 9999;
+    transition: background-color 0.3s;
+  }
+  #quickExitBtn:hover,
+  #quickExitBtn:focus {
+    background-color: #e12b2b;
+    outline: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container {
+      margin: 60px 15px 30px;
+      padding: 0 10px;
+    }
+    header h1 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+
+<header>
+  <a href="index.html" class="btn-back" aria-label="Back to main page">← Back</a>
+  <h1>Anxiety Disorders</h1>
+</header>
+
+<div class="container" role="main">
+  <article>
+    <h2>Overview & Understanding</h2>
+    <p>
+      Anxiety disorders are a group of mental health conditions characterized by excessive and persistent feelings of worry, fear, or nervousness. These feelings can interfere with daily activities and may manifest as physical symptoms like increased heart rate, sweating, or difficulty concentrating.
+    </p>
+
+    <h2>Common Types of Anxiety Disorders</h2>
+    <ul>
+      <li><strong>Generalized Anxiety Disorder (GAD):</strong> Persistent and excessive worry about various aspects of life.</li>
+      <li><strong>Panic Disorder:</strong> Sudden and repeated panic attacks causing intense fear.</li>
+      <li><strong>Social Anxiety Disorder:</strong> Extreme fear of social situations or being judged.</li>
+      <li><strong>Specific Phobias:</strong> Intense fear of specific objects or situations.</li>
+    </ul>
+
+    <h2>Helpful Coping Strategies</h2>
+    <ul class="tips">
+      <li>Practice deep breathing and mindfulness meditation regularly.</li>
+      <li>Engage in regular physical activity to reduce stress.</li>
+      <li>Limit caffeine and alcohol intake.</li>
+      <li>Talk to trusted friends, family, or a mental health professional.</li>
+      <li>Maintain a consistent sleep schedule.</li>
+    </ul>
+
+    <h2>When to Seek Help</h2>
+    <p>
+      If anxiety feelings become overwhelming, interfere with your daily life, or lead to panic attacks, it is important to seek professional support. Therapies such as Cognitive Behavioral Therapy (CBT) and medications can be very effective.
+    </p>
+
+    <h2>Emergency Help & Crisis Support</h2>
+    <p>
+      If you or someone you know is in crisis, please reach out immediately:
+    </p>
+    <ul>
+      <li><strong>Canada:</strong> Crisis Services Canada - 1-833-456-4566</li>
+      <li><strong>USA:</strong> Suicide Prevention Lifeline - 988</li>
+      <li><strong>Global:</strong> International Association for Suicide Prevention - <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank" rel="noopener noreferrer" style="color:#00ffe7;">Find resources</a></li>
+    </ul>
+  </article>
+</div>
+
+<button id="quickExitBtn" aria-label="Quick exit button">Quick Exit</button>
+
+<script>
+  // Quick Exit button: instantly redirect to a neutral site
+  document.getElementById('quickExitBtn').addEventListener('click', () => {
+    window.location.href = 'https://www.google.com';
+  });
+
+  // Animated starfield background
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let width, height;
+
+  function initStars() {
+    stars = [];
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    for (let i = 0; i < 120; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.1,
+        alpha: Math.random(),
+        dAlpha: 0.01 + Math.random() * 0.02
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, width, height);
+    for (let star of stars) {
+      star.alpha += star.dAlpha;
+      if (star.alpha <= 0 || star.alpha >= 1) star.dAlpha *= -1;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(0, 255, 255, ${star.alpha})`;
+      ctx.shadowColor = '#00ffe7';
+      ctx.shadowBlur = 5;
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', initStars);
+
+  initStars();
+  drawStars();
+</script>
+</body>
+</html>
