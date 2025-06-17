@@ -134,4 +134,84 @@
 <canvas id="bgCanvas"></canvas>
 
 <header>
-  <a href="index.html" class="btn-back" aria-label="Back to main page">← Back
+  <a href="index.html" class="btn-back" aria-label="Back to main page">← Back</a>
+  <h1>Suicide Prevention</h1>
+</header>
+
+<nav class="subnav" aria-label="Mental Health Subtopics Navigation">
+  <a href="mental-health-overview.html">Overview & Education</a>
+  <a href="anxiety.html">Anxiety Disorders</a>
+  <a href="depression.html">Depression</a>
+  <a href="ptsd.html">PTSD</a>
+  <a href="eating-disorders.html">Eating Disorders</a>
+  <a href="suicide-prevention.html" class="active" aria-current="page">Suicide Prevention</a>
+  <a href="self-harm-support.html">Self-Harm Support</a>
+  <a href="neurodiversity.html">Neurodiversity (Autism, ADHD)</a>
+</nav>
+
+<main class="container" role="main">
+  <section>
+    <h2>Recognizing Signs</h2>
+    <p>Warning signs include talking about wanting to die, withdrawing from activities, or showing extreme mood swings.</p>
+  </section>
+  <section>
+    <h2>Getting Help</h2>
+    <p>Reach out to trusted people, professionals, or hotlines immediately if you or someone you know is struggling.</p>
+  </section>
+  <section>
+    <h2>Resources & Hotlines</h2>
+    <p>Call 988 (USA), 1-833-456-4566 (Canada), or visit crisis text lines and local emergency services.</p>
+  </section>
+</main>
+
+<button id="quickExitBtn" aria-label="Quick exit button">×</button>
+
+<script>
+  document.getElementById('quickExitBtn').addEventListener('click', () => {
+    window.location.href = 'https://www.google.com';
+  });
+
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let width, height;
+
+  function initStars() {
+    stars = [];
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    for (let i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.2,
+        alpha: Math.random(),
+        dAlpha: 0.01 + Math.random() * 0.02
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, width, height);
+    for (const star of stars) {
+      star.alpha += star.dAlpha;
+      if (star.alpha <= 0 || star.alpha >= 1) star.dAlpha *= -1;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255, 111, 163, ${star.alpha})`;
+      ctx.shadowColor = '#ff6fa3';
+      ctx.shadowBlur = 5;
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', initStars);
+
+  initStars();
+  drawStars();
+</script>
+</body>
+</html>
