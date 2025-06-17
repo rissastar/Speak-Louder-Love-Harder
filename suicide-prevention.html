@@ -1,217 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="theme-color" content="#0b0c2b" />
-<title>Suicide Prevention — Speak Louder, Love Harder</title>
-<style>
-  /* Same styles as previous */
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    background: #0b0c2b;
-    color: #ff6fa3;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-  }
-  canvas#bgCanvas {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    background: radial-gradient(ellipse at center, #0b0c2b 0%, #040417 100%);
-  }
-  header {
-    background: #120c29cc;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    border-bottom: 1px solid #ff6fa3;
-    z-index: 10;
-  }
-  header h1 {
-    margin: 0; font-size: 1.6rem;
-    color: #ff6fa3;
-    text-shadow: 0 0 10px #ff6fa3;
-  }
-  nav.subnav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background: #120c29cc;
-    border-bottom: 1px solid #ff6fa3;
-    padding: 0.5rem 0;
-    position: sticky;
-    top: 56px;
-    z-index: 9;
-  }
-  nav.subnav a {
-    color: #ff6fa3;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 6px;
-    margin: 0 0.25rem;
-    transition: background 0.3s, color 0.3s;
-    user-select: none;
-  }
-  nav.subnav a:hover,
-  nav.subnav a:focus {
-    background: #ff6fa3;
-    color: #0b0c2b;
-    outline: none;
-  }
-  nav.subnav a.active {
-    background: #ff6fa3;
-    color: #0b0c2b;
-    cursor: default;
-  }
-  main.container {
-    max-width: 800px;
-    margin: 2rem auto 3rem;
-    padding: 0 1.5rem;
-    line-height: 1.6;
-    font-size: 1.1rem;
-  }
-  main.container h2 {
-    color: #ff6fa3;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 6px #ff6fa3;
-  }
-  main.container p {
-    margin-bottom: 1rem;
-  }
-  #quickExitBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #ff6fa3;
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    font-weight: bold;
-    color: #0b0c2b;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff6fa3;
-    user-select: none;
-    z-index: 20;
-    transition: background 0.3s;
-  }
-  #quickExitBtn:hover,
-  #quickExitBtn:focus {
-    background: #ff92b8;
-    outline: none;
-  }
-  a.btn-back {
-    color: #ff6fa3;
-    font-weight: 600;
-    text-decoration: none;
-    position: absolute;
-    left: 1rem;
-    top: 1.2rem;
-    font-size: 1.2rem;
-  }
-  a.btn-back:hover,
-  a.btn-back:focus {
-    text-decoration: underline;
-  }
-  @media (max-width: 480px) {
-    main.container {
-      padding: 0 1rem;
-      font-size: 1rem;
-    }
-    nav.subnav a {
-      padding: 0.4rem 0.7rem;
-      font-size: 0.9rem;
-    }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Suicide Prevention - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-<canvas id="bgCanvas"></canvas>
+  <canvas id="bgCanvas"></canvas>
 
-<header>
-  <a href="index.html" class="btn-back" aria-label="Back to main page">← Back</a>
-  <h1>Suicide Prevention</h1>
-</header>
+  <header>
+    <a href="index.html" class="back-link">← Back</a>
+    <h1>Suicide Prevention</h1>
+  </header>
 
-<nav class="subnav" aria-label="Mental Health Subtopics Navigation">
-  <a href="mental-health-overview.html">Overview & Education</a>
-  <a href="anxiety.html">Anxiety Disorders</a>
-  <a href="depression.html">Depression</a>
-  <a href="ptsd.html">PTSD</a>
-  <a href="eating-disorders.html">Eating Disorders</a>
-  <a href="suicide-prevention.html" class="active" aria-current="page">Suicide Prevention</a>
-  <a href="self-harm-support.html">Self-Harm Support</a>
-  <a href="neurodiversity.html">Neurodiversity (Autism, ADHD)</a>
-</nav>
+  <nav class="subnav">
+    <a href="mental-health.html">Overview</a>
+    <a href="anxiety.html">Anxiety</a>
+    <a href="depression.html">Depression</a>
+    <a href="ptsd.html">PTSD</a>
+    <a href="eating-disorders.html">Eating Disorders</a>
+    <a href="self-harm.html">Self-Harm</a>
+    <a href="suicide-prevention.html" class="active">Suicide Prevention</a>
+    <a href="neurodiversity.html">Neurodiversity</a>
+  </nav>
 
-<main class="container" role="main">
-  <section>
-    <h2>Recognizing Signs</h2>
-    <p>Warning signs include talking about wanting to die, withdrawing from activities, or showing extreme mood swings.</p>
-  </section>
-  <section>
-    <h2>Getting Help</h2>
-    <p>Reach out to trusted people, professionals, or hotlines immediately if you or someone you know is struggling.</p>
-  </section>
-  <section>
-    <h2>Resources & Hotlines</h2>
-    <p>Call 988 (USA), 1-833-456-4566 (Canada), or visit crisis text lines and local emergency services.</p>
-  </section>
-</main>
+  <main class="container">
+    <section>
+      <h2>You Matter. You Are Needed.</h2>
+      <p>If you're having thoughts of suicide, please know: you're not alone. Many people feel overwhelmed, hopeless, or numb at times—but these feelings are survivable. There is help. There is hope. You are not a burden. Your story is not over.</p>
+    </section>
 
-<button id="quickExitBtn" aria-label="Quick exit button">×</button>
+    <section>
+      <h2>Signs Someone May Be Struggling</h2>
+      <ul>
+        <li>Talking about wanting to die or not being here</li>
+        <li>Withdrawing from friends, family, or activities</li>
+        <li>Sudden calm after a period of deep sadness</li>
+        <li>Giving away possessions or saying goodbye</li>
+      </ul>
+      <p>Check in with people you care about. A simple “Are you okay?” can mean the world.</p>
+    </section>
 
-<script>
-  document.getElementById('quickExitBtn').addEventListener('click', () => {
-    window.location.href = 'https://www.google.com';
-  });
+    <section>
+      <h2>If You're In Crisis</h2>
+      <p>Reach out to someone safe. Try a grounding technique. Use the tools in this app. You don’t need to be “in a certain place” to deserve support. You are worthy exactly as you are.</p>
+      <ul>
+        <li><strong>Visual Spinner</strong> or <strong>Grounding Techniques</strong> can calm the body</li>
+        <li>Use the <strong>Hope Jar</strong> for reminders of your reasons to stay</li>
+        <li>Express yourself in the <strong>Emotion Box</strong>—even messy thoughts are welcome</li>
+      </ul>
+    </section>
 
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let width, height;
+    <section>
+      <h2>Emergency Support</h2>
+      <ul>
+        <li><strong>Canada:</strong> Talk Suicide Canada – 1-833-456-4566 or text 45645</li>
+        <li><strong>USA:</strong> 988 Suicide & Crisis Lifeline (call/text 988)</li>
+        <li><strong>UK:</strong> Samaritans – 116 123 (free, 24/7)</li>
+        <li><strong>Worldwide:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com</a></li>
+      </ul>
+    </section>
 
-  function initStars() {
-    stars = [];
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    for (let i = 0; i < 150; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 1.2,
-        alpha: Math.random(),
-        dAlpha: 0.01 + Math.random() * 0.02
-      });
-    }
-  }
+    <section>
+      <h2>Words of Hope</h2>
+      <blockquote>"You have been assigned this mountain to show others it can be moved."</blockquote>
+      <blockquote>"Your survival is a revolutionary act. We need you here."</blockquote>
+    </section>
+  </main>
 
-  function drawStars() {
-    ctx.clearRect(0, 0, width, height);
-    for (const star of stars) {
-      star.alpha += star.dAlpha;
-      if (star.alpha <= 0 || star.alpha >= 1) star.dAlpha *= -1;
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-      ctx.fillStyle = `rgba(255, 111, 163, ${star.alpha})`;
-      ctx.shadowColor = '#ff6fa3';
-      ctx.shadowBlur = 5;
-      ctx.fill();
-    }
-    requestAnimationFrame(drawStars);
-  }
-
-  window.addEventListener('resize', initStars);
-
-  initStars();
-  drawStars();
-</script>
+  <button id="quickExitBtn" aria-label="Quick exit">×</button>
 </body>
 </html>
