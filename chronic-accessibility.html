@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accessibility Resources - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="subpages-chronic.css" />
+</head>
+<body>
+
+  <canvas id="backgroundCanvas"></canvas>
+
+  <header>
+    <a href="index.html" class="back-link" aria-label="Back to Home">&larr; Home</a>
+    <h1>Accessibility Resources</h1>
+  </header>
+
+  <nav class="subnav" role="navigation" aria-label="Chronic Conditions Navigation">
+    <a href="chronic-living.html">Living with Chronic Illness</a>
+    <a href="chronic-mental-health.html">Mental Health & Disability</a>
+    <a href="chronic-accessibility.html" class="active">Accessibility Resources</a>
+    <a href="chronic-pain-management.html">Pain & Symptom Management</a>
+  </nav>
+
+  <main class="container" role="main">
+    <section>
+      <h2>Tools & Aids</h2>
+      <p>There are many accessibility tools designed to help people with chronic conditions or disabilities live more independently and comfortably.</p>
+      <ul>
+        <li>Screen readers and magnifiers for vision support.</li>
+        <li>Voice control and speech recognition software.</li>
+        <li>Mobility aids like canes, walkers, and wheelchairs.</li>
+        <li>Home modifications such as ramps and grab bars.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Helpful Organizations</h2>
+      <ul>
+        <li><a href="https://www.ada.gov/" target="_blank" rel="noopener">Americans with Disabilities Act (ADA)</a></li>
+        <li><a href="https://www.nidcd.nih.gov/health/disability-and-accessibility" target="_blank" rel="noopener">NIDCD Disability Resources</a></li>
+        <li><a href="https://www.who.int/disabilities/en/" target="_blank" rel="noopener">WHO Disability and Health</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Quick Notes</h2>
+      <textarea class="notes-box" placeholder="Write your notes or reflections here..."></textarea>
+      <button id="saveNotesBtn" aria-label="Save your notes">Save Notes</button>
+    </section>
+  </main>
+
+  <button id="quickExitBtn" aria-label="Quick exit button, redirect to safe site">X</button>
+
+  <script src="subpages-chronic.js"></script>
+</body>
+</html>
