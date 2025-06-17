@@ -2,126 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ff4d4d" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="galaxy-background"></div>
+  <div class="stars"></div>
 
-  <main>
-    <h1 class="app-title">🌌 Speak Louder, Love Harder</h1>
-    <p class="subtitle">Healing. Connection. Empowerment.</p>
+  <h1 class="app-title">Speak Louder, Love Harder</h1>
+  <p class="subtitle">Your Emotional Wellness Toolkit</p>
 
-    <div class="panic-tools">
-      <button id="quickExit" class="panic-btn">⚠️ Quick Exit</button>
-      <button id="panicInfo" class="panic-btn">📞 Panic Help</button>
+  <div class="panic-tools">
+    <button class="panic-btn" id="openPanicModal">Quick Exit / Panic</button>
+  </div>
+
+  <!-- Categories and subs -->
+  <section class="category">
+    <h2>Mental Health Conditions &amp; Disorders</h2>
+    <div class="sub-grid">
+      <a href="#">Overview & Education</a>
+      <a href="#">Anxiety Disorders</a>
+      <a href="#">Depression</a>
+      <a href="#">PTSD</a>
+      <a href="#">Eating Disorders</a>
+      <a href="#">Suicide Prevention</a>
+      <a href="#">Self-Harm Support</a>
+      <a href="#">Neurodiversity (Autism, ADHD)</a>
     </div>
+  </section>
 
-    <!-- Mental Health -->
-    <section class="category">
-      <h2>🧠 Mental Health Conditions & Disorders</h2>
-      <div class="sub-grid">
-        <a href="overview-mental-health.html">Overview & Education</a>
-        <a href="anxiety.html">Anxiety Disorders</a>
-        <a href="depression.html">Depression</a>
-        <a href="ptsd.html">PTSD</a>
-        <a href="eating-disorders.html">Eating Disorders</a>
-        <a href="suicide-prevention.html">Suicide Prevention</a>
-        <a href="self-harm.html">Self-Harm Support</a>
-        <a href="neurodiversity.html">Neurodiversity (Autism, ADHD)</a>
-      </div>
-    </section>
+  <section class="category">
+    <h2>Addiction &amp; Recovery</h2>
+    <div class="sub-grid">
+      <a href="#">Understanding Addiction</a>
+      <a href="#">Recovery Stories</a>
+      <a href="#">Relapse Prevention</a>
+      <a href="#">Mindfulness for Cravings</a>
+      <a href="#">Support Groups</a>
+    </div>
+  </section>
 
-    <!-- Addiction -->
-    <section class="category">
-      <h2>🌀 Addiction & Recovery</h2>
-      <div class="sub-grid">
-        <a href="understanding-addiction.html">Understanding Addiction</a>
-        <a href="recovery-stories.html">Recovery Stories</a>
-        <a href="relapse-prevention.html">Relapse Prevention</a>
-        <a href="mindfulness-cravings.html">Mindfulness for Cravings</a>
-        <a href="support-groups.html">Support Groups</a>
-      </div>
-    </section>
+  <section class="category">
+    <h2>Trauma &amp; Abuse</h2>
+    <div class="sub-grid">
+      <a href="#">What is Trauma?</a>
+      <a href="#">Recognizing Abuse</a>
+      <a href="#">Healing & Empowerment</a>
+      <a href="#">Grounding Techniques</a>
+      <a href="#">Emergency Help</a>
+    </div>
+  </section>
 
-    <!-- Trauma -->
-    <section class="category">
-      <h2>🛡️ Trauma & Abuse</h2>
-      <div class="sub-grid">
-        <a href="what-is-trauma.html">What is Trauma?</a>
-        <a href="recognizing-abuse.html">Recognizing Abuse</a>
-        <a href="healing-empowerment.html">Healing & Empowerment</a>
-        <a href="grounding-techniques.html">Grounding Techniques</a>
-        <a href="emergency-help.html">Emergency Help</a>
-      </div>
-    </section>
+  <section class="category">
+    <h2>Support for Specific Populations</h2>
+    <div class="sub-grid">
+      <a href="#">Foster Children</a>
+      <a href="#">LGBTQ+ Community</a>
+      <a href="#">Veterans & Military Families</a>
+      <a href="#">Youth & Adolescents</a>
+      <a href="#">Elderly</a>
+      <a href="#">Intersectionality & Marginalized Groups</a>
+    </div>
+  </section>
 
-    <!-- Populations -->
-    <section class="category">
-      <h2>🌍 Support for Specific Populations</h2>
-      <div class="sub-grid">
-        <a href="foster-children.html">Foster Children</a>
-        <a href="lgbtq-community.html">LGBTQ+ Community</a>
-        <a href="veterans.html">Veterans & Military Families</a>
-        <a href="youth.html">Youth & Adolescents</a>
-        <a href="elderly.html">Elderly</a>
-        <a href="intersectionality.html">Intersectionality & Marginalized Groups</a>
-      </div>
-    </section>
+  <section class="category">
+    <h2>Grief &amp; Loss</h2>
+    <div class="sub-grid">
+      <a href="#">Understanding Grief</a>
+      <a href="#">Supporting Others</a>
+      <a href="#">Memorial Wall</a>
+      <a href="#">Grief Journaling</a>
+      <a href="#">Grief Counseling Resources</a>
+    </div>
+  </section>
 
-    <!-- Grief -->
-    <section class="category">
-      <h2>🕯️ Grief & Loss</h2>
-      <div class="sub-grid">
-        <a href="understanding-grief.html">Understanding Grief</a>
-        <a href="supporting-others.html">Supporting Others</a>
-        <a href="memorial-wall.html">Memorial Wall</a>
-        <a href="grief-journaling.html">Grief Journaling</a>
-        <a href="grief-counseling.html">Grief Counseling Resources</a>
-      </div>
-    </section>
+  <section class="category">
+    <h2>Chronic Conditions &amp; Disability</h2>
+    <div class="sub-grid">
+      <a href="#">Living with Chronic Illness</a>
+      <a href="#">Mental Health & Disability</a>
+      <a href="#">Accessibility Resources</a>
+      <a href="#">Pain & Symptom Management</a>
+    </div>
+  </section>
 
-    <!-- Chronic Conditions -->
-    <section class="category">
-      <h2>♿ Chronic Conditions & Disability</h2>
-      <div class="sub-grid">
-        <a href="chronic-illness.html">Living with Chronic Illness</a>
-        <a href="mental-health-disability.html">Mental Health & Disability</a>
-        <a href="accessibility.html">Accessibility Resources</a>
-        <a href="pain-management.html">Pain & Symptom Management</a>
-      </div>
-    </section>
+  <section class="category">
+    <h2>Wellness &amp; Coping Strategies</h2>
+    <div class="sub-grid">
+      <a href="#">Stress Management</a>
+      <a href="#">Mindfulness & Meditation</a>
+      <a href="#">Body Image & Self-Esteem</a>
+      <a href="#">Parenting Support</a>
+      <a href="#">Daily Gratitude & Hope Jar</a>
+    </div>
+  </section>
 
-    <!-- Wellness -->
-    <section class="category">
-      <h2>🌱 Wellness & Coping Strategies</h2>
-      <div class="sub-grid">
-        <a href="stress-management.html">Stress Management</a>
-        <a href="mindfulness.html">Mindfulness & Meditation</a>
-        <a href="body-image.html">Body Image & Self-Esteem</a>
-        <a href="parenting-support.html">Parenting Support</a>
-        <a href="hope-jar.html">Daily Gratitude & Hope Jar</a>
-      </div>
-    </section>
-  </main>
-
-  <div id="panicModal" class="modal hidden">
+  <!-- Panic Modal -->
+  <div class="modal hidden" id="panicModal" role="dialog" aria-modal="true" aria-labelledby="panicTitle">
     <div class="modal-content">
-      <h2>🆘 Emergency Help</h2>
-      <p>If you're in immediate danger, please call emergency services.</p>
-      <h3>Hotlines</h3>
+      <h2 id="panicTitle">Quick Exit / Panic Resources</h2>
+      <p>If you need immediate help or want to leave this page quickly, here are some hotlines:</p>
       <ul>
-        <li><strong>USA:</strong> 988 (Suicide & Crisis Lifeline)</li>
-        <li><strong>Canada:</strong> 1-833-456-4566 (Talk Suicide Canada)</li>
-        <li><strong>UK:</strong> 116 123 (Samaritans)</li>
-        <li><strong>Worldwide:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com 🌐</a></li>
+        <li><a href="https://suicidepreventionlifeline.org/" target="_blank" rel="noopener">US Suicide Prevention Lifeline: 988</a></li>
+        <li><a href="https://www.crisisservicescanada.ca/en/" target="_blank" rel="noopener">Canada Suicide Prevention Service: 1-833-456-4566</a></li>
+        <li><a href="https://www.who.int/health-topics/suicide#tab=tab_1" target="_blank" rel="noopener">Global Crisis Resources</a></li>
       </ul>
-      <button onclick="window.location.href='https://weather.com'" class="exit-quietly">Quick Exit Now</button>
-      <button onclick="closeModal()" class="close-modal">Close</button>
+      <button class="exit-quietly" id="exitButton">Exit to Google</button>
+      <button class="close-modal" id="closePanicModal">Close</button>
     </div>
   </div>
 
   <script src="script.js"></script>
+
+  <script>
+    // Animated stars creation
+    const starsContainer = document.querySelector('.stars');
+    const numStars = 100;
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      star.style.animationDelay = (Math.random() * 5) + 's';
+      starsContainer.appendChild(star);
+    }
+  </script>
 </body>
 </html>
