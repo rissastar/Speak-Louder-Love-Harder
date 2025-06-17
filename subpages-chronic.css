@@ -1,0 +1,124 @@
+/* ========== GENERAL RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0e1a1a;
+  color: #f0f0f0;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+canvas#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* ========== HEADER ========== */
+header {
+  background: rgba(15, 30, 30, 0.95);
+  padding: 1.2rem;
+  text-align: center;
+  border-bottom: 1px solid #2c3e50;
+}
+header h1 {
+  font-size: 1.6rem;
+  color: #f0f0f0;
+}
+.back-link {
+  position: absolute;
+  left: 1rem;
+  top: 1.2rem;
+  color: #ccc;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+/* ========== NAVIGATION ========== */
+.subnav {
+  display: flex;
+  overflow-x: auto;
+  background: #1c2c2c;
+  border-bottom: 1px solid #355;
+}
+.subnav a {
+  flex: 1;
+  padding: 0.8rem;
+  text-align: center;
+  text-decoration: none;
+  color: #9fd;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.subnav a.active,
+.subnav a:hover {
+  background: #264444;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* ========== MAIN CONTENT ========== */
+.container {
+  padding: 1.5rem;
+  line-height: 1.7;
+}
+.container section {
+  margin-bottom: 2rem;
+}
+.container h2, .container h3 {
+  color: #93f9dc;
+  margin-bottom: 0.5rem;
+}
+blockquote {
+  font-style: italic;
+  color: #aaa;
+  margin: 1rem 0;
+  border-left: 3px solid #44a;
+  padding-left: 1rem;
+}
+
+/* ========== RESOURCE LIST ========== */
+.resource-list li {
+  margin-bottom: 0.8rem;
+}
+.resource-list a {
+  color: #9fd;
+  text-decoration: underline;
+}
+
+/* ========== JOURNAL / NOTES ========== */
+.notes-box {
+  width: 100%;
+  height: 220px;
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+/* ========== QUICK EXIT BUTTON ========== */
+#quickExitBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  color: #fff;
+  background: #d63031;
+  border: none;
+  border-radius: 50%;
+  z-index: 100;
+  box-shadow: 0 0 10px #d63031;
+}
