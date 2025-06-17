@@ -1,71 +1,129 @@
-/* Addiction & Recovery – Styled Like Grounding Page */
+/* Addiction Subpage Styling – Flowing Flame Theme */
 
 body {
   margin: 0;
   padding: 0;
   background-color: #1a1218;
-  color: #ffccd5;
+  color: #ffe8e6;
   font-family: 'Segoe UI', sans-serif;
   overflow-x: hidden;
 }
 
+canvas#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+/* Header with back link */
 header {
+  padding: 2rem 1rem 1rem;
   text-align: center;
-  padding: 2.5rem 1rem 1rem;
+}
+
+header h1 {
   font-size: 2rem;
   color: #ff6f61;
   text-shadow: 0 0 15px rgba(255, 111, 97, 0.6);
-  font-weight: 600;
+  margin: 0;
 }
 
-.back-button {
-  display: inline-block;
-  margin: 1rem;
-  padding: 0.7rem 1.2rem;
+.back-link {
+  position: absolute;
+  left: 1rem;
+  top: 1.2rem;
   font-size: 1rem;
-  background-color: #400e13;
-  border: 1px solid #ff6f61;
-  color: #ffc4be;
-  border-radius: 6px;
   text-decoration: none;
-  box-shadow: 0 0 10px rgba(255, 111, 97, 0.4);
+  color: #ffbbb3;
+  border: 1px solid #ff6f61;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background-color: #3d1513;
+  box-shadow: 0 0 6px rgba(255, 111, 97, 0.3);
   transition: background-color 0.3s ease;
 }
 
-.back-button:hover {
-  background-color: #61171d;
+.back-link:hover {
+  background-color: #5b1f1c;
 }
 
-main {
+/* Subnav Bar */
+.subnav {
+  display: flex;
+  overflow-x: auto;
+  background: #2a1513;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ff6f61;
+}
+
+.subnav a {
+  flex: 1;
+  color: #ffc7c2;
+  text-align: center;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-right: 1px solid #432221;
+}
+
+.subnav a.active,
+.subnav a:hover {
+  background-color: #471e1b;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Content Container */
+main.container {
+  padding: 2rem 1rem 4rem;
   max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  z-index: 1;
+  margin: auto;
   position: relative;
+  z-index: 1;
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  color: #ffb3a7;
   margin-top: 2rem;
-  color: #ff8f83;
 }
 
 ul, p {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
 }
 
+/* Blockquote */
+blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-left: 4px solid #ff6f61;
+  font-style: italic;
+  margin: 1rem 0;
+  color: #ffc4be;
+}
+
+/* Quick Exit Button */
 #quickExitBtn {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 0.9rem;
   background: #ff6f61;
   border: none;
-  border-radius: 6px;
+  border-radius: 50%;
+  font-size: 1.2rem;
   color: #fff;
-  font-weight: bold;
-  box-shadow: 0 0 10px rgba(255, 111, 97, 0.6);
+  box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
   cursor: pointer;
   z-index: 10;
+  transition: background 0.3s ease;
+}
+
+#quickExitBtn:hover {
+  background: #d94c43;
 }
