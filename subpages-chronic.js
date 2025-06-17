@@ -1,61 +1,67 @@
-// === Animated Background – Gentle Wave Particles ===
-const canvas = document.getElementById('backgroundCanvas');
-const ctx = canvas.getContext('2d');
-let width, height;
+// Chronic Conditions – Orbital Rings Animation + Quick Exit
 
-function resizeCanvas() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'backgroundCanvas';
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.zIndex = '-1';
+  canvas.style.pointerEvents = 'none';
+  document.body.appendChild(canvas);
 
-let lines = [];
-for (let i = 0; i < 40; i++) {
-  lines.push({
-    x: Math.random() * width,
-    y: Math.random() * height,
-    speed: 0.3 + Math.random() * 0.5,
-    amplitude: 10 + Math.random() * 20,
-    frequency: 0.002 + Math.random() * 0.002
-  });
-}
+  const ctx = canvas.getContext('2d');
+  let width, height;
 
-function animateLines(time) {
-  ctx.clearRect(0, 0, width, height);
-  ctx.strokeStyle = 'rgba(147, 249, 220, 0.3)';
-  ctx.lineWidth = 1.2;
-
-  lines.forEach(line => {
-    ctx.beginPath();
-    for (let x = 0; x < width; x += 5) {
-      let y = line.y + Math.sin(x * line.frequency + time * 0.002) * line.amplitude;
-      ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-    line.y -= line.speed;
-    if (line.y < -20) line.y = height + 20;
-  });
-
-  requestAnimationFrame(animateLines);
-}
-animateLines(0);
-
-// === Quick Exit Button ===
-document.getElementById('quickExitBtn').addEventListener('click', () => {
-  window.location.href = 'https://www.google.com';
-});
-
-// === Save Notes to localStorage ===
-function saveNotes() {
-  const note = document.querySelector('.notes-box').value.trim();
-  if (note) {
-    const saved = JSON.parse(localStorage.getItem('chronicNotes') || '[]');
-    saved.push({ date: new Date().toLocaleString(), text: note });
-    localStorage.setItem('chronicNotes', JSON.stringify(saved));
-    alert("Your note has been saved locally.");
-    document.querySelector('.notes-box').value = '';
-  } else {
-    alert("Please enter something to save.");
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
   }
-}
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const rings = Array.from({ length: 8 }, (_, i) => ({
+    radius: 50 + i * 30,
+    angle: Math.random() * Math.PI * 2,
+    speed: 0.001 + Math.random() * 0.002,
+    alpha: 0.05 + Math.random() * 0.05
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
+
+    for (let ring of rings) {
+      ring.angle += ring.speed;
+      ctx.beginPath();
+      ctx.arc(
+        Math.cos(ring.angle) * ring.radius,
+        Math.sin(ring.angle) * ring.radius,
+        ring.radius,
+        0,
+        Math.PI * 2
+      );
+      ctx.strokeStyle = `rgba(128, 222, 234, ${ring.alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    ctx.restore();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Quick Exit Button
+  const quickExitBtn = document.getElementById('quickExitBtn');
+  if (quickExitBtn) {
+    quickExitBtn.addEventListener('click', () => {
+      window.location.href = 'https://www.google.com';
+    });
+  }
+});
