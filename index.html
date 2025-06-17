@@ -3,50 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Welcome • Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="index.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <title>Speak Louder, Love Harder — Topics Index</title>
+  <style>
+    body {
+      background: #0a0b1f;
+      color: #f0f0ff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #74f2f4;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .category {
+      margin-bottom: 2rem;
+    }
+
+    .category h2 {
+      font-size: 1.2rem;
+      color: #a3f7f7;
+      border-bottom: 1px solid #444;
+      margin-bottom: 0.75rem;
+    }
+
+    .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .button-grid button {
+      flex: 1 1 calc(50% - 1rem);
+      min-width: 140px;
+      padding: 0.75rem;
+      background: #1e1f3a;
+      border: 1px solid #74f2f4;
+      border-radius: 8px;
+      color: #74f2f4;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .button-grid button:hover {
+      background: #2a2b55;
+      box-shadow: 0 0 10px #74f2f4aa;
+    }
+
+    button:focus {
+      outline: 2px solid #74f2f4;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
 
-<header class="header">
-  <h1>Speak Louder, Love Harder</h1>
-  <nav class="topic-nav">
-    <button class="dropdown-toggle">Topics <i class="fas fa-angle-down"></i></button>
-    <ul class="dropdown-menu">
-      <li><a href="mental-health.html">Mental Health</a></li>
-      <li><a href="addiction.html">Addiction</a></li>
-      <li><a href="terminal-illness.html">Terminal Illness</a></li>
-      <li><a href="abuse.html">Abuse</a></li>
-      <li><a href="pitbull-love.html">Pitbull Love</a></li>
-      <li><a href="foster-children.html">Foster Children</a></li>
-    </ul>
-  </nav>
-</header>
+<h1>Speak Louder, Love Harder<br />Support Topics</h1>
 
-<main class="main-content">
-  <section class="intro">
-    <h2>Welcome</h2>
-    <p>This is a community created to support open conversations about mental health, addiction, chronic illness, healing, and love. 
-    Share your story, find support, and connect with others through posts, quotes, affirmations, and more.</p>
-  </section>
-
-  <section class="quote-rotator">
-    <div class="quote" id="quote-display">Loading quote...</div>
-  </section>
-
-  <div class="auth-buttons">
-    <a href="login.html" class="btn login-btn">Log In</a>
-    <a href="register.html" class="btn register-btn">Sign Up</a>
+<div class="category">
+  <h2>Mental Health Conditions & Disorders</h2>
+  <div class="button-grid">
+    <button onclick="location.href='mental-health/overview.html'">Overview</button>
+    <button onclick="location.href='mental-health/anxiety.html'">Anxiety</button>
+    <button onclick="location.href='mental-health/depression.html'">Depression</button>
+    <button onclick="location.href='mental-health/ptsd.html'">PTSD</button>
+    <button onclick="location.href='mental-health/eating-disorders.html'">Eating Disorders</button>
+    <button onclick="location.href='mental-health/suicide-prevention.html'">Suicide Prevention</button>
+    <button onclick="location.href='mental-health/self-harm.html'">Self-Harm Support</button>
+    <button onclick="location.href='mental-health/neurodiversity.html'">Neurodiversity</button>
   </div>
-</main>
+</div>
 
-<footer class="footer">
-  <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener noreferrer">
-    <i class="fas fa-link"></i> Linktree
-  </a>
+<div class="category">
+  <h2>Addiction & Recovery</h2>
+  <div class="button-grid">
+    <button onclick="location.href='addiction/understanding.html'">Understanding Addiction</button>
+    <button onclick="location.href='addiction/recovery-stories.html'">Recovery Stories</button>
+    <button onclick="location.href='addiction/relapse-prevention.html'">Relapse Prevention</button>
+    <button onclick="location.href='addiction/mindfulness.html'">Mindfulness</button>
+    <button onclick="location.href='addiction/support-groups.html'">Support Groups</button>
+  </div>
+</div>
+
+<div class="category">
+  <h2>Trauma & Abuse</h2>
+  <div class="button-grid">
+    <button onclick="location.href='trauma/what-is-trauma.html'">What is Trauma?</button>
+    <button onclick="location.href='trauma/recognizing-abuse.html'">Recognizing Abuse</button>
+    <button onclick="location.href='trauma/healing.html'">Healing & Empowerment</button>
+    <button onclick="location.href='trauma/grounding-techniques.html'">Grounding Techniques</button>
+    <button onclick="location.href='trauma/emergency-help.html'">Emergency Help</button>
+  </div>
+</div>
+
+<div class="category">
+  <h2>Support for Specific Populations</h2>
+  <div class="button-grid">
+    <button onclick="location.href='populations/foster-children.html'">Foster Children</button>
+    <button onclick="location.href='populations/lgbtq.html'">LGBTQ+ Community</button>
+    <button onclick="location.href='populations/veterans.html'">Veterans & Military</button>
+    <button onclick="location.href='populations/youth.html'">Youth & Teens</button>
+    <button onclick="location.href='populations/elderly.html'">Elderly Support</button>
+    <button onclick="location.href='populations/intersectionality.html'">Intersectional Identities</button>
+  </div>
+</div>
+
+<div class="category">
+  <h2>Grief & Loss</h2>
+  <div class="button-grid">
+    <button onclick="location.href='grief/understanding-grief.html'">Understanding Grief</button>
+    <button onclick="location.href='grief/supporting-others.html'">Supporting Others</button>
+    <button onclick="location.href='grief/memorial-wall.html'">Memorial Wall</button>
+    <button onclick="location.href='grief/grief-journaling.html'">Grief Journaling</button>
+    <button onclick="location.href='grief/counseling.html'">Counseling Resources</button>
+  </div>
+</div>
+
+<div class="category">
+  <h2>Chronic Conditions & Disability</h2>
+  <div class="button-grid">
+    <button onclick="location.href='chronic/living-well.html'">Living with Illness</button>
+    <button onclick="location.href='chronic/mental-health.html'">Mental Health & Disability</button>
+    <button onclick="location.href='chronic/accessibility.html'">Accessibility Resources</button>
+    <button onclick="location.href='chronic/symptom-management.html'">Symptom Management</button>
+  </div>
+</div>
+
+<div class="category">
+  <h2>Wellness & Coping Tools</h2>
+  <div class="button-grid">
+    <button onclick="location.href='wellness/stress.html'">Stress Management</button>
+    <button onclick="location.href='wellness/mindfulness.html'">Mindfulness</button>
+    <button onclick="location.href='wellness/body-image.html'">Body Image</button>
+    <button onclick="location.href='wellness/parenting.html'">Parenting Support</button>
+    <button onclick="location.href='wellness/hope-jar.html'">Hope Jar</button>
+  </div>
+</div>
+
+<div class="category">
+  <h2>General Info</h2>
+  <div class="button-grid">
+    <button onclick="location.href='about.html'">About Us</button>
+    <button onclick="location.href='faq.html'">FAQ</button>
+    <button style="background:#ff3b5c; color:white;" onclick="location.href='emergency.html'">Emergency / Panic</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 Speak Louder, Love Harder
 </footer>
 
-<script src="index.js"></script>
 </body>
 </html>
