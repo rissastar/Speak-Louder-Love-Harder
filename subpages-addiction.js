@@ -1,7 +1,6 @@
-// Addiction & Recovery – Rising Smoke Particle Animation + Quick Exit
+// Addiction & Recovery – Flowing Flame Animation + Quick Exit
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Create canvas element
   const canvas = document.createElement('canvas');
   canvas.id = 'backgroundCanvas';
   canvas.style.position = 'fixed';
@@ -20,37 +19,38 @@ document.addEventListener("DOMContentLoaded", () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   }
-
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Smoke-like particles
-  const particles = Array.from({ length: 60 }, () => ({
+  const flames = Array.from({ length: 40 }, () => ({
     x: Math.random() * width,
-    y: height + Math.random() * height,
-    radius: 1 + Math.random() * 3,
-    speed: 0.3 + Math.random() * 1.5,
-    alpha: 0.1 + Math.random() * 0.3
+    y: Math.random() * height,
+    radius: 15 + Math.random() * 20,
+    speedY: 0.5 + Math.random() * 1.2,
+    alpha: 0.1 + Math.random() * 0.3,
+    phase: Math.random() * Math.PI * 2
   }));
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    for (let p of particles) {
+    for (let f of flames) {
+      const glow = 40 + 20 * Math.sin(f.phase);
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 111, 150, ${p.alpha})`;
+      let gradient = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.radius + glow);
+      gradient.addColorStop(0, `rgba(255, 111, 97, ${f.alpha})`);
+      gradient.addColorStop(1, 'rgba(255, 111, 97, 0)');
+      ctx.fillStyle = gradient;
+      ctx.arc(f.x, f.y, f.radius + glow, 0, Math.PI * 2);
       ctx.fill();
 
-      p.y -= p.speed;
-      p.alpha -= 0.0005;
+      f.y -= f.speedY;
+      f.phase += 0.05;
 
-      if (p.y < -10 || p.alpha <= 0) {
-        p.x = Math.random() * width;
-        p.y = height + Math.random() * 50;
-        p.radius = 1 + Math.random() * 3;
-        p.speed = 0.3 + Math.random() * 1.5;
-        p.alpha = 0.1 + Math.random() * 0.3;
+      if (f.y < -f.radius - 50) {
+        f.y = height + f.radius + 50;
+        f.x = Math.random() * width;
+        f.alpha = 0.1 + Math.random() * 0.3;
       }
     }
 
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animate();
 
-  // Quick Exit Function
+  // Quick Exit
   const quickExitBtn = document.getElementById('quickExitBtn');
   if (quickExitBtn) {
     quickExitBtn.addEventListener('click', () => {
