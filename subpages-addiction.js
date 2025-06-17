@@ -1,67 +1,68 @@
-// Animated background: soft purple/blue swirls + gentle floating pulses
+// subpages-addiction.js
+
 const canvas = document.getElementById('backgroundCanvas');
 const ctx = canvas.getContext('2d');
+let orbs = [];
 
-let width, height;
-let particles = [];
-
-function resize() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-function createParticles() {
-  particles = [];
-  for (let i = 0; i < 75; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 2 + 1,
-      speedX: (Math.random() - 0.5) * 0.6,
-      speedY: (Math.random() - 0.5) * 0.6,
-      alpha: Math.random() * 0.3 + 0.1
-    });
+class Orb {
+  constructor() {
+    this.reset();
   }
-}
 
-function animate() {
-  ctx.clearRect(0, 0, width, height);
-  let gradient = ctx.createRadialGradient(
-    width / 2, height / 2, 100,
-    width / 2, height / 2, Math.max(width, height)
-  );
-  gradient.addColorStop(0, '#1e0033');
-  gradient.addColorStop(1, '#000011');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = 8 + Math.random() * 12;
+    this.opacity = 0.2 + Math.random() * 0.3;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.color = `rgba(255, ${150 + Math.random() * 100}, ${150 + Math.random() * 100}, ${this.opacity})`;
+  }
 
-  for (let p of particles) {
+  move() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x < -this.size || this.x > canvas.width + this.size ||
+        this.y < -this.size || this.y > canvas.height + this.size) {
+      this.reset();
+    }
+  }
+
+  draw() {
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(200,150,255,${p.alpha})`;
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.fillStyle = this.color;
     ctx.fill();
-
-    p.x += p.speedX;
-    p.y += p.speedY;
-
-    // Bounce or loop edges
-    if (p.x < 0 || p.x > width) p.speedX *= -1;
-    if (p.y < 0 || p.y > height) p.speedY *= -1;
   }
-
-  requestAnimationFrame(animate);
 }
 
-// Quick exit button
-document.getElementById("quickExitBtn").addEventListener("click", () => {
-  window.location.href = "https://www.google.com";
-});
+function createOrbs(count) {
+  for (let i = 0; i < count; i++) {
+    orbs.push(new Orb());
+  }
+}
 
-// Initialize
-resize();
-createParticles();
-animate();
-window.addEventListener('resize', () => {
-  resize();
-  createParticles();
+function animateOrbs() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let orb of orbs) {
+    orb.move();
+    orb.draw();
+  }
+  requestAnimationFrame(animateOrbs);
+}
+
+createOrbs(80);
+animateOrbs();
+
+// Quick Exit logic
+document.getElementById('quickExitBtn').addEventListener('click', () => {
+  window.location.href = 'https://www.google.com';
 });
