@@ -1,51 +1,60 @@
-/* Addiction & Recovery – Visual Styling with Floating Smoke Effect */
+/* Addiction & Recovery – Styled Like Grounding Page */
+
 body {
   margin: 0;
   padding: 0;
-  background: #0b0c10;
-  color: #f3e9f6;
+  background-color: #1a1218;
+  color: #ffccd5;
   font-family: 'Segoe UI', sans-serif;
   overflow-x: hidden;
 }
 
-main {
-  position: relative;
-  z-index: 1;
-  padding: 2rem;
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 1rem;
+  font-size: 2rem;
+  color: #ff6f61;
+  text-shadow: 0 0 15px rgba(255, 111, 97, 0.6);
+  font-weight: 600;
 }
 
-h1, h2 {
-  color: #ff6f97;
-  text-shadow: 0 0 10px rgba(255, 111, 151, 0.4);
-}
-
-a {
-  color: #ffb3d6;
-  text-decoration: underline;
-}
-
-a:hover {
-  color: #ffffff;
-}
-
-.tool-link {
-  background-color: #1c101c;
-  color: #ffcfe0;
-  border: 1px solid #ffcfe0;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
+.back-button {
   display: inline-block;
-  margin: 1rem 0;
-  transition: all 0.2s ease-in-out;
+  margin: 1rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  background-color: #400e13;
+  border: 1px solid #ff6f61;
+  color: #ffc4be;
+  border-radius: 6px;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(255, 111, 97, 0.4);
+  transition: background-color 0.3s ease;
 }
 
-.tool-link:hover {
-  background-color: #3a1a3a;
-  box-shadow: 0 0 10px #ffcfe0aa;
+.back-button:hover {
+  background-color: #61171d;
 }
 
-/* Quick Exit Button */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  z-index: 1;
+  position: relative;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  color: #ff8f83;
+}
+
+ul, p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
 #quickExitBtn {
   position: fixed;
   top: 1rem;
@@ -56,12 +65,7 @@ a:hover {
   border-radius: 6px;
   color: #fff;
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(255, 111, 97, 0.4);
+  box-shadow: 0 0 10px rgba(255, 111, 97, 0.6);
   cursor: pointer;
   z-index: 10;
-  transition: background 0.3s;
-}
-
-#quickExitBtn:hover {
-  background: #e65a4d;
 }
