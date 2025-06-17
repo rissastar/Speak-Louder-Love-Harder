@@ -1,0 +1,95 @@
+/* General Layout */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background-color: #000;
+  overflow: hidden;
+  position: relative;
+}
+
+canvas#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Layout */
+header {
+  text-align: center;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.back-link {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  color: #fff;
+  font-size: 1em;
+  text-decoration: none;
+  background: #444;
+  padding: 0.4em 0.8em;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.container {
+  padding: 2em 1em;
+}
+
+nav.subnav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1em 0.5em;
+}
+
+nav.subnav a {
+  background: #2c2c2c;
+  padding: 0.6em 1em;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9em;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+nav.subnav a.active,
+nav.subnav a:hover {
+  background: #5aa98b;
+}
+
+section {
+  margin-bottom: 2em;
+}
+
+blockquote {
+  font-style: italic;
+  color: #aadacc;
+  border-left: 4px solid #5aa98b;
+  padding-left: 1em;
+  margin: 1em 0;
+}
+
+/* Quick Exit */
+#quickExitBtn {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  background: #f44;
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  padding: 0.6em 1em;
+  border-radius: 10px;
+  z-index: 99;
+}
